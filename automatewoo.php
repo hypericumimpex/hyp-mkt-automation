@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/hypericumimpex/hyp-mkt-automation
  * Description: Hypericum Marketing Automation.
  * Version: 4.4.1
- * Author: Prospress
+ * Author: Romeo C.
  * Author URI: https://github.com/hypericumimpex/
  * License: GPLv3
  * License URI: http://www.gnu.org/licenses/gpl-3.0
