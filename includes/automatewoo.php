@@ -156,10 +156,6 @@ final class AutomateWoo extends AutomateWoo_Legacy {
 		if ( ! class_exists('Easy_User_Tags') ) {
 			new AutomateWoo\User_Tags();
 		}
-
-		if ( is_admin() ) {
-			include_once $this->admin_path() . '/admin.php';
-		}
 	}
 
 	/**

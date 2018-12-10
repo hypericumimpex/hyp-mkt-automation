@@ -65,6 +65,9 @@ class Autoloader {
 		if ( in_array( $file, $abstracts ) ) {
 			return AW()->path() . '/includes/abstracts' . $file . '.php';
 		}
+		if ( $file === '/admin' ) {
+			include_once AW()->path() . '/admin/admin.php';
+		}
 		elseif ( strstr( $file, '/admin-' ) || strstr( $file, '/admin/' ) ) {
 			$file = str_replace( '/admin-', '/admin/', $file );
 			$file = str_replace( '/controller-', '/controllers/', $file );

@@ -349,12 +349,14 @@ class Phone_Numbers {
 	static function get_nsn( $country ) {
 
 		$nsn = [
-			'DZ' => 9,
+
 			'AU' => 9,
 			'AT' => 11,
-			'BH' => 8,
 			'BE' => 9,
+			'BH' => 8,
+			'BR' => 11,
 			'BY' => 9,
+			'DZ' => 9,
 			'IE' => 9,
 			'IL' => 9,
 		];

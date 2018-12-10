@@ -38,7 +38,8 @@ class Workflow_Variable_Parser {
 		$matches = [];
 		$parameters = [];
 
-		preg_match('/([a-z._])+/', $variable_string, $matches, PREG_OFFSET_CAPTURE );
+		// extract the variable name (first part) of the variable string, e.g. 'customer.email'
+		preg_match('/([a-z._0-9])+/', $variable_string, $matches, PREG_OFFSET_CAPTURE );
 
 		if ( ! $matches ) {
 			return false;
@@ -46,6 +47,7 @@ class Workflow_Variable_Parser {
 
 		$name = $matches[0][0];
 
+		// the name must contain a period
 		if ( ! strstr( $name, '.' ) ) {
 			return false;
 		}
@@ -64,15 +66,15 @@ class Workflow_Variable_Parser {
 
 			list( $key, $value ) = explode( ':', $parameter, 2 );
 
-			$key = sanitize_title( $key );
-			$value = sanitize_text_field( $this->unquote( $value ) );
+			$key = Clean::string( $key );
+			$value = Clean::string( $this->unquote( $value ) );
 
 			$parameters[ $key ] = $value;
 		}
 
 		$this->name = $name;
-		$this->type = sanitize_title( $type );
-		$this->field = sanitize_title( $field );
+		$this->type = $type;
+		$this->field = $field;
 		$this->parameters = $parameters;
 		$this->parameter_string = $parameter_string;
 

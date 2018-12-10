@@ -1,3 +1,10 @@
+4.4.1 *December 4, 2018*
+---
+* Fix - API error when using **Campaign Monitor - Add Subscriber to List**  (from 4.4.0)
+* Fix - Issue when sending SMS where country codes were not added for Brazilian numbers
+* Fix - Potential fatal error when using the **Send Email** action (from 4.4.0) 
+
+
 4.4.0 *November 28, 2018*
 ---
 * Note - Dropped support for WooCommerce 2.6, minimum version is now 3.0

@@ -3,7 +3,7 @@
  * Plugin Name: HYP MKT Automation
  * Plugin URI: https://github.com/hypericumimpex/hyp-mkt-automation
  * Description: Hypericum Marketing Automation.
- * Version: 4.4.0
+ * Version: 4.4.1
  * Author: Prospress
  * Author URI: https://github.com/hypericumimpex/
  * License: GPLv3
@@ -36,7 +36,7 @@ defined( 'ABSPATH' ) || exit;
 
 define( 'AUTOMATEWOO_NAME', __( 'AutomateWoo', 'automatewoo' ) );
 define( 'AUTOMATEWOO_SLUG', 'automatewoo' );
-define( 'AUTOMATEWOO_VERSION', '4.4.0' );
+define( 'AUTOMATEWOO_VERSION', '4.4.1' );
 define( 'AUTOMATEWOO_FILE', __FILE__ );
 define( 'AUTOMATEWOO_PATH', dirname( __FILE__ ) );
 define( 'AUTOMATEWOO_MIN_PHP_VER', '5.4' );

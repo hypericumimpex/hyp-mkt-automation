@@ -206,7 +206,9 @@ abstract class Action {
 	function get_option( $field_name, $process_variables = false, $allow_html = false ) {
 		$value = $this->get_option_raw( $field_name );
 
-		if ( $value ) {
+		// Process the option value only if it's a string
+		// The value will almost always be a string but it could be a bool if the field is checkbox
+		if ( $value && is_string( $value ) ) {
 			if ( $process_variables ) {
 				$value = $this->workflow->variable_processor()->process_field( $value, $allow_html );
 			}

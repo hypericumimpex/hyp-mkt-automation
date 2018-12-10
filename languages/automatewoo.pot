@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: en_US\n"
 "Language-Team: Prospress Translations <translations@prospress.com>\n"
-"POT-Creation-Date: 2018-11-28 2:54:13+00:00\n"
+"POT-Creation-Date: 2018-12-04 23:58:25+00:00\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -2175,7 +2175,7 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: includes/abstracts/action.php:272
+#: includes/abstracts/action.php:274
 msgid "THIS ACTION IS DEPRECATED AND SHOULD NOT BE USED."
 msgstr ""
 

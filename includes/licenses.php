@@ -17,15 +17,16 @@ class Licenses {
 	 */
 	static function get_primary_license() {
 		  $license = array();
-		  $license['key']='null.ed';
+		$license['key']='****';
 		  $license['expiry']=date('Y-m-d', strtotime('+5 years'));
 		  return $license;
+		/*
 		if ( ! $license = get_option( 'automatewoo_license' ) ) {
 			return false;
 		}
 
 		$license = maybe_unserialize( base64_decode( $license ) );
-		return $license;
+		return $license;*/
 	}
 
 
@@ -92,7 +93,7 @@ class Licenses {
 			$app_id = AW()->plugin_slug;
 		}
 
-		return self::get_license( $app_id ) ? true : false;
+		return true;
 	}
 
 	/**
