@@ -1,8 +1,17 @@
+4.4.2 *January 7, 2018*
+---
+* New - Added variables for each order shipping field
+* Fix - PHP 7.3 issue where emails were displayed with no CSS
+* Fix - Possible date rule validation error when using certain comparisons
+* Fix - Issue where email preview didn't work before the workflow was saved
+* Tweak - Workflows will now use the customer's email from their account profile in favour of the billing email on their order/subscription. This was changed because it's possible for a user to modify their own email but this doesn't update their orders/subscriptions so it's more logical that they receive emails from the updated email field.
+
+
 4.4.1 *December 4, 2018*
 ---
 * Fix - API error when using **Campaign Monitor - Add Subscriber to List**  (from 4.4.0)
 * Fix - Issue when sending SMS where country codes were not added for Brazilian numbers
-* Fix - Potential fatal error when using the **Send Email** action (from 4.4.0) 
+* Fix - Potential fatal error when using the **Send Email** action (from 4.4.0)
 
 
 4.4.0 *November 28, 2018*

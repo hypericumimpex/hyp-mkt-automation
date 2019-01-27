@@ -3,7 +3,7 @@
  * Plugin Name: HYP MKT Automation
  * Plugin URI: https://github.com/hypericumimpex/hyp-mkt-automation
  * Description: Hypericum Marketing Automation.
- * Version: 4.4.1
+ * Version: 4.4.2
  * Author: Romeo C.
  * Author URI: https://github.com/hypericumimpex/
  * License: GPLv3

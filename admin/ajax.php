@@ -583,12 +583,18 @@ class Admin_Ajax {
 			die;
 		}
 
-		$workflow = Workflow_Factory::get( aw_request( 'workflow_id' ) );
-		$preview_data = $workflow->sanitize_action_fields( aw_request( 'preview_data' ) );
+		$workflow = Workflow_Factory::get( aw_get_post_var( 'workflow_id' ) );
+		$trigger_name = Clean::string( aw_get_post_var( 'trigger_name' ) );
+		$action_fields = $workflow->sanitize_action_fields( aw_get_post_var( 'action_fields' ) );
 
-		if ( ! is_array( $preview_data ) || ! $workflow ) {
+		if ( ! $trigger_name || ! is_array( $action_fields ) || ! $workflow ) {
 			wp_send_json_error();
 		}
+
+		$preview_data = [
+			'trigger_name' => $trigger_name,
+			'action_fields' => $action_fields,
+		];
 
 		update_option( 'aw_wf_preview_data_' . $workflow->get_id(), $preview_data, false );
 

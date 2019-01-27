@@ -651,9 +651,10 @@ jQuery(function($) {
 
 		preview_action: function( $action ) {
 
-			var action_number = $action.data('action-number'),
-				name_selector,
-				preview_data = {};
+			var action_number = $action.data('action-number');
+			var name_selector;
+			var trigger = AW.workflow.get('trigger');
+			var action_fields = {};
 
 			if ( AutomateWoo.isEmailPreviewOpen() ) {
 				AutomateWoo.Workflows.$actions_box.addClass('aw-loading');
@@ -680,13 +681,10 @@ jQuery(function($) {
 					val = $(el).val();
 
 				}
-				preview_data[name] = val;
+				action_fields[name] = val;
 			});
 
-			console.log( preview_data);
-
 			AutomateWoo.openLoadingEmailPreview(); // open the preview window before saving so that the popup is not blocked
-
 
 			$.ajax({
 				method: 'POST',
@@ -694,15 +692,14 @@ jQuery(function($) {
 				data: {
 					action: 'aw_save_preview_data',
 					workflow_id: AW.workflow.get('id'),
-					preview_data: preview_data
+					trigger_name: trigger ? trigger.name : '',
+					action_fields: action_fields,
 				},
 				success: function(response) {
-					if ( response.success ) {
-						AutomateWoo.open_email_preview( 'workflow_action', {
-							workflow_id: AW.workflow.get('id'),
-							action_number: action_number
-						});
-					}
+					AutomateWoo.open_email_preview( 'workflow_action', {
+						workflow_id: AW.workflow.get('id'),
+						action_number: action_number
+					});
 				},
 				complete: function() {
 					AutomateWoo.Workflows.$actions_box.removeClass('aw-loading');

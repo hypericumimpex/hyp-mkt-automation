@@ -158,15 +158,14 @@ abstract class Abstract_Date extends Rule {
 	/**
 	 * Validates a timeframe between dates and that the timeframe is the expected.
 	 *
-	 * @param \AutomateWoo\DateTime $date1     Date 1.
-	 * @param \AutomateWoo\DateTime $date2     Date 2.
+	 * @param \AutomateWoo\DateTime $date      The date to validate.
 	 * @param string                $compare   Date compare type: is_in_the_next, is_not_in_the_next, is_in_the_last, is_not_in_the_last
 	 * @param int                   $timeframe The timeframe we want to validate.
 	 * @param string                $measure   Days or Hours.
 	 *
 	 * @return bool
 	 */
-	protected function validate_date_diff( $date1, $date2, $compare, $timeframe, $measure ) {
+	protected function validate_date_diff( $date, $compare, $timeframe, $measure ) {
 		if ( 'days' === $measure ) {
 			$interval_spec = 'P' . $timeframe . 'D';
 		} else {
@@ -179,21 +178,22 @@ abstract class Abstract_Date extends Rule {
 			return false;
 		}
 
-		$comparison_date = clone $date2;
+		$now             = new \AutomateWoo\DateTime( 'now' );
+		$comparison_date = clone $now;
 
 		switch ( $compare ) {
 			case 'is_in_the_next':
 				$comparison_date->add( $interval );
-				return $comparison_date->getTimestamp() > $date1->getTimestamp();
+				return $this->validate_is_between_dates( $date, $now, $comparison_date );
 			case 'is_not_in_the_next':
 				$comparison_date->add( $interval );
-				return $comparison_date->getTimestamp() < $date1->getTimestamp();
+				return ! $this->validate_is_between_dates( $date, $now, $comparison_date );
 			case 'is_in_the_last':
 				$comparison_date->sub( $interval );
-				return $comparison_date->getTimestamp() < $date1->getTimestamp();
+				return $this->validate_is_between_dates( $date, $comparison_date, $now );
 			case 'is_not_in_the_last':
 				$comparison_date->sub( $interval );
-				return $comparison_date->getTimestamp() > $date1->getTimestamp();
+				return ! $this->validate_is_between_dates( $date, $comparison_date, $now );
 		}
 
 		return false;
@@ -381,8 +381,7 @@ abstract class Abstract_Date extends Rule {
 			if ( ! $rule_timeframe ) {
 				return false;
 			}
-			$now = new \AutomateWoo\DateTime( 'now' );
-			return $this->validate_date_diff( $date, $now, $compare, $rule_timeframe, $rule_measure );
+			return $this->validate_date_diff( $date, $compare, $rule_timeframe, $rule_measure );
 		}
 
 		// Before/After date.

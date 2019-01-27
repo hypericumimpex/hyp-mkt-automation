@@ -47,8 +47,10 @@ class Preview extends Base {
 		switch ( $type ) {
 			case 'workflow_action':
 
-				if ( ! $action = Preview_Data::generate_preview_action( $args['workflow_id'], $args['action_number'] ) ) {
-					wp_die( __( 'Error: Email preview data could not be found.', 'automatewoo' ) );
+				$action = Preview_Data::generate_preview_action( $args['workflow_id'], $args['action_number'] );
+
+				if ( ! $action ) {
+					wp_die( __( 'Error generating preview.', 'automatewoo' ) );
 				}
 
 				$email_subject = $action->get_option('subject', true );

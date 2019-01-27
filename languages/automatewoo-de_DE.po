@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AutomateWoo\n"
-"POT-Creation-Date: 2018-11-28 13:12+1030\n"
-"PO-Revision-Date: 2018-11-28 13:17+1030\n"
+"POT-Creation-Date: 2019-01-04 6:2:34+00:00\n"
+"PO-Revision-Date: 2019-01-04 11:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: Christoph Rado, christophrado.de\n"
 "Language: de_DE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: automatewoo.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "X-Poedit-SearchPathExcluded-1: includes/libraries\n"
 
-#: automatewoo.php:37, admin/admin.php:106, admin/admin.php:439,
+#: automatewoo.php:37, admin/admin.php:110, admin/admin.php:489,
 #: admin/coupons-list.php:30, admin/licenses-table.php:47,
 #: includes/installer.php:223, includes/privacy.php:18,
 #: admin/controllers/licenses.php:74,
@@ -46,80 +46,80 @@ msgstr "%s Das Plugin benötigt WooCommerce Version %s oder neuer."
 msgid "%s The plugin requires WordPress version %s or newer."
 msgstr "%s Das Plugin benötigt WordPress Version %s oder neuer."
 
-#: admin/admin.php:111, admin/views/page-dashboard.php:26
+#: admin/admin.php:115, admin/views/page-dashboard.php:26
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: admin/admin.php:116, includes/post-types.php:22,
+#: admin/admin.php:120, includes/post-types.php:22,
 #: admin/reports-tabs/runs-by-date.php:15,
 #: includes/actions/clear-queued-events.php:26,
 #: includes/triggers/workflow-times-run-reaches.php:18
 msgid "Workflows"
 msgstr "Workflows"
 
-#: admin/admin.php:121, admin/reports/email-tracking.php:332,
+#: admin/admin.php:125, admin/reports/email-tracking.php:332,
 #: admin/reports/logs.php:19
 msgid "Logs"
 msgstr "Logs"
 
-#: admin/admin.php:126
+#: admin/admin.php:130
 msgid "Queue"
 msgstr "Warteschlange"
 
-#: admin/admin.php:132, includes/privacy-policy-guide.php:34,
+#: admin/admin.php:136, includes/privacy-policy-guide.php:34,
 #: admin/reports/carts.php:21, admin/settings-tabs/carts.php:16,
 #: includes/triggers/abstract-abandoned-cart.php:21
 msgid "Carts"
 msgstr "Warenkörbe"
 
-#: admin/admin.php:137, admin/reports/guests.php:23,
+#: admin/admin.php:141, admin/reports/guests.php:23,
 #: includes/triggers/guest-created.php:19
 msgid "Guests"
 msgstr "Gäste"
 
-#: admin/admin.php:143, admin/reports/opt-ins.php:21
+#: admin/admin.php:147, admin/reports/opt-ins.php:21
 msgid "Opt-ins"
 msgstr "Opt-Ins"
 
-#: admin/admin.php:143, admin/reports/opt-ins.php:21
+#: admin/admin.php:147, admin/reports/opt-ins.php:21
 msgid "Opt-outs"
 msgstr "Opt-Outs"
 
-#: admin/admin.php:148
+#: admin/admin.php:152
 msgid "Reports"
 msgstr "Berichte"
 
-#: admin/admin.php:153
+#: admin/admin.php:157
 msgid "Tools"
 msgstr "Werkzeuge"
 
-#: admin/admin.php:158, includes/installer.php:250
+#: admin/admin.php:162, includes/installer.php:250
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: admin/admin.php:163, admin/reports/events.php:23, admin/reports/queue.php:19
+#: admin/admin.php:167, admin/reports/events.php:23, admin/reports/queue.php:19
 msgid "Events"
 msgstr "Ereignisse"
 
-#: admin/admin.php:168, admin/views/action.php:29
+#: admin/admin.php:172, admin/views/action.php:29
 msgid "Preview"
 msgstr "Vorschau"
 
-#: admin/admin.php:175
+#: admin/admin.php:179
 msgid "License"
 msgid_plural "Licenses"
 msgstr[0] "Lizenz"
 msgstr[1] "Lizenzen"
 
-#: admin/admin.php:180
+#: admin/admin.php:184
 msgid "AutomateWoo Data Update"
 msgstr "AutomateWoo Daten-Aktualisierung"
 
-#: admin/admin.php:247
+#: admin/admin.php:251
 msgid "This field does not support variables."
 msgstr "Dieses Feld unterstützt keine Variablen."
 
-#: admin/admin.php:248
+#: admin/admin.php:252
 msgid ""
 "Variable '%s' is not available with the selected trigger. Please only use "
 "variables listed in the the variables box."
@@ -127,7 +127,7 @@ msgstr ""
 "Variable „%s“ ist mit dem gewählten Auslöser nicht verfügbar. Bitte nutze "
 "nur Variablen, die in der Variablen-Box gelistet sind."
 
-#: admin/admin.php:249
+#: admin/admin.php:253
 msgid ""
 "Variable '%s' is not a valid. Please only use variables listed in the the "
 "variables box."
@@ -135,11 +135,11 @@ msgstr ""
 "Variable „%s“ ist nicht gültig. Bitte nutze nur Variablen, die in der "
 "Variablen-Box gelistet sind."
 
-#: admin/admin.php:461
+#: admin/admin.php:511
 msgid "Your AutomateWoo license has expired."
 msgstr "Deine AutomateWoo-Lizenz ist abgelaufen."
 
-#: admin/admin.php:463
+#: admin/admin.php:513
 msgid ""
 "<a href=\"%s\" target=\"_blank\">Renew your license</a> to receive updates "
 "and support."
@@ -147,15 +147,15 @@ msgstr ""
 "<a href=„%s“ target=„_blank“>Erneuere deine Lizenz</a>, um Updates und "
 "Support zu erhalten."
 
-#: admin/admin.php:474
+#: admin/admin.php:524
 msgid "AutomateWoo - You have unactivated products."
 msgstr "AutomateWoo - Du hast nicht aktivierte Produkte."
 
-#: admin/admin.php:476
+#: admin/admin.php:526
 msgid "AutomateWoo is not activated."
 msgstr "AutomateWoo ist nicht aktiviert."
 
-#: admin/admin.php:480
+#: admin/admin.php:530
 msgid "Please enter your <a href=\"%s\">license here</a>."
 msgstr "Bitte gib deine <a href=\"%s\">Lizenz hier ein</a>."
 
@@ -191,15 +191,15 @@ msgstr "Berechtigungs-Fehler."
 msgid "Add-on could not be updated"
 msgstr "Erweiterung konnte nicht aktualisiert werden"
 
-#: admin/ajax.php:657
+#: admin/ajax.php:663
 msgid "No log found."
 msgstr "Kein Log gefunden."
 
-#: admin/ajax.php:671
+#: admin/ajax.php:677
 msgid "No queued event found."
 msgstr "Kein geplantes Ereignis gefunden."
 
-#: admin/ajax.php:701
+#: admin/ajax.php:707
 msgid "No cart found."
 msgstr "Kein Warenkorb gefunden."
 
@@ -373,7 +373,7 @@ msgid "Search"
 msgstr "Suche"
 
 #: admin/list-table.php:80, includes/customer.php:343,
-#: includes/data-layer.php:387, includes/guest.php:195
+#: includes/data-layer.php:403, includes/guest.php:195
 msgctxt "full name"
 msgid "%1$s %2$s"
 msgstr "%1$s %2$s"
@@ -1402,9 +1402,9 @@ msgstr ""
 msgid "Please select some items to bulk edit."
 msgstr "Bitte wähle mehrere Elemente, um eine Massenbearbeitung zu starten."
 
-#: admin/controllers/preview.php:51
-msgid "Error: Email preview data could not be found."
-msgstr "Fehler: E-Mail-Vorschau-Daten konnten nicht gefunden werden."
+#: admin/controllers/preview.php:53
+msgid "Error generating preview."
+msgstr "Fehler beim Erstellen der Vorschau."
 
 #: admin/controllers/queue.php:51
 msgid ""
@@ -2779,7 +2779,7 @@ msgstr ""
 msgid "Other"
 msgstr "Andere"
 
-#: includes/abstracts/action.php:272
+#: includes/abstracts/action.php:274
 msgid "THIS ACTION IS DEPRECATED AND SHOULD NOT BE USED."
 msgstr "DIESE AKTION IST VERALTET UND SOLLTE NICHT GENUTZT WERDEN."
 
@@ -5183,7 +5183,7 @@ msgstr "Durchlauf-Zähler erreicht"
 msgid "Times run"
 msgstr "Anzahl Durchläufe"
 
-#: includes/variables/abstract-datetime.php:17
+#: includes/variables/abstract-datetime.php:19
 msgid ""
 "To modify how the date and time is formatted please refer to the %sWordPress "
 "documentation%s."
@@ -5191,7 +5191,7 @@ msgstr ""
 "Um das Anzeigeformat von Daten zu ändern, sieh dir die %sWordPress "
 "Dokumentation%s an."
 
-#: includes/variables/abstract-datetime.php:22
+#: includes/variables/abstract-datetime.php:24
 msgid ""
 "Optional parameter to modify the display of the datetime. Default is MySQL "
 "format (Y-m-d H:i:s)"
@@ -5199,7 +5199,7 @@ msgstr ""
 "Optionaler Parameter, um das Datumsformat zu ändern. Standard ist MySQL-"
 "Format (Y-m-d H:i:s)"
 
-#: includes/variables/abstract-datetime.php:26
+#: includes/variables/abstract-datetime.php:28
 msgid ""
 "Optional parameter to modify the value of the datetime. Uses the PHP "
 "strtotime() function."
@@ -5207,7 +5207,7 @@ msgstr ""
 "Optionaler Parameter, um den Datumswert zu ändern. Nutzt die PHP-Funktion "
 "strtotime()."
 
-#: includes/variables/abstract-datetime.php:27
+#: includes/variables/abstract-datetime.php:29
 msgid "e.g. +2 months, -1 day, +6 hours"
 msgstr "z.B. +2 months, -1 day, +6 hours"
 
@@ -5386,6 +5386,14 @@ msgstr "Zeigt den Inhalt der Kommentars an."
 msgid "Displays the ID of the comment."
 msgstr "Zeigt die ID des Kommentars an."
 
+#: includes/variables/customer-address-line-1.php:23
+msgid "Displays the first line of the customer's address."
+msgstr "Zeigt die erste Zeile der Adresse des Kunden."
+
+#: includes/variables/customer-address-line-2.php:23
+msgid "Displays the second line of the customer's address."
+msgstr "Zeigt die zweite Zeile der Adresse des Kunden."
+
 #: includes/variables/customer-city.php:15
 msgid "Displays the customer's billing city."
 msgstr "Zeigt die Stadt der Rechnungsdetails."
@@ -5448,11 +5456,13 @@ msgstr "Zeigt den Staat der Rechnungsdetails."
 msgid "Choose whether to display the abbreviation or full name of the state."
 msgstr "Wähle, ob die Abkürzung oder der volle Name des Staates werden soll."
 
-#: includes/variables/customer-state.php:18
+#: includes/variables/customer-state.php:18,
+#: includes/variables/order-shipping-country.php:26
 msgid "Full"
 msgstr "Voller Name"
 
-#: includes/variables/customer-state.php:19
+#: includes/variables/customer-state.php:19,
+#: includes/variables/order-shipping-country.php:27
 msgid "Abbreviation"
 msgstr "Abkürzung"
 
@@ -5640,7 +5650,7 @@ msgstr ""
 #: includes/variables/order-payment-method.php:16,
 #: includes/variables/order-shipping-method.php:16
 msgid "Title"
-msgstr "TItel"
+msgstr "Titel"
 
 #: includes/variables/order-payment-method.php:17,
 #: includes/variables/order-shipping-method.php:17
@@ -5668,9 +5678,41 @@ msgstr ""
 "Zeigt eine Erneut-bestellen-URL für die Bestellung. Bei Klick werden alle "
 "Artikel der Bestellung zum Warenkorb hinzugefügt."
 
+#: includes/variables/order-shipping-address-line-1.php:22
+msgid "Displays the first line of the order shipping address."
+msgstr "Zeigt die erste Zeile der Lieferadresse der Bestellung."
+
+#: includes/variables/order-shipping-address-line-2.php:22
+msgid "Displays the second line of the shipping address for the order."
+msgstr "Zeigt die zweite Zeile der Lieferadresse der Bestellung."
+
 #: includes/variables/order-shipping-address.php:15
 msgid "Displays the formatted shipping address for the order."
 msgstr "Zeigt die formatierte Lieferadresse der Bestellung."
+
+#: includes/variables/order-shipping-city.php:22
+msgid "Displays the shipping city for the order."
+msgstr "Zeigt die Stadt der Lieferadresse der Bestellung."
+
+#: includes/variables/order-shipping-company-name.php:22
+msgid "Displays the shipping company name for the order."
+msgstr "Zeigt die Firma der Lieferadresse der Bestellung."
+
+#: includes/variables/order-shipping-country.php:22
+msgid "Displays the shipping country for the order."
+msgstr "Zeigt das Land der Lieferadresse der Bestellung."
+
+#: includes/variables/order-shipping-country.php:25
+msgid "Choose whether to display the abbreviation or full name of the country."
+msgstr "Wähle, ob die Abkürzung oder der volle Name des Landes werden soll."
+
+#: includes/variables/order-shipping-first-name.php:22
+msgid "Displays the shipping first name of the order."
+msgstr "Zeigt den Vornamen der Lieferadresse der Bestellung."
+
+#: includes/variables/order-shipping-last-name.php:21
+msgid "Displays the shipping address last name for the order."
+msgstr "Zeigt den Nachnamen der Lieferadresse der Bestellung."
 
 #: includes/variables/order-shipping-method.php:15
 msgid "Choose whether to display the title or the ID of the shipping method."
@@ -5681,6 +5723,10 @@ msgstr ""
 msgid "Displays the shipping method for the order."
 msgstr "Zeigt die Versandmethode der Bestellung."
 
+#: includes/variables/order-shipping-postcode.php:22
+msgid "Displays the shipping postcode for the order."
+msgstr "Zeigt die PLZ der Lieferadresse der Bestellung."
+
 #: includes/variables/order-shipping-provider.php:16
 msgid ""
 "Displays the name of the shipping provider as set with the <a href='%s' "
@@ -5688,6 +5734,10 @@ msgid ""
 msgstr ""
 "Zeigt den Namen des Versanddienstleisters, wie es im <a href='%s' "
 "target='_blank'>WooThemes Shipment Tracking</a> Plugin festgelegt ist."
+
+#: includes/variables/order-shipping-state.php:23
+msgid "Displays the shipping state for the order."
+msgstr "Zeigt den Staat der Lieferadresse der Bestellung."
 
 #: includes/variables/order-status.php:15
 msgid "Displays the status of the order."
@@ -6008,3 +6058,289 @@ msgstr "E-Mail-Adresse"
 #: templates/email/review-grid-2-col.php:45, templates/email/review-rows.php:39
 msgid "Leave a review"
 msgstr "Hinterlasse eine Bewertung"
+
+#~ msgid "Error: Email preview data could not be found."
+#~ msgstr "Fehler: E-Mail-Vorschau-Daten konnten nicht gefunden werden."
+
+#~ msgid "License Expires"
+#~ msgstr "Lizenz läuft ab"
+
+#~ msgid "More about custom functions here."
+#~ msgstr "Mehr über eigene Funktionen hier."
+
+#~ msgid "Add Tags To Customer"
+#~ msgstr "Schlagworte zu Kunde hinzufügen"
+
+#~ msgid "Remove Tags From Customer"
+#~ msgstr "Schlagworte von Kunde entfernen"
+
+#~ msgid "Add / Update Customer Meta"
+#~ msgstr "Kunden-Meta hinzufügen/ändern"
+
+#~ msgid "Meta key"
+#~ msgstr "Meta-Schlüssel"
+
+#~ msgid "Meta value"
+#~ msgstr "Meta-Wert"
+
+#~ msgid "Change Order Status"
+#~ msgstr "Bestellstatus ändern"
+
+#~ msgid "Add / Update Order Meta"
+#~ msgstr "Bestell-Meta hinzufügen/ändern"
+
+#~ msgid ""
+#~ "This action allows you to send a HTML or plain text email. If you wish to "
+#~ "send a HTML email choose the WooCommerce Default as your template. This "
+#~ "means the email will match the style of your WooCommerce transactional "
+#~ "emails."
+#~ msgstr ""
+#~ "Diese Aktion erlaubt es, eine HTML- oder Text-E-Mail zu senden. Wenn du "
+#~ "eine HTML-E-Mail senden möchtest, wähle WooCommerce Default als Template "
+#~ "aus. Dies bedeutet, dass die E-Mail so aussieht wie die WooCommerce-E-"
+#~ "Mails."
+
+#~ msgid "Change Subscription Status"
+#~ msgstr "Abonnement-Status ändern"
+
+#~ msgid "Add / Update Subscription Meta"
+#~ msgstr "Abonnement-Meta hinzufügen / ändern"
+
+#~ msgid "Add / Update Product Meta"
+#~ msgstr "Produkt-Meta hinzufügen/ändern"
+
+#~ msgid "Customer Meta"
+#~ msgstr "Kunden-Meta"
+
+#~ msgid "Is POS Order?"
+#~ msgstr "Ist POS-Bestellung?"
+
+#~ msgid "Order Line Item Meta"
+#~ msgstr "Bestellung: Artikel-Meta"
+
+#~ msgid "Order Meta"
+#~ msgstr "Bestellung: Meta"
+
+#~ msgid "Subscription Meta"
+#~ msgstr "Abonnement-Meta"
+
+#~ msgid ""
+#~ "Guest data can be stored here for two reasons. If a customer places an "
+#~ "order but does not to create an account. Or, if a you have enabled pre-"
+#~ "submit capturing, the guest data could have been captured before an order "
+#~ "was placed from a form on your website."
+#~ msgstr ""
+#~ "Gast-Daten können hier aus zwei Gründen gespeichert werden. Wenn ein "
+#~ "Kunde eine Bestellung aufgibt, aber kein Kundenkonto besitzt. Oder, falls "
+#~ "E-Mail-Erfassung aktiv ist, können die Daten vor Platzierung einer "
+#~ "Bestellung über ein anderes Formular erfasst worden sein."
+
+#~ msgid "Filter"
+#~ msgstr "Filter"
+
+#~ msgid "Select a page&hellip;"
+#~ msgstr "Wähle eine Seite&hellip;"
+
+#~ msgid "Enable"
+#~ msgstr "Aktivieren"
+
+#~ msgid "Enable integration"
+#~ msgstr "Integration aktivieren"
+
+#~ msgid "Enable Background Checks"
+#~ msgstr "Aktiviere Überprüfungen im Hintergrund"
+
+#~ msgid "Delete Permanently"
+#~ msgstr "Dauerhaft löschen"
+
+#~ msgid "Move to Trash"
+#~ msgstr "In den Papierkorb"
+
+#~ msgid "%s Report"
+#~ msgstr "%s Bericht"
+
+#~ msgid ""
+#~ "This is useful for workflows that are not run immediately as it ensures "
+#~ "the status of the %s hasn't changed since initial trigger."
+#~ msgstr ""
+#~ "Dies ist hilfreich für Workflows, die nicht sofort starten, da es "
+#~ "sicherstellt, dass sich der Status des %s seit dem ursprünglichen "
+#~ "Auslösen nicht geändert hat."
+
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#~ msgid "Generate download permissions"
+#~ msgstr "Download-Berechtigungen erzeugen"
+
+#~ msgid "Removed AutomateWoo customer object."
+#~ msgstr "AutomateWoo Kunden-Objekt gelöscht."
+
+#~ msgid "Customer ID"
+#~ msgstr "Kunden-ID"
+
+#~ msgid "Customer key"
+#~ msgstr "Kunden-Schlüssel"
+
+#~ msgid "Tracking key"
+#~ msgstr "Tracking-Schlüssel"
+
+#~ msgid "Workflow preview emails"
+#~ msgstr "Workflow-Vorschau-E-Mails"
+
+#~ msgid "User tags"
+#~ msgstr "Benutzer-Schlagworte"
+
+#~ msgid "Tracking key ID"
+#~ msgstr "Tracking-Schlüssel-ID"
+
+#~ msgid "Country"
+#~ msgstr "Land"
+
+#~ msgid "State"
+#~ msgstr "Staat"
+
+#~ msgid "City"
+#~ msgstr "Stadt"
+
+#~ msgid "Postcode"
+#~ msgstr "PLZ"
+
+#~ msgid "Company"
+#~ msgstr "Unternehmen"
+
+#~ msgid "Guest created"
+#~ msgstr "Gast erstellt"
+
+#~ msgid "Guest last active"
+#~ msgstr "Gast zuletzt aktiv"
+
+#~ msgid "Cart ID"
+#~ msgstr "Warenkorb-ID"
+
+#~ msgid "Cart status"
+#~ msgstr "Warenkorb-Status"
+
+#~ msgid "Cart currency"
+#~ msgstr "Warenkorb-Währung"
+
+#~ msgid "Cart shipping tax total"
+#~ msgstr "Warenkorb Versandkosten-Steuern"
+
+#~ msgid "Cart shipping total"
+#~ msgstr "Warenkorb Versandkosten-Summe"
+
+#~ msgid "Cart total"
+#~ msgstr "Warenkorb-Summe"
+
+#~ msgid "Date last modified"
+#~ msgstr "Datum letzter Änderung"
+
+#~ msgid "Date created"
+#~ msgstr "Erstellungs-Datum"
+
+#~ msgid "Fees"
+#~ msgstr "Gebühren"
+
+#~ msgid "Log ID"
+#~ msgstr "Log-ID"
+
+#~ msgid "Log workflow"
+#~ msgstr "Log-Workflow"
+
+#~ msgid "Log date"
+#~ msgstr "Log-Datum"
+
+#~ msgid "Notes"
+#~ msgstr "Notizen"
+
+#~ msgid "Click and open tracking"
+#~ msgstr "Klick- und Öffnen-Tracking"
+
+#~ msgid "Related data"
+#~ msgstr "Zugehörige Daten"
+
+#~ msgid "Event ID"
+#~ msgstr "Ereignis-ID"
+
+#~ msgid "Event workflow"
+#~ msgstr "Ereignis-Workflow"
+
+#~ msgid "Date due"
+#~ msgstr "Fälligkeitsdatum"
+
+#~ msgid "Failure code"
+#~ msgstr "Fehler-Code"
+
+#~ msgid ""
+#~ "Are you sure you want to manually trigger the <strong>%s</strong> "
+#~ "workflow for <strong>%s</strong> orders? This can not be undone."
+#~ msgstr ""
+#~ "Bist du sicher, dass du den Workflow <strong>%s</strong> für <strong>%s</"
+#~ "strong> Bestellungen manuell starten willst? Dies kann nicht rückgängig "
+#~ "gemacht werden."
+
+#~ msgid ""
+#~ "<strong>Please note:</strong> This list only indicates the orders that "
+#~ "match your selected date period. These orders have yet to be validated "
+#~ "against the selected workflow."
+#~ msgstr ""
+#~ "<strong>Bitte beachte:</strong> Diese Liste zeigt nur die Bestellungen, "
+#~ "die in die gewählte Zeitspanne fallen. Diese Bestellungen wurden noch "
+#~ "nicht mit dem gewählten Workflow abgeglichen."
+
+#~ msgid ""
+#~ "Are you sure you want to manually trigger the <strong>%s</strong> "
+#~ "workflow for <strong>%s</strong> subscriptions? This can not be undone."
+#~ msgstr ""
+#~ "Bist du sicher, dass du den Workflow <strong>%s</strong> für <strong>%s</"
+#~ "strong> Abonnements starten möchtest? Dies kann nicht rückgängig gemacht "
+#~ "werden."
+
+#~ msgid ""
+#~ "<strong>Please note:</strong> This list only indicates the subscriptions "
+#~ "that match your selected date period. These subscriptions have yet to be "
+#~ "validated against the selected workflow."
+#~ msgstr ""
+#~ "<strong>Bitte beachte:</strong> Diese Liste zeigt nur die Abonnements, "
+#~ "die in die gewählte Zeitspanne fallen. Diese Abonnements wurden noch "
+#~ "nicht mit dem gewählten Workflow abgeglichen."
+
+#~ msgid "This trigger does not fire until the review has been approved."
+#~ msgstr ""
+#~ "Dieser Auslöser startet nicht, bevor die Bewertung freigegeben wurde."
+
+#~ msgid ""
+#~ "This trigger will look at the selected variations for each order item for "
+#~ "the selected attribute terms. For example if you have an attribute for "
+#~ "'size' and you select 'SML' and 'MED' in the Terms field then this "
+#~ "trigger will fire if an order is placed that contains a product in 'SML' "
+#~ "or a product in 'MED'."
+#~ msgstr ""
+#~ "Dieser Auslöser sieht sich die gewählten Variationen für jeden Artikel "
+#~ "mit dem gewählten Attribut an. Beispiel: Wenn du ein Attribut „Größe“ "
+#~ "benutzt und „klein“ und „mittel“ auswählst, wird der Auslöser starten, "
+#~ "wenn eine Bestellung Produkte in „klein“ oder „mittel“ enthält."
+
+#~ msgid ""
+#~ "This trigger can't fire immediately when a product goes on sale so "
+#~ "instead it performs a check every four hours. Please note this doesn't "
+#~ "work for guests because their wishlist data only exists in their session "
+#~ "data."
+#~ msgstr ""
+#~ "Dieser Auslöser kann nicht sofort gestartet werden wenn ein Produkt im "
+#~ "Angebot ist, daher prüft er den Status stündlich. Bitte beachte, dass "
+#~ "dies nicht für Gäste funktioniert, weil ihre Wunschlisten-Daten nur in "
+#~ "ihrer Sitzung existieren."
+
+#~ msgid "Users"
+#~ msgstr "Benutzer"
+
+#~ msgid "Change"
+#~ msgstr "Ändern"
+
+#~ msgid "http://automatewoo.com"
+#~ msgstr "http://automatewoo.com"
+
+#~ msgid "Powerful marketing automation for your WooCommerce store."
+#~ msgstr "Leistungsstarke Marketing-Automation für deinen WooCommerce-Shop."

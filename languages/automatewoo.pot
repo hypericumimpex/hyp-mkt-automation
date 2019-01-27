@@ -1,4 +1,4 @@
-# Copyright (C) 2018 AutomateWoo
+# Copyright (C) 2019 AutomateWoo
 # This file is distributed under the same license as the AutomateWoo package.
 msgid ""
 msgstr ""
@@ -8,11 +8,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: en_US\n"
 "Language-Team: Prospress Translations <translations@prospress.com>\n"
-"POT-Creation-Date: 2018-12-04 23:58:25+00:00\n"
+"POT-Creation-Date: 2019-01-06 23:48:17+00:00\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: automatewoo.php:37, admin/admin.php:106, admin/admin.php:106, admin/admin.php:439, admin/coupons-list.php:30, admin/licenses-table.php:47, includes/installer.php:223, includes/privacy.php:18, admin/controllers/licenses.php:74, includes/actions/change-workflow-status.php:18, includes/actions/clear-queued-events.php:17
+#: automatewoo.php:37, admin/admin.php:110, admin/admin.php:110, admin/admin.php:489, admin/coupons-list.php:30, admin/licenses-table.php:47, includes/installer.php:223, includes/privacy.php:18, admin/controllers/licenses.php:74, includes/actions/change-workflow-status.php:18, includes/actions/clear-queued-events.php:17
 msgid "AutomateWoo"
 msgstr ""
 
@@ -32,97 +32,97 @@ msgstr ""
 msgid "%s The plugin requires WordPress version %s or newer."
 msgstr ""
 
-#: admin/admin.php:111, admin/views/page-dashboard.php:26
+#: admin/admin.php:115, admin/views/page-dashboard.php:26
 msgid "Dashboard"
 msgstr ""
 
-#: admin/admin.php:116, includes/post-types.php:22, admin/reports-tabs/runs-by-date.php:15, includes/actions/clear-queued-events.php:26, includes/triggers/workflow-times-run-reaches.php:18
+#: admin/admin.php:120, includes/post-types.php:22, admin/reports-tabs/runs-by-date.php:15, includes/actions/clear-queued-events.php:26, includes/triggers/workflow-times-run-reaches.php:18
 msgid "Workflows"
 msgstr ""
 
-#: admin/admin.php:121, admin/reports/email-tracking.php:332, admin/reports/logs.php:19
+#: admin/admin.php:125, admin/reports/email-tracking.php:332, admin/reports/logs.php:19
 msgid "Logs"
 msgstr ""
 
-#: admin/admin.php:126
+#: admin/admin.php:130
 msgid "Queue"
 msgstr ""
 
-#: admin/admin.php:132, includes/privacy-policy-guide.php:34, admin/reports/carts.php:21, admin/settings-tabs/carts.php:16, includes/triggers/abstract-abandoned-cart.php:21
+#: admin/admin.php:136, includes/privacy-policy-guide.php:34, admin/reports/carts.php:21, admin/settings-tabs/carts.php:16, includes/triggers/abstract-abandoned-cart.php:21
 msgid "Carts"
 msgstr ""
 
-#: admin/admin.php:137, admin/reports/guests.php:23, includes/triggers/guest-created.php:19
+#: admin/admin.php:141, admin/reports/guests.php:23, includes/triggers/guest-created.php:19
 msgid "Guests"
 msgstr ""
 
-#: admin/admin.php:143, admin/reports/opt-ins.php:21
+#: admin/admin.php:147, admin/reports/opt-ins.php:21
 msgid "Opt-ins"
 msgstr ""
 
-#: admin/admin.php:143, admin/reports/opt-ins.php:21
+#: admin/admin.php:147, admin/reports/opt-ins.php:21
 msgid "Opt-outs"
 msgstr ""
 
-#: admin/admin.php:148
+#: admin/admin.php:152
 msgid "Reports"
 msgstr ""
 
-#: admin/admin.php:153
+#: admin/admin.php:157
 msgid "Tools"
 msgstr ""
 
-#: admin/admin.php:158, includes/installer.php:250
+#: admin/admin.php:162, includes/installer.php:250
 msgid "Settings"
 msgstr ""
 
-#: admin/admin.php:163, admin/reports/events.php:23, admin/reports/queue.php:19
+#: admin/admin.php:167, admin/reports/events.php:23, admin/reports/queue.php:19
 msgid "Events"
 msgstr ""
 
-#: admin/admin.php:168, admin/views/action.php:29
+#: admin/admin.php:172, admin/views/action.php:29
 msgid "Preview"
 msgstr ""
 
-#: admin/admin.php:175
+#: admin/admin.php:179
 msgid "License"
 msgid_plural "Licenses"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/admin.php:180
+#: admin/admin.php:184
 msgid "AutomateWoo Data Update"
 msgstr ""
 
-#: admin/admin.php:247
+#: admin/admin.php:251
 msgid "This field does not support variables."
 msgstr ""
 
-#: admin/admin.php:248
+#: admin/admin.php:252
 msgid "Variable '%s' is not available with the selected trigger. Please only use variables listed in the the variables box."
 msgstr ""
 
-#: admin/admin.php:249
+#: admin/admin.php:253
 msgid "Variable '%s' is not a valid. Please only use variables listed in the the variables box."
 msgstr ""
 
-#: admin/admin.php:461
+#: admin/admin.php:511
 msgid "Your AutomateWoo license has expired."
 msgstr ""
 
-#: admin/admin.php:463
+#: admin/admin.php:513
 msgid "<a href=\"%s\" target=\"_blank\">Renew your license</a> to receive updates and support."
 msgstr ""
 
-#: admin/admin.php:474
+#: admin/admin.php:524
 msgid "AutomateWoo - You have unactivated products."
 msgstr ""
 
-#: admin/admin.php:476
+#: admin/admin.php:526
 msgid "AutomateWoo is not activated."
 msgstr ""
 
-#: admin/admin.php:480
+#: admin/admin.php:530
 msgid "Please enter your <a href=\"%s\">license here</a>."
 msgstr ""
 
@@ -158,15 +158,15 @@ msgstr ""
 msgid "Add-on could not be updated"
 msgstr ""
 
-#: admin/ajax.php:657
+#: admin/ajax.php:663
 msgid "No log found."
 msgstr ""
 
-#: admin/ajax.php:671
+#: admin/ajax.php:677
 msgid "No queued event found."
 msgstr ""
 
-#: admin/ajax.php:701
+#: admin/ajax.php:707
 msgid "No cart found."
 msgstr ""
 
@@ -246,7 +246,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: admin/list-table.php:80, includes/customer.php:343, includes/data-layer.php:387, includes/guest.php:195
+#: admin/list-table.php:80, includes/customer.php:343, includes/data-layer.php:403, includes/guest.php:195
 msgctxt "full name"
 msgid "%1$s %2$s"
 msgstr ""
@@ -1055,8 +1055,8 @@ msgstr ""
 msgid "Please select some items to bulk edit."
 msgstr ""
 
-#: admin/controllers/preview.php:51
-msgid "Error: Email preview data could not be found."
+#: admin/controllers/preview.php:53
+msgid "Error generating preview."
 msgstr ""
 
 #: admin/controllers/queue.php:51
@@ -4061,19 +4061,19 @@ msgstr ""
 msgid "Times run"
 msgstr ""
 
-#: includes/variables/abstract-datetime.php:17
+#: includes/variables/abstract-datetime.php:19
 msgid "To modify how the date and time is formatted please refer to the %sWordPress documentation%s."
 msgstr ""
 
-#: includes/variables/abstract-datetime.php:22
+#: includes/variables/abstract-datetime.php:24
 msgid "Optional parameter to modify the display of the datetime. Default is MySQL format (Y-m-d H:i:s)"
 msgstr ""
 
-#: includes/variables/abstract-datetime.php:26
+#: includes/variables/abstract-datetime.php:28
 msgid "Optional parameter to modify the value of the datetime. Uses the PHP strtotime() function."
 msgstr ""
 
-#: includes/variables/abstract-datetime.php:27
+#: includes/variables/abstract-datetime.php:29
 msgid "e.g. +2 months, -1 day, +6 hours"
 msgstr ""
 
@@ -4217,6 +4217,14 @@ msgstr ""
 msgid "Displays the ID of the comment."
 msgstr ""
 
+#: includes/variables/customer-address-line-1.php:23
+msgid "Displays the first line of the customer's address."
+msgstr ""
+
+#: includes/variables/customer-address-line-2.php:23
+msgid "Displays the second line of the customer's address."
+msgstr ""
+
 #: includes/variables/customer-city.php:15
 msgid "Displays the customer's billing city."
 msgstr ""
@@ -4269,11 +4277,11 @@ msgstr ""
 msgid "Choose whether to display the abbreviation or full name of the state."
 msgstr ""
 
-#: includes/variables/customer-state.php:18
+#: includes/variables/customer-state.php:18, includes/variables/order-shipping-country.php:26
 msgid "Full"
 msgstr ""
 
-#: includes/variables/customer-state.php:19
+#: includes/variables/customer-state.php:19, includes/variables/order-shipping-country.php:27
 msgid "Abbreviation"
 msgstr ""
 
@@ -4437,8 +4445,40 @@ msgstr ""
 msgid "Displays a reorder URL for the order. When clicked all items from the order will be added to the user's cart."
 msgstr ""
 
+#: includes/variables/order-shipping-address-line-1.php:22
+msgid "Displays the first line of the order shipping address."
+msgstr ""
+
+#: includes/variables/order-shipping-address-line-2.php:22
+msgid "Displays the second line of the shipping address for the order."
+msgstr ""
+
 #: includes/variables/order-shipping-address.php:15
 msgid "Displays the formatted shipping address for the order."
+msgstr ""
+
+#: includes/variables/order-shipping-city.php:22
+msgid "Displays the shipping city for the order."
+msgstr ""
+
+#: includes/variables/order-shipping-company-name.php:22
+msgid "Displays the shipping company name for the order."
+msgstr ""
+
+#: includes/variables/order-shipping-country.php:22
+msgid "Displays the shipping country for the order."
+msgstr ""
+
+#: includes/variables/order-shipping-country.php:25
+msgid "Choose whether to display the abbreviation or full name of the country."
+msgstr ""
+
+#: includes/variables/order-shipping-first-name.php:22
+msgid "Displays the shipping first name of the order."
+msgstr ""
+
+#: includes/variables/order-shipping-last-name.php:21
+msgid "Displays the shipping address last name for the order."
 msgstr ""
 
 #: includes/variables/order-shipping-method.php:15
@@ -4449,8 +4489,16 @@ msgstr ""
 msgid "Displays the shipping method for the order."
 msgstr ""
 
+#: includes/variables/order-shipping-postcode.php:22
+msgid "Displays the shipping postcode for the order."
+msgstr ""
+
 #: includes/variables/order-shipping-provider.php:16
 msgid "Displays the name of the shipping provider as set with the <a href='%s' target='_blank'>WooThemes Shipment Tracking</a> plugin."
+msgstr ""
+
+#: includes/variables/order-shipping-state.php:23
+msgid "Displays the shipping state for the order."
 msgstr ""
 
 #: includes/variables/order-status.php:15

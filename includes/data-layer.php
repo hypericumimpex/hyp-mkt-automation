@@ -303,23 +303,39 @@ class Data_Layer {
 	 * @return string
 	 */
 	function get_customer_email() {
-		$prop = '';
+		$customer = $this->get_customer();
 
-		if ( $this->order_belongs_to_customer ) {
-			if ( $subscription = $this->get_subscription() ) {
-				$prop = Clean::email( Compat\Subscription::get_billing_email( $subscription ) );
-			}
-
-			if ( ! $prop && $order = $this->get_order() ) {
-				$prop = Clean::email( Compat\Order::get_billing_email( $order ) );
-			}
+		if ( ! $customer ) {
+			return '';
 		}
 
-		if ( ! $prop && $customer = $this->get_customer() ) {
-			$prop = $customer->get_email();
+		if ( $customer->is_registered() ) {
+			// If the customer has an account always use the account email over a order billing email
+			// The reason for this is that a customer could change their account email and their
+			// orders or subscriptions will not be updated.
+			return $customer->get_email();
 		}
+		else {
+			// If the customer is not registered use the order/subscription billing email over the
+			// email stored in the guest account.
+			$prop = '';
 
-		return $prop;
+			if ( $this->order_belongs_to_customer ) {
+				if ( $subscription = $this->get_subscription() ) {
+					$prop = Clean::email( $subscription->get_billing_email() );
+				}
+
+				if ( ! $prop && $order = $this->get_order() ) {
+					$prop = Clean::email( $order->get_billing_email() );
+				}
+			}
+
+			if ( ! $prop ) {
+				$prop = $customer->get_email();
+			}
+
+			return $prop;
+		}
 	}
 
 

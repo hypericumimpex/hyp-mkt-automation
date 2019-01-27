@@ -46,7 +46,7 @@ class Subscription_Last_Payment_Date extends Abstract_Date {
 	 * @return bool
 	 */
 	public function validate( $subscription, $compare, $value = null ) {
-		return $this->validate_date( $compare, $value, aw_normalize_date( $subscription->get_date( 'last_order_date_completed' ) ) );
+		return $this->validate_date( $compare, $value, aw_normalize_date( $subscription->get_date( 'last_order_date_paid' ) ) );
 	}
 
 }

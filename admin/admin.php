@@ -22,6 +22,10 @@ class Admin {
 		add_action( 'admin_notices', [ $self, 'license_notices' ] );
 		add_action( 'admin_head', [ $self, 'menu_highlight' ] );
 
+		add_filter( 'woocommerce_screen_ids', [ $self, 'filter_woocommerce_screen_ids' ] );
+		add_filter( 'woocommerce_display_admin_footer_text', [ $self, 'filter_woocommerce_display_footer_text' ] );
+		add_action( 'current_screen', [ $self, 'remove_woocommerce_help_tab' ], 100 );
+
 		add_filter( 'admin_body_class', [ $self, 'body_class' ] );
 		add_filter( 'woocommerce_reports_screen_ids', [ $self, 'inject_woocommerce_reports_screen_ids' ] );
 		add_filter( 'editor_stylesheets', [ $self, 'add_editor_styles' ] );
@@ -273,8 +277,7 @@ class Admin {
 	 * Enqueue scripts based on screen id
 	 */
 	static function enqueue_scripts_and_styles() {
-		$screen = get_current_screen();
-		$screen_id = $screen ? $screen->id : '';
+		$screen_id = self::get_current_screen_id();
 
 		wp_enqueue_script( 'automatewoo' );
 		wp_enqueue_style( 'automatewoo-main' );
@@ -319,6 +322,51 @@ class Admin {
 		return apply_filters( 'automatewoo/admin/screen_ids', $ids );
 	}
 
+
+	/**
+	 * Add AW screens to the woocommerce screen IDs list.
+	 * Important for admin script loading.
+	 *
+	 * @since 4.4.2
+	 *
+	 * @param array $screen_ids
+	 *
+	 * @return array
+	 */
+	static function filter_woocommerce_screen_ids( $screen_ids ) {
+		$screen_ids = array_merge( $screen_ids, self::screen_ids() );
+		return $screen_ids;
+	}
+
+
+	/**
+	 * Hide the WC footer message on AW screens.
+	 *
+	 * @since 4.4.2
+	 *
+	 * @param bool $display
+	 *
+	 * @return bool
+	 */
+	static function filter_woocommerce_display_footer_text( $display ) {
+		if ( in_array( self::get_current_screen_id(), self::screen_ids() ) ) {
+			$display = false;
+		}
+
+		return $display;
+	}
+
+	/**
+	 * Remove the WC help tab on AW screens
+	 *
+	 * @since 4.4.2
+	 */
+	static function remove_woocommerce_help_tab() {
+		if ( in_array( self::get_current_screen_id(), self::screen_ids() ) ) {
+			$screen = get_current_screen();
+			$screen->remove_help_tabs();
+		}
+	}
 
 	/**
 	 * Dynamic replace top level menu
@@ -432,13 +480,15 @@ class Admin {
 	 * @return string|bool
 	 */
 	static function get_screen_id() {
-		if ( ! $screen = get_current_screen() ) {
+		$screen_id = self::get_current_screen_id();
+
+		if ( ! $screen_id ) {
 			return false;
 		}
 
 		$base_screen = sanitize_title( __( 'AutomateWoo', 'automatewoo' ) ); // required if plugin name was translated
 
-		return str_replace( $base_screen . '_page_automatewoo-', '', $screen->id );
+		return str_replace( $base_screen . '_page_automatewoo-', '', $screen_id );
 	}
 
 	/**
@@ -718,6 +768,18 @@ class Admin {
 		update_option( $option, $page_id, false );
 
 		return $page_id;
+	}
+
+	/**
+	 * Return the current WP screen ID.
+	 *
+	 * @since 4.4.2
+	 *
+	 * @return bool|string
+	 */
+	static function get_current_screen_id() {
+		$screen = get_current_screen();
+		return $screen ? $screen->id : false;
 	}
 
 	/**

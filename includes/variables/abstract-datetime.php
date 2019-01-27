@@ -3,7 +3,9 @@
 
 namespace AutomateWoo;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * @class Variable_Abstract_Datetime
@@ -14,7 +16,7 @@ class Variable_Abstract_Datetime extends Variable {
 
 	function load_admin_details() {
 		$this->_desc_format_tip = sprintf(
-			__( "To modify how the date and time is formatted please refer to the %sWordPress documentation%s.", 'automatewoo'),
+			__( "To modify how the date and time is formatted please refer to the %sWordPress documentation%s.", 'automatewoo' ),
 			'<a href="https://codex.wordpress.org/Formatting_Date_and_Time" target="_blank">', '</a>'
 		);
 
@@ -48,14 +50,16 @@ class Variable_Abstract_Datetime extends Variable {
 
 		if ( is_a( $input, 'DateTime' ) ) {
 			$date = $input;
-		}
-		else {
-			if ( is_numeric( $input ) ) {
-				$date = new DateTime();
-				$date->setTimestamp( $input );
-			}
-			else {
-				$date = new DateTime( $input );
+		} else {
+			try {
+				if ( is_numeric( $input ) ) {
+					$date = new DateTime();
+					$date->setTimestamp( $input );
+				} else {
+					$date = new DateTime( $input );
+				}
+			} catch ( \Exception $e ) {
+				return false;
 			}
 		}
 

@@ -217,10 +217,10 @@ class Preview_Data {
 			return false;
 		}
 
-		// sanitize preview action fields
- 		$action_fields = $workflow->sanitize_action_fields( $preview_data );
+ 		$trigger = Triggers::get( Clean::string( $preview_data['trigger_name'] ) );
+ 		$action_fields = $workflow->sanitize_action_fields( $preview_data['action_fields'] );
 
- 		if ( empty( $action_fields ) ) {
+ 		if ( ! $trigger || ! $action_fields ) {
  			return false;
 	    }
 
@@ -241,6 +241,9 @@ class Preview_Data {
 		else {
 			$workflow->enable_preview_mode();
 		}
+
+		// set the data layer from preview trigger
+		$workflow->set_data_layer( Preview_Data::get_preview_data_layer( $trigger->supplied_data_items ), true );
 
 		$action->workflow = $workflow;
 

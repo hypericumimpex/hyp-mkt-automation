@@ -52,16 +52,6 @@ class Mailer extends Mailer_Abstract {
 		$this->content = $content;
 		$this->template = $template;
 
-		// include css inliner
-		if ( ! class_exists( 'AW_Emogrifier' ) && class_exists( 'DOMDocument' ) ) {
-			include_once AW()->lib_path( '/emogrifier/emogrifier.php' );
-		}
-
-		// also include the WC packaged emogrifier in case other plugins are looking for this e.g. YITH email customizer
-		if ( ! class_exists( 'Emogrifier' ) && class_exists( 'DOMDocument' ) ) {
-			include_once WC()->plugin_path() . '/includes/libraries/class-emogrifier.php';
-		}
-
 		do_action( 'automatewoo/mailer/init' );
 	}
 
@@ -254,10 +244,6 @@ class Mailer extends Mailer_Abstract {
 	 * @return string
 	 */
 	function style_inline( $content ) {
-		if ( ! class_exists( 'DOMDocument' ) ) {
-			return $content;
-		}
-
 		ob_start();
 
 		if ( $this->include_automatewoo_styles ) {
@@ -268,17 +254,7 @@ class Mailer extends Mailer_Abstract {
 		$css = apply_filters( 'woocommerce_email_styles', ob_get_clean() );
 		$css = apply_filters( 'automatewoo/mailer/styles', $css, $this );
 
-		try {
-			$emogrifier = new \AW_Emogrifier( $content, $css );
-			$emogrifier->disableStyleBlocksParsing();
-			$emogrifier->disableInvisibleNodeRemoval();
-			$content = $emogrifier->emogrify();
-		}
-		catch ( \Exception $e ) {
-			Logger::error( 'emogrifier', $e->getMessage() );
-		}
-
-		return $content;
+		return $this->emogrify( $content, $css );
 	}
 
 
@@ -399,5 +375,77 @@ class Mailer extends Mailer_Abstract {
 		return '<img src="' . esc_url( $this->tracking_pixel_url ) . '" height="1" width="1" alt="" style="display:inline">';
 	}
 
+
+	/**
+	 * Returns the emogrifier library.
+	 *
+	 * Emogrifier 2.0+ should be returned but it's possible that another plugin could have loaded the
+	 * library earlier and thefore loaded an older version of the library.
+	 *
+	 * Returns false if emogrifier is not supported.
+	 *
+	 * @since 4.4.2
+	 *
+	 * @param string $html The HTML.
+	 * @param string $css  The CSS to be inlined.
+	 *
+	 * @return \Emogrifier|\AW_Emogrifier|false
+	 */
+	public function get_emogrifier( $html, $css ) {
+		if ( ! class_exists( 'DOMDocument' ) ) {
+			return false;
+		}
+
+		// Always include the emogrifier included in WC as other plugins might be looking for this
+		if ( ! class_exists( 'Emogrifier' ) ) {
+			include_once WC()->plugin_path() . '/includes/libraries/class-emogrifier.php';
+		}
+
+		// WC 3.5 updated Emogrifier to v2, which we need
+		if ( version_compare( WC()->version, '3.5', '>=' ) ) {
+			return new \Emogrifier( $html, $css );
+		}
+
+		if ( ! class_exists( 'AW_Emogrifier' ) ) {
+			include_once AW()->lib_path( '/emogrifier/emogrifier.php' );
+		}
+
+		return new \AW_Emogrifier( $html, $css );
+	}
+
+
+	/**
+	 * Add inline CSS to HTML with the Emogrifier library.
+	 *
+	 * If Emogrifier can't be used the unmodified HTML will be returned.
+	 *
+	 * @since 4.4.2
+	 *
+	 * @param string $html                    The HTML.
+	 * @param string $css                     The CSS to be inlined.
+	 * @param bool   $parse_html_style_blocks Should CSS in HTML style blocks also be inlined?
+	 *
+	 * @return string
+	 */
+	public function emogrify( $html, $css, $parse_html_style_blocks = false ) {
+		$emogrifier = $this->get_emogrifier( $html, $css );
+
+		if ( ! $emogrifier ) {
+			return $html;
+		}
+
+		try {
+			if ( ! $parse_html_style_blocks ) {
+				$emogrifier->disableStyleBlocksParsing();
+			}
+
+			$emogrifier->disableInvisibleNodeRemoval();
+			$html = $emogrifier->emogrify();
+		} catch ( \Exception $e ) {
+			Logger::error( 'emogrifier', $e->getMessage() );
+		}
+
+		return $html;
+	}
 
 }

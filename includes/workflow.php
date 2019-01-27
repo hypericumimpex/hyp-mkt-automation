@@ -1387,8 +1387,6 @@ class Workflow {
 	 */
 	function enable_test_mode() {
 		$this->test_mode = true;
-		$data_items = $this->get_trigger() ? $this->get_trigger()->supplied_data_items : false;
-		$this->set_data_layer( Preview_Data::get_preview_data_layer( $data_items ), false );
 	}
 
 

@@ -19,10 +19,6 @@ class Mailer_Raw_HTML extends Mailer {
 	 * @return string
 	 */
 	function style_inline( $content ) {
-		if ( ! class_exists( 'DOMDocument' ) ) {
-			return $content;
-		}
-
 		$css = '';
 
 		if ( $this->include_automatewoo_styles ) {
@@ -33,16 +29,7 @@ class Mailer_Raw_HTML extends Mailer {
 
 		$css = apply_filters( 'automatewoo/mailer_raw/styles', $css , $this );
 
-		try {
-			$emogrifier = new \AW_Emogrifier( $content, $css );
-			$emogrifier->disableInvisibleNodeRemoval();
-			$content = $emogrifier->emogrify();
-		}
-		catch ( \Exception $e ) {
-			Logger::error( 'emogrifier', $e->getMessage() );
-		}
-
-		return $content;
+		return $this->emogrify( $content, $css, true );
 	}
 
 
