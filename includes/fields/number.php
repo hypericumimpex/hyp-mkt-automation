@@ -41,17 +41,26 @@ class Number extends Text {
 	}
 
 	/**
-	 * Sanitizes the value of the field.
+	 * Sanitizes the value of a number field.
 	 *
-	 * Defaults to sanitize as a single line string. Override this method for fields that should be sanitized differently.
+	 * If the field is not required, the field can be left blank.
 	 *
 	 * @since 4.4.0
 	 *
 	 * @param string $value
 	 *
-	 * @return string
+	 * @return string|float
 	 */
 	function sanitize_value( $value ) {
+		$value = trim( $value );
+
+		if ( ! $this->get_required() ) {
+			// preserve empty string values, don't cast to float
+			if ( $value === '' ) {
+				return '';
+			}
+		}
+
 		return (float) $value;
 	}
 

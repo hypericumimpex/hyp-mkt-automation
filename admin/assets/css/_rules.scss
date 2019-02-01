@@ -236,9 +236,17 @@ $breakpoint-xxl: 1760px;
 
 }
 
-
-
 // fix height of text and number inputs
 .automatewoo-rule input.automatewoo-field {
 	height: 28px;
+}
+
+.automatewoo-missing-rule {
+	padding: 8px 9px;
+	margin: 7px 0;
+	border: 1px solid $red;
+	border-radius: 4px;
+	color: $red;
+	font-weight: 500;
+	line-height: 1.3;
 }

@@ -15,7 +15,7 @@ class Subscription_Helper {
 	 */
 	static function prepare_user_data( $subscription ) {
 
-		if ( ! $subscription || ! Integrations::subscriptions_enabled() ) {
+		if ( ! $subscription || ! Integrations::is_subscriptions_active() ) {
 			return false;
 		}
 

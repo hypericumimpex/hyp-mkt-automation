@@ -191,6 +191,7 @@ class Licenses {
 	 *
 	 */
 	static function check_for_domain_mismatch() {
+		return;
 
 		$license = self::get_primary_license();
 
@@ -215,6 +216,7 @@ class Licenses {
 	 * @param bool $force - Override limiting to once every 4 days
 	 */
 	static function maybe_check_status( $force = false ) {
+		return;
 
 		if ( defined( 'IFRAME_REQUEST' ) || is_ajax() ) {
 			return;
@@ -373,7 +375,7 @@ class Licenses {
 	 * @param $product_id
 	 */
 	static function remote_deactivate( $product_id ) {
-
+		return;
 		if ( self::is_primary( $product_id ) ) {
 
 			$license = self::get_primary_license();

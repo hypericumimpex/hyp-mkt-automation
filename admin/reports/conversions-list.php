@@ -176,7 +176,7 @@ class Report_Conversions_List extends Admin_List_Table {
 
 		$query = new \WP_Query([
 			'post_type' => 'shop_order',
-			'post_status' => [ 'wc-processing', 'wc-completed' ],
+			'post_status' => array_map( 'aw_add_order_status_prefix', wc_get_is_paid_statuses() ),
 			'posts_per_page' => $per_page,
 			'offset' => ( $current_page - 1 ) * $per_page,
 			'meta_query' => [

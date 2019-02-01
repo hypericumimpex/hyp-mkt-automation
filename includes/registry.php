@@ -57,11 +57,13 @@ abstract class Registry {
 
 	/**
 	 * @param $name
-	 * @return mixed
+	 * @return bool|object
 	 */
 	static function get( $name ) {
-		static::load( $name );
-		return static::$loaded[ $name ];
+		if ( static::load( $name ) ) {
+			return static::$loaded[ $name ];
+		}
+		return false;
 	}
 
 
@@ -75,31 +77,35 @@ abstract class Registry {
 
 
 	/**
-	 * @param $name
-	 * @return void
+	 * Load an object by name.
+	 *
+	 * Returns true if the object has been loaded.
+	 *
+	 * @param string $name
+	 *
+	 * @return bool
 	 */
 	static function load( $name ) {
-
 		if ( self::is_loaded( $name ) ) {
-			return;
+			return true;
 		}
 
-		$object = false;
 		$includes = static::get_includes();
 
-		if ( ! empty( $includes[ $name ] ) ) {
-			if ( file_exists( $includes[ $name ] ) ) {
-				$object = include_once $includes[ $name ];
-				if ( ! is_object( $object ) ) {
-					$object = false;
-				}
-				else {
-					static::after_loaded( $name, $object );
-				}
-			}
+		if ( empty( $includes[ $name ] ) || ! file_exists( $includes[ $name ] ) ) {
+			return false;
 		}
 
+		$object = include_once $includes[ $name ];
+
+		if ( ! is_object( $object ) ) {
+			return false;
+		}
+
+		static::after_loaded( $name, $object );
 		static::$loaded[ $name ] = $object;
+
+		return true;
 	}
 
 

@@ -454,7 +454,7 @@
          */
         hasMultipleValueFields: function() {
             var object = this.model.get('object');
-            return object.has_multiple_value_fields;
+            return object && object.has_multiple_value_fields;
         },
 
 

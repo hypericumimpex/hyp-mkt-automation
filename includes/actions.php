@@ -45,7 +45,7 @@ class Actions extends Registry {
 			$includes[ 'send_sms_twilio' ] = 'AutomateWoo\Action_Send_SMS_Twilio';
 		}
 
-		if ( Integrations::subscriptions_enabled() ) {
+		if ( Integrations::is_subscriptions_active() ) {
 			$includes[ 'change_subscription_status' ] = 'AutomateWoo\Action_Subscription_Change_Status';
 			$includes[ 'subscription_update_meta' ] = 'AutomateWoo\Action_Subscription_Update_Meta';
 			$includes[ 'subscription_send_invoice' ] = 'AutomateWoo\Action_Subscription_Send_Invoice';

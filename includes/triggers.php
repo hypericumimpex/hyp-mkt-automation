@@ -67,7 +67,7 @@ class Triggers extends Registry {
 		// reviews
 		$includes[ 'review_posted' ] = 'AutomateWoo\Trigger_Review_Posted';
 
-		if ( Integrations::subscriptions_enabled() ) {
+		if ( Integrations::is_subscriptions_active() ) {
 			$includes[ 'subscription_created' ] = 'AutomateWoo\Trigger_Subscription_Created';
 			$includes[ 'subscription_status_changed' ] = 'AutomateWoo\Trigger_Subscription_Status_Changed';
 			$includes[ 'subscription_status_changed_each_line_item' ] = 'AutomateWoo\Trigger_Subscription_Status_Changed_Each_Line_Item';

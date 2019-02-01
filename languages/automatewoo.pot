@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: en_US\n"
 "Language-Team: Prospress Translations <translations@prospress.com>\n"
-"POT-Creation-Date: 2019-01-06 23:48:17+00:00\n"
+"POT-Creation-Date: 2019-01-31 4:44:35+00:00\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -194,7 +194,7 @@ msgstr ""
 msgid "Product"
 msgstr ""
 
-#: admin/data-layer-formatter.php:85, includes/privacy-exporters.php:362, includes/actions/subscription-change-status.php:19, includes/actions/subscription-edit-item-abstract.php:61, includes/actions/subscription-send-invoice.php:20, includes/actions/subscription-update-meta.php:19, includes/rules/subscription-created-date.php:35, includes/rules/subscription-end-date.php:36, includes/rules/subscription-item-categories.php:18, includes/rules/subscription-items.php:19, includes/rules/subscription-last-payment-date.php:35, includes/rules/subscription-meta.php:18, includes/rules/subscription-next-payment-date.php:35, includes/rules/subscription-payment-count.php:18, includes/rules/subscription-payment-method.php:16, includes/rules/subscription-requires-manual-renewal.php:20, includes/rules/subscription-status.php:18, includes/rules/subscription-trial-end-date.php:36
+#: admin/data-layer-formatter.php:85, includes/privacy-exporters.php:362, includes/actions/subscription-change-status.php:19, includes/actions/subscription-edit-item-abstract.php:61, includes/actions/subscription-send-invoice.php:20, includes/actions/subscription-update-meta.php:19, includes/rules/subscription-created-date.php:35, includes/rules/subscription-end-date.php:36, includes/rules/subscription-has-payment-method.php:28, includes/rules/subscription-item-categories.php:18, includes/rules/subscription-items.php:19, includes/rules/subscription-last-payment-date.php:35, includes/rules/subscription-meta.php:18, includes/rules/subscription-next-payment-date.php:35, includes/rules/subscription-payment-count.php:18, includes/rules/subscription-payment-method.php:16, includes/rules/subscription-requires-manual-renewal.php:20, includes/rules/subscription-status.php:18, includes/rules/subscription-trial-end-date.php:36
 msgid "Subscription"
 msgstr ""
 
@@ -1267,27 +1267,27 @@ msgstr ""
 msgid "Order Total"
 msgstr ""
 
-#: admin/reports/conversions.php:110
+#: admin/reports/conversions.php:109
 msgid "%s converted order value"
 msgstr ""
 
-#: admin/reports/conversions.php:116
+#: admin/reports/conversions.php:115
 msgid "%s converted orders"
 msgstr ""
 
-#: admin/reports/conversions.php:135, admin/reports/email-tracking.php:187
+#: admin/reports/conversions.php:134, admin/reports/email-tracking.php:187
 msgid "Showing reports for:"
 msgstr ""
 
-#: admin/reports/conversions.php:169, admin/reports/email-tracking.php:221
+#: admin/reports/conversions.php:168, admin/reports/email-tracking.php:221
 msgid "Reset"
 msgstr ""
 
-#: admin/reports/conversions.php:208
+#: admin/reports/conversions.php:207
 msgid "Conversion Number"
 msgstr ""
 
-#: admin/reports/conversions.php:217
+#: admin/reports/conversions.php:216
 msgid "Conversion Value"
 msgstr ""
 
@@ -1919,7 +1919,7 @@ msgstr ""
 msgid "Minimum wait"
 msgstr ""
 
-#: admin/views/meta-box-timing.php:151, includes/rules/abstract-date.php:151
+#: admin/views/meta-box-timing.php:151, includes/rules/abstract-date.php:162
 msgid "Hours"
 msgstr ""
 
@@ -1927,7 +1927,7 @@ msgstr ""
 msgid "Minutes"
 msgstr ""
 
-#: admin/views/meta-box-timing.php:153, includes/rules/abstract-date.php:152
+#: admin/views/meta-box-timing.php:153, includes/rules/abstract-date.php:163
 msgid "Days"
 msgstr ""
 
@@ -2123,23 +2123,27 @@ msgstr ""
 msgid "Rules can be used to add conditional logic to workflows. Click the %s+ Add Rule Group%s button to create a rule."
 msgstr ""
 
-#: admin/views/rules.php:44
+#: admin/views/rules.php:47
 msgid "[Select Rule]"
 msgstr ""
 
-#: admin/views/rules.php:120
+#: admin/views/rules.php:111
 msgid "key"
 msgstr ""
 
-#: admin/views/rules.php:121
+#: admin/views/rules.php:112
 msgid "value"
 msgstr ""
 
-#: admin/views/rules.php:186
+#: admin/views/rules.php:175
 msgid "and"
 msgstr ""
 
-#: admin/views/rules.php:198
+#: admin/views/rules.php:184
+msgid "This rule %1$s is no longer available and will be removed by saving this workflow."
+msgstr ""
+
+#: admin/views/rules.php:196
 msgid "or"
 msgstr ""
 
@@ -2961,48 +2965,52 @@ msgstr ""
 msgid "User role"
 msgstr ""
 
-#: includes/rules/abstract-date.php:109
+#: includes/rules/abstract-date.php:116
 msgid "Is in the next"
 msgstr ""
 
-#: includes/rules/abstract-date.php:110
+#: includes/rules/abstract-date.php:117
 msgid "Is not in the next"
 msgstr ""
 
-#: includes/rules/abstract-date.php:114
+#: includes/rules/abstract-date.php:121
 msgid "Is in the last"
 msgstr ""
 
-#: includes/rules/abstract-date.php:115
+#: includes/rules/abstract-date.php:122
 msgid "Is not in the last"
 msgstr ""
 
-#: includes/rules/abstract-date.php:120
+#: includes/rules/abstract-date.php:127
 msgid "Is after"
 msgstr ""
 
-#: includes/rules/abstract-date.php:125
+#: includes/rules/abstract-date.php:132
 msgid "Is before"
 msgstr ""
 
-#: includes/rules/abstract-date.php:130
+#: includes/rules/abstract-date.php:137
 msgid "Is on"
 msgstr ""
 
-#: includes/rules/abstract-date.php:135
+#: includes/rules/abstract-date.php:142
 msgid "Is not on"
 msgstr ""
 
-#: includes/rules/abstract-date.php:139
+#: includes/rules/abstract-date.php:146
 msgid "Is on day/s of the week"
 msgstr ""
 
-#: includes/rules/abstract-date.php:143
+#: includes/rules/abstract-date.php:150
 msgid "Is in the range"
 msgstr ""
 
-#: includes/rules/abstract-date.php:147
+#: includes/rules/abstract-date.php:154
 msgid "Is not set"
+msgstr ""
+
+#: includes/rules/abstract-date.php:158
+msgid "Is set"
 msgstr ""
 
 #: includes/rules/abstract-object.php:34
@@ -3399,6 +3407,10 @@ msgstr ""
 
 #: includes/rules/subscription-end-date.php:35
 msgid "Subscription - End Date"
+msgstr ""
+
+#: includes/rules/subscription-has-payment-method.php:27
+msgid "Subscription - Has Payment Method"
 msgstr ""
 
 #: includes/rules/subscription-item-categories.php:17
@@ -4687,6 +4699,10 @@ msgstr ""
 
 #: includes/variables/subscription-billing-address.php:15
 msgid "Displays the formatted billing address for the subscription."
+msgstr ""
+
+#: includes/variables/subscription-change-payment-method-url.php:18
+msgid "Shows a URL to the subscription add/change payment method page."
 msgstr ""
 
 #: includes/variables/subscription-end-date.php:16

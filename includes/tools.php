@@ -27,7 +27,7 @@ class Tools {
 			$tool_includes[] = Options::optin_enabled() ? $path . 'optin-importer.php' : $path . 'optout-importer.php';
 			$tool_includes[] = $path . 'manual-orders-trigger.php';
 
-			if ( Integrations::subscriptions_enabled() ) {
+			if ( Integrations::is_subscriptions_active() ) {
 				$tool_includes[] = $path . 'manual-subscriptions-trigger.php';
 			}
 

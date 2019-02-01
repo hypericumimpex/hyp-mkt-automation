@@ -25,6 +25,22 @@ class Integrations {
 
 
 	/**
+	 * Is the WooCommerce Subscriptions plugin active?
+	 *
+	 * @param string $min_version
+	 *
+	 * @return bool
+	 */
+	static function is_subscriptions_active( $min_version = '2.2' ) {
+		if ( ! class_exists( '\WC_Subscriptions' ) ) {
+			return false;
+		}
+		return version_compare( \WC_Subscriptions::$version, $min_version, '>=' );
+	}
+
+
+
+	/**
 	 * @return bool
 	 */
 	static function is_wpml() {
@@ -39,15 +55,6 @@ class Integrations {
 		return class_exists('WC_POS');
 	}
 
-
-	/**
-	 * @return bool
-	 */
-	static function subscriptions_enabled() {
-		if ( ! class_exists( '\WC_Subscriptions' ) ) return false;
-		if ( version_compare( \WC_Subscriptions::$version, '2.2', '<' ) ) return false;
-		return true;
-	}
 
 
 	/**
@@ -145,6 +152,16 @@ class Integrations {
 		return self::$campaign_monitor;
 	}
 
+
+
+	/**
+	 * @deprecated in favour of Integrations::is_subscriptions_active()
+	 *
+	 * @return bool
+	 */
+	static function subscriptions_enabled() {
+		return self::is_subscriptions_active();
+	}
 
 }
 

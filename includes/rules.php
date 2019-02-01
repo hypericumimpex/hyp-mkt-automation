@@ -100,7 +100,7 @@ class Rules extends Registry {
 
 		];
 
-		if ( Integrations::subscriptions_enabled() ) {
+		if ( Integrations::is_subscriptions_active() ) {
 			$includes[ 'customer_has_active_subscription' ] = $path . 'customer-has-active-subscription.php';
 			$includes[ 'order_is_subscription_renewal' ] = $path . 'order-is-subscription-renewal.php';
 			$includes[ 'order_is_subscription_parent' ] = $path . 'order-is-subscription-parent.php';
@@ -115,12 +115,17 @@ class Rules extends Registry {
 			$includes[ 'subscription_meta' ] = $path . 'subscription-meta.php';
 			$includes[ 'subscription_items' ] = $path . 'subscription-items.php';
 			$includes[ 'subscription_item_categories' ] = $path . 'subscription-item-categories.php';
-			$includes[ 'subscription_requires_manual_renewal' ] = $path . 'subscription-requires-manual-renewal.php';
 			$includes[ 'subscription_next_payment_date' ] = $path . 'subscription-next-payment-date.php';
 			$includes[ 'subscription_last_payment_date' ] = $path . 'subscription-last-payment-date.php';
 			$includes[ 'subscription_created_date' ] = $path . 'subscription-created-date.php';
 			$includes[ 'subscription_trial_end_date' ] = $path . 'subscription-trial-end-date.php';
 			$includes[ 'subscription_end_date' ] = $path . 'subscription-end-date.php';
+
+			if ( Integrations::is_subscriptions_active( '2.5' ) ) {
+				$includes[ 'subscription_has_payment_method' ] = $path . 'subscription-has-payment-method.php';
+			}
+
+			$includes[ 'subscription_requires_manual_renewal' ] = $path . 'subscription-requires-manual-renewal.php';
 		}
 
 		if ( Integrations::is_memberships_enabled() ) {
@@ -158,11 +163,12 @@ class Rules extends Registry {
 
 	/**
 	 * @param $rule_name
-	 * @return void
+	 *
+	 * @return bool
 	 */
 	static function load( $rule_name ) {
 		include_once AW()->path( '/includes/rules/deprecated.php' );
-		parent::load( $rule_name );
+		return parent::load( $rule_name );
 	}
 
 

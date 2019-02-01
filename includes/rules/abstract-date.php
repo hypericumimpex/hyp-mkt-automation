@@ -95,6 +95,13 @@ abstract class Abstract_Date extends Rule {
 	public $has_is_not_set = true;
 
 	/**
+	 * Is set?
+	 *
+	 * @var bool
+	 */
+	public $has_is_set = true;
+
+	/**
 	 * Our rule uses datepicker?
 	 *
 	 * @var bool
@@ -145,6 +152,10 @@ abstract class Abstract_Date extends Rule {
 
 		if ( $this->has_is_not_set ) {
 			$this->compare_types['is_not_set'] = __( 'Is not set', 'automatewoo' );
+		}
+
+		if ( $this->has_is_set ) {
+			$this->compare_types['is_set'] = __( 'Is set', 'automatewoo' );
 		}
 
 		$this->select_choices = [
@@ -376,6 +387,11 @@ abstract class Abstract_Date extends Rule {
 			$rule_to           = '';
 		}
 
+		// Verify that the date is set.
+		if ( $compare === 'is_set' ) {
+			return $date !== false;
+		}
+
 		// Date diff. past/future.
 		if ( $this->is_past_future_validation( $compare ) ) {
 			if ( ! $rule_timeframe ) {
@@ -492,5 +508,4 @@ abstract class Abstract_Date extends Rule {
 
 		return apply_filters( 'automatewoo/rules/validate_logical_empty_date', $is_valid, $comparative, $this );
 	}
-
 }

@@ -1,4 +1,13 @@
-4.4.2 *January 7, 2018*
+4.4.3 *January 31, 2019*
+---
+* New - Add rule **Subscription - Has Payment Method** for WC Subscriptions 2.5
+* New - Add variable **subscription.change_payment_method_url** for WC Subscriptions 2.5
+* Tweak - Add notice when a rule used in a workflow is not available   
+* Fix - Add support custom order paid statuses in conversion reports
+* Fix - Issue with search tool on opt-in/out admin list view
+
+
+4.4.2 *January 7, 2019*
 ---
 * New - Added variables for each order shipping field
 * Fix - PHP 7.3 issue where emails were displayed with no CSS

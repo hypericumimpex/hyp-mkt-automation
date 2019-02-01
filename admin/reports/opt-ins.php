@@ -113,6 +113,8 @@ class Report_Optins extends Admin_List_Table {
 			$query->set_ordering( 'unsubscribed_date' );
 		}
 
+		$has_no_valid_search_matches = false;
+
 		if ( ! empty( $_GET['s'] ) ) {
 			$search = trim( strtolower( Clean::string($_GET['s'] ) ) );
 			$search_wheres = [];
@@ -136,10 +138,12 @@ class Report_Optins extends Admin_List_Table {
 				'fields' => 'ID',
 			]);
 
-			if ( $user_query->get_results() ) {
+			$user_ids = $user_query->get_results();
+
+			if ( $user_ids ) {
 				$search_wheres[] = [
 					'column' => 'user_id',
-					'value' => $user_query->get_results(),
+					'value' => $user_ids,
 					'compare' => 'IN'
 				];
 			}
@@ -147,15 +151,21 @@ class Report_Optins extends Admin_List_Table {
 			if ( $search_wheres ) {
 				$query->where[] = $search_wheres;
 			}
+			else {
+				$has_no_valid_search_matches = true;
+			}
 		}
 
 		$query->set_calc_found_rows( true );
 		$query->set_limit( $per_page );
 		$query->set_page( $current_page );
-		$results = $query->get_results();
 
-		$this->items = $results;
-		$this->max_items = $query->found_rows;
+		// if there are no valid search matches there are no matching customers
+		if ( $has_no_valid_search_matches === false ) {
+			$results         = $query->get_results();
+			$this->items     = $results;
+			$this->max_items = $query->found_rows;
+		}
 	}
 
 }

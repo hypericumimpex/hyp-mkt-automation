@@ -181,6 +181,10 @@ class Variables {
 		$variables = [];
 		$included_variables = self::$included_variables;
 
+		if ( Integrations::is_subscriptions_active( '2.5' ) ) {
+			$included_variables[ 'subscription' ][] = 'change_payment_method_url';
+		}
+
 		if ( class_exists( 'WC_Shipment_Tracking' ) ) {
 			$included_variables['order'][] = 'tracking_number';
 			$included_variables['order'][] = 'tracking_url';

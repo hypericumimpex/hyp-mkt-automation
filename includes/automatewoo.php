@@ -114,7 +114,7 @@ final class AutomateWoo extends AutomateWoo_Legacy {
 		AutomateWoo\Event_Helpers\Products_On_Sale::init();
 		AutomateWoo\Event_Helpers\Review_Posted::init();
 
-		if ( AutomateWoo\Integrations::subscriptions_enabled() ) {
+		if ( AutomateWoo\Integrations::is_subscriptions_active() ) {
 			AutomateWoo\Event_Helpers\Subscription_Created::init();
 			AutomateWoo\Event_Helpers\Subscription_Status_Changed::init();
 			AutomateWoo\Event_Helpers\Subscription_Renewal_Payment_Complete::init();

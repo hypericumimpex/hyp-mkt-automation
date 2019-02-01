@@ -159,7 +159,7 @@ class Preview_Data {
 		/**
 		 * Subscription
 		 */
-		if ( Integrations::subscriptions_enabled() && in_array( 'subscription', $data_items ) ) {
+		if ( Integrations::is_subscriptions_active() && in_array( 'subscription', $data_items ) ) {
 			$subscriptions = wcs_get_subscriptions([
 				'subscriptions_per_page' => 1
 			]);

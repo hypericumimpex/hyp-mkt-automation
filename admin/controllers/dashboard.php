@@ -296,7 +296,7 @@ class Dashboard extends Base {
 
 			$query = new \WP_Query([
 				'post_type' => 'shop_order',
-				'post_status' => [ 'wc-processing', 'wc-completed' ],
+				'post_status' => array_map( 'aw_add_order_status_prefix', wc_get_is_paid_statuses() ),
 				'posts_per_page' => -1,
 				'fields' => 'ids',
 				'no_found_rows' => true,

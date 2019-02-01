@@ -561,35 +561,40 @@ function aw_date_to_mysql_string( $date ) {
  *
  * @since 4.4.0
  *
- * @param WC_DateTime|DateTime|AutomateWoo\DateTime|string $date
+ * @param WC_DateTime|DateTime|AutomateWoo\DateTime|string $input
  *
  * @return AutomateWoo\DateTime|false
  */
-function aw_normalize_date( $date ) {
-	if ( ! $date ) {
+function aw_normalize_date( $input ) {
+	if ( ! $input ) {
 		return false;
 	}
 
-	if ( is_numeric( $date ) ) {
-		$new = new AutomateWoo\DateTime();
-		$new->setTimestamp( $date );
-		return $new;
+	try {
+		if ( is_numeric( $input ) ) {
+			$new = new AutomateWoo\DateTime();
+			$new->setTimestamp( $input );
+			return $new;
+		}
+
+		if ( is_string( $input ) ) {
+			$new = new AutomateWoo\DateTime( $input );
+			return $new;
+		}
+
+		if ( is_a( $input, 'AutomateWoo\DateTime' ) ) {
+			return $input;
+		}
+
+		if ( is_a( $input, 'WC_DateTime' ) || is_a( $input, 'DateTime' ) ) {
+			$new = new AutomateWoo\DateTime();
+			$new->setTimestamp( $input->getTimestamp() );
+			return $new;
+		}
+	} catch( \Exception $e ) {
+		return false;
 	}
 
-	if ( is_string( $date ) ) {
-		$new = new AutomateWoo\DateTime( $date );
-		return $new;
-	}
-
-	if ( is_a( $date, 'AutomateWoo\DateTime' ) ) {
-		return $date;
-	}
-
-	if ( is_a( $date, 'WC_DateTime' ) || is_a( $date, 'DateTime' ) ) {
-		$new = new AutomateWoo\DateTime();
-		$new->setTimestamp( $date->getTimestamp() );
-		return $new;
-	}
 	return false;
 }
 

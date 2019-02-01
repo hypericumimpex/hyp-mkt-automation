@@ -16,6 +16,8 @@ class DateTime extends \DateTime {
 	 *
 	 * @param string               $time
 	 * @param \DateTimeZone|string $timezone
+	 *
+	 * @throws \Exception Emits Exception in case of an error.
 	 */
 	public function __construct( $time = 'now', $timezone = null ) {
 		if ( ! $timezone ) {

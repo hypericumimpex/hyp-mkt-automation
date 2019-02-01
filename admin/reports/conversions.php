@@ -59,11 +59,10 @@ class Report_Conversions extends \AW_Report_Abstract_Graph {
             ];
 		}
 
-
-		// Get converted order
+		// Get converted orders
 		$orders = new \WP_Query([
 			'post_type' => 'shop_order',
-			'post_status' => [ 'wc-processing', 'wc-completed' ],
+			'post_status' => array_map( 'aw_add_order_status_prefix', wc_get_is_paid_statuses() ),
 			'posts_per_page' => -1,
 			'fields' => 'ids',
 			'meta_query' => $meta_query,

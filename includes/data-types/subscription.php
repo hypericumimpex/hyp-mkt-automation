@@ -35,7 +35,7 @@ class Data_Type_Subscription extends Data_Type {
 	 * @return \WC_Subscription|false
 	 */
 	function decompress( $compressed_item, $compressed_data_layer ) {
-		if ( ! Integrations::subscriptions_enabled() || ! $compressed_item ) {
+		if ( ! Integrations::is_subscriptions_active() || ! $compressed_item ) {
 			return false;
 		}
 

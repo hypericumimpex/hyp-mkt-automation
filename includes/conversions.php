@@ -53,8 +53,9 @@ class Conversions {
 			}
 
 			// has tracking data so mark the order as a conversion
-			Compat\Order::update_meta( $order, '_aw_conversion', $log->get_workflow_id() );
-			Compat\Order::update_meta( $order, '_aw_conversion_log', $log->get_id() );
+			$order->update_meta_data( '_aw_conversion', $log->get_workflow_id() );
+			$order->update_meta_data( '_aw_conversion_log', $log->get_id() );
+			$order->save();
 
 			break; // break loop so we only mark one log as converted
 		}

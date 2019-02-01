@@ -56,7 +56,7 @@ class Data_Type_Customer extends Data_Type {
 			}
 		}
 
-		if ( Integrations::subscriptions_enabled() && isset( $compressed_data_layer['subscription'] ) ) {
+		if ( Integrations::is_subscriptions_active() && isset( $compressed_data_layer['subscription'] ) ) {
 			if ( $subscription = wcs_get_subscription( $compressed_data_layer['subscription'] ) ) {
 				return Customer_Factory::get_by_user_id( $subscription->get_user_id() );
 			}

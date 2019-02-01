@@ -182,7 +182,7 @@ class Trigger_Customer_Win_Back extends Trigger implements Interfaces\Background
 		// exclude customers with active subscriptions
 		// these customers are still active but their last purchase date might suggest they are inactive
 		// TODO in the future the end date of the customers last subscription should be factored in to this logic
-		if ( Integrations::subscriptions_enabled() && $customer->is_registered() ) {
+		if ( Integrations::is_subscriptions_active() && $customer->is_registered() ) {
 			if ( wcs_user_has_subscription( $customer->get_user_id(), '', 'active' ) ) {
 				return false;
 			}

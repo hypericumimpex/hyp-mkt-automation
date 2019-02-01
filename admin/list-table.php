@@ -37,7 +37,7 @@ abstract class Admin_List_Table extends \WP_List_Table {
 	protected $default_param_order = 'DESC';
 
 	/** @var int */
-	public $max_items;
+	public $max_items = 0;
 
 
 	/**
