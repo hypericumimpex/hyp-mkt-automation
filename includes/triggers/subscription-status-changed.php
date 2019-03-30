@@ -8,12 +8,19 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * @class Trigger_Subscription_Status_Changed
  */
-class Trigger_Subscription_Status_Changed extends Trigger_Abstract_Subscriptions {
+class Trigger_Subscription_Status_Changed extends Trigger {
+
+	/**
+	 * Sets supplied data for the trigger.
+	 *
+	 * @var array
+	 */
+	public $supplied_data_items = [ 'subscription', 'customer' ];
 
 
 	function load_admin_details() {
-		parent::load_admin_details();
 		$this->title = __( 'Subscription Status Changed', 'automatewoo' );
+		$this->group = Subscription_Workflow_Helper::get_group_name();
 	}
 
 
@@ -38,13 +45,13 @@ class Trigger_Subscription_Status_Changed extends Trigger_Abstract_Subscriptions
 
 		$this->add_field( $from );
 		$this->add_field( $to );
-		$this->add_field_subscription_products();
+		$this->add_field( Subscription_Workflow_Helper::get_products_field() );
 		$this->add_field( $recheck_status );
 	}
 
 
 	function register_hooks() {
-		add_action( $this->get_hook_subscription_status_changed(), [ $this, 'status_changed' ], 10, 3 );
+		add_action( $this->get_hook_subscription_status_changed(), [ $this, 'handle_status_changed' ], 10, 3 );
 	}
 
 
@@ -53,11 +60,11 @@ class Trigger_Subscription_Status_Changed extends Trigger_Abstract_Subscriptions
 	 * @param string $new_status
 	 * @param string $old_status
 	 */
-	function status_changed( $subscription_id, $new_status, $old_status ) {
+	function handle_status_changed( $subscription_id, $new_status, $old_status ) {
 		// use temp data to store the real status changed, status of sub may have already changed if using async
 		Temporary_Data::set( 'subscription_old_status', $subscription_id, $old_status );
 		Temporary_Data::set( 'subscription_new_status', $subscription_id, $new_status );
-		$this->trigger_for_subscription( $subscription_id );
+		Subscription_Workflow_Helper::trigger_for_subscription( $this, $subscription_id );
 	}
 
 
@@ -86,13 +93,12 @@ class Trigger_Subscription_Status_Changed extends Trigger_Abstract_Subscriptions
 			return false;
 		}
 
-		if ( ! $this->validate_subscription_products_field( $workflow ) ) {
+		if ( ! Subscription_Workflow_Helper::validate_products_field( $workflow ) ) {
 			return false;
 		}
 
 		return true;
 	}
-
 
 
 	/**

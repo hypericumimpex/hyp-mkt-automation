@@ -61,9 +61,9 @@ class Workflow {
 			$post = get_post($post);
 		}
 
-		// workflow doesn't exists
-		if ( ! $post )
+		if ( ! $post || $post->post_type !== 'aw_workflow' ) {
 			return;
+		}
 
 		$this->exists = true;
 		$this->post = $post;

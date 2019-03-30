@@ -33,13 +33,15 @@ class Events_Runner_Async_Request extends Async_Request_Abstract {
 			return;
 		}
 
-		if ( count( $event_ids ) <= $this->max_events_to_process_at_once ) {
-			// if less than 4 events, run them right now
-			$this->run_events_now( $event_ids );
-		}
-		else {
-			// if more than 4 events, dispatch the background processor
-			$this->dispatch_events_background_processor( $event_ids );
+		$events_to_run_now = array_slice( $event_ids, 0, $this->max_events_to_process_at_once );
+		$events_remaining = array_slice( $event_ids, $this->max_events_to_process_at_once );
+
+		// run the first 4 events right now
+		$this->run_events_now( $events_to_run_now );
+
+		// if there are events left over start the background processor
+		if ( $events_remaining ) {
+			$this->dispatch_events_background_processor( $events_remaining );
 		}
 	}
 
@@ -67,12 +69,11 @@ class Events_Runner_Async_Request extends Async_Request_Abstract {
 			// if processor is already running, don't start a new one
 
 			// removes the 3 minute delay on the events so they will be process in the next events batch
-			$date = new DateTime();
-			$date->setTimestamp( time() + 10 );
+			$now = aw_normalize_date( 'now' );
 
 			foreach( $event_ids as $event_id ) {
 				if ( $event = Event_Factory::get( Clean::id( $event_id ) ) ) {
-					$event->set_date_scheduled( $date );
+					$event->set_date_scheduled( $now );
 					$event->save();
 				}
 			}

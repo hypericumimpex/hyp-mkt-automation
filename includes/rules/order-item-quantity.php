@@ -19,7 +19,6 @@ class Order_Item_Quantity extends Abstract_Number {
 
 	function init() {
 		$this->title = __( 'Order Line Item - Quantity', 'automatewoo' );
-		$this->group = __( 'Order Line Item', 'automatewoo' );
 	}
 
 
@@ -30,7 +29,7 @@ class Order_Item_Quantity extends Abstract_Number {
 	 * @return bool
 	 */
 	function validate( $order_item, $compare, $value ) {
-		return $this->validate_number( Compat\Order_Item::get_quantity( $order_item ), $compare, $value );
+		return $this->validate_number( $order_item->get_quantity(), $compare, $value );
 	}
 
 

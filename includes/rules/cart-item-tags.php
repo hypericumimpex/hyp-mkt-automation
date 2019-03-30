@@ -19,7 +19,6 @@ class Cart_Item_Tags extends Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Cart - Item Tags', 'automatewoo' );
-		$this->group = __( 'Cart', 'automatewoo' );
 	}
 
 

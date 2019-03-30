@@ -58,6 +58,8 @@ class Coupon {
 
 
 	/**
+	 * @deprecated
+	 *
 	 * @param \WC_Coupon $coupon
 	 * @param DateTime $date
 	 */
@@ -73,6 +75,8 @@ class Coupon {
 
 
 	/**
+	 * @deprecated
+	 *
 	 * @param \WC_Coupon $coupon
 	 * @param int $limit
 	 */
@@ -130,6 +134,8 @@ class Coupon {
 
 	/**
 	 * Get coupon ID by code.
+	 *
+	 * @deprecated
 	 *
 	 * @param string $code
 	 * @return int

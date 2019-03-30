@@ -15,8 +15,9 @@ class Action_Subscription_Update_Meta extends Action_Order_Update_Meta {
 
 
 	function load_admin_details() {
-		$this->title = __( 'Update Custom Field', 'automatewoo' );
-		$this->group = __( 'Subscription', 'automatewoo' );
+		$this->title       = __( 'Update Custom Field', 'automatewoo' );
+		$this->group       = __( 'Subscription', 'automatewoo' );
+		$this->description = __( 'This action can add or update a subscription\'s custom field.', 'automatewoo' );
 	}
 
 

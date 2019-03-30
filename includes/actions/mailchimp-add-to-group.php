@@ -19,13 +19,6 @@ class Action_MailChimp_Add_To_Group extends Action_MailChimp_Abstract {
 
 	function load_fields() {
 
-		$email = ( new Fields\Text() )
-			->set_name( 'email' )
-			->set_title( __( 'Contact email', 'automatewoo' ) )
-			->set_description( __( 'You can use variables such as {{ customer.email }} here.', 'automatewoo' ) )
-			->set_required()
-			->set_variable_validation();
-
 		$groups = ( new Fields\Select() )
 			->set_name( 'groups' )
 			->set_title( __( 'Groups', 'automatewoo' ) )
@@ -39,7 +32,7 @@ class Action_MailChimp_Add_To_Group extends Action_MailChimp_Abstract {
 			->set_default_to_checked();
 
 		$this->add_list_field();
-		$this->add_field( $email );
+		$this->add_field( $this->get_contact_email_field() );
 		$this->add_field( $groups );
 		$this->add_field( $allow_add_to_list );
 
@@ -79,7 +72,7 @@ class Action_MailChimp_Add_To_Group extends Action_MailChimp_Abstract {
 	function run() {
 
 		$list_id = $this->get_option( 'list' );
-		$email = Clean::email( $this->get_option( 'email', true ) );
+		$email = $this->get_contact_email_option();
 		$interests = $this->get_option( 'groups' );
 		$allow_add_to_list = $this->get_option( 'allow_add_to_list' );
 

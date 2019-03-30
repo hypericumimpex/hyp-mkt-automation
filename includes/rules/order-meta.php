@@ -15,7 +15,6 @@ class Order_Meta extends Abstract_Meta {
 
 	function init() {
 		$this->title = __( 'Order - Custom Field', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

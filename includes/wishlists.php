@@ -123,21 +123,38 @@ class Wishlists {
 	 * @return array
 	 */
 	static function get_all_wishlist_ids() {
+		return self::get_wishlist_ids();
+	}
+
+	/**
+	 * Get wishlist IDs.
+	 *
+	 * @since 4.5
+	 *
+	 * @param int|bool $limit
+	 * @param int      $offset
+	 *
+	 * @return array
+	 */
+	static function get_wishlist_ids( $limit = false, $offset = 0 ) {
 		$integration = Wishlists::get_integration();
 
 		if ( $integration === 'woothemes' ) {
 			$query = new \WP_Query([
 				'post_type'      => 'wishlist',
-				'posts_per_page' => -1,
+				'posts_per_page' => $limit === false ? -1 : $limit,
+				'offset'         => $offset,
 				'fields'         => 'ids',
 			]);
 			$ids = $query->posts;
 		}
-		elseif ( $integration === 'yith') {
-			$wishlists = YITH_WCWL()->get_wishlists([
+		elseif ( $integration === 'yith' ) {
+			$wishlists = YITH_WCWL()->get_wishlists( [
 				'user_id'    => false,
 				'show_empty' => false,
-			]);
+				'limit'      => $limit === false ? false : $limit,
+				'offset'     => $offset,
+			] );
 
 			$ids = wp_list_pluck( $wishlists, 'ID' );
 		}

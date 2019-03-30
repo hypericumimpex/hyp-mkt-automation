@@ -21,10 +21,11 @@ class Data_Type_Product extends Data_Type {
 
 	/**
 	 * @param \WC_Product $item
-	 * @return mixed
+	 *
+	 * @return int
 	 */
 	function compress( $item ) {
-		return Compat\Product::get_id( $item );
+		return $item->get_id();
 	}
 
 

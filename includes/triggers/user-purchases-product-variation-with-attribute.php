@@ -131,7 +131,7 @@ class Trigger_User_Purchases_Product_Variation_With_Attribute extends Trigger {
 			list( $attribute_term_id, $taxonomy ) = explode( '|', $valid_attribute_term );
 
 			$target_term = get_term( $attribute_term_id, $taxonomy );
-			$actual_term_slug = Compat\Order_Item::get_attribute( $order_item, $taxonomy );
+			$actual_term_slug = $order_item->get_meta( $taxonomy );
 
 			if ( $actual_term_slug ) {
 				if ( $actual_term_slug === $target_term->slug )

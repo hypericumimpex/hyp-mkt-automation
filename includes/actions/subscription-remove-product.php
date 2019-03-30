@@ -51,10 +51,10 @@ class Action_Subscription_Remove_Product extends Action_Subscription_Edit_Produc
 		foreach ( $subscription->get_items() as $item ) {
 			// This will be the variation_id if the product is a variation.
 			$product_id        = Compat\Product::get_id( $product );
-			$item_product_id   = Compat\Order_Item::get_product_id( $item );
-			$item_variation_id = Compat\Order_Item::get_variation_id( $item );
+			$item_product_id   = $item->get_product_id();
+			$item_variation_id = $item->get_variation_id();
 			if ( $product_id === $item_product_id || $product_id === $item_variation_id ) {
-				$subscription->remove_item( Compat\Order_Item::get_id( $item ) );
+				$subscription->remove_item( $item->get_id() );
 			}
 		}
 

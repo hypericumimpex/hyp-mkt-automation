@@ -489,7 +489,7 @@ class Cart extends Model {
 		}
 
 		foreach ( $this->get_fees() as $fee ) {
-			$this->calculated_total += ( $fee->total + $fee->tax );
+			$this->calculated_total += ( $fee->amount + $fee->tax );
 			$this->calculated_tax_total += $fee->tax;
 		}
 

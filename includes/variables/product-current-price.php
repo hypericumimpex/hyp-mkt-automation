@@ -1,28 +1,34 @@
 <?php
-// phpcs:ignoreFile
 
 namespace AutomateWoo;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
+ * Variable Product Current Price Class.
+ *
  * @class Variable_Product_Current_Price
  */
-class Variable_Product_Current_Price extends Variable {
-
-
-	function load_admin_details() {
-		$this->description = __( "Displays the product's formatted current price.", 'automatewoo');
-	}
-
+class Variable_Product_Current_Price extends Variable_Abstract_Price {
 
 	/**
-	 * @param $product \WC_Product
-	 * @param $parameters
+	 * Load Admin Details.
+	 */
+	function load_admin_details() {
+		parent::load_admin_details();
+		$this->description = __( "Displays the product's current price.", 'automatewoo' );
+	}
+
+	/**
+	 * Get Value Method.
+	 *
+	 * @param \WC_Product $product
+	 * @param array       $parameters
+	 *
 	 * @return string
 	 */
 	function get_value( $product, $parameters ) {
-		return wc_price( $product->get_price() );
+		return parent::format_amount( $product->get_price(), $parameters );
 	}
 }
 

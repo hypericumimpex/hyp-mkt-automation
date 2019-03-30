@@ -18,6 +18,13 @@ class Time extends Field {
 
 	protected $show_24hr_note = true;
 
+	/**
+	 * Set the maximum value for the hours field.
+	 *
+	 * @var int
+	 */
+	public $max_hours = 23;
+
 	function __construct() {
 		parent::__construct();
 		$this->title = __( 'Time', 'automatewoo' );
@@ -54,7 +61,7 @@ class Time extends Field {
 			 ->set_name_base( $this->get_name_base() )
 			 ->set_name( $this->get_name() )
 			 ->set_min( 0 )
-			 ->set_max(23)
+			 ->set_max( $this->max_hours )
 			 ->set_multiple()
 			 ->set_placeholder( _x( 'HH', 'time field', 'automatewoo' ) )
 			 ->render( $value[0] );
@@ -95,7 +102,11 @@ class Time extends Field {
 	 * @return array
 	 */
 	function sanitize_value( $value ) {
-		return Clean::recursive( $value );
+		$value = Clean::recursive( $value );
+
+		$value[0] = min( $this->max_hours, $value[0] );
+
+		return $value;
 	}
 
 }

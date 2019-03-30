@@ -14,8 +14,9 @@ class Action_Order_Update_Meta extends Action {
 
 
 	function load_admin_details() {
-		$this->title = __( 'Update Custom Field', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
+		$this->title       = __( 'Update Custom Field', 'automatewoo' );
+		$this->group       = __( 'Order', 'automatewoo' );
+		$this->description = __( 'This action can add or update an order\'s custom field.', 'automatewoo' );
 	}
 
 

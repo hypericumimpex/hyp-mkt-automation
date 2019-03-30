@@ -33,7 +33,6 @@ class Subscription_End_Date extends Abstract_Date {
 	 */
 	public function init() {
 		$this->title = __( 'Subscription - End Date', 'automatewoo' );
-		$this->group = __( 'Subscription', 'automatewoo' );
 	}
 
 
@@ -42,7 +41,8 @@ class Subscription_End_Date extends Abstract_Date {
 	 *
 	 * @param \WC_Subscription $subscription The subscription object.
 	 * @param string           $compare      Rule to compare.
-	 * @param array|null       $value        The values we have to compare. Null is only allowed when $compare is is_not_set.
+	 * @param array|null       $value        The values we have to compare. Null is only allowed when $compare is
+	 *                                       is_not_set.
 	 *
 	 * @return bool
 	 */

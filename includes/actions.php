@@ -41,6 +41,8 @@ class Actions extends Registry {
 			'order_add_note' => 'AutomateWoo\Action_Order_Add_Note',
 		];
 
+		$includes['order_item_update_meta'] = 'AutomateWoo\Action_Order_Item_Update_Meta';
+
 		if ( AW()->options()->twilio_integration_enabled ) {
 			$includes[ 'send_sms_twilio' ] = 'AutomateWoo\Action_Send_SMS_Twilio';
 		}

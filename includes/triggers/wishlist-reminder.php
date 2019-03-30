@@ -8,14 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * @class Trigger_Wishlist_Reminder
  */
-class Trigger_Wishlist_Reminder extends Trigger implements Interfaces\Background_Processed_Trigger {
+class Trigger_Wishlist_Reminder extends Trigger_Background_Processed_Abstract {
 
 	public $supplied_data_items = [ 'customer', 'wishlist' ];
 
 	const SUPPORTS_QUEUING = false;
-
-	const SUPPORTS_CUSTOM_TIME_OF_DAY = true;
-
 
 	function load_admin_details() {
 		$this->title = sprintf( __( 'Wishlist Reminder (%s)', 'automatewoo'), Wishlists::get_integration_title() );
@@ -46,18 +43,16 @@ class Trigger_Wishlist_Reminder extends Trigger implements Interfaces\Background
 	}
 
 
-	function register_hooks() {
-		add_action( 'automatewoo/custom_time_of_day_workflow', [ 'AutomateWoo\Workflow_Background_Process_Helper', 'init_process' ] );
-	}
-
-
 	/**
 	 * @param Workflow $workflow
+	 * @param int      $limit
+	 * @param int      $offset
+	 *
 	 * @return array
 	 */
-	function get_background_tasks( $workflow ) {
+	function get_background_tasks( $workflow, $limit, $offset = 0 ) {
 		$tasks = [];
-		$wishlist_ids = Wishlists::get_all_wishlist_ids();
+		$wishlist_ids = Wishlists::get_wishlist_ids( $limit, $offset );
 
 		foreach ( $wishlist_ids as $wishlist_id ) {
 			$tasks[] = [

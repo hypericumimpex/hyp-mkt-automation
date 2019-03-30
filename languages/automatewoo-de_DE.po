@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AutomateWoo\n"
-"POT-Creation-Date: 2019-01-04 6:2:34+00:00\n"
-"PO-Revision-Date: 2019-01-04 11:33+0100\n"
+"POT-Creation-Date: 2019-03-15 6:8:21+00:00\n"
+"PO-Revision-Date: 2019-03-15 13:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: Christoph Rado, christophrado.de\n"
 "Language: de_DE\n"
@@ -210,115 +210,48 @@ msgstr "Kein Warenkorb gefunden."
 #: includes/actions/order-resend-email.php:19,
 #: includes/actions/order-trigger-action.php:19,
 #: includes/actions/order-update-customer-shipping-note.php:18,
-#: includes/actions/order-update-meta.php:18,
-#: includes/rules/order-billing-country.php:20,
-#: includes/rules/order-coupon-count.php:21,
-#: includes/rules/order-coupons-text-match.php:19,
-#: includes/rules/order-coupons.php:18,
-#: includes/rules/order-created-date.php:34,
-#: includes/rules/order-created-via.php:21,
-#: includes/rules/order-customer-provided-note.php:20,
-#: includes/rules/order-has-cross-sells.php:16,
-#: includes/rules/order-is-customers-first.php:16,
-#: includes/rules/order-is-guest-order.php:15,
-#: includes/rules/order-is-subscription-parent.php:19,
-#: includes/rules/order-is-subscription-renewal.php:19,
-#: includes/rules/order-item-categories.php:20,
-#: includes/rules/order-item-count.php:20,
-#: includes/rules/order-item-tags.php:20,
-#: includes/rules/order-items-text-match.php:20,
-#: includes/rules/order-items.php:26, includes/rules/order-line-count.php:20,
-#: includes/rules/order-meta.php:18, includes/rules/order-paid-date.php:35,
-#: includes/rules/order-payment-gateway.php:18,
-#: includes/rules/order-shipping-country.php:16,
-#: includes/rules/order-shipping-method-string.php:16,
-#: includes/rules/order-shipping-method.php:22,
-#: includes/rules/order-status.php:18,
-#: includes/rules/order-subscription-payment-retry-count.php:22,
-#: includes/rules/order-total.php:18
+#: includes/actions/order-update-meta.php:18
 msgid "Order"
 msgstr "Bestellung"
 
 #: admin/data-layer-formatter.php:40, admin/reports/carts.php:33,
 #: admin/reports/conversions-list.php:138, admin/reports/logs.php:110,
-#: admin/reports/opt-ins.php:59, admin/reports/queue.php:131,
+#: admin/reports/opt-ins.php:59, admin/reports/queue.php:135,
 #: includes/actions/customer-add-tags.php:18,
 #: includes/actions/customer-change-role.php:18,
 #: includes/actions/customer-update-meta.php:18,
 #: includes/actions/order-resend-email.php:48,
-#: includes/rules/customer-account-created-date.php:35,
-#: includes/rules/customer-active-membership-plans.php:22,
-#: includes/rules/customer-city.php:18, includes/rules/customer-company.php:18,
-#: includes/rules/customer-country.php:18,
-#: includes/rules/customer-email.php:18,
-#: includes/rules/customer-first-order-date.php:35,
-#: includes/rules/customer-has-active-subscription.php:18,
-#: includes/rules/customer-is-guest.php:18,
-#: includes/rules/customer-is-mailchimp-subscriber.php:20,
-#: includes/rules/customer-last-order-date.php:34,
-#: includes/rules/customer-last-review-date.php:35,
-#: includes/rules/customer-meta.php:18,
-#: includes/rules/customer-order-count.php:20,
-#: includes/rules/customer-order-statuses.php:20,
-#: includes/rules/customer-phone.php:18,
-#: includes/rules/customer-postcode.php:18,
-#: includes/rules/customer-purchased-categories.php:22,
-#: includes/rules/customer-purchased-products.php:26,
-#: includes/rules/customer-review-count.php:20,
-#: includes/rules/customer-role.php:18,
-#: includes/rules/customer-state-text-match.php:18,
-#: includes/rules/customer-state.php:18, includes/rules/customer-tags.php:22,
-#: includes/rules/customer-total-spent.php:20
+#: includes/actions/points-rewards-edit-points-abstract.php:30
 msgid "Customer"
 msgstr "Kunde"
 
 #: admin/data-layer-formatter.php:49, admin/reports/guests.php:22,
-#: admin/reports/guests.php:41, includes/rules/customer-role.php:33,
-#: includes/rules/guest-email.php:16, includes/rules/guest-order-count.php:21
+#: admin/reports/guests.php:41, includes/rules/customer-role.php:32
 msgid "Guest"
 msgstr "Gast"
 
 #: admin/data-layer-formatter.php:58, includes/privacy-exporters.php:338,
 #: admin/reports/carts.php:20, admin/reports/carts.php:31,
-#: includes/rules/cart-count.php:18, includes/rules/cart-coupons.php:18,
-#: includes/rules/cart-created-date.php:35,
-#: includes/rules/cart-item-categories.php:22,
-#: includes/rules/cart-item-tags.php:22, includes/rules/cart-items.php:27,
-#: includes/rules/cart-total.php:19, includes/variables/cart-link.php:17
+#: includes/variables/cart-link.php:17
 msgid "Cart"
 msgstr "Warenkorb"
 
 #: admin/data-layer-formatter.php:67, includes/privacy-exporters.php:346,
-#: includes/rules/review-rating.php:20,
 #: templates/email/review-grid-3-col.php:45
 msgid "Review"
 msgstr "Überprüfen"
 
 #: admin/data-layer-formatter.php:76, admin/licenses-table.php:70,
 #: includes/privacy-exporters.php:354, admin/views/modal-cart-info.php:29,
-#: includes/actions/update-product-meta.php:18, includes/fields/product.php:43,
-#: includes/rules/product-categories.php:23, includes/rules/product.php:23,
-#: includes/rules/product.php:24
+#: includes/actions/update-product-meta.php:18, includes/fields/product.php:43
 msgid "Product"
 msgstr "Produkt"
 
 #: admin/data-layer-formatter.php:85, includes/privacy-exporters.php:362,
 #: includes/actions/subscription-change-status.php:19,
-#: includes/actions/subscription-edit-item-abstract.php:61,
+#: includes/actions/subscription-edit-item-abstract.php:69,
 #: includes/actions/subscription-send-invoice.php:20,
-#: includes/actions/subscription-update-meta.php:19,
-#: includes/rules/subscription-created-date.php:35,
-#: includes/rules/subscription-end-date.php:36,
-#: includes/rules/subscription-item-categories.php:18,
-#: includes/rules/subscription-items.php:19,
-#: includes/rules/subscription-last-payment-date.php:35,
-#: includes/rules/subscription-meta.php:18,
-#: includes/rules/subscription-next-payment-date.php:35,
-#: includes/rules/subscription-payment-count.php:18,
-#: includes/rules/subscription-payment-method.php:16,
-#: includes/rules/subscription-requires-manual-renewal.php:20,
-#: includes/rules/subscription-status.php:18,
-#: includes/rules/subscription-trial-end-date.php:36
+#: includes/actions/subscription-update-meta.php:19
 msgid "Subscription"
 msgstr "Abonnement"
 
@@ -734,14 +667,18 @@ msgstr ""
 "jeder E-Mail von uns oder im Kontobereich widerrufen. Du bestätigst, dass "
 "wir deine Daten entsprechend unserer %s und %s verarbeiten dürfen."
 
+#: includes/points-rewards-integration.php:35
+msgid "%s modified by AutomateWoo"
+msgstr "%s modifiziert von AutomateWoo"
+
+#: includes/points-rewards-integration.php:59
+msgid " (Workflow ID: <a href=\"%s\">%s</a>)"
+msgstr "(Workflow-ID: <a href=\"%s\">%s</a>)"
+
 #: includes/post-types.php:23, admin/reports/conversions-list.php:139,
-#: admin/reports/logs.php:109, admin/reports/queue.php:130,
+#: admin/reports/logs.php:109, admin/reports/queue.php:134,
 #: admin/views/modal-log-info.php:28,
-#: admin/views/modal-queued-event-info.php:29, includes/fields/workflow.php:26,
-#: includes/rules/customer-run-count.php:20,
-#: includes/rules/guest-run-count.php:18,
-#: includes/rules/order-run-count.php:18,
-#: includes/rules/workflow-last-customer-run-date.php:35
+#: admin/views/modal-queued-event-info.php:29, includes/fields/workflow.php:26
 msgid "Workflow"
 msgstr "Workflow"
 
@@ -1120,6 +1057,37 @@ msgstr ""
 msgid "Cause of queued event failure is unknown."
 msgstr "Grund für Fehlschlagen des geplanten Ereignisses unbekannt."
 
+#: includes/subscription-workflow-helper.php:22
+msgid "Subscriptions"
+msgstr "Abonnements"
+
+#: includes/subscription-workflow-helper.php:33,
+#: includes/fields/subscription-products.php:26
+msgid "Subscription products"
+msgstr "Abonnement-Produkte"
+
+#: includes/subscription-workflow-helper.php:34
+msgid ""
+"Select products here to make this workflow only run on subscriptions with "
+"matching products. Leave blank to run for all products."
+msgstr ""
+"Wähle hier Produkte aus, wenn der Workflow nur für Abonnements mit diesen "
+"Produkten durchlaufen werden soll. Leer lassen, um für alle Produkte zu "
+"durchlaufen."
+
+#: includes/subscription-workflow-helper.php:49
+msgid "Active subscriptions only"
+msgstr "Nur aktive Abonnements"
+
+#: includes/subscription-workflow-helper.php:50
+msgid ""
+"Enable to ensure the subscription is still active when the workflow runs. "
+"This is useful if the workflow is not run immediately."
+msgstr ""
+"Aktiviere dies, um sicher zu stellen, dass das Abonnement noch aktiv ist, "
+"wenn der Workflow durchlaufen wird. Dies ist hilfreich, wenn der Workflow "
+"nicht sofort durchlaufen wird."
+
 #: includes/system-checks.php:89
 msgid "AutomateWoo status check has found issues."
 msgstr "AutomateWoo Status-Überprüfung hat Fehler gefunden."
@@ -1268,7 +1236,7 @@ msgstr "Der Empfänger ist für diesen Workflow nicht über Opt-In angemeldet."
 
 #: templates/honeypot-field.php:16,
 #: includes/actions/active-campaign-abstract.php:45,
-#: includes/actions/mailchimp-subscribe.php:29
+#: includes/actions/mailchimp-subscribe.php:23
 msgid "First name"
 msgstr "Vorname"
 
@@ -1512,12 +1480,12 @@ msgstr "Abmeldungen"
 msgid "Recent logs"
 msgstr "Neueste Logs"
 
-#: admin/dashboard-widgets/logs.php:60, admin/reports/guests.php:168,
-#: admin/reports/queue.php:114
+#: admin/dashboard-widgets/logs.php:64, admin/reports/guests.php:168,
+#: admin/reports/queue.php:93
 msgid "View"
 msgstr "Ansehen"
 
-#: admin/dashboard-widgets/logs.php:76
+#: admin/dashboard-widgets/logs.php:80
 msgid "No workflows have been run yet&hellip;"
 msgstr "Es wurden noch keine Workflows durchlaufen&hellip;"
 
@@ -1525,7 +1493,7 @@ msgstr "Es wurden noch keine Workflows durchlaufen&hellip;"
 msgid "Upcoming queued events"
 msgstr "Anstehende geplante Ereignisse"
 
-#: admin/dashboard-widgets/queue.php:67
+#: admin/dashboard-widgets/queue.php:71
 msgid "There are no events currently queued&hellip;"
 msgstr "Es sind aktuell keine Ereignisse geplant&hellip;"
 
@@ -1603,7 +1571,7 @@ msgstr "Status zu Verlassen ändern"
 
 #: admin/reports/carts.php:170, admin/reports/guests.php:171,
 #: admin/reports/guests.php:182, admin/reports/logs.php:168,
-#: admin/reports/queue.php:191, admin/views/action.php:31,
+#: admin/reports/queue.php:195, admin/views/action.php:31,
 #: includes/actions/campaign-monitor-remove-subscriber.php:28
 msgid "Delete"
 msgstr "Löschen"
@@ -1641,27 +1609,27 @@ msgstr "Bestellung aufgegeben"
 msgid "Order Total"
 msgstr "Bestellung Gesamtsumme"
 
-#: admin/reports/conversions.php:110
+#: admin/reports/conversions.php:109
 msgid "%s converted order value"
 msgstr "%s Conversion-Wert Bestellungen"
 
-#: admin/reports/conversions.php:116
+#: admin/reports/conversions.php:115
 msgid "%s converted orders"
 msgstr "%s konvertierte Bestellungen"
 
-#: admin/reports/conversions.php:135, admin/reports/email-tracking.php:187
+#: admin/reports/conversions.php:134, admin/reports/email-tracking.php:187
 msgid "Showing reports for:"
 msgstr "Zeige Berichte für:"
 
-#: admin/reports/conversions.php:169, admin/reports/email-tracking.php:221
+#: admin/reports/conversions.php:168, admin/reports/email-tracking.php:221
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: admin/reports/conversions.php:208
+#: admin/reports/conversions.php:207
 msgid "Conversion Number"
 msgstr "Conversion-Nummer"
 
-#: admin/reports/conversions.php:217
+#: admin/reports/conversions.php:216
 msgid "Conversion Value"
 msgstr "Conversion-Wert"
 
@@ -1771,7 +1739,7 @@ msgstr ""
 "Informationen."
 
 #: admin/reports/logs.php:111, admin/views/modal-log-info.php:29,
-#: includes/fields/time.php:23
+#: includes/fields/time.php:30
 msgid "Time"
 msgstr "Zeit"
 
@@ -1795,27 +1763,27 @@ msgstr "Auf Opt-In setzen"
 msgid "Set as opted-in"
 msgstr "Auf Opt-Out setzen"
 
-#: admin/reports/queue.php:55, admin/views/modal-queued-event-info.php:26
+#: admin/reports/queue.php:54, admin/views/modal-queued-event-info.php:26
 msgid "Failed"
 msgstr "Fehlgeschlagen"
 
-#: admin/reports/queue.php:93
+#: admin/reports/queue.php:72
 msgid "now"
 msgstr "jetzt"
 
-#: admin/reports/queue.php:115
+#: admin/reports/queue.php:94
 msgid "Retry"
 msgstr "Erneut versuchen"
 
-#: admin/reports/queue.php:115
+#: admin/reports/queue.php:94
 msgid "Run Now"
 msgstr "Jetzt durchlaufen"
 
-#: admin/reports/queue.php:129
+#: admin/reports/queue.php:133
 msgid "Queued Event"
 msgstr "Geplante Ereignisse"
 
-#: admin/reports/queue.php:132
+#: admin/reports/queue.php:136
 msgid "Run Date"
 msgstr "Durchlauf-Datum"
 
@@ -2240,6 +2208,10 @@ msgstr ""
 "Du erhältst deinen API-Schlüssel in deinem MailChimp-Account unter Account -"
 "> Extras -> API Keys."
 
+#: admin/settings-tabs/mailchimp.php:74
+msgid "The MailChimp API Key you entered is not valid."
+msgstr "Der eingegebene MailChimp API-Schlüssel ist ungültig."
+
 #: admin/settings-tabs/status.php:37
 msgid ""
 "Allow occasional background checks for major system issues. If an issue is "
@@ -2474,7 +2446,7 @@ msgstr "Länge der Verzögerung"
 msgid "Minimum wait"
 msgstr "Minimale Wartezeit"
 
-#: admin/views/meta-box-timing.php:151, includes/rules/abstract-date.php:151
+#: admin/views/meta-box-timing.php:151, includes/rules/abstract-date.php:169
 msgid "Hours"
 msgstr "Stunden"
 
@@ -2482,7 +2454,7 @@ msgstr "Stunden"
 msgid "Minutes"
 msgstr "Minuten"
 
-#: admin/views/meta-box-timing.php:153, includes/rules/abstract-date.php:152
+#: admin/views/meta-box-timing.php:153, includes/rules/abstract-date.php:170
 msgid "Days"
 msgstr "Tage"
 
@@ -2490,7 +2462,7 @@ msgstr "Tage"
 msgid "Weeks"
 msgstr "Wochen"
 
-#: admin/views/meta-box-timing.php:172, includes/fields/time.php:79
+#: admin/views/meta-box-timing.php:172, includes/fields/time.php:86
 msgid "(24 hour time)"
 msgstr "(24-Stunden-Format)"
 
@@ -2523,11 +2495,12 @@ msgid "Cart #%s"
 msgstr "Warenkorb #%s"
 
 #: admin/views/modal-cart-info.php:30,
-#: includes/actions/subscription-edit-item-abstract.php:122
+#: includes/actions/subscription-edit-item-abstract.php:129
 msgid "Quantity"
 msgstr "Menge"
 
-#: admin/views/modal-cart-info.php:31, includes/fields/price.php:23
+#: admin/views/modal-cart-info.php:31, includes/fields/price.php:23,
+#: includes/variables/abstract-price.php:23
 msgid "Price"
 msgstr "Preis"
 
@@ -2713,23 +2686,31 @@ msgstr ""
 "Klicke auf den %s+ Regel-Gruppe hinzufügen%s-Button, um eine Regel zu "
 "erstellen."
 
-#: admin/views/rules.php:44
+#: admin/views/rules.php:47
 msgid "[Select Rule]"
 msgstr "[Regel wählen]"
 
-#: admin/views/rules.php:120
+#: admin/views/rules.php:111
 msgid "key"
 msgstr "Schlüssel"
 
-#: admin/views/rules.php:121
+#: admin/views/rules.php:112
 msgid "value"
 msgstr "Wert"
 
-#: admin/views/rules.php:186
+#: admin/views/rules.php:175
 msgid "and"
 msgstr "und"
 
-#: admin/views/rules.php:198
+#: admin/views/rules.php:184
+msgid ""
+"This rule %1$s is no longer available and will be removed by saving this "
+"workflow."
+msgstr ""
+"Diese Regel %1$s ist nicht mehr verfügbar und wird beim Speichern des "
+"Workflows entfernt."
+
+#: admin/views/rules.php:196
 msgid "or"
 msgstr "oder"
 
@@ -2775,7 +2756,7 @@ msgstr ""
 
 #: includes/abstracts/action.php:83, includes/abstracts/action.php:96,
 #: includes/abstracts/trigger.php:292,
-#: includes/actions/change-post-status.php:19, includes/rules/rule.php:40
+#: includes/actions/change-post-status.php:19, includes/rules/rule.php:335
 msgid "Other"
 msgstr "Andere"
 
@@ -2788,7 +2769,7 @@ msgid "Object must be saved before adding meta."
 msgstr "Objekt muss vor dem Hinzufügen von Meta-Daten gesichert werden."
 
 #: includes/abstracts/trigger.php:407, includes/abstracts/trigger.php:437,
-#: includes/triggers/subscription-status-changed.php:35
+#: includes/triggers/subscription-status-changed.php:42
 msgid "Recheck status before run"
 msgstr "Prüfe Status vor Durchlauf erneut"
 
@@ -2813,24 +2794,7 @@ msgstr ""
 msgid "Customer pause period (days)"
 msgstr "Pausen-Zeitraum für Benutzer (Tage)"
 
-#: includes/abstracts/trigger.php:456
-msgid "Time of day"
-msgstr "Uhrzeit"
-
-#: includes/abstracts/trigger.php:457
-msgid ""
-"Set the time during each day for the workflow to be triggered. Your site's "
-"timezone will be used. If no time is set the workflow will run at midnight. "
-"If you set a time that has already passed for today the workflow will not "
-"run until tomorrow. The workflow will never be run twice in the same day."
-msgstr ""
-"Stelle die Uhrzeit ein, zu der der Workflow gestartet werden soll. Die "
-"Zeitzone deiner Seite wird genutzt. Wenn keine Uhrzeit festgelegt ist, "
-"startet der Workflow um Mitternacht. Wenn du eine Zeit einstellst, die heute "
-"schon war, wird der Workflow erst morgen starten. Der Workflow wird nie zwei "
-"Mal am selben Tag laufen."
-
-#: includes/abstracts/trigger.php:602
+#: includes/abstracts/trigger.php:578
 msgid "THIS TRIGGER IS DEPRECATED AND SHOULD NOT BE USED."
 msgstr "DIESER AUSLÖSER IST VERALTET UND SOLLTE NICHT GENUTZT WERDEN."
 
@@ -2842,22 +2806,17 @@ msgstr ""
 "ActiveCampaign-API zu nutzen."
 
 #: includes/actions/active-campaign-abstract.php:32,
-#: includes/actions/campaign-monitor-abstract.php:25,
-#: includes/actions/mailchimp-add-to-group.php:25,
-#: includes/actions/mailchimp-update-contact-field.php:26
+#: includes/actions/campaign-monitor-abstract.php:25
 msgid "You can use variables such as {{ customer.email }} here."
 msgstr "Du kannst hier Variablen wie {{ customer.email }} benutzen."
 
 #: includes/actions/active-campaign-abstract.php:31,
-#: includes/actions/mailchimp-add-to-group.php:24,
-#: includes/actions/mailchimp-subscribe.php:23,
-#: includes/actions/mailchimp-unsubscribe.php:23,
-#: includes/actions/mailchimp-update-contact-field.php:25
+#: includes/actions/mailchimp-abstract.php:44
 msgid "Contact email"
 msgstr "Kontakt E-Mail-Adresse"
 
 #: includes/actions/active-campaign-abstract.php:50,
-#: includes/actions/mailchimp-subscribe.php:35
+#: includes/actions/mailchimp-subscribe.php:29
 msgid "Last name"
 msgstr "Nachname"
 
@@ -2924,19 +2883,19 @@ msgid "Update Contact Custom Field"
 msgstr "Benutzerdefiniertes Feld des Kontakts aktualisieren"
 
 #: includes/actions/active-campaign-update-contact-field.php:30,
-#: includes/actions/mailchimp-update-contact-field.php:33
+#: includes/actions/mailchimp-update-contact-field.php:25
 msgid "Field"
 msgstr "Feld"
 
 #: includes/actions/active-campaign-update-contact-field.php:36,
 #: includes/actions/customer-update-meta.php:33,
-#: includes/actions/order-update-meta.php:31,
+#: includes/actions/order-update-meta.php:32,
 #: includes/actions/update-product-meta.php:32
 msgid "Value"
 msgstr "Wert"
 
 #: includes/actions/active-campaign-update-contact-field.php:56,
-#: includes/actions/mailchimp-update-contact-field.php:106
+#: includes/actions/mailchimp-update-contact-field.php:97
 msgid "Failed because contact did not exist."
 msgstr "Fehlgeschlagen, weil der Kontakt nicht existierte."
 
@@ -3113,27 +3072,37 @@ msgstr "Benutzerdefiniertes Feld aktualisieren"
 
 #: includes/actions/customer-update-meta.php:19
 msgid ""
-"If the customer has an account, the user meta table is used. If the customer "
-"is a guest, the guest meta table is used."
+"This action can add or update a customer's custom field. If the customer has "
+"an account, the user meta table is used. If the customer is a guest, the "
+"guest meta table is used."
 msgstr ""
-"Wenn der Kunde ein Konto besitzt, wird die Benutzer-Meta-Tabelle genutzt. "
-"Wenn der Kunde ein Gast ist, wird die Gast-Meta-Tabelle genutzt."
+"Diese Aktion kann ein benutzerdefiniertes Feld eines Kunden ändern. Wenn der "
+"Kunde ein Benutzerkonto hat, wird die Benutzer-Metatabelle genutzt, "
+"ansonsten die Gast-Metatabelle."
 
 #: includes/actions/customer-update-meta.php:27,
-#: includes/actions/order-update-meta.php:25,
+#: includes/actions/order-update-meta.php:26,
 #: includes/actions/update-product-meta.php:26
 msgid "Key"
 msgstr "Schlüssel"
+
+#: includes/actions/mailchimp-abstract.php:45
+msgid ""
+"Use variables such as {{ customer.email }} here. If blank {{ customer."
+"email }} will be used."
+msgstr ""
+"Nutze hier Variablen wie {{ customer.email }}. Wenn leer, wird {{ customer."
+"email }} benutzt."
 
 #: includes/actions/mailchimp-add-to-group.php:16
 msgid "Add Contact To Group"
 msgstr "Füge Kontakt zu Gruppe hinzu"
 
-#: includes/actions/mailchimp-add-to-group.php:31
+#: includes/actions/mailchimp-add-to-group.php:24
 msgid "Groups"
 msgstr "Gruppen"
 
-#: includes/actions/mailchimp-add-to-group.php:38
+#: includes/actions/mailchimp-add-to-group.php:31
 msgid "Add contact to list if missing?"
 msgstr "Füge Kontakt zu Liste hinzu, wenn er fehlt?"
 
@@ -3146,25 +3115,16 @@ msgid "Add Contact To List"
 msgstr "Füge Kontakt zu Liste hinzu"
 
 #: includes/actions/mailchimp-subscribe.php:24,
-#: includes/actions/mailchimp-unsubscribe.php:24
-msgid ""
-"You can use variables such as {{ customer.email }} here. If blank "
-"{{ customer.email }} will be used."
-msgstr ""
-"Du kannst Variablen wie {{ customer.email }} hier benutzen. Wenn leer, wird "
-"{{ customer.email }} benutzt."
-
-#: includes/actions/mailchimp-subscribe.php:30,
-#: includes/actions/mailchimp-subscribe.php:36
+#: includes/actions/mailchimp-subscribe.php:30
 msgid "This field is optional."
 msgstr "Dieses Feld ist optional."
 
-#: includes/actions/mailchimp-subscribe.php:42
+#: includes/actions/mailchimp-subscribe.php:36
 msgid "Users will receive an email asking them to confirm their subscription."
 msgstr ""
 "Benutzer erhalten eine E-Mail, in der sie ihre Anmeldung bestätigen müssen."
 
-#: includes/actions/mailchimp-subscribe.php:41
+#: includes/actions/mailchimp-subscribe.php:35
 msgid "Double optin"
 msgstr "Doppelte Bestätigung (Opt-In)"
 
@@ -3172,11 +3132,11 @@ msgstr "Doppelte Bestätigung (Opt-In)"
 msgid "Remove Contact From List"
 msgstr "Entferne Kontakt von Liste"
 
-#: includes/actions/mailchimp-unsubscribe.php:30
+#: includes/actions/mailchimp-unsubscribe.php:22
 msgid "Unsubscribe only"
 msgstr "Nur abmelden"
 
-#: includes/actions/mailchimp-unsubscribe.php:31
+#: includes/actions/mailchimp-unsubscribe.php:23
 msgid "If checked the user will be unsubscribed instead of deleted."
 msgstr "Wenn gewählt wird der Benutzer nur abgemeldet und nicht gelöscht."
 
@@ -3191,7 +3151,7 @@ msgstr ""
 "Der Kontakt muss zur Liste hinzugefügt worden sein, bevor Felder "
 "aktualisiert werden können."
 
-#: includes/actions/mailchimp-update-contact-field.php:39
+#: includes/actions/mailchimp-update-contact-field.php:31
 msgid "Field Value"
 msgstr "Feld-Wert"
 
@@ -3304,6 +3264,16 @@ msgstr "Bestellstatus wird hierzu geändert."
 msgid "AutomateWoo workflow #%s."
 msgstr "AutomateWoo-Workflow #%s."
 
+#: includes/actions/order-item-update-meta.php:27
+msgid "Order Item"
+msgstr "Bestellung - Artikel"
+
+#: includes/actions/order-item-update-meta.php:28
+msgid "This action can add or update an order item's custom field."
+msgstr ""
+"Diese Aktion kann ein Meta-Feld eines Artikels einer Bestellung hinzufügen "
+"oder ändern."
+
 #: includes/actions/order-resend-email.php:18
 msgid "Resend Order Email"
 msgstr "Bestell-Bestätigung erneut senden"
@@ -3358,6 +3328,45 @@ msgstr ""
 #: includes/actions/order-update-customer-shipping-note.php:35
 msgid "Append to existing note?"
 msgstr "An bestehende Notiz anfügen?"
+
+#: includes/actions/order-update-meta.php:19
+msgid "This action can add or update an order's custom field."
+msgstr ""
+"Diese Aktion kann ein benutzerdefiniertes Feld einer Bestellung hinzufügen "
+"oder ändern."
+
+#: includes/actions/points-rewards-add-points.php:22
+msgid "Add Points"
+msgstr "Punkte hinzufügen"
+
+#: includes/actions/points-rewards-edit-points-abstract.php:31
+msgid ""
+"Please note that points are not supported on guest customers. Uses the "
+"WooCommerce Points and Rewards plugin."
+msgstr ""
+"Bitte beachte, dass Punkte für Gäste nicht unterstützt werden. Benutzt das "
+"WooCommerce Points and Rewards Plugin."
+
+#: includes/actions/points-rewards-edit-points-abstract.php:43,
+#: includes/variables/customer-points.php:25
+msgid "Number of Points"
+msgstr "Anzahl Punkte"
+
+#: includes/actions/points-rewards-edit-points-abstract.php:50
+msgid "Event Description"
+msgstr "Ereignisbeschreibung"
+
+#: includes/actions/points-rewards-edit-points-abstract.php:52
+msgid ""
+"Describe the event and/or why the points were modified. This description "
+"will be visible to customers on their \"my account\" points log."
+msgstr ""
+"Beschreibe das Ereignis oder wieso Punkte geändert wurden. Diese "
+"Beschreibung wird für Kunden auf der „Mein Konto“-Seite sichtbar sein."
+
+#: includes/actions/points-rewards-remove-points.php:22
+msgid "Remove Points"
+msgstr "Punkte entfernen"
 
 #: includes/actions/send-email-abstract.php:42
 msgid "To"
@@ -3603,23 +3612,23 @@ msgstr "Abonnement-Status geändert von AutomateWoo-Workflow #%s."
 msgid "Coupon"
 msgstr "Gutschein"
 
-#: includes/actions/subscription-edit-item-abstract.php:145
+#: includes/actions/subscription-edit-item-abstract.php:157
 msgid "Custom Item Name"
 msgstr "Eigener Artikelname"
 
-#: includes/actions/subscription-edit-item-abstract.php:153
+#: includes/actions/subscription-edit-item-abstract.php:165
 msgid "The name to set on the line item."
 msgstr "Der Name, der für die Position gesetzt werden soll."
 
-#: includes/actions/subscription-edit-item-abstract.php:165
+#: includes/actions/subscription-edit-item-abstract.php:185
 msgid "E.g. 10.00"
 msgstr "z.B. 10,00"
 
-#: includes/actions/subscription-edit-item-abstract.php:174
+#: includes/actions/subscription-edit-item-abstract.php:194
 msgid "Custom Item Cost %s"
 msgstr "Eigener Artikelpreis %s"
 
-#: includes/actions/subscription-edit-item-abstract.php:182
+#: includes/actions/subscription-edit-item-abstract.php:202
 msgid ""
 "Optionally set a custom amount, excluding tax, to use for the line item's "
 "cost. Do not include a currency symbol. Total line item cost will be this "
@@ -3716,6 +3725,12 @@ msgstr "Sende Rechnung"
 msgid "Email the invoice to the subscription customer."
 msgstr "Sense die Rechnung an den Abonnement-Kunden."
 
+#: includes/actions/subscription-update-meta.php:20
+msgid "This action can add or update a subscription's custom field."
+msgstr ""
+"Diese Aktion kann ein benutzerdefiniertes Feld eines Abonnements hinzufügen "
+"oder ändern."
+
 #: includes/compat/order-notes.php:129
 msgid "WooCommerce"
 msgstr "WooCommerce"
@@ -3731,6 +3746,22 @@ msgstr "Nach Begriff suchen&hellip;"
 #: includes/fields/attribute.php:22
 msgid "Attribute"
 msgstr "Attribut"
+
+#: includes/fields/before-after-day.php:35
+msgid "When to run"
+msgstr "Durchlauf fällig"
+
+#: includes/fields/before-after-day.php:61
+msgid "On the day"
+msgstr "Am Tag"
+
+#: includes/fields/before-after-day.php:62
+msgid "day(s) after"
+msgstr "Tag(e) zuvor"
+
+#: includes/fields/before-after-day.php:63
+msgid "day(s) before"
+msgstr "Tag(e) danach"
 
 #: includes/fields/category.php:22
 msgid "Product category"
@@ -3774,7 +3805,7 @@ msgstr "Bestellstatus"
 
 #: includes/fields/order-status.php:24,
 #: includes/fields/subscription-products.php:27,
-#: includes/fields/subscription-status.php:24
+#: includes/fields/subscription-status.php:26
 msgid "[Any]"
 msgstr "[Jeder]"
 
@@ -3794,12 +3825,7 @@ msgstr "Suche nach Produkt&hellip;"
 msgid "Select"
 msgstr "Wählen"
 
-#: includes/fields/subscription-products.php:26,
-#: includes/triggers/abstract-subscriptions.php:88
-msgid "Subscription products"
-msgstr "Abonnement-Produkte"
-
-#: includes/fields/subscription-status.php:21
+#: includes/fields/subscription-status.php:23
 msgid "Subscription status"
 msgstr "Abonnement-Status"
 
@@ -3823,12 +3849,12 @@ msgstr "Texteingabefeld"
 msgid "Text Input"
 msgstr "Texteingabe"
 
-#: includes/fields/time.php:59
+#: includes/fields/time.php:66
 msgctxt "time field"
 msgid "HH"
 msgstr "HH"
 
-#: includes/fields/time.php:71
+#: includes/fields/time.php:78
 msgctxt "time field"
 msgid "MM"
 msgstr "MM"
@@ -3837,49 +3863,53 @@ msgstr "MM"
 msgid "User role"
 msgstr "Nutzerrolle"
 
-#: includes/rules/abstract-date.php:109
+#: includes/rules/abstract-date.php:123
 msgid "Is in the next"
 msgstr "Ist im nächsten"
 
-#: includes/rules/abstract-date.php:110
+#: includes/rules/abstract-date.php:124
 msgid "Is not in the next"
 msgstr "Ist nicht im nächsten"
 
-#: includes/rules/abstract-date.php:114
+#: includes/rules/abstract-date.php:128
 msgid "Is in the last"
 msgstr "Ist im letzten"
 
-#: includes/rules/abstract-date.php:115
+#: includes/rules/abstract-date.php:129
 msgid "Is not in the last"
 msgstr "Ist nicht im letzten"
 
-#: includes/rules/abstract-date.php:120
+#: includes/rules/abstract-date.php:134
 msgid "Is after"
 msgstr "Ist nach"
 
-#: includes/rules/abstract-date.php:125
+#: includes/rules/abstract-date.php:139
 msgid "Is before"
 msgstr "Ist vor"
 
-#: includes/rules/abstract-date.php:130
+#: includes/rules/abstract-date.php:144
 msgid "Is on"
 msgstr "Ist am"
 
-#: includes/rules/abstract-date.php:135
+#: includes/rules/abstract-date.php:149
 msgid "Is not on"
 msgstr "Ist nicht am"
 
-#: includes/rules/abstract-date.php:139
+#: includes/rules/abstract-date.php:153
 msgid "Is on day/s of the week"
 msgstr "Ist an Wochentag"
 
-#: includes/rules/abstract-date.php:143
+#: includes/rules/abstract-date.php:157
 msgid "Is in the range"
 msgstr "Ist im Bereich"
 
-#: includes/rules/abstract-date.php:147
+#: includes/rules/abstract-date.php:161
 msgid "Is not set"
 msgstr "Ist nicht gesetzt"
+
+#: includes/rules/abstract-date.php:165
+msgid "Is set"
+msgstr "Ist gesetzt"
 
 #: includes/rules/abstract-object.php:34
 msgid "Search..."
@@ -3897,12 +3927,12 @@ msgstr "erfüllt alle"
 msgid "matches none"
 msgstr "erfüllt keine"
 
-#: includes/rules/abstract-select.php:33, includes/rules/product.php:27,
+#: includes/rules/abstract-select.php:33, includes/rules/product.php:26,
 #: includes/rules/rule.php:94, includes/rules/rule.php:122
 msgid "is"
 msgstr "ist"
 
-#: includes/rules/abstract-select.php:34, includes/rules/product.php:28,
+#: includes/rules/abstract-select.php:34, includes/rules/product.php:27,
 #: includes/rules/rule.php:95, includes/rules/rule.php:123
 msgid "is not"
 msgstr "ist nicht"
@@ -3931,21 +3961,21 @@ msgstr "Warenkorb - Schlagworte der Artikel"
 msgid "Cart - Items"
 msgstr "Warenkorb - Artikel"
 
-#: includes/rules/cart-items.php:28,
-#: includes/rules/customer-purchased-products.php:27,
-#: includes/rules/order-items.php:27
+#: includes/rules/cart-items.php:27,
+#: includes/rules/customer-purchased-products.php:26,
+#: includes/rules/order-items.php:26
 msgid "Search products..."
 msgstr "Suche Produkte..."
+
+#: includes/rules/cart-items.php:30,
+#: includes/rules/customer-purchased-products.php:29,
+#: includes/rules/order-items.php:29
+msgid "includes"
+msgstr "beinhaltet"
 
 #: includes/rules/cart-items.php:31,
 #: includes/rules/customer-purchased-products.php:30,
 #: includes/rules/order-items.php:30
-msgid "includes"
-msgstr "beinhaltet"
-
-#: includes/rules/cart-items.php:32,
-#: includes/rules/customer-purchased-products.php:31,
-#: includes/rules/order-items.php:31
 msgid "does not include"
 msgstr "beinhaltet nicht"
 
@@ -3993,7 +4023,7 @@ msgstr "Kunde - Ist Gast"
 msgid "Customer - Is Subscribed To MailChimp List"
 msgstr "Kunde - Ist zu MailChimp-Liste angemeldet"
 
-#: includes/rules/customer-is-mailchimp-subscriber.php:21
+#: includes/rules/customer-is-mailchimp-subscriber.php:20
 msgid "Select a list&hellip;"
 msgstr "Wähle eine Liste&hellip;"
 
@@ -4097,11 +4127,11 @@ msgstr "Bestellung - Erstelldatum"
 msgid "Order - Created Via"
 msgstr "Bestellung - Erstellt über"
 
-#: includes/rules/order-created-via.php:30, includes/variables/cart-link.php:18
+#: includes/rules/order-created-via.php:29, includes/variables/cart-link.php:18
 msgid "Checkout"
 msgstr "Kasse"
 
-#: includes/rules/order-created-via.php:31
+#: includes/rules/order-created-via.php:30
 msgid "REST API"
 msgstr "REST-API"
 
@@ -4148,11 +4178,6 @@ msgstr "Bestellung - Anzahl Artikel"
 #: includes/rules/order-item-meta.php:19
 msgid "Order Line Item - Custom Field"
 msgstr "Bestellposition - Benutzerdefiniertes Feld"
-
-#: includes/rules/order-item-meta.php:20,
-#: includes/rules/order-item-quantity.php:22
-msgid "Order Line Item"
-msgstr "Bestellposition"
 
 #: includes/rules/order-item-quantity.php:21
 msgid "Order Line Item - Quantity"
@@ -4206,7 +4231,7 @@ msgstr "Bestellung - Versandmethode"
 msgid "Order - Status"
 msgstr "Bestellung - Status"
 
-#: includes/rules/order-subscription-payment-retry-count.php:21
+#: includes/rules/order-subscription-payment-retry-count.php:19
 msgid "Order - Subscription Payment Retry Count"
 msgstr "Bestellung - Anzahl erneuter Abonnement-Zahlungsversuche"
 
@@ -4214,9 +4239,17 @@ msgstr "Bestellung - Anzahl erneuter Abonnement-Zahlungsversuche"
 msgid "Order - Total"
 msgstr "Bestellung - Gesamtsumme"
 
+#: includes/rules/points-rewards-customer-points.php:34
+msgid "Customer - Points"
+msgstr "Kunde - Punkte"
+
 #: includes/rules/product-categories.php:22
 msgid "Product - Categories"
 msgstr "Produkt - Kategorien"
+
+#: includes/rules/product.php:23
+msgid "Product - Product"
+msgstr "Produkt - Produkt"
 
 #: includes/rules/review-rating.php:19
 msgid "Review - Rating"
@@ -4278,6 +4311,22 @@ msgstr "ist ein Vielfaches von"
 msgid "is not a multiple of"
 msgstr "ist nicht ein Vielfaches von"
 
+#: includes/rules/subscription-can-renew-early.php:27
+msgid "Subscription - Can Renew Early"
+msgstr "Abonnement - Kann vorzeitig verlängert werden"
+
+#: includes/rules/subscription-coupon-count.php:26
+msgid "Subscription - Coupon Count"
+msgstr "Abonnement - Anzahl Gutscheine"
+
+#: includes/rules/subscription-coupons-text-match.php:26
+msgid "Subscription - Coupons - Text Match"
+msgstr "Abonnement - Gutscheine - Namens-Übereinstimmung"
+
+#: includes/rules/subscription-coupons.php:26
+msgid "Subscription - Coupons"
+msgstr "Abonnement - Gutscheine"
+
 #: includes/rules/subscription-created-date.php:34
 msgid "Subscription - Created Date"
 msgstr "Abonnement - Erstelldatum"
@@ -4285,6 +4334,10 @@ msgstr "Abonnement - Erstelldatum"
 #: includes/rules/subscription-end-date.php:35
 msgid "Subscription - End Date"
 msgstr "Abonnement - Enddatum"
+
+#: includes/rules/subscription-has-payment-method.php:25
+msgid "Subscription - Has Payment Method"
+msgstr "Abonnement - Hat Zahlungsart"
 
 #: includes/rules/subscription-item-categories.php:17
 msgid "Subscription - Item Categories"
@@ -4314,11 +4367,11 @@ msgstr "Abonnement - Anzahl Zahlungen"
 msgid "Subscription - Payment Method"
 msgstr "Abonnement - Zahlungsart"
 
-#: includes/rules/subscription-requires-manual-renewal.php:19
+#: includes/rules/subscription-requires-manual-renewal.php:17
 msgid "Subscription - Requires Manual Renewal"
 msgstr "Abonnement - Benötigt manuelle Verlängerung"
 
-#: includes/rules/subscription-status.php:17
+#: includes/rules/subscription-status.php:19
 msgid "Subscription - Status"
 msgstr "Abonnement - Status"
 
@@ -4591,41 +4644,37 @@ msgid "Membership plans"
 msgstr "Mitgliedschafts-Pläne"
 
 #: includes/triggers/abstract-order-base.php:31,
-#: includes/triggers/order-note-added.php:23,
+#: includes/triggers/order-note-added.php:34,
 #: includes/triggers/user-purchases-product-variation-with-attribute.php:19
 msgid "Orders"
 msgstr "Bestellungen"
 
-#: includes/triggers/abstract-subscriptions.php:31
-msgid "Subscriptions"
-msgstr "Abonnements"
+#: includes/triggers/background-processed-abstract.php:56
+msgid "Time of day"
+msgstr "Uhrzeit"
 
-#: includes/triggers/abstract-subscriptions.php:89
+#: includes/triggers/background-processed-abstract.php:57
 msgid ""
-"Select which subscription products to trigger this workflow for. Leave blank "
-"to apply this trigger to all subscription products."
+"Set the time in your site's timezone that the workflow will be triggered. If "
+"no time is set the workflow will run at midnight. If you set a time that has "
+"already passed for today the workflow will not run until tomorrow. The "
+"workflow will never be run twice in the same day. It's not possible to set a "
+"time after 23:00 which gives the background processor at least 1 hour to run "
+"any tasks."
 msgstr ""
-"Wähle, für welche Abonnement-Produkte ausgelöst werden soll. Leer lassen für "
-"alle Abonnement-Produkte."
+"Stelle die Uhrzeit in deiner Zeitzone ein, zu der der Workflow gestartet "
+"werden soll. Wenn keine Uhrzeit festgelegt ist, startet der Workflow um "
+"Mitternacht. Wenn du eine Zeit einstellst, die heute schon war, wird der "
+"Workflow erst morgen starten. Der Workflow wird nie zwei Mal am selben Tag "
+"laufen. Es ist nicht möglich, eine Zeit nach 23:00 zu wählen, damit der "
+"Hintergrundprozessor mindestens 1 Stunde für die Abarbeitung der "
+"Warteschlange hat."
 
-#: includes/triggers/abstract-subscriptions.php:99
-msgid "Active subscriptions only"
-msgstr "Nur aktive Abonnements"
-
-#: includes/triggers/abstract-subscriptions.php:100
-msgid ""
-"This can be used for workflows that are not run immediately as it will check "
-"that the related subscription is still active just before running."
-msgstr ""
-"Dies kann für Workflows genutzt werden, die nicht sofort laufen, da es "
-"direkt vor dem Durchlaufen prüft, ob das zugehörige Abonnement noch aktiv "
-"ist."
-
-#: includes/triggers/customer-before-saved-card-expiry.php:20
+#: includes/triggers/customer-before-saved-card-expiry.php:18
 msgid "Customer Before Saved Card Expiry"
 msgstr "Gespeicherte Kreditkarte des Kunden läuft ab"
 
-#: includes/triggers/customer-before-saved-card-expiry.php:21
+#: includes/triggers/customer-before-saved-card-expiry.php:19
 msgid ""
 "This trigger runs a set number of days before a customer's saved card "
 "expires. Cards expire on the last calendar day of their expiry month."
@@ -4634,17 +4683,17 @@ msgstr ""
 "Kunden vor dem Ablauf steht. Kreditkarten laufen am letzten Tag des "
 "Ablaufmonats ab."
 
-#: includes/triggers/customer-before-saved-card-expiry.php:22,
+#: includes/triggers/customer-before-saved-card-expiry.php:20,
 #: includes/triggers/customer-new-account.php:18,
 #: includes/triggers/customer-opted-in.php:18,
 #: includes/triggers/customer-opted-out.php:19,
 #: includes/triggers/customer-order-count-reaches.php:19,
 #: includes/triggers/customer-total-spend-reaches.php:21,
-#: includes/triggers/customer-win-back.php:21
+#: includes/triggers/customer-win-back.php:19
 msgid "Customers"
 msgstr "Kunde"
 
-#: includes/triggers/customer-before-saved-card-expiry.php:29
+#: includes/triggers/customer-before-saved-card-expiry.php:27
 msgid "Days before expiry"
 msgstr "Tage vor Ablauf"
 
@@ -4694,11 +4743,11 @@ msgstr "Kein Währungssymbol hinzufügen."
 msgid "Total spend"
 msgstr "Gesamtbestellwert"
 
-#: includes/triggers/customer-win-back.php:19
+#: includes/triggers/customer-win-back.php:17
 msgid "Customer Win Back"
 msgstr "Kunden-Rückgewinnung"
 
-#: includes/triggers/customer-win-back.php:20
+#: includes/triggers/customer-win-back.php:18
 msgid ""
 "This trigger fires for customers based on the date of their last paid order. "
 "Please note that it will not start running immediately because it is "
@@ -4711,33 +4760,32 @@ msgstr ""
 "basierten Variablen, Regeln und Aktionen beziehen sich auf die letzte "
 "bezahlte Bestellung des Kunden."
 
-#: includes/triggers/customer-win-back.php:30
+#: includes/triggers/customer-win-back.php:28
 msgid ""
 "Defines the minimum number of days to wait after a customer's last purchase."
 msgstr ""
 "Legt fest, wie viele Tage mindestens nach der letzten Bestellung eines "
 "Kunden gewartet wird."
 
-#: includes/triggers/customer-win-back.php:29
-msgid "Minimum days since last purchase"
-msgstr "Mindestanzahl Tage seit letzter Bestellung"
+#: includes/triggers/customer-win-back.php:27
+msgid "Minimum days since purchase"
+msgstr "Mindestanzahl Tage seit Kauf"
 
-#: includes/triggers/customer-win-back.php:37
+#: includes/triggers/customer-win-back.php:35
 msgid ""
 "Defines the maximum number of days after the customer's last purchase that "
-"this trigger will fire. It is a good idea to set this field to avoid sending "
-"emails to excessively old customers when the workflow is first created."
+"this trigger will fire. The default value will be 3 greater than the value "
+"of the minimum days field."
 msgstr ""
 "Legt fest, wie viele Tage nach der letzten Bestellung eines Kunden dieser "
-"Auslöser maximal aktiv ist. Es wird empfohlen, diesen Wert festzulegen, "
-"damit beim ersten Erstellen dieses Workflows nicht sehr alte Kunden "
-"miteinbezogen werden."
+"Auslöser maximal aktiv ist. Der Standardwert ist um 3 größer als der Wert "
+"von „Mindestanzahl Tage seit Kauf“."
 
-#: includes/triggers/customer-win-back.php:36
-msgid "Maximum days since last purchase (optional)"
-msgstr "Höchstzahl Tage seit letzter Bestellung (optional)"
+#: includes/triggers/customer-win-back.php:34
+msgid "Maximum days since purchase"
+msgstr "Maximale Anzahl Tage seit Kauf"
 
-#: includes/triggers/customer-win-back.php:42
+#: includes/triggers/customer-win-back.php:40
 msgid ""
 "If checked this trigger will repeatedly fire after the minimum last purchase "
 "date passes and the customer has not made a purchase. E.g. if the minimum is "
@@ -4753,7 +4801,7 @@ msgstr ""
 "Kauf tätigt. Wenn nicht gewählt, wird der Auslöser nicht wiederholt, bis der "
 "Kunde einen neuen Kauf tätigt."
 
-#: includes/triggers/customer-win-back.php:41
+#: includes/triggers/customer-win-back.php:39
 msgid "Enable repeats"
 msgstr "Aktiviere Wiederholungen"
 
@@ -4810,13 +4858,13 @@ msgstr "Leer lassen für jeden Status"
 
 #: includes/triggers/membership-status-changed.php:30,
 #: includes/triggers/order-status-changes.php:26,
-#: includes/triggers/subscription-status-changed.php:23
+#: includes/triggers/subscription-status-changed.php:30
 msgid "Status changes from"
 msgstr "Status ändert sich von"
 
 #: includes/triggers/membership-status-changed.php:37,
 #: includes/triggers/order-status-changes.php:32,
-#: includes/triggers/subscription-status-changed.php:30
+#: includes/triggers/subscription-status-changed.php:37
 msgid "Status changes to"
 msgstr "Status ändert sich zu"
 
@@ -4853,11 +4901,11 @@ msgstr ""
 "Wird ausgelöst, sobald eine Bestellung in der Datenbank erstellt wird. Im "
 "Kaufvorgang passiert das, bevor die Zahlung bestätigt wurde."
 
-#: includes/triggers/order-note-added.php:21
+#: includes/triggers/order-note-added.php:32
 msgid "Order Note Added"
 msgstr "Bestell-Notiz hinzugefügt"
 
-#: includes/triggers/order-note-added.php:22
+#: includes/triggers/order-note-added.php:33
 msgid ""
 "Fires when any note is added to an order, can include both private notes and "
 "notes to the customer. These notes appear on the right of the order edit "
@@ -4867,11 +4915,11 @@ msgstr ""
 "und Kundennotizen enthalten. Diese Notizen werden rechts auf dem „Bestellung "
 "bearbeiten“-Bildschirm angezeigt."
 
-#: includes/triggers/order-note-added.php:31
+#: includes/triggers/order-note-added.php:43
 msgid "Note contains text"
 msgstr "Notiz enthält Text"
 
-#: includes/triggers/order-note-added.php:32
+#: includes/triggers/order-note-added.php:44
 msgid ""
 "Only trigger this workflow if the order note contains the certain text. This "
 "field is optional."
@@ -4879,7 +4927,7 @@ msgstr ""
 "Workflow nur auslösen, wenn die Notiz einen bestimmten Text enthält. Dieses "
 "Feld ist optional."
 
-#: includes/triggers/order-note-added.php:35
+#: includes/triggers/order-note-added.php:47
 msgid "[All]"
 msgstr "[Alle]"
 
@@ -4973,11 +5021,11 @@ msgstr ""
 "Wenn ein Kunde mehrere Bewertungen für das selbe Produkt hinterlässt, wird "
 "der Workflow nur ein mal ausgelöst."
 
-#: includes/triggers/subscription-before-end.php:16
+#: includes/triggers/subscription-before-end.php:15
 msgid "Subscription Before End"
 msgstr "Abonnement vor Ablauf"
 
-#: includes/triggers/subscription-before-end.php:17
+#: includes/triggers/subscription-before-end.php:16
 msgid ""
 "This trigger checks for subscriptions that are due to expire/end once every "
 "24 hours."
@@ -4987,25 +5035,25 @@ msgstr "Dieser Auslöser prüft alle 24 Stunden, ob Abonnements enden/ablaufen."
 msgid "Days before end"
 msgstr "Tage vor Ablauf"
 
-#: includes/triggers/subscription-before-renewal.php:19
+#: includes/triggers/subscription-before-renewal.php:23
 msgid "Subscription Before Renewal"
 msgstr "Abonnement vor Verlängerung"
 
-#: includes/triggers/subscription-before-renewal.php:20
+#: includes/triggers/subscription-before-renewal.php:24
 msgid ""
 "This trigger checks for upcoming subscription renewals once every 24 hours."
 msgstr ""
 "Dieser Auslöser prüft alle 24 Stunden, ob Abonnement-Verlängerungen anstehen."
 
-#: includes/triggers/subscription-before-renewal.php:28
+#: includes/triggers/subscription-before-renewal.php:33
 msgid "Days before renewal"
 msgstr "Tage vor Verlängerung"
 
-#: includes/triggers/subscription-created.php:17
+#: includes/triggers/subscription-created.php:26
 msgid "Subscription Created"
 msgstr "Abonnement erstellt"
 
-#: includes/triggers/subscription-created.php:18
+#: includes/triggers/subscription-created.php:27
 msgid ""
 "This trigger fires after a subscription is created which happens before "
 "payment is confirmed. To create a workflow that runs when the subscription "
@@ -5016,6 +5064,20 @@ msgstr ""
 "der ausgelöst wird wenn ein Abonnement bezahlt wurde, nutze den Auslöser "
 "„Abonnement-Status geändert“."
 
+#: includes/triggers/subscription-note-added.php:25
+msgid "Subscription Note Added"
+msgstr "Abonnement-Notiz hinzugefügt"
+
+#: includes/triggers/subscription-note-added.php:26
+msgid ""
+"Fires when a note is added to a subscription. This includes private notes "
+"and notes to the customer. These notes appear on the right of the "
+"subscription edit screen."
+msgstr ""
+"Löst aus, wenn eine Notiz zu einem Abonnement hinzugefügt wird. Dies "
+"beinhaltet private und Kundennotizen. Diese Notizen werden rechts auf dem "
+"„Abonnement bearbeiten“-Bildschirm angezeigt."
+
 #: includes/triggers/subscription-payment-complete.php:22
 msgid "Subscription Renewal Payment Complete"
 msgstr "Abonnement-Verlängerungs-Zahlung abgeschlossen"
@@ -5024,11 +5086,11 @@ msgstr "Abonnement-Verlängerungs-Zahlung abgeschlossen"
 msgid "Subscription Renewal Payment Failed"
 msgstr "Abonnement-Verlängerungs-Zahlung fehlgeschlagen"
 
-#: includes/triggers/subscription-status-changed-each-line-item.php:19
+#: includes/triggers/subscription-status-changed-each-line-item.php:26
 msgid "Subscription Status Changed - Each Line Item"
 msgstr "Abonnement-Status geändert - jede Zeile"
 
-#: includes/triggers/subscription-status-changed-each-line-item.php:20
+#: includes/triggers/subscription-status-changed-each-line-item.php:27
 msgid ""
 "This trigger runs for every line item of a subscription when the status "
 "changes. Using this trigger allows access to the product data of the "
@@ -5038,11 +5100,11 @@ msgstr ""
 "geändert wird. Dieser Auslöser erlaubt Zugriff auf spezifische Abonnement-"
 "Artikel und -Produktdaten."
 
-#: includes/triggers/subscription-status-changed.php:16
+#: includes/triggers/subscription-status-changed.php:22
 msgid "Subscription Status Changed"
 msgstr "Abonnement-Status geändert"
 
-#: includes/triggers/subscription-status-changed.php:25
+#: includes/triggers/subscription-status-changed.php:32
 msgid ""
 "Select which subscription status changes will trigger this workflow. Leave "
 "blank for any subscription status."
@@ -5050,7 +5112,7 @@ msgstr ""
 "Wähle, welche Abonnement-Statuswechsel diesen Workflow starten. Leer lassen "
 "für alle Abonnement-Stati."
 
-#: includes/triggers/subscription-status-changed.php:36
+#: includes/triggers/subscription-status-changed.php:43
 msgid ""
 "This is useful for workflows that are not run immediately as it ensures the "
 "status of the subscription hasn't changed since initial trigger."
@@ -5059,7 +5121,7 @@ msgstr ""
 "dem Durchlaufen sicherstellt, dass der zugehörige Abonnement-Status sich "
 "nicht geändert hat."
 
-#: includes/triggers/subscription-trial-end.php:17
+#: includes/triggers/subscription-trial-end.php:23
 msgid "Subscription Trial End"
 msgstr "Abonnement-Testphasenende"
 
@@ -5127,7 +5189,7 @@ msgstr "Kunde fügt Produkt hinzu (%s)"
 
 #: includes/triggers/wishlist-item-added.php:19,
 #: includes/triggers/wishlist-item-goes-on-sale.php:20,
-#: includes/triggers/wishlist-reminder.php:22
+#: includes/triggers/wishlist-reminder.php:19
 msgid "Wishlists"
 msgstr "Wunschlisten"
 
@@ -5135,11 +5197,11 @@ msgstr "Wunschlisten"
 msgid "Wishlist Item On Sale (%s)"
 msgstr "Wunschlisten-Artikel im Angebot (%s)"
 
-#: includes/triggers/wishlist-reminder.php:21
+#: includes/triggers/wishlist-reminder.php:18
 msgid "Wishlist Reminder (%s)"
 msgstr "Wunschliste-Erinnerung (%s)"
 
-#: includes/triggers/wishlist-reminder.php:23
+#: includes/triggers/wishlist-reminder.php:20
 msgid ""
 "Setting the 'Reminder Interval' field to 30 means this trigger will fire "
 "every 30 days for any users that have items in their wishlist. This trigger "
@@ -5151,20 +5213,20 @@ msgstr ""
 "wird täglich geprüft. Bitte beachte, dass dies nicht für Gäste funktioniert, "
 "da ihre Wunschlisten-Daten nur in ihrer Sitzung existieren."
 
-#: includes/triggers/wishlist-reminder.php:34
+#: includes/triggers/wishlist-reminder.php:31
 msgid "Reminder interval (days)"
 msgstr "Erinnerungs-Interval (Tage)"
 
-#: includes/triggers/wishlist-reminder.php:35
+#: includes/triggers/wishlist-reminder.php:32
 msgid "E.g. Reminder any customers with items in a Wishlist every 30 days."
 msgstr ""
 "Erinnere z.B. alle 30 Tage alle Kunden mit Artikeln auf der Wunschliste."
 
-#: includes/triggers/wishlist-reminder.php:40
+#: includes/triggers/wishlist-reminder.php:37
 msgid "Once per customer"
 msgstr "Einmal pro Kunde"
 
-#: includes/triggers/wishlist-reminder.php:41
+#: includes/triggers/wishlist-reminder.php:38
 msgid ""
 "If checked the trigger will fire only once for each customer for each "
 "wishlist they create. Most customers only use the one wishlist so use with "
@@ -5183,23 +5245,31 @@ msgstr "Durchlauf-Zähler erreicht"
 msgid "Times run"
 msgstr "Anzahl Durchläufe"
 
-#: includes/variables/abstract-datetime.php:19
+#: includes/variables/abstract-datetime.php:26
 msgid ""
-"To modify how the date and time is formatted please refer to the %sWordPress "
+"To set a custom date or time format please refer to the %sWordPress "
 "documentation%s."
 msgstr ""
-"Um das Anzeigeformat von Daten zu ändern, sieh dir die %sWordPress "
+"Um ein eigenes Datums- und Zeitformat zu nutzen, sieh dir die %sWordPress "
 "Dokumentation%s an."
 
-#: includes/variables/abstract-datetime.php:24
+#: includes/variables/abstract-datetime.php:37
 msgid ""
-"Optional parameter to modify the display of the datetime. Default is MySQL "
-"format (Y-m-d H:i:s)"
+"Choose the format that the date will be displayed in. The default is MySQL "
+"datetime format."
 msgstr ""
-"Optionaler Parameter, um das Datumsformat zu ändern. Standard ist MySQL-"
-"Format (Y-m-d H:i:s)"
+"Wähle das Format, in dem das Datum angezeigt wird. Standard ist das MySQL-"
+"datetime-Format."
 
-#: includes/variables/abstract-datetime.php:28
+#: includes/variables/abstract-datetime.php:42
+msgid ""
+"Set a format according to the documentation link in the variable's "
+"description."
+msgstr ""
+"Definiere ein Format entsprechend der Dokumentation in der Beschreibung der "
+"Variable."
+
+#: includes/variables/abstract-datetime.php:49
 msgid ""
 "Optional parameter to modify the value of the datetime. Uses the PHP "
 "strtotime() function."
@@ -5207,9 +5277,31 @@ msgstr ""
 "Optionaler Parameter, um den Datumswert zu ändern. Nutzt die PHP-Funktion "
 "strtotime()."
 
-#: includes/variables/abstract-datetime.php:29
+#: includes/variables/abstract-datetime.php:50
 msgid "e.g. +2 months, -1 day, +6 hours"
 msgstr "z.B. +2 months, -1 day, +6 hours"
+
+#: includes/variables/abstract-datetime.php:86
+msgid "MySQL datetime - %2$s"
+msgstr "MySQL datetime - %2$s"
+
+#: includes/variables/abstract-datetime.php:87
+msgid "Site setting - %2$s"
+msgstr "Seiteneinstellung - %2$s"
+
+#: includes/variables/abstract-datetime.php:91
+msgid "Unix timestamp - %2$s"
+msgstr "Unix-Zeitstempel - %2$s"
+
+#: includes/variables/abstract-datetime.php:92
+msgctxt "custom date format option"
+msgid "Custom"
+msgstr "Eigenes"
+
+#: includes/variables/abstract-datetime.php:112
+msgctxt "date format option"
+msgid "%1$s - %2$s"
+msgstr "%1$s - %2$s"
 
 #: includes/variables/abstract-generate-coupon.php:17
 msgid ""
@@ -5256,6 +5348,16 @@ msgstr "AutomateWoo Test-Gutschein"
 #: includes/variables/order-meta-date.php:15
 msgid "The meta_key of the field you would like to display."
 msgstr "Der meta_key des Feldes, das du anzeigen möchtest."
+
+#: includes/variables/abstract-price.php:21
+msgid "Choose to display the amount as a formatted price or numerical value."
+msgstr ""
+"Wähle, ob die Summe als formatierter Betrag oder numerischer Wert angezeigt "
+"wird."
+
+#: includes/variables/abstract-price.php:24
+msgid "Decimal"
+msgstr "Dezimal"
 
 #: includes/variables/abstract-product-display.php:25
 msgid "Product Grid - 2 Column"
@@ -5354,9 +5456,9 @@ msgid "Sets which page the link will direct the customer to when clicked."
 msgstr ""
 "Lege fest, auf welche Seite der Kunde bei Klick weitergeleitet werden soll."
 
-#: includes/variables/cart-total.php:15
-msgid "Displays the formatted total of the cart."
-msgstr "Zeit die formatierte Summe des Warenkorbs an."
+#: includes/variables/cart-total.php:19
+msgid "Displays the total cost of the cart."
+msgstr "Zeit die Gesamtsumme des Warenkorbs an."
 
 #: includes/variables/category-id.php:15
 msgid "Displays the ID of the category."
@@ -5444,6 +5546,23 @@ msgstr "Zeigt die Gesamtanzahl an Bestellung eines Kunden."
 msgid "Displays the customer's billing phone."
 msgstr "Zeigt die Telefonnummer der Rechnungsdetails."
 
+#: includes/variables/customer-points.php:22
+msgid "Displays the customer's total points."
+msgstr "Zeigt die Punkte des Kunden."
+
+#: includes/variables/customer-points.php:24
+msgid ""
+"Choose whether to display the total number of points or their monetary value."
+msgstr "Wähle, ob die Summe der Punkte oder ihr monetärer Wert angezeigt wird."
+
+#: includes/variables/customer-points.php:26
+msgid "Point value as decimal"
+msgstr "Punkte als Dezimalwert"
+
+#: includes/variables/customer-points.php:27
+msgid "Point value as price"
+msgstr "Punkte als Geldwert"
+
 #: includes/variables/customer-postcode.php:15
 msgid "Displays the customer's billing postcode."
 msgstr "Zeigt die PLZ der Rechnungsdetails."
@@ -5470,9 +5589,9 @@ msgstr "Abkürzung"
 msgid "Displays a comma separated list of the customer's user tags."
 msgstr "Zeigt eine komma-getrennte Liste der Kunden-Schlagwörter."
 
-#: includes/variables/customer-total-spent.php:15
-msgid "Displays the formatted total spent for the customer."
-msgstr "Zeit die formatierte Gesamtsumme der Bestellung für den Kunden."
+#: includes/variables/customer-total-spent.php:19
+msgid "Displays the total amount the customer has spent."
+msgstr "Zeigt den insgesamt jemals ausgegebenen Wert eines Kunden."
 
 #: includes/variables/customer-unsubscribe-url.php:16
 msgid "Displays a URL that the customer can use to unsubscribe."
@@ -5543,6 +5662,10 @@ msgstr "Zeigt die Verlängerungs-URL für die Mitgliedschaft."
 msgid "Displays the status of the membership."
 msgstr "Zeigt den Status der Mitgliedschaft."
 
+#: includes/variables/order-admin-url.php:21
+msgid "Displays the admin URL of the order."
+msgstr "Zeigt die Admin-URL der Bestellung."
+
 #: includes/variables/order-billing-address.php:15
 msgid "Displays the formatted billing address for the order."
 msgstr "Zeigt die formatierte Rechnungsadresse der Bestellung."
@@ -5600,8 +5723,7 @@ msgstr ""
 msgid "The slug of the product attribute."
 msgstr "Die Kurzform des Produkt-Attributs."
 
-#: includes/variables/order-item-meta.php:15,
-#: includes/variables/order-item-quantity.php:15
+#: includes/variables/order-item-meta.php:15
 msgid "Can be used to display the value of an order item meta field."
 msgstr ""
 "Kann genutzt werden, um den Wert eines benutzerdefinierten Feldes einer "
@@ -5610,6 +5732,12 @@ msgstr ""
 #: includes/variables/order-item-meta.php:16
 msgid "The key of the order item meta field."
 msgstr "Der Schlüssel des benutzerdefinierten Feldes."
+
+#: includes/variables/order-item-quantity.php:15
+msgid "Can be used to display the quantity of a product line item on an order."
+msgstr ""
+"Kann genutzt werden, um die Menge einer Bestellposition einer Bestellung "
+"anzuzeigen."
 
 #: includes/variables/order-items.php:19
 msgid ""
@@ -5743,9 +5871,9 @@ msgstr "Zeigt den Staat der Lieferadresse der Bestellung."
 msgid "Displays the status of the order."
 msgstr "Zeigt den Status der Bestellung."
 
-#: includes/variables/order-total.php:15
-msgid "Displays the formatted total of the order."
-msgstr "Zeit die formatierte Gesamtsumme der Bestellung."
+#: includes/variables/order-total.php:19
+msgid "Displays the total cost of the order."
+msgstr "Zeigt die Gesamtsumme der Bestellung."
 
 #: includes/variables/order-tracking-number.php:16
 msgid ""
@@ -5774,9 +5902,9 @@ msgid ""
 msgstr ""
 "Zeigt einen Link zum Produkt, der das Produkt auch zum Warenkorb hinzufügt."
 
-#: includes/variables/product-current-price.php:15
-msgid "Displays the product's formatted current price."
-msgstr "Zeigt den formatierten, aktuellen Produktpreis."
+#: includes/variables/product-current-price.php:19
+msgid "Displays the product's current price."
+msgstr "Zeigt den aktuellen Produktpreis."
 
 #: includes/variables/product-description.php:15
 msgid "Displays the description of the product or variation."
@@ -5802,9 +5930,9 @@ msgstr "Zeigt die SKU des übergeordneten Produkts."
 msgid "Displays the permalink to the product."
 msgstr "Zeigt den Permalink zum Produkt."
 
-#: includes/variables/product-regular-price.php:15
-msgid "Displays the product's formatted regular price."
-msgstr "Zeigt den formatierten, regulären Produktpreis."
+#: includes/variables/product-regular-price.php:19
+msgid "Displays the product's regular price."
+msgstr "Zeigt den regulären Produktpreis."
 
 #: includes/variables/product-short-description.php:15
 msgid "Displays the product's short description."
@@ -5943,9 +6071,23 @@ msgstr "Zeigt den Titel deines Shops."
 msgid "Displays the URL to the home page of your shop."
 msgstr "Zeigt den URL zur Startseite deines Shops."
 
+#: includes/variables/subscription-admin-url.php:20
+msgid "Displays the admin URL of the subscription."
+msgstr "Zeigt die Admin-URL des Abonnements."
+
 #: includes/variables/subscription-billing-address.php:15
 msgid "Displays the formatted billing address for the subscription."
 msgstr "Zeigt die formatierte Rechnungsadresse des Abonnements."
+
+#: includes/variables/subscription-change-payment-method-url.php:18
+msgid "Shows a URL to the subscription add/change payment method page."
+msgstr ""
+"Zeigt die URL zum Hinzufügen/Ändern der Zahlungsart des Abonnements im Konto-"
+"Bereich."
+
+#: includes/variables/subscription-early-renewal-url.php:20
+msgid "Displays the early renewal URL for the subscription."
+msgstr "Zeigt die Vorzeitige-Verlängerung-URL des Abonnements."
 
 #: includes/variables/subscription-end-date.php:16
 msgid "Displays the subscription end date in your website's timezone."
@@ -5987,7 +6129,7 @@ msgstr "Zeigt das Startdatum des Abonnements in der Zeitzone deiner Webseite."
 msgid "Displays the formatted status of the subscription."
 msgstr "Zeigt den formatierten Status des Abonnements."
 
-#: includes/variables/subscription-total.php:15
+#: includes/variables/subscription-total.php:19
 msgid "Displays the subscription's recurring total."
 msgstr "Zeigt den wiederkehrenden Gesamtbetrag eines Abonnements."
 
@@ -6058,6 +6200,47 @@ msgstr "E-Mail-Adresse"
 #: templates/email/review-grid-2-col.php:45, templates/email/review-rows.php:39
 msgid "Leave a review"
 msgstr "Hinterlasse eine Bewertung"
+
+#~ msgid ""
+#~ "If the customer has an account, the user meta table is used. If the "
+#~ "customer is a guest, the guest meta table is used."
+#~ msgstr ""
+#~ "Wenn der Kunde ein Konto besitzt, wird die Benutzer-Meta-Tabelle genutzt. "
+#~ "Wenn der Kunde ein Gast ist, wird die Gast-Meta-Tabelle genutzt."
+
+#~ msgid "Order Line Item"
+#~ msgstr "Bestellposition"
+
+#~ msgid ""
+#~ "Select which subscription products to trigger this workflow for. Leave "
+#~ "blank to apply this trigger to all subscription products."
+#~ msgstr ""
+#~ "Wähle, für welche Abonnement-Produkte ausgelöst werden soll. Leer lassen "
+#~ "für alle Abonnement-Produkte."
+
+#~ msgid ""
+#~ "This can be used for workflows that are not run immediately as it will "
+#~ "check that the related subscription is still active just before running."
+#~ msgstr ""
+#~ "Dies kann für Workflows genutzt werden, die nicht sofort laufen, da es "
+#~ "direkt vor dem Durchlaufen prüft, ob das zugehörige Abonnement noch aktiv "
+#~ "ist."
+
+#~ msgid "Maximum days since last purchase (optional)"
+#~ msgstr "Höchstzahl Tage seit letzter Bestellung (optional)"
+
+#~ msgid ""
+#~ "Optional parameter to modify the display of the datetime. Default is "
+#~ "MySQL format (Y-m-d H:i:s)"
+#~ msgstr ""
+#~ "Optionaler Parameter, um das Datumsformat zu ändern. Standard ist MySQL-"
+#~ "Format (Y-m-d H:i:s)"
+
+#~ msgid "Displays the formatted total spent for the customer."
+#~ msgstr "Zeit die formatierte Gesamtsumme der Bestellung für den Kunden."
+
+#~ msgid "Displays the formatted total of the order."
+#~ msgstr "Zeit die formatierte Gesamtsumme der Bestellung."
 
 #~ msgid "Error: Email preview data could not be found."
 #~ msgstr "Fehler: E-Mail-Vorschau-Daten konnten nicht gefunden werden."

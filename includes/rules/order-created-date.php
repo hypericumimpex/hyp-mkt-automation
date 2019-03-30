@@ -31,7 +31,6 @@ class Order_Created_Date extends Abstract_Date {
 	 */
 	public function init() {
 		$this->title = __( 'Order - Created Date', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

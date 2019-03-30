@@ -76,10 +76,10 @@ class Trigger_User_Purchases_Specific_Product extends Trigger_Abstract_Order_Sta
 
 			/** @var $item \WC_Order_Item_Product|array */
 			if ( $target_is_variation ) {
-				$match = Compat\Order_Item::get_variation_id( $item ) == $target_product_id;
+				$match = $item->get_variation_id() == $target_product_id;
 			}
 			else {
-				$match = Compat\Order_Item::get_product_id( $item ) == $target_product_id;
+				$match = $item->get_product_id() == $target_product_id;
 			}
 
 			if ( $match ) {

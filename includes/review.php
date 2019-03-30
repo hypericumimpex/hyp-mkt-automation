@@ -36,14 +36,16 @@ class Review {
 			$comment = get_comment( $comment );
 		}
 
-		if ( $comment ) {
-			$this->exists = true;
-			$this->comment = $comment;
-			$this->comment_id = (int) $comment->comment_ID;
-			$this->user_id = (int) $comment->user_id;
-			$this->product_id = (int) $comment->comment_post_ID;
-			$this->email = Clean::email( $comment->comment_author_email );
+		if ( ! $comment || 'review' !== $comment->comment_type || 'product' !== get_post_type( $comment->comment_post_ID ) ) {
+			return;
 		}
+
+		$this->exists = true;
+		$this->comment = $comment;
+		$this->comment_id = (int) $comment->comment_ID;
+		$this->user_id = (int) $comment->user_id;
+		$this->product_id = (int) $comment->comment_post_ID;
+		$this->email = Clean::email( $comment->comment_author_email );
 	}
 
 
@@ -92,6 +94,17 @@ class Review {
 	 */
 	function get_rating() {
 		return (int) get_comment_meta( $this->get_id(), 'rating', true );
+	}
+
+	/**
+	 * Get the customer who made the review.
+	 *
+	 * @since 4.5
+	 *
+	 * @return Customer|bool
+	 */
+	public function get_customer() {
+		return Customer_Factory::get_by_review( $this );
 	}
 
 

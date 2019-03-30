@@ -17,7 +17,6 @@ class Order_Item_Count extends Abstract_Number {
 
 	function init() {
 		$this->title = __( 'Order - Item Count', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

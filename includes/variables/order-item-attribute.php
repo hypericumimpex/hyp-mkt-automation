@@ -29,7 +29,7 @@ class Variable_Order_Item_Attribute extends Variable {
 
 		$attribute = 'pa_' . $parameters['slug'];
 
-		$term = Compat\Order_Item::get_attribute( $order_item, $attribute );
+		$term = $order_item->get_meta( $attribute );
 
 		if ( ! $term )
 			return false;

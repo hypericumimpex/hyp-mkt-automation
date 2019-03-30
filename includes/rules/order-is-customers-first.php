@@ -13,7 +13,6 @@ class AW_Rule_Order_Is_Customers_First extends AutomateWoo\Rules\Abstract_Bool {
 
 	function init() {
 		$this->title = __( "Order - Is Customer's First", 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

@@ -728,7 +728,9 @@ class Customer extends Model {
 	function get_reviews( $args = [] ) {
 		$query_args = wp_parse_args( $args, [
 			'status' => 'approve',
-			'count'  => false
+			'count'  => false,
+			'type'   => 'review',
+			'parent' => 0,
 		] );
 
 		if ( $this->is_registered() ) {
@@ -741,24 +743,51 @@ class Customer extends Model {
 	}
 
 	/**
-	 * @param string $status (hold|approve|all)
+	 * Get the customer's review count.
+	 *
+	 * NOTE: This excludes multiple reviews of the same product.
+	 *
 	 * @return int
 	 */
-	function get_review_count( $status = 'approve' ) {
+	function get_review_count() {
+		$cache_group = 'customer_review_count';
 
-		$cache_key = "customer_review_count_$status";
-
-		if ( Temporary_Data::exists( $cache_key, $this->get_id() ) ) {
-			return Temporary_Data::get( $cache_key, $this->get_id() );
+		if ( Cache::exists( $this->get_id(), $cache_group ) ) {
+			$count = (int) Cache::get( $this->get_id(), $cache_group );
+		} else {
+			$count = $this->calculate_unique_product_review_count();
+			Cache::set( $this->get_id(), $count, $cache_group );
 		}
 
-		$comment_count = $this->get_reviews( [ 'status' => $status, 'count' => true ] );
-
-		Temporary_Data::set( $cache_key, $this->get_id(), $comment_count );
-
-		return $comment_count;
+		return $count;
 	}
 
+	/**
+	 * Calculate the customer's review count excluding multiple reviews on the same product.
+	 *
+	 * @since 4.5
+	 *
+	 * @return int
+	 */
+	function calculate_unique_product_review_count() {
+		global $wpdb;
+		$sql = "SELECT COUNT(DISTINCT comment_post_ID) FROM {$wpdb->comments} 
+				WHERE comment_parent = 0
+				AND comment_approved = 1
+				AND comment_type = 'review'
+				AND (user_ID = %d OR comment_author_email = %s)";
+
+		return (int) $wpdb->get_var( $wpdb->prepare( $sql, [ $this->get_user_id(), $this->get_email() ] ) );
+	}
+
+	/**
+	 * Clear customer review count cache.
+	 *
+	 * @since 4.5
+	 */
+	function clear_review_count_cache() {
+		Cache::delete( $this->get_id(), 'customer_review_count' );
+	}
 
 	/**
 	 * Gets the last review date for the user.

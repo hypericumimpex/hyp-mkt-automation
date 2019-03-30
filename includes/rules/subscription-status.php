@@ -3,6 +3,8 @@
 
 namespace AutomateWoo\Rules;
 
+use AutomateWoo\Subscription_Workflow_Helper;
+
 defined( 'ABSPATH' ) or exit;
 
 /**
@@ -15,12 +17,11 @@ class Subscription_Status extends Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Subscription - Status', 'automatewoo' );
-		$this->group = __( 'Subscription', 'automatewoo' );
 	}
 
 
 	function load_select_choices() {
-		return wcs_get_subscription_statuses();
+		return Subscription_Workflow_Helper::get_subscription_statuses();
 	}
 
 

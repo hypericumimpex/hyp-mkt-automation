@@ -13,7 +13,6 @@ class AW_Rule_Order_Shipping_Method_String extends AutomateWoo\Rules\Abstract_St
 
 	function init() {
 		$this->title = __( 'Order - Shipping Method - Text Match', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

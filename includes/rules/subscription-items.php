@@ -16,7 +16,6 @@ class Subscription_Items extends Order_Items {
 		parent::init();
 
 		$this->title = __( 'Subscription - Items', 'automatewoo' );
-		$this->group = __( 'Subscription', 'automatewoo' );
 	}
 
 }

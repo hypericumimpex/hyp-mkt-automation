@@ -13,7 +13,6 @@ class AW_Rule_Order_Has_Cross_Sells extends AutomateWoo\Rules\Abstract_Bool {
 
 	function init() {
 		$this->title = __( 'Order - Has Cross-Sells Available', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

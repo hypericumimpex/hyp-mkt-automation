@@ -17,7 +17,6 @@ class Rule_Order_Item_Categories extends Rules\Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Order - Item Categories', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 
@@ -44,7 +43,7 @@ class Rule_Order_Item_Categories extends Rules\Abstract_Select {
 		$category_ids = [];
 
 		foreach ( $order->get_items() as $item ) {
-			$terms = wp_get_object_terms( Compat\Order_Item::get_product_id( $item ), 'product_cat', [ 'fields' => 'ids' ] );
+			$terms = wp_get_object_terms( $item->get_product_id(), 'product_cat', [ 'fields' => 'ids' ] );
 			$category_ids = array_merge( $category_ids, $terms );
 		}
 

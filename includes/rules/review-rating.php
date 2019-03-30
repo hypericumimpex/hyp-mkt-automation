@@ -17,7 +17,6 @@ class Review_Rating extends Abstract_Number {
 
 	function init() {
 		$this->title = __( 'Review - Rating', 'automatewoo' );
-		$this->group = __( 'Review', 'automatewoo' );
 	}
 
 

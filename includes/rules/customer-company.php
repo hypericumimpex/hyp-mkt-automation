@@ -15,7 +15,6 @@ class Customer_Company extends Abstract_String {
 
 	function init() {
 		$this->title = __( 'Customer - Company', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 

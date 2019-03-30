@@ -3,8 +3,6 @@
 
 namespace AutomateWoo\Rules;
 
-use AutomateWoo\Compat;
-
 defined( 'ABSPATH' ) or exit;
 
 /**
@@ -19,7 +17,6 @@ class Order_Subscription_Payment_Retry_Count extends Abstract_Number {
 
 	function init() {
 		$this->title = __( 'Order - Subscription Payment Retry Count', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

@@ -46,16 +46,20 @@ class Remote_Request {
 		$this->request = wp_remote_request( $url, $args );
 	}
 
-
 	/**
+	 * Checks if the remote HTTP request failed.
+	 *
+	 * Note: This doesn't check the response, it only checks that some response was received.
+	 *
 	 * @return bool
 	 */
 	function is_http_error() {
 		return is_wp_error( $this->request );
 	}
 
-
 	/**
+	 * Checks if a valid HTTP response code was returned.
+	 *
 	 * @return bool
 	 */
 	function is_api_error() {
@@ -65,16 +69,20 @@ class Remote_Request {
 		return ! $this->is_http_success_code();
 	}
 
-
 	/**
+	 * Checks if the remote request was successful.
+	 *
+	 * Checks that the API returned a success HTTP response code e.g. 200.
+	 *
 	 * @return bool
 	 */
 	function is_successful() {
 		return $this->is_http_success_code();
 	}
 
-
 	/**
+	 * Returns the HTTP error message if the request failed and no response was received.
+	 *
 	 * @return string|false
 	 */
 	function get_http_error_message() {
@@ -84,8 +92,11 @@ class Remote_Request {
 		return false;
 	}
 
-
 	/**
+	 * Returns the HTTP status code of the request.
+	 *
+	 * Returns 503 if the request failed.
+	 *
 	 * @return int
 	 */
 	function get_response_code() {
@@ -96,8 +107,9 @@ class Remote_Request {
 		return $this->request['response']['code'];
 	}
 
-
 	/**
+	 * Returns the HTTP request response message.
+	 *
 	 * @return string
 	 */
 	function get_response_message() {
@@ -108,8 +120,11 @@ class Remote_Request {
 		return $this->request['response']['message'];
 	}
 
-
 	/**
+	 * Returns the processed request body.
+	 *
+	 * JSON will be decoded.
+	 *
 	 * @return array|false
 	 */
 	function get_body() {
@@ -121,8 +136,9 @@ class Remote_Request {
 		return json_decode( $this->request['body'], true, 512, $options );
 	}
 
-
 	/**
+	 * Returns the unprocessed request body.
+	 *
 	 * @return string
 	 */
 	function get_body_raw() {
@@ -133,14 +149,14 @@ class Remote_Request {
 		return $this->request['body'];
 	}
 
-
 	/**
+	 * Checks if the HTTP status code is a success code.
+	 *
 	 * @return bool
 	 */
 	function is_http_success_code() {
 		return in_array( $this->get_response_code(), $this->http_success_codes );
 	}
-
 
 
 

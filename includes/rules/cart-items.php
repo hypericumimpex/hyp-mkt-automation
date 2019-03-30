@@ -24,7 +24,6 @@ class Cart_Items extends Abstract_Object {
 	function init() {
 
 		$this->title = __( 'Cart - Items', 'automatewoo' );
-		$this->group = __( 'Cart', 'automatewoo' );
 		$this->placeholder = __( 'Search products...', 'automatewoo' );
 
 		$this->compare_types = [

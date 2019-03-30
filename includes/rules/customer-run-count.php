@@ -17,7 +17,6 @@ class Customer_Run_Count extends Abstract_Number {
 
 	function init() {
 		$this->title = __( "Workflow - Run Count For Customer", 'automatewoo' );
-		$this->group = __( 'Workflow', 'automatewoo' );
 	}
 
 

@@ -18,12 +18,6 @@ class Action_MailChimp_Subscribe extends Action_MailChimp_Abstract {
 
 	function load_fields() {
 
-		$email = ( new Fields\Text() )
-			->set_name( 'email' )
-			->set_title( __( 'Contact email', 'automatewoo' ) )
-			->set_description( __( 'You can use variables such as {{ customer.email }} here. If blank {{ customer.email }} will be used.', 'automatewoo' ) )
-			->set_variable_validation();
-
 		$first_name = ( new Fields\Text() )
 			->set_name( 'first_name' )
 			->set_title( __( 'First name', 'automatewoo' ) )
@@ -42,7 +36,7 @@ class Action_MailChimp_Subscribe extends Action_MailChimp_Abstract {
 			->set_description( __( 'Users will receive an email asking them to confirm their subscription.', 'automatewoo' ) );
 
 		$this->add_list_field();
-		$this->add_field( $email );
+		$this->add_field( $this->get_contact_email_field() );
 		$this->add_field( $double_optin );
 		$this->add_field( $first_name );
 		$this->add_field( $last_name );
@@ -51,18 +45,12 @@ class Action_MailChimp_Subscribe extends Action_MailChimp_Abstract {
 
 	function run() {
 		$list_id = $this->get_option( 'list' );
-		$email = Clean::email( $this->get_option( 'email', true ) );
+		$email = $this->get_contact_email_option();
 		$first_name = $this->get_option( 'first_name', true );
 		$last_name = $this->get_option( 'last_name', true );
-		$customer = $this->workflow->data_layer()->get_customer();
 
 		if ( ! $list_id ) {
 			return;
-		}
-
-		if ( ! $email && $customer ) {
-			// use to customer.email if blank
-			$email = $customer->get_email();
 		}
 
 		$args = [];

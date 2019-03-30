@@ -15,7 +15,6 @@ class Customer_Meta extends Abstract_Meta {
 
 	function init() {
 		$this->title = __( 'Customer - Custom Field', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 

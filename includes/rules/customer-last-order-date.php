@@ -31,7 +31,6 @@ class Customer_Last_Order_Date extends Abstract_Date {
 	 */
 	public function init() {
 		$this->title = __( 'Customer - Last Paid Order Date', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 	/**

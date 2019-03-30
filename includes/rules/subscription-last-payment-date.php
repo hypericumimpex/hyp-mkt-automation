@@ -32,7 +32,6 @@ class Subscription_Last_Payment_Date extends Abstract_Date {
 	 */
 	public function init() {
 		$this->title = __( 'Subscription - Last Payment Date', 'automatewoo' );
-		$this->group = __( 'Subscription', 'automatewoo' );
 	}
 
 

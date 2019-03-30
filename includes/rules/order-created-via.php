@@ -18,7 +18,6 @@ class Order_Created_Via extends Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Order - Created Via', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

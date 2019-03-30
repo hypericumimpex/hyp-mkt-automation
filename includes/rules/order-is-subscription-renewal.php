@@ -16,7 +16,6 @@ class Order_Is_Subscription_Renewal extends Abstract_Bool {
 
 	function init() {
 		$this->title = __( "Order - Is Subscription Renewal", 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

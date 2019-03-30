@@ -26,7 +26,7 @@ class Action_MailChimp_Remove_From_Group extends Action_MailChimp_Add_To_Group {
 	function run() {
 
 		$list_id = $this->get_option( 'list' );
-		$email = Clean::email( $this->get_option( 'email', true ) );
+		$email = $this->get_contact_email_option();
 		$interests = $this->get_option( 'groups' );
 
 		if ( ! $list_id || ! $interests || ! $email ) {

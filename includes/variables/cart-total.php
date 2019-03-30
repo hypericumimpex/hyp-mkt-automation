@@ -1,28 +1,34 @@
 <?php
-// phpcs:ignoreFile
 
 namespace AutomateWoo;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
+ * Variable Cart Total Class.
+ *
  * @class Variable_Cart_Total
  */
-class Variable_Cart_Total extends Variable {
-
-
-	function load_admin_details() {
-		$this->description = __( "Displays the formatted total of the cart.", 'automatewoo');
-	}
-
+class Variable_Cart_Total extends Variable_Abstract_Price {
 
 	/**
-	 * @param $cart Cart
-	 * @param $parameters array
+	 * Load admin details.
+	 */
+	function load_admin_details() {
+		parent::load_admin_details();
+		$this->description = __( 'Displays the total cost of the cart.', 'automatewoo' );
+	}
+
+	/**
+	 * Get Value Method
+	 *
+	 * @param Cart  $cart
+	 * @param array $parameters
+	 *
 	 * @return string
 	 */
 	function get_value( $cart, $parameters ) {
-		return $cart->price( $cart->get_total() );
+		return parent::format_amount( $cart->get_total(), $parameters );
 	}
 }
 

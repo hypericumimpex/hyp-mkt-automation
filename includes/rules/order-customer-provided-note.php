@@ -17,7 +17,6 @@ class Order_Customer_Provided_Note extends Abstract_String {
 
 	function init() {
 		$this->title = __( 'Order - Customer Provided Note', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

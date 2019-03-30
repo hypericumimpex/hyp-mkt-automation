@@ -24,6 +24,14 @@ abstract class Action_Subscription_Edit_Item_Abstract extends Action {
 
 
 	/**
+	 * Flag to define whether the quantity input field should be marked as required.
+	 *
+	 * @var bool
+	 */
+	protected $require_quantity_field = true;
+
+
+	/**
 	 * Method to get the item to edit on a subscription, which might be a
 	 * WC_Product, WC_Coupon, or some other data type.
 	 *
@@ -117,9 +125,13 @@ abstract class Action_Subscription_Edit_Item_Abstract extends Action {
 		}
 
 		$quantity_input->set_min( $min );
-		$quantity_input->set_required();
 		$quantity_input->set_name( 'quantity' );
 		$quantity_input->set_title( __( 'Quantity', 'automatewoo' ) );
+		$quantity_input->set_description( $this->get_quantity_field_description() );
+
+		if ( $this->require_quantity_field ) {
+			$quantity_input->set_required();
+		}
 
 		$this->add_field( $quantity_input );
 	}
@@ -151,6 +163,14 @@ abstract class Action_Subscription_Edit_Item_Abstract extends Action {
 	 */
 	protected function get_name_field_description() {
 		return __( 'The name to set on the line item.', 'automatewoo' );
+	}
+
+
+	/**
+	 * Get the description to display on the quantity field for this action
+	 */
+	protected function get_quantity_field_description() {
+		return '';
 	}
 
 

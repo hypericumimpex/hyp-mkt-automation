@@ -12,7 +12,6 @@ class AW_Rule_Is_Guest_Order extends AutomateWoo\Rules\Abstract_Bool {
 
 	function init() {
 		$this->title = __( "Order - Is Placed By Guest", 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 	/**

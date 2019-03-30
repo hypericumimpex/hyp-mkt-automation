@@ -17,7 +17,6 @@ class Order_Items_Text_Match extends Abstract_String {
 
 	function init() {
 		$this->title = __( 'Order - Item Names - Text Match', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 		$this->compare_types = $this->get_multi_string_compare_types();
 	}
 
@@ -32,7 +31,7 @@ class Order_Items_Text_Match extends Abstract_String {
 		$names = [];
 
 		foreach ( $order->get_items() as $item ) {
-			$names[] = Compat\Order_Item::get_name( $item );
+			$names[] = $item->get_name();
 		}
 
 		return $this->validate_string_multi( $names, $compare, $value );

@@ -3,8 +3,6 @@
 
 namespace AutomateWoo\Rules;
 
-use AutomateWoo\Compat;
-
 defined( 'ABSPATH' ) or exit;
 
 /**
@@ -17,7 +15,6 @@ class Subscription_Requires_Manual_Renewal extends Abstract_Bool {
 
 	function init() {
 		$this->title = __( 'Subscription - Requires Manual Renewal', 'automatewoo' );
-		$this->group = __( 'Subscription', 'automatewoo' );
 	}
 
 

@@ -15,7 +15,6 @@ class AW_Rule_Order_Coupons extends AutomateWoo\Rules\Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Order - Coupons', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

@@ -38,7 +38,7 @@ class Action_Subscription_Remove_Coupon extends Action_Subscription_Edit_Coupon_
 
 		foreach ( $subscription->get_items( 'coupon' ) as $item ) {
 			if ( $item->get_code() === $coupon->get_code() ) {
-				$subscription->remove_item( Compat\Order_Item::get_id( $item ) );
+				$subscription->remove_item( $item->get_id() );
 			}
 		}
 

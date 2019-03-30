@@ -15,7 +15,6 @@ class Rule_Order_Payment_Gateway extends Rules\Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Order - Payment Gateway', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

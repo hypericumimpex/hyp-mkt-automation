@@ -20,8 +20,7 @@ class Product extends Abstract_Object {
 
 
 	function init() {
-		$this->title = __( 'Product', 'automatewoo' );
-		$this->group = __( 'Product', 'automatewoo' );
+		$this->title = __( 'Product - Product', 'automatewoo' );
 
 		$this->compare_types = [
 			'is' => __( 'is', 'automatewoo' ),

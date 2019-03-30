@@ -16,7 +16,6 @@ class Order_Is_Subscription_Parent extends Abstract_Bool {
 
 	function init() {
 		$this->title = __( "Order - Is Subscription Parent", 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

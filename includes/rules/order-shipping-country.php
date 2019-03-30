@@ -13,7 +13,6 @@ class AW_Rule_Order_Shipping_Country extends AutomateWoo\Rules\Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Order - Shipping Country', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

@@ -15,7 +15,6 @@ class Customer_Phone extends Abstract_String {
 
 	function init() {
 		$this->title = __( 'Customer - Phone', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 

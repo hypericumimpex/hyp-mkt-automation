@@ -37,15 +37,15 @@ abstract class Rule {
 	 * Constructor
 	 */
 	function __construct() {
-		$this->group = __( 'Other', 'automatewoo' );
 		$this->init();
+		$this->determine_rule_group();
 	}
 
 
 	/**
-	 * Set up the condition
+	 * Init the rule.
 	 */
-	abstract function init();
+	abstract public function init();
 
 
 	/**
@@ -309,6 +309,31 @@ abstract class Rule {
 	function is_whole_number( $number ) {
 		$number = (float) $number;
 		return floor( $number ) == $number;
+	}
+
+
+	/**
+	 * Determine the rule group based on it's title.
+	 *
+	 * If the group prop is already set that will be used.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @return string
+	 */
+	public function determine_rule_group() {
+		if ( isset( $this->group ) ) {
+			return;
+		}
+
+		// extract the hyphenated part of the title and use as group
+		if ( isset( $this->title ) && strstr( $this->title, '-' ) ) {
+			list( $this->group ) = explode( ' - ', $this->title, 2 );
+		}
+
+		if ( empty( $this->group ) ) {
+			$this->group = __( 'Other', 'automatewoo' );
+		}
 	}
 
 

@@ -15,7 +15,6 @@ class Customer_Is_Guest extends Abstract_Bool {
 
 	function init() {
 		$this->title = __( 'Customer - Is Guest', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 

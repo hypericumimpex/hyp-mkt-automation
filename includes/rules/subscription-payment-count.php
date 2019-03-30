@@ -15,7 +15,6 @@ class AW_Rule_Subscription_Payment_Count extends AutomateWoo\Rules\Abstract_Numb
 
 	function init() {
 		$this->title = __( 'Subscription - Payment Count', 'automatewoo' );
-		$this->group = __( 'Subscription', 'automatewoo' );
 	}
 
 

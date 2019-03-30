@@ -49,6 +49,10 @@ class Dashboard_Widget_Queue extends Dashboard_Widget {
 
 						$workflow = $event->get_workflow();
 
+						if ( ! $workflow ) {
+							continue;
+						}
+
 						?>
 
 						<div class="automatewoo-dashboard-list__item">

@@ -32,7 +32,6 @@ class Subscription_Created_Date extends Abstract_Date {
 	 */
 	public function init() {
 		$this->title = __( 'Subscription - Created Date', 'automatewoo' );
-		$this->group = __( 'Subscription', 'automatewoo' );
 	}
 
 	/**

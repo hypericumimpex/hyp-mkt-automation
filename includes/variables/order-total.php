@@ -1,28 +1,35 @@
 <?php
-// phpcs:ignoreFile
 
 namespace AutomateWoo;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
+ * Variable Order Total Class.
+ *
  * @class Variable_Order_Total
  */
-class Variable_Order_Total extends Variable {
+class Variable_Order_Total extends Variable_Abstract_Price {
 
-
+	/**
+	 * Load Admin Details.
+	 */
 	function load_admin_details() {
-		$this->description = __( "Displays the formatted total of the order.", 'automatewoo');
+		parent::load_admin_details();
+		$this->description = __( 'Displays the total cost of the order.', 'automatewoo' );
 	}
 
 
 	/**
-	 * @param $order \WC_Order
-	 * @param $parameters array
+	 * Get Value Method.
+	 *
+	 * @param \WC_Order $order
+	 * @param array     $parameters
+	 *
 	 * @return string
 	 */
 	function get_value( $order, $parameters ) {
-		return $order->get_formatted_order_total();
+		return parent::format_amount( $order->get_total(), $parameters );
 	}
 }
 

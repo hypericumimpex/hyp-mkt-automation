@@ -9,15 +9,20 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @class Trigger_Subscription_Before_Renewal
  * @since 2.6.2
  */
-class Trigger_Subscription_Before_Renewal extends Trigger_Abstract_Subscriptions implements Interfaces\Background_Processed_Trigger {
+class Trigger_Subscription_Before_Renewal extends Trigger_Background_Processed_Abstract {
 
-	const SUPPORTS_CUSTOM_TIME_OF_DAY = true;
+	/**
+	 * Sets supplied data for the trigger.
+	 *
+	 * @var array
+	 */
+	public $supplied_data_items = [ 'customer', 'subscription' ];
 
 
 	function load_admin_details() {
-		parent::load_admin_details();
-		$this->title = __( 'Subscription Before Renewal', 'automatewoo' );
+		$this->title       = __( 'Subscription Before Renewal', 'automatewoo' );
 		$this->description = __( 'This trigger checks for upcoming subscription renewals once every 24 hours.', 'automatewoo' );
+		$this->group       = Subscription_Workflow_Helper::get_group_name();
 	}
 
 
@@ -30,20 +35,18 @@ class Trigger_Subscription_Before_Renewal extends Trigger_Abstract_Subscriptions
 
 		$this->add_field($days_before_renewal);
 		$this->add_field( $this->get_field_time_of_day() );
-		$this->add_field_subscription_products();
-	}
-
-
-	function register_hooks() {
-		add_action( 'automatewoo/custom_time_of_day_workflow', [ 'AutomateWoo\Workflow_Background_Process_Helper', 'init_process' ] );
+		$this->add_field( Subscription_Workflow_Helper::get_products_field() );
 	}
 
 
 	/**
 	 * @param Workflow $workflow
+	 * @param int      $limit
+	 * @param int      $offset
+	 *
 	 * @return array
 	 */
-	function get_background_tasks( $workflow ) {
+	function get_background_tasks( $workflow, $limit, $offset = 0 ) {
 		$tasks = [];
 		$days_before_renewal = absint( $workflow->get_trigger_option( 'days_before_renewal' ) );
 
@@ -56,7 +59,7 @@ class Trigger_Subscription_Before_Renewal extends Trigger_Abstract_Subscriptions
 		$date->convert_to_site_time();
 		$date->modify( "+$days_before_renewal days" );
 
-		foreach ( $this->get_subscriptions_by_next_payment_day( $date ) as $subscription_id ) {
+		foreach ( $this->get_subscriptions_by_next_payment_day( $date, $limit, $offset ) as $subscription_id ) {
 			$tasks[] = [
 				'workflow_id' => $workflow->get_id(),
 				'workflow_data' => [
@@ -90,10 +93,13 @@ class Trigger_Subscription_Before_Renewal extends Trigger_Abstract_Subscriptions
 	/**
 	 * Return an array of subscription ids that renew on a specific date
 	 *
-	 * @param $date DateTime Must be in site time!
+	 * @param DateTime $date Must be in site time!
+	 * @param int      $limit
+	 * @param int      $offset
+	 *
 	 * @return array
 	 */
-	function get_subscriptions_by_next_payment_day( $date ) {
+	function get_subscriptions_by_next_payment_day( $date, $limit, $offset ) {
 		$day_start = clone $date;
 		$day_end = clone $date;
 		$day_start->setTime(0,0,0);
@@ -106,7 +112,8 @@ class Trigger_Subscription_Before_Renewal extends Trigger_Abstract_Subscriptions
 			'post_type' => 'shop_subscription',
 			'post_status' => 'wc-active',
 			'fields' => 'ids',
-			'posts_per_page' => -1,
+			'posts_per_page' => $limit,
+			'offset' => $offset,
 			'no_found_rows' => true,
 			'meta_query' => [
 				[
@@ -138,7 +145,7 @@ class Trigger_Subscription_Before_Renewal extends Trigger_Abstract_Subscriptions
 			return false;
 		}
 
-		if ( ! $this->validate_subscription_products_field( $workflow ) ) {
+		if ( ! Subscription_Workflow_Helper::validate_products_field( $workflow ) ) {
 			return false;
 		}
 

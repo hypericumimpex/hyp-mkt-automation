@@ -33,7 +33,7 @@ class Report_Queue extends Admin_List_Table {
 	 * @return string
 	 */
 	function column_cb( $queued_event ) {
-		return '<input type="checkbox" name="queued_event_ids[]" value="' . absint( $queued_event->get_id() ) . '" />';
+		return '<input type="checkbox" name="queued_event_ids[]" value="' . $queued_event->get_id() . '" />';
 	}
 
 
@@ -45,7 +45,6 @@ class Report_Queue extends Admin_List_Table {
 	function column_default( $event, $column_name ) {
 
 		$workflow = $event->get_workflow();
-		$workflow->set_data_layer( $event->get_data_layer(), true );
 
 		switch( $column_name ) {
 
@@ -58,26 +57,6 @@ class Report_Queue extends Admin_List_Table {
 
 			case 'workflow':
 				return $this->format_workflow_title( $workflow );
-				break;
-
-
-			case 'user':
-
-				if ( ! $workflow ) {
-					return $this->format_blank();
-				}
-
-				if ( $customer = $workflow->data_layer()->get_customer() ) {
-					return Format::customer( $customer );
-				}
-                elseif ( $guest = $workflow->data_layer()->get_guest() ) {
-					$customer = Customer_Factory::get_by_guest_id( $guest->get_id() );
-					return Format::customer( $customer );
-				}
-				else {
-					return $this->format_blank();
-				}
-
 				break;
 
 			case 'date':
@@ -120,6 +99,31 @@ class Report_Queue extends Admin_List_Table {
 		}
 	}
 
+
+	/**
+	 * @param Queued_Event $queued_event
+	 *
+	 * @return string
+	 */
+	public function column_customer( $queued_event ) {
+		$workflow = $queued_event->get_workflow();
+
+		if ( $workflow ) {
+			$workflow->set_data_layer( $queued_event->get_data_layer(), true );
+
+			if ( $customer = $workflow->data_layer()->get_customer() ) {
+				return Format::customer( $customer );
+			}
+			elseif ( $guest = $workflow->data_layer()->get_guest() ) {
+				$customer = Customer_Factory::get_by_guest_id( $guest->get_id() );
+				return Format::customer( $customer );
+			}
+		}
+
+		return $this->format_blank();
+	}
+
+
 	/**
 	 * get_columns function.
 	 */
@@ -128,7 +132,7 @@ class Report_Queue extends Admin_List_Table {
 			'cb' => '<input type="checkbox" />',
 			'queued_event_id' => __( 'Queued Event', 'automatewoo' ),
 			'workflow' => __( 'Workflow', 'automatewoo' ),
-			'user' => __( 'Customer', 'automatewoo' ),
+			'customer' => __( 'Customer', 'automatewoo' ),
 			'date' => __( 'Run Date', 'automatewoo' ),
 			'actions' => '',
 		];

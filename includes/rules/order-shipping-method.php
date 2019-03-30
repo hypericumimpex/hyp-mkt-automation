@@ -19,7 +19,6 @@ class Order_Shipping_Method extends Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Order - Shipping Method', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

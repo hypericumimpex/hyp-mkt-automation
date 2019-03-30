@@ -90,9 +90,6 @@ class Order_Created {
 		Compat\Order::update_meta( $order, '_automatewoo_order_created', true );
 
 		do_action( 'automatewoo/async/order_created', $order_id ); // run actual event
-
-		// todo remove after a few versions
-		Compat\Order::delete_meta( $order, '_aw_pending_created_async_hook' );
 	}
 
 }

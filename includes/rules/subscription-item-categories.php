@@ -15,7 +15,6 @@ class Rule_Subscription_Item_Categories extends Rule_Order_Item_Categories {
 
 	function init() {
 		$this->title = __( 'Subscription - Item Categories', 'automatewoo' );
-		$this->group = __( 'Subscription', 'automatewoo' );
 	}
 
 }

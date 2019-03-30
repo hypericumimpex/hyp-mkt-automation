@@ -464,8 +464,14 @@ abstract class Admin_Settings_Tab_Abstract {
 			return;
 		}
 
+		// skip title and section end fields
+		if ( in_array( $setting['type'], [ 'sectionend', 'title' ], true ) ) {
+			return;
+		}
+
 		$option_name = $setting['id'];
 		$raw_value   = isset( $_POST[ $setting['id'] ] ) ? wp_unslash( $_POST[ $setting['id'] ] ) : null;
+		$autoload    = empty( $setting['autoload'] ) ? false : $setting['autoload'];
 
 		// Format the value based on option type.
 		switch ( $setting['type'] ) {
@@ -496,7 +502,7 @@ abstract class Admin_Settings_Tab_Abstract {
 			return;
 		}
 
-		update_option( $option_name, $value, $setting['autoload'] );
+		update_option( $option_name, $value, $autoload );
 	}
 
 

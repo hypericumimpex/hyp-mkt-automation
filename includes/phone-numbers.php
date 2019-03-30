@@ -11,19 +11,23 @@ class Phone_Numbers {
 
 
 	/**
-	 * @param string $number
+	 * Parses a phone number into E.164 format.
+	 *
+	 * Number will be converted to an international number based on the $country param unless
+	 * the number is already in an international format.
+	 *
+	 * @param string $original_number
 	 * @param string $country Defaults to base country if empty
 	 *
 	 * @return string
 	 */
-	static function parse( $number, $country = '' ) {
+	static function parse( $original_number, $country = '' ) {
 
 		if ( ! $country )  {
 			$country = WC()->countries->get_base_country();
 		}
 
-		$number = preg_replace( "/\([^)]+\)/", '', $number ); // remove within brackets
-		$number = str_replace( [ '-', ' ', '.' ], '', $number );
+		$number = preg_replace( '/[^+0-9]+/', '', $original_number );
 
 		if ( ! self::is_international( $number, $country ) ) {
 
@@ -39,7 +43,7 @@ class Phone_Numbers {
 			$number = '+' . $number;
 		}
 
-		return apply_filters( 'automatewoo_parse_phone_number', $number, $country );
+		return apply_filters( 'automatewoo_parse_phone_number', $number, $country, $original_number );
 	}
 
 

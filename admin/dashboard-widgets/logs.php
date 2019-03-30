@@ -48,6 +48,10 @@ class Dashboard_Widget_Logs extends Dashboard_Widget {
 
 						$workflow = $log->get_workflow();
 
+						if ( ! $workflow ) {
+							continue;
+						}
+
 						$modal_url = add_query_arg([
 							'action' => 'aw_modal_log_info',
 							'log_id' => $log->get_id()

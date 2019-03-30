@@ -15,7 +15,6 @@ class Customer_State extends Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Customer - State', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 

@@ -33,7 +33,6 @@ class Subscription_Trial_End_Date extends Abstract_Date {
 	 */
 	public function init() {
 		$this->title = __( 'Subscription - Trial End Date', 'automatewoo' );
-		$this->group = __( 'Subscription', 'automatewoo' );
 	}
 
 

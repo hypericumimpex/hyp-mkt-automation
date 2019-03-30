@@ -19,7 +19,6 @@ class Customer_Tags extends Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Customer - User Tags', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 

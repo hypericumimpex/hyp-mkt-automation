@@ -17,7 +17,6 @@ class Order_Billing_Country extends Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Order - Billing Country', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

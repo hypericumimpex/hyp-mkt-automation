@@ -34,13 +34,21 @@ abstract class Async_Request_Abstract extends \AW_WP_Async_Request {
 			return $this->post_args;
 		}
 
-		return [
-			'timeout' => 0.01,
-			'blocking' => false,
+		$args = [
 			'body' => json_encode( $this->data ),
 			'cookies' => $_COOKIE,
 			'sslverify' => apply_filters( 'https_local_ssl_verify', false ),
 		];
+
+		if ( ! AUTOMATEWOO_BACKGROUND_PROCESS_DEBUG ) {
+			$args['timeout'] = 0.01;
+			$args['blocking'] = false;
+		}
+		else {
+			$args['timeout'] = 30;
+		}
+
+		return $args;
 	}
 
 

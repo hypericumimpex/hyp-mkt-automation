@@ -18,7 +18,6 @@ class AW_Rule_Guest_Order_Count extends AutomateWoo\Rules\Abstract_Number {
 	 */
 	function init() {
 		$this->title = __( 'Guest - Order Count', 'automatewoo' );
-		$this->group = __( 'Guest', 'automatewoo' );
 	}
 
 

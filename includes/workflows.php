@@ -28,7 +28,6 @@ class Workflows {
 
 		// reschedule after gmt offset change
 		add_action( 'automatewoo/gmt_offset_changed', [ $self, 'schedule_all_custom_time_of_day_events' ], 20 );
-
 	}
 
 
@@ -36,7 +35,7 @@ class Workflows {
 	 * @param $post_id
 	 */
 	static function do_workflow_updated_action( $post_id ) {
-		if ( get_post_type( $post_id ) === 'aw_workflow' ) {
+		if ( get_post_type( $post_id ) === 'aw_workflow' && get_post_status( $post_id ) !== 'auto-draft' ) {
 			do_action('automatewoo/workflow/updated', (int) $post_id );
 		}
 	}

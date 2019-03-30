@@ -17,7 +17,6 @@ class Customer_Total_Spent extends Abstract_Number {
 
 	function init() {
 		$this->title = __( 'Customer - Total Spent', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 

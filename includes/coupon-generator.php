@@ -148,7 +148,7 @@ class Coupon_Generator {
 	 * @return bool
 	 */
 	function is_existing_coupon_code( $code ) {
-		return (bool) Compat\Coupon::get_coupon_id_by_code( $code );
+		return (bool) wc_get_coupon_id_by_code( $code );
 	}
 
 
@@ -174,86 +174,46 @@ class Coupon_Generator {
 			'post_excerpt' => $this->description
 		];
 
-		$new_coupon_id = wp_insert_post( $coupon );
-
-		$coupon = new \WC_Coupon( $this->code ); // must load with code for < 3.0
-
+		wp_insert_post( $coupon );
+		$coupon = new \WC_Coupon( $this->code );
 
 		if ( $this->email_restriction ) {
-			Compat\Coupon::set_email_restriction( $coupon, [ $this->email_restriction ] );
+			$coupon->set_email_restrictions( [ $this->email_restriction ] );
 		}
 
+		// copy details from template coupon to new coupon
+		$template_coupon = new \WC_Coupon( $this->get_template_coupon_id() );
 
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
+		$coupon->set_discount_type( $template_coupon->get_discount_type() );
+		$coupon->set_amount( $template_coupon->get_amount() );
+		$coupon->set_individual_use( $template_coupon->get_individual_use() );
+		$coupon->set_product_ids( $template_coupon->get_product_ids() );
+		$coupon->set_excluded_product_ids( $template_coupon->get_excluded_product_ids() );
+		$coupon->set_usage_limit_per_user( $template_coupon->get_usage_limit_per_user() );
+		$coupon->set_limit_usage_to_x_items( $template_coupon->get_limit_usage_to_x_items() );
+		$coupon->set_free_shipping( $template_coupon->get_free_shipping() );
+		$coupon->set_exclude_sale_items( $template_coupon->get_exclude_sale_items() );
+		$coupon->set_product_categories( $template_coupon->get_product_categories() );
+		$coupon->set_excluded_product_categories( $template_coupon->get_excluded_product_categories() );
+		$coupon->set_minimum_amount( $template_coupon->get_minimum_amount() );
+		$coupon->set_maximum_amount( $template_coupon->get_maximum_amount() );
+		$coupon->set_date_expires( $template_coupon->get_date_expires() );
 
-			$excluded_fields = [
-				'usage_limit',
-				'customer_email',
-				'_recorded_coupon_usage_counts',
-				'usage_count',
-				'_used_by',
-				'_edit_lock',
-				'_edit_last'
-			];
-
-			$meta_fields = get_post_meta( $this->get_template_coupon_id(), '', true );
-
-			foreach ( $meta_fields as $key => $value ) {
-
-				if ( in_array( $key, $excluded_fields ) )
-					continue;
-
-				if ( is_array( $value ) )
-					$value = $value[0];
-
-				$value = maybe_unserialize($value);
-
-				if ( ! empty( $value ) ) {
-					update_post_meta( $new_coupon_id, $key, $value );
-				}
-			}
-
+		// support for WC_Free_Gift_Coupons
+		if ( $template_coupon->get_discount_type() === 'free_gift' ) {
+			$coupon->update_meta_data( 'gift_ids', $template_coupon->get_meta( 'gift_ids' ) );
+			$coupon->update_meta_data( 'free_gift_shipping', $template_coupon->get_meta( 'free_gift_shipping' ) );
 		}
-		else {
-
-			// WC 3.0
-			$template_coupon = new \WC_Coupon( $this->get_template_coupon_id() );
-
-			$coupon->set_discount_type( $template_coupon->get_discount_type() );
-			$coupon->set_amount( $template_coupon->get_amount() );
-			$coupon->set_individual_use( $template_coupon->get_individual_use() );
-			$coupon->set_product_ids( $template_coupon->get_product_ids() );
-			$coupon->set_excluded_product_ids( $template_coupon->get_excluded_product_ids() );
-			$coupon->set_usage_limit_per_user( $template_coupon->get_usage_limit_per_user() );
-			$coupon->set_limit_usage_to_x_items( $template_coupon->get_limit_usage_to_x_items() );
-			$coupon->set_free_shipping( $template_coupon->get_free_shipping() );
-			$coupon->set_exclude_sale_items( $template_coupon->get_exclude_sale_items() );
-			$coupon->set_product_categories( $template_coupon->get_product_categories() );
-			$coupon->set_excluded_product_categories( $template_coupon->get_excluded_product_categories() );
-			$coupon->set_minimum_amount( $template_coupon->get_minimum_amount() );
-			$coupon->set_maximum_amount( $template_coupon->get_maximum_amount() );
-			$coupon->set_date_expires( $template_coupon->get_date_expires() );
-
-			// support for WC_Free_Gift_Coupons
-			if ( $template_coupon->get_discount_type() === 'free_gift' ) {
-				$coupon->update_meta_data( 'gift_ids', $template_coupon->get_meta( 'gift_ids' ) );
-				$coupon->update_meta_data( 'free_gift_shipping', $template_coupon->get_meta( 'free_gift_shipping' ) );
-			}
-
-			$coupon->save();
-		}
-
 
 		if ( $this->expires ) {
-			$date = new DateTime();
-			$date->modify( "+$this->expires days" );
-			Compat\Coupon::set_date_expires( $coupon, $date );
+			$date = aw_normalize_date( "+$this->expires days" );
+			$coupon->set_date_expires( $date->getTimestamp() );
 		}
 
+		$coupon->set_usage_limit( $this->usage_limit );
+		$coupon->update_meta_data( '_is_aw_coupon', true );
 
-		Compat\Coupon::set_usage_limit( $coupon, $this->usage_limit );
-
-		Compat\Coupon::update_meta( $coupon, '_is_aw_coupon', true );
+		$coupon->save();
 
 		return $coupon;
 	}

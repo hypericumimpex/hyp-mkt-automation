@@ -1,47 +1,70 @@
 <?php
-// phpcs:ignoreFile
 
 namespace AutomateWoo;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
- * @class Trigger_Subscription_Created
- * @since 3.0.0
+ * Class Trigger_Subscription_Created.
+ *
+ * @since 3.0
+ * @package AutomateWoo
  */
-class Trigger_Subscription_Created extends Trigger_Abstract_Subscriptions {
-
-
-	function load_admin_details() {
-		parent::load_admin_details();
-		$this->title = __( 'Subscription Created', 'automatewoo' );
-		$this->description = __( 'This trigger fires after a subscription is created which happens before payment is confirmed. To create a workflow that runs when the subscription is paid, use the Subscription Status Changed trigger.', 'automatewoo' );
-	}
-
-
-	function load_fields() {
-		$this->add_field_subscription_products();
-	}
-
-
-	function register_hooks() {
-		add_action( 'automatewoo/async/subscription_created', [ $this, 'trigger_for_subscription' ] );
-	}
-
+class Trigger_Subscription_Created extends Trigger {
 
 	/**
-	 * @param $workflow Workflow
+	 * Sets supplied data for the trigger.
+	 *
+	 * @var array
+	 */
+	public $supplied_data_items = [ 'subscription', 'customer' ];
+
+	/**
+	 * Load admin details.
+	 */
+	function load_admin_details() {
+		$this->title       = __( 'Subscription Created', 'automatewoo' );
+		$this->description = __( 'This trigger fires after a subscription is created which happens before payment is confirmed. To create a workflow that runs when the subscription is paid, use the Subscription Status Changed trigger.', 'automatewoo' );
+		$this->group       = Subscription_Workflow_Helper::get_group_name();
+	}
+
+	/**
+	 * Load fields.
+	 */
+	function load_fields() {
+		$this->add_field( Subscription_Workflow_Helper::get_products_field() );
+	}
+
+	/**
+	 * Register trigger hooks.
+	 */
+	function register_hooks() {
+		add_action( 'automatewoo/async/subscription_created', [ $this, 'handle_subscription_created' ] );
+	}
+
+	/**
+	 * Handle subscription created event.
+	 *
+	 * @param int $subscription_id
+	 */
+	function handle_subscription_created( $subscription_id ) {
+		Subscription_Workflow_Helper::trigger_for_subscription( $this, $subscription_id );
+	}
+
+	/**
+	 * Validate a workflow.
+	 *
+	 * @param Workflow $workflow
 	 * @return bool
 	 */
 	function validate_workflow( $workflow ) {
-
 		$subscription = $workflow->data_layer()->get_subscription();
 
 		if ( ! $subscription ) {
 			return false;
 		}
 
-		if ( ! $this->validate_subscription_products_field( $workflow ) ) {
+		if ( ! Subscription_Workflow_Helper::validate_products_field( $workflow ) ) {
 			return false;
 		}
 

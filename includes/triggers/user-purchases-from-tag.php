@@ -65,7 +65,7 @@ class Trigger_User_Purchases_From_Tag extends Trigger_Abstract_Order_Status_Base
 
 		foreach ( $order->get_items() as $item ) {
 
-			$product_tags = wp_get_object_terms( Compat\Order_Item::get_product_id( $item ), 'product_tag' );
+			$product_tags = wp_get_object_terms( $item->get_product_id(), 'product_tag' );
 
 			if ( ! $product_tags )
 				continue;

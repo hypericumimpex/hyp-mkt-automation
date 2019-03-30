@@ -3,8 +3,8 @@
 
 namespace AutomateWoo\Event_Helpers;
 
-use AutomateWoo\Review;
 use AutomateWoo\Events;
+use AutomateWoo\Review_Factory;
 
 /**
  * @class Review_Posted
@@ -49,11 +49,12 @@ class Review_Posted {
 	 * @param $comment \WP_Comment|object
 	 */
 	static function maybe_dispatch_event( $comment ) {
-		if ( ! $comment || 'product' !== get_post_type( $comment->comment_post_ID ) ) {
-			return; // Make sure the comment is on a product
-		}
+		$review = Review_Factory::get( $comment );
 
-		$review = new Review( $comment );
+		// validates if the comment is actually a review
+		if ( ! $review ) {
+			return;
+		}
 
 		do_action( 'automatewoo/review/posted', $review );
 		Events::schedule_async_event( 'automatewoo/review/posted_async', [ $review->get_id() ] );

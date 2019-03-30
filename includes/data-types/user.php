@@ -53,7 +53,7 @@ class Data_Type_User extends Data_Type {
 
 		if ( Integrations::is_subscriptions_active() && isset( $compressed_data_layer['subscription'] ) ) {
 			if ( $subscription = wcs_get_subscription( $compressed_data_layer['subscription'] ) ) {
-				return Subscription_Helper::prepare_user_data( $subscription );
+				return $subscription->get_user();
 			}
 		}
 

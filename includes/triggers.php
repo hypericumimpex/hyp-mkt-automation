@@ -76,6 +76,7 @@ class Triggers extends Registry {
 			$includes[ 'subscription_payment_complete' ] = 'AutomateWoo\Trigger_Subscription_Payment_Complete';
 			$includes[ 'subscription_payment_failed' ] = 'AutomateWoo\Trigger_Subscription_Payment_Failed';
 			$includes[ 'subscription_trial_end' ] = 'AutomateWoo\Trigger_Subscription_Trial_End';
+			$includes[ 'subscription_note_added' ] = 'AutomateWoo\Trigger_Subscription_Note_Added';
 		}
 
 		if ( Integrations::is_memberships_enabled() ) {

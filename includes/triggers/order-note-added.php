@@ -1,31 +1,43 @@
 <?php
-// phpcs:ignoreFile
 
 namespace AutomateWoo;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 /***
- * @class Trigger_Order_Note_Added
+ * Trigger_Order_Note_Added class.
+ *
  * @since 2.2
  */
 class Trigger_Order_Note_Added extends Trigger {
 
+	/**
+	 * Declares data items available in trigger.
+	 *
+	 * @var array
+	 */
 	public $supplied_data_items = [ 'order', 'order_note', 'customer' ];
 
-	/** @var bool - hack required to access this prop when note is added */
+	/**
+	 * Prop used to cache the is_customer_note value between hooks (wc hack).
+	 *
+	 * @var bool
+	 */
 	public $_is_customer_note = false;
 
-
+	/**
+	 * Load trigger admin props.
+	 */
 	function load_admin_details() {
-		$this->title = __( 'Order Note Added', 'automatewoo');
+		$this->title       = __( 'Order Note Added', 'automatewoo' );
 		$this->description = __( 'Fires when any note is added to an order, can include both private notes and notes to the customer. These notes appear on the right of the order edit screen.', 'automatewoo' );
-		$this->group = __( 'Orders', 'automatewoo' );
+		$this->group       = __( 'Orders', 'automatewoo' );
 	}
 
-
+	/**
+	 * Load trigger fields.
+	 */
 	function load_fields() {
-
 		$contains = new Fields\Text();
 		$contains->set_name('note_contains');
 		$contains->set_title( __( 'Note contains text', 'automatewoo'  ) );
@@ -38,35 +50,43 @@ class Trigger_Order_Note_Added extends Trigger {
 		$this->add_field( $contains );
 	}
 
-
+	/**
+	 * Register trigger hooks.
+	 */
 	function register_hooks() {
 		add_filter( 'woocommerce_new_order_note_data', [ $this, 'catch_order_note_filter' ], 20, 2 );
 		add_action( 'wp_insert_comment', [ $this, 'catch_comment_create' ], 20, 2 );
 	}
 
-
 	/**
+	 * Hooks in before 'wp_insert_comment' so we can access the 'is_customer_note' prop.
+	 *
 	 * @param array $data
 	 * @param array $args
+	 *
 	 * @return array
 	 */
 	function catch_order_note_filter( $data, $args ) {
-		$this->_is_customer_note = $args[ 'is_customer_note' ];
+		$this->_is_customer_note = $args['is_customer_note'];
 		return $data;
 	}
 
 
 	/**
-	 * @param $comment_id
-	 * @param $comment \WP_Comment
+	 * Catch comment creation hook.
+	 *
+	 * @param int         $comment_id
+	 * @param \WP_Comment $comment
 	 */
 	function catch_comment_create( $comment_id, $comment ) {
 
-		if ( $comment->comment_type !== 'order_note' ) {
+		if ( $comment->comment_type !== 'order_note' || get_post_type( $comment->comment_post_ID ) !== 'shop_order' ) {
 			return;
 		}
 
-		if ( ! $order = wc_get_order( $comment->comment_post_ID ) ) {
+		$order = wc_get_order( $comment->comment_post_ID );
+
+		if ( ! $order ) {
 			return;
 		}
 
@@ -75,39 +95,44 @@ class Trigger_Order_Note_Added extends Trigger {
 		// must manually set prop because meta field is added after the comment is inserted
 		$order_note->is_customer_note = $this->_is_customer_note;
 
-		$this->maybe_run([
-			'customer' => Customer_Factory::get_by_order( $order ),
-			'order' => $order,
-			'order_note' => $order_note
-		]);
+		$this->maybe_run( [
+			'customer'   => Customer_Factory::get_by_order( $order ),
+			'order'      => $order,
+			'order_note' => $order_note,
+		] );
 	}
 
 
 	/**
-	 * @param $workflow Workflow
+	 * Validate a workflow.
+	 *
+	 * This method is also used by the subscription note added trigger.
+	 *
+	 * @param Workflow $workflow
+	 *
 	 * @return bool
 	 */
 	function validate_workflow( $workflow ) {
 
-		$order = $workflow->data_layer()->get_order();
 		$order_note = $workflow->data_layer()->get_order_note();
 
-		if ( ! $order || ! $order_note ) {
+		if ( ! $order_note ) {
 			return false;
 		}
 
-		$note_type = $workflow->get_trigger_option( 'note_type' );
+		$note_type     = $workflow->get_trigger_option( 'note_type' );
 		$note_contains = $workflow->get_trigger_option( 'note_contains' );
 
 		if ( $note_type ) {
-			if ( $order_note->get_type() != $note_type ) {
+			if ( $order_note->get_type() !== $note_type ) {
 				return false;
 			}
 		}
 
 		if ( $note_contains ) {
-			if ( ! stristr( $order_note->content, $note_contains ) )
+			if ( ! stristr( $order_note->content, $note_contains ) ) {
 				return false;
+			}
 		}
 
 		return true;

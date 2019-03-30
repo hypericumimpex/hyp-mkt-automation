@@ -20,14 +20,6 @@ class Action_MailChimp_Update_Contact_Field extends Action_MailChimp_Abstract {
 
 	function load_fields() {
 
-		$email = ( new Fields\Text() )
-			->set_name( 'email' )
-			->set_title( __( 'Contact email', 'automatewoo' ) )
-			->set_description( __( 'You can use variables such as {{ customer.email }} here.', 'automatewoo' ) )
-			->set_required()
-			->set_variable_validation();
-
-
 		$field = ( new Fields\Select() )
 			->set_name( 'field' )
 			->set_title( __( 'Field', 'automatewoo' ) )
@@ -39,9 +31,8 @@ class Action_MailChimp_Update_Contact_Field extends Action_MailChimp_Abstract {
 			->set_title( __( 'Field Value', 'automatewoo' ) )
 			->set_variable_validation();
 
-
 		$this->add_list_field();
-		$this->add_field( $email );
+		$this->add_field( $this->get_contact_email_field() );
 		$this->add_field( $field );
 		$this->add_field( $value );
 
@@ -82,7 +73,7 @@ class Action_MailChimp_Update_Contact_Field extends Action_MailChimp_Abstract {
 	function run() {
 
 		$list_id = $this->get_option( 'list' );
-		$email = Clean::email( $this->get_option( 'email', true ) );
+		$email = $this->get_contact_email_option();
 		$field = $this->get_option( 'field' );
 		$value = $this->get_option( 'value', true );
 

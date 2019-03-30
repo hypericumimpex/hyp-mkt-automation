@@ -17,7 +17,6 @@ class Rule_Order_Item_Tags extends Rules\Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Order - Item Tags', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 
@@ -43,7 +42,7 @@ class Rule_Order_Item_Tags extends Rules\Abstract_Select {
 		$tag_ids = [];
 
 		foreach ( $order->get_items() as $item ) {
-			$terms = wp_get_object_terms( Compat\Order_Item::get_product_id( $item ), 'product_tag', [ 'fields' => 'ids' ] );
+			$terms = wp_get_object_terms( $item->get_product_id(), 'product_tag', [ 'fields' => 'ids' ] );
 			$tag_ids = array_merge( $tag_ids, $terms );
 		}
 

@@ -200,3 +200,18 @@ select.aw-field.wc-enhanced-select {
 	}
 }
 
+
+.automatewoo-before-after-day-field-group {
+	&__field {
+		margin: 1px;
+		vertical-align: top;
+
+		&--days {
+			width: 50px;
+		}
+
+		&--type {
+			min-width: 35%;
+		}
+	}
+}

@@ -18,8 +18,9 @@ class Variable_Order_Item_Meta extends Variable {
 
 
 	/**
-	 * @param array|\WC_Order_Item_Product
-	 * @param $parameters
+	 * @param \WC_Order_Item_Product $item
+	 * @param array                  $parameters
+	 *
 	 * @return string
 	 */
 	function get_value( $item, $parameters ) {
@@ -28,7 +29,7 @@ class Variable_Order_Item_Meta extends Variable {
 			return false;
 		}
 
-		return wc_get_order_item_meta( Compat\Order_Item::get_id( $item ), $parameters['key'] );
+		return wc_get_order_item_meta( $item->get_id(), $parameters['key'] );
 	}
 }
 

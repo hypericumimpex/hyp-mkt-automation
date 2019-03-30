@@ -70,6 +70,7 @@ class Variables {
 			'shipping_company_name',
 			'meta',
 			'meta_date',
+			'admin_url',
 		],
 		'order_item' => [
 			'attribute',
@@ -140,7 +141,8 @@ class Variables {
 			'items',
 			'billing_address',
 			'shipping_address',
-			'meta'
+			'meta',
+			'admin_url',
 		],
 		'membership' => [
 			'id',
@@ -190,6 +192,15 @@ class Variables {
 			$included_variables['order'][] = 'tracking_url';
 			$included_variables['order'][] = 'date_shipped';
 			$included_variables['order'][] = 'shipping_provider';
+		}
+
+		/**
+		 * @since 4.5.0
+		 */
+		if ( Integrations::is_subscriptions_active( '2.3' ) &&
+		     class_exists( 'WCS_Early_Renewal_Manager' ) &&
+		     \WCS_Early_Renewal_Manager::is_early_renewal_enabled() ) {
+			$included_variables['subscription'][] = 'early_renewal_url';
 		}
 
 		// generate paths to included variables

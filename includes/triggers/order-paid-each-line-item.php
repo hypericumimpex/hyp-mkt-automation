@@ -21,7 +21,7 @@ class Trigger_Order_Paid_Each_Line_Item extends Trigger_Abstract_Order_Base {
 
 
 	function register_hooks() {
-		add_action( $this->get_hook_order_paid(), [ $this, 'trigger_for_each_order_item' ] );
+		add_action( 'automatewoo/order/paid_async', [ $this, 'trigger_for_each_order_item' ] );
 	}
 
 }

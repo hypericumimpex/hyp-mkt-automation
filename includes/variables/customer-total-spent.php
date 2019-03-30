@@ -1,31 +1,35 @@
 <?php
-// phpcs:ignoreFile
 
 namespace AutomateWoo;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
+ * Variable Customer Total Spent Variable.
+ *
  * @class Variable_Customer_Total_Spent
  */
-class Variable_Customer_Total_Spent extends Variable {
-
-
-	function load_admin_details() {
-		$this->description = __( "Displays the formatted total spent for the customer.", 'automatewoo');
-	}
-
+class Variable_Customer_Total_Spent extends Variable_Abstract_Price {
 
 	/**
-	 * @param $customer Customer
-	 * @param $parameters array
-	 * @param $workflow Workflow
-	 * @return string
+	 * Load Admin Details.
 	 */
-	function get_value( $customer, $parameters, $workflow ) {
-		return wc_price( $customer->get_total_spent() );
+	function load_admin_details() {
+		parent::load_admin_details();
+		$this->description = __( 'Displays the total amount the customer has spent.', 'automatewoo' );
 	}
 
+	/**
+	 * Get Value Method.
+	 *
+	 * @param \WC_Customer $customer
+	 * @param array        $parameters
+	 *
+	 * @return string
+	 */
+	function get_value( $customer, $parameters ) {
+		return parent::format_amount( $customer->get_total_spent(), $parameters );
+	}
 }
 
 return new Variable_Customer_Total_Spent();

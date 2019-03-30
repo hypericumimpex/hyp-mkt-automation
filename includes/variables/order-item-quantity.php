@@ -12,7 +12,7 @@ class Variable_Order_Item_Quantity extends Variable {
 
 
 	function load_admin_details() {
-		$this->description = __( "Can be used to display the value of an order item meta field.", 'automatewoo');
+		$this->description = __( 'Can be used to display the quantity of a product line item on an order.', 'automatewoo' );
 	}
 
 
@@ -22,7 +22,7 @@ class Variable_Order_Item_Quantity extends Variable {
 	 * @return string
 	 */
 	function get_value( $item, $parameters ) {
-		return Compat\Order_Item::get_quantity( $item );
+		return $item->get_quantity();
 	}
 }
 

@@ -159,7 +159,7 @@ abstract class Base extends \AW_WP_Background_Process {
 		} while ( ! $this->time_exceeded() && ! $this->memory_exceeded() && ! $this->is_queue_empty() );
 
 		// throttle process here with sleep to try and prevent crashing mysql
-		$sleep_seconds = apply_filters( 'automatewoo/background_process/post_batch_sleep', 5, $this );
+		$sleep_seconds = apply_filters( 'automatewoo/background_process/post_batch_sleep', 1, $this );
 
 		if ( $sleep_seconds ) {
 			sleep( $sleep_seconds );

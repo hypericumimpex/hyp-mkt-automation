@@ -15,7 +15,6 @@ class Customer_Country extends Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Customer - Country', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 

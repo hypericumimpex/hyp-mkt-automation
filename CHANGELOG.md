@@ -1,3 +1,36 @@
+4.5.0 *March 27, 2019*
+---
+
+[Read the update blog post &rarr;](https://automatewoo.com/blog/product-update-march-2019/)
+
+* New - Added integration with the WooCommerce Points and Rewards plugin
+  * New action: **Customer - Add Points**
+  * New action: **Customer - Remove Points**
+  * New variable: **customer.points**
+  * New rule: **Customer - Points**
+* New - Added trigger **Subscription Note Added**
+* New - Added rule **Subscription - Can Renew Early**
+* New - Added variable **subscription.early_renewal_url**
+* New - Added common date formats select box to date variables
+* New - Added price format parameter to price variables
+* New - Added subscription coupon rules
+* New - Added action **Order Item - Update Custom Field** 
+* New - Added variables **order.admin_url** and **subscription.admin_url**
+* New - Added variables **customer.address_line_1** and **customer.address_line_2**
+* New - **Customer Win Back** - Added a default value to the the **Maximum days since purchase** 
+field which is 3 days higher than minimum days value
+* Performance - Improved scalability of all background processed triggers such as **Customer Win Back**, **Subscription 
+Before Renewal** and **Wishlist Reminder**
+* Tweak - Added support for decimal quantities to abandoned carts
+* Tweak - Adjusted customer review count so multiple reviews on the same product count as a single review. This matches 
+how the **New Review Posted** trigger functions.
+* Tweak - Show a warning in the workflow edit view if it contains a rule that has been removed
+* Fix - Issue where if a registered user left a review when signed out but used the same email address, it was not 
+included in the customer’s review count
+* Fix - Issue where the customer review count included all comments by the user not just product review comments
+* Fix - Issue where digits within parentheses were incorrectly removed from phone numbers when sending an SMS
+
+
 4.4.3 *January 31, 2019*
 ---
 * New - Add rule **Subscription - Has Payment Method** for WC Subscriptions 2.5

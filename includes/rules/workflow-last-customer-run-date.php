@@ -32,7 +32,6 @@ class Workflow_Last_Customer_Run_Date extends Abstract_Date {
 	 */
 	function init() {
 		$this->title = __( 'Workflow - Last Run Date For Customer', 'automatewoo' );
-		$this->group = __( 'Workflow', 'automatewoo' );
 	}
 
 	/**

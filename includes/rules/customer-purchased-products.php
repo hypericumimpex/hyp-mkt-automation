@@ -23,7 +23,6 @@ class Customer_Purchased_Products extends Abstract_Object {
 
 	function init() {
 		$this->title = __( "Customer - Purchased Products - All Time", 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 		$this->placeholder = __( 'Search products...', 'automatewoo' );
 
 		$this->compare_types = [

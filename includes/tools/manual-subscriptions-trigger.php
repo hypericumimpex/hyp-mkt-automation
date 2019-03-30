@@ -194,11 +194,11 @@ class Tool_Manual_Subscriptions_Trigger extends Tool_Background_Processed_Abstra
 		$trigger->limit_trigger_to_specific_workflows( $workflow->get_id() );
 
 		if ( $trigger instanceof Trigger_Subscription_Status_Changed ) {
-			$trigger->status_changed( $subscription->get_id(), $subscription->get_status(), '' );
+			$trigger->handle_status_changed( $subscription->get_id(), $subscription->get_status(), '' );
 
 		}
 		elseif ( $trigger instanceof Trigger_Subscription_Payment_Complete ) {
-			$trigger->payment_complete( $subscription->get_id(), $subscription->get_last_order( 'ids', 'renewal' ) );
+			$trigger->handle_payment_complete( $subscription->get_id(), $subscription->get_last_order( 'ids', 'renewal' ) );
 		}
 
 		$trigger->remove_limit_trigger_to_specific_workflows();

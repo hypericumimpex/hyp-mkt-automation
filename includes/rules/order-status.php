@@ -15,7 +15,6 @@ class Order_Status extends Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Order - Status', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

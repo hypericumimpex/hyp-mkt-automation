@@ -3,6 +3,8 @@
 
 namespace AutomateWoo\Fields;
 
+use AutomateWoo\Subscription_Workflow_Helper;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
@@ -24,7 +26,7 @@ class Subscription_Status extends Select {
 			$this->set_placeholder( __( '[Any]', 'automatewoo' ) );
 		}
 
-		$this->set_options( wcs_get_subscription_statuses() );
+		$this->set_options( Subscription_Workflow_Helper::get_subscription_statuses() );
 	}
 
 }

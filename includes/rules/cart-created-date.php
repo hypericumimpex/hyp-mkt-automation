@@ -32,7 +32,6 @@ class Cart_Created_Date extends Abstract_Date {
 	 */
 	public function init() {
 		$this->title = __( 'Cart - Created Date', 'automatewoo' );
-		$this->group = __( 'Cart', 'automatewoo' );
 	}
 
 	/**

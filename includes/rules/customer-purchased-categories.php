@@ -19,7 +19,6 @@ class Customer_Purchased_Categories extends Abstract_Select {
 
 	function init() {
 		$this->title = __( "Customer - Purchased Categories - All Time", 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 

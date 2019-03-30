@@ -115,11 +115,21 @@ class Rules extends Registry {
 			$includes[ 'subscription_meta' ] = $path . 'subscription-meta.php';
 			$includes[ 'subscription_items' ] = $path . 'subscription-items.php';
 			$includes[ 'subscription_item_categories' ] = $path . 'subscription-item-categories.php';
+			$includes[ 'subscription_coupons' ] = $path . 'subscription-coupons.php';
+			$includes[ 'subscription_coupons_text_match' ] = $path . 'subscription-coupons-text-match.php';
+			$includes[ 'subscription_coupon_count' ] = $path . 'subscription-coupon-count.php';
 			$includes[ 'subscription_next_payment_date' ] = $path . 'subscription-next-payment-date.php';
 			$includes[ 'subscription_last_payment_date' ] = $path . 'subscription-last-payment-date.php';
 			$includes[ 'subscription_created_date' ] = $path . 'subscription-created-date.php';
 			$includes[ 'subscription_trial_end_date' ] = $path . 'subscription-trial-end-date.php';
 			$includes[ 'subscription_end_date' ] = $path . 'subscription-end-date.php';
+
+			/**
+			 * @since 4.5.0
+			 */
+			if ( Integrations::is_subscriptions_active( '2.3' ) ) {
+				$includes[ 'subscription_can_renew_early' ]    = $path . 'subscription-can-renew-early.php';
+			}
 
 			if ( Integrations::is_subscriptions_active( '2.5' ) ) {
 				$includes[ 'subscription_has_payment_method' ] = $path . 'subscription-has-payment-method.php';

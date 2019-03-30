@@ -23,7 +23,6 @@ class Order_Items extends Abstract_Object {
 	function init() {
 
 		$this->title = __( 'Order - Items', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 		$this->placeholder = __( 'Search products...', 'automatewoo' );
 
 		$this->compare_types = [
@@ -58,8 +57,7 @@ class Order_Items extends Abstract_Object {
 		$includes = false;
 
 		foreach ( $order->get_items() as $item ) {
-
-			$product = Compat\Order_Item::get_product( $item, $order );
+			$product = $item->get_product();
 			$includes = Logic_Helper::match_products( $product, $expected_product );
 
 			if ( $includes ) {

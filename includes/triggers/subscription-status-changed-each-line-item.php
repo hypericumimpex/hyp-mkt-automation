@@ -1,35 +1,44 @@
 <?php
-// phpcs:ignoreFile
 
 namespace AutomateWoo;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
- * @class Trigger_Subscription_Status_Changed_Each_Line_Item
+ * Class Trigger_Subscription_Status_Changed_Each_Line_Item
+ *
  * @since 2.9
+ * @package AutomateWoo
  */
 class Trigger_Subscription_Status_Changed_Each_Line_Item extends Trigger_Subscription_Status_Changed {
 
-	public $is_run_for_each_line_item = true;
-
-
-	function load_admin_details() {
-		parent::load_admin_details();
-		$this->title = __( 'Subscription Status Changed - Each Line Item', 'automatewoo' );
-		$this->description = __( 'This trigger runs for every line item of a subscription when the status changes. Using this trigger allows access to the product data of the subscription line item.', 'automatewoo' );
-	}
-
+	/**
+	 * Sets supplied data for the trigger.
+	 *
+	 * @var array
+	 */
+	public $supplied_data_items = [ 'subscription', 'customer', 'product' ];
 
 	/**
-	 * @param int $subscription_id
+	 * Load admin details.
+	 */
+	function load_admin_details() {
+		$this->title       = __( 'Subscription Status Changed - Each Line Item', 'automatewoo' );
+		$this->description = __( 'This trigger runs for every line item of a subscription when the status changes. Using this trigger allows access to the product data of the subscription line item.', 'automatewoo' );
+		$this->group       = Subscription_Workflow_Helper::get_group_name();
+	}
+
+	/**
+	 * Handle status changed.
+	 *
+	 * @param int    $subscription_id
 	 * @param string $new_status
 	 * @param string $old_status
 	 */
-	function status_changed( $subscription_id, $new_status, $old_status ) {
-		Temporary_Data::set( 'old_status', $subscription_id, $old_status );
-		$this->trigger_for_each_subscription_line_item( $subscription_id );
+	function handle_status_changed( $subscription_id, $new_status, $old_status ) {
+		Temporary_Data::set( 'subscription_old_status', $subscription_id, $old_status );
+		Temporary_Data::set( 'subscription_new_status', $subscription_id, $new_status );
+		Subscription_Workflow_Helper::trigger_for_each_subscription_line_item( $this, $subscription_id );
 	}
-
 
 }

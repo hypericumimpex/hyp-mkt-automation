@@ -14,9 +14,9 @@ class Action_Customer_Update_Meta extends Action {
 
 
 	function load_admin_details() {
-		$this->title = __( 'Update Custom Field', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
-		$this->description = __( 'If the customer has an account, the user meta table is used. If the customer is a guest, the guest meta table is used.', 'automatewoo' );
+		$this->title       = __( 'Update Custom Field', 'automatewoo' );
+		$this->group       = __( 'Customer', 'automatewoo' );
+		$this->description = __( 'This action can add or update a customer\'s custom field. If the customer has an account, the user meta table is used. If the customer is a guest, the guest meta table is used.', 'automatewoo' );
 	}
 
 

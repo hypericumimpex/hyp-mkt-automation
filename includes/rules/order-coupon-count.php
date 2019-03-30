@@ -18,7 +18,6 @@ class Order_Coupon_Count extends Abstract_Number {
 
 	function init() {
 		$this->title = __( 'Order - Coupon Count', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

@@ -32,7 +32,6 @@ class Customer_Last_Review_Date extends Abstract_Date {
 	 */
 	public function init() {
 		$this->title = __( 'Customer - Last Review Date', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 	/**

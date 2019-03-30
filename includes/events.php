@@ -91,7 +91,10 @@ class Events {
 			return false;
 		}
 
-		if ( AUTOMATEWOO_ENABLE_INSTANT_EVENT_DISPATCHING ) {
+		// Allow trigger based overrides of global instant dispatch setting
+		$instant_dispatch = apply_filters( 'automatewoo/events/instant_dispatch', AUTOMATEWOO_ENABLE_INSTANT_EVENT_DISPATCHING, $hook, $args, $unique_for_request );
+
+		if ( $instant_dispatch ) {
 			// when using instant event dispatching increase the delay to avoid event
 			// duplication since the delay is used by the cron based event runner
 			// this acts as a fallback if the http request failed.
@@ -107,12 +110,11 @@ class Events {
 		// e.g. when the ::schedule_event() is filtered by a third party.
 		Events::add_to_events_created_in_request_store( $hook, $args_hash );
 
-		$date = new DateTime();
-		$date->setTimestamp( time() + $delay );
+		$date = aw_normalize_date( time() + $delay );
 
 		$event = Events::schedule_event( $date, $hook, $args );
 
-		if ( $event && AUTOMATEWOO_ENABLE_INSTANT_EVENT_DISPATCHING ) {
+		if ( $event && $instant_dispatch ) {
 			Events::dispatch_events_starter_request_at_shutdown( $event->get_id() );
 		}
 
@@ -125,16 +127,19 @@ class Events {
 
 
 	/**
-	 * @param DateTime|string|int $date accepts timestamp
-	 * @param string $hook
-	 * @param array $args
+	 * Schedules an event.
+	 *
+	 * @param DateTime|string|int $date Accepts timestamps
+	 * @param string              $hook
+	 * @param array               $args
+	 *
 	 * @return Event|false
 	 */
 	static function schedule_event( $date, $hook, $args = [] ) {
-		if ( is_numeric( $date ) ) {
-			$timestamp = $date;
-			$date = new DateTime();
-			$date->setTimestamp( $timestamp );
+		$date = aw_normalize_date( $date );
+
+		if ( ! $date ) {
+			return false;
 		}
 
 		/**

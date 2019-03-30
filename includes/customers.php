@@ -23,6 +23,8 @@ class Customers {
 		add_action( 'automatewoo_setup_guest_customers', [ $self, 'maybe_setup_guest_customers' ] );
 		add_action( 'automatewoo_four_hourly_worker', [ $self, 'maybe_setup_guest_customers' ] ); // fallback
 
+		add_action( 'clean_comment_cache', [ $self, 'clean_review_count_cache_on_clean_comment_cache' ] );
+
 		add_action( 'woocommerce_order_status_changed', [ $self, 'maybe_update_customer_last_order_date' ], 20, 3 );
 		add_action( 'woocommerce_order_status_changed', [ $self, 'maybe_update_guest_most_recent_order' ], 20, 3 ); // don't use async
 	}
@@ -104,6 +106,8 @@ class Customers {
 		$guest_customer->set_guest_id( 0 );
 		$guest_customer->set_user_id( $user->ID );
 		$guest_customer->save();
+
+		$guest_customer->clear_review_count_cache();
 
 		do_action( 'automatewoo/customer/converted_guest_to_registered_customer', $guest_customer );
 	}
@@ -210,7 +214,7 @@ class Customers {
 			return;
 		}
 
-		$customer->set_date_last_purchased( $order->get_date_created() );
+		$customer->set_date_last_purchased( $order->get_date_paid() );
 		$customer->save();
 	}
 
@@ -238,5 +242,27 @@ class Customers {
 			}
 		}
 	}
+
+	/**
+	 * Clears persistent review count cache.
+	 *
+	 * @since 4.5
+	 *
+	 * @param int $comment_id
+	 */
+	static function clean_review_count_cache_on_clean_comment_cache( $comment_id ) {
+		$review = Review_Factory::get( $comment_id );
+
+		if ( ! $review ) {
+			return;
+		}
+
+		$customer = $review->get_customer();
+
+		if ( $customer ) {
+			$customer->clear_review_count_cache();
+		}
+	}
+
 
 }

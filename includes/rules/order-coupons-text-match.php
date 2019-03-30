@@ -16,7 +16,6 @@ class Order_Coupons_Text_Match extends Abstract_String {
 
 	function init() {
 		$this->title = __( 'Order - Coupons - Text Match', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 		$this->compare_types = $this->get_multi_string_compare_types();
 	}
 

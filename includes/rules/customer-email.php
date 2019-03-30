@@ -15,7 +15,6 @@ class Customer_Email extends Abstract_String {
 
 	function init() {
 		$this->title = __( 'Customer - Email', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 

@@ -15,7 +15,6 @@ class AW_Rule_Order_Run_Count extends AutomateWoo\Rules\Abstract_Number {
 
 	function init() {
 		$this->title = __( "Workflow - Run Count For Order", 'automatewoo' );
-		$this->group = __( 'Workflow', 'automatewoo' );
 	}
 
 

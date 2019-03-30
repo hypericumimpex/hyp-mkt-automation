@@ -152,6 +152,21 @@ class Integrations {
 		return self::$campaign_monitor;
 	}
 
+	/**
+	 * is_points_rewards_active method.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @param string $min_version
+	 *
+	 * @return bool
+	 */
+	static function is_points_rewards_active( $min_version = '1.6.15' ) {
+		if ( ! class_exists( '\WC_Points_Rewards' ) ) {
+			return false;
+		}
+		return version_compare( \WC_Points_Rewards::VERSION, $min_version, '>=' );
+	}
 
 
 	/**

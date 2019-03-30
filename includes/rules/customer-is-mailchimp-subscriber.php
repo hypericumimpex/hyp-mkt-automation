@@ -17,7 +17,6 @@ class Customer_Is_MailChimp_Subscriber extends Abstract_Select_Single {
 
 	function init() {
 		$this->title = __( 'Customer - Is Subscribed To MailChimp List', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 		$this->placeholder = __( 'Select a list&hellip;', 'automatewoo' );
 	}
 

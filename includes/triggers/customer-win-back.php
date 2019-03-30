@@ -8,11 +8,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * @class Trigger_Customer_Win_Back
  */
-class Trigger_Customer_Win_Back extends Trigger implements Interfaces\Background_Processed_Trigger {
+class Trigger_Customer_Win_Back extends Trigger_Background_Processed_Abstract {
 
 	public $supplied_data_items = [ 'customer', 'order' ];
-
-	const SUPPORTS_CUSTOM_TIME_OF_DAY = true;
 
 
 	function load_admin_details() {
@@ -26,15 +24,15 @@ class Trigger_Customer_Win_Back extends Trigger implements Interfaces\Background
 
 		$period = ( new Fields\Number() )
 			->set_name( 'days_since_last_purchase' )
-			->set_title( __( 'Minimum days since last purchase', 'automatewoo' ) )
+			->set_title( __( 'Minimum days since purchase', 'automatewoo' ) )
 			->set_description( __( "Defines the minimum number of days to wait after a customer's last purchase.", 'automatewoo' ) )
 			->set_min(1)
 			->set_required();
 
 		$period_max = ( new Fields\Number() )
 			->set_name( 'days_since_last_purchase_max' )
-			->set_title( __( 'Maximum days since last purchase (optional)', 'automatewoo' ) )
-			->set_description( __( "Defines the maximum number of days after the customer's last purchase that this trigger will fire. It is a good idea to set this field to avoid sending emails to excessively old customers when the workflow is first created.", 'automatewoo' ) );
+			->set_title( __( 'Maximum days since purchase', 'automatewoo' ) )
+			->set_description( __( "Defines the maximum number of days after the customer's last purchase that this trigger will fire. The default value will be 3 greater than the value of the minimum days field.", 'automatewoo' ) );
 
 		$repeat = ( new Fields\Checkbox() )
 			->set_name( 'enable_repeats' )
@@ -48,19 +46,17 @@ class Trigger_Customer_Win_Back extends Trigger implements Interfaces\Background
 	}
 
 
-	function register_hooks() {
-		add_action( 'automatewoo/custom_time_of_day_workflow', [ 'AutomateWoo\Workflow_Background_Process_Helper', 'init_process' ] );
-	}
-
-
 	/**
 	 * @param Workflow $workflow
+	 * @param int      $limit
+	 * @param int      $offset
+	 *
 	 * @return array
 	 */
-	function get_background_tasks( $workflow ) {
+	function get_background_tasks( $workflow, $limit, $offset = 0 ) {
 		$tasks = [];
 
-		foreach ( $this->get_customers_matching_last_purchase_range( $workflow ) as $customer ) {
+		foreach ( $this->get_customers_matching_last_purchase_range( $workflow, $limit, $offset ) as $customer ) {
 			$tasks[] = [
 				'workflow_id' => $workflow->get_id(),
 				'workflow_data' => [
@@ -107,10 +103,12 @@ class Trigger_Customer_Win_Back extends Trigger implements Interfaces\Background
 	 * Fetch users by date using the last order meta field.
 	 *
 	 * @param Workflow $workflow
+	 * @param int      $limit
+	 * @param int      $offset
 	 *
 	 * @return Customer[]
 	 */
-	function get_customers_matching_last_purchase_range( $workflow ) {
+	function get_customers_matching_last_purchase_range( $workflow, $limit, $offset ) {
 		$min_date = $this->get_min_last_order_date( $workflow );
 		$max_date = $this->get_max_last_order_date( $workflow );
 
@@ -120,6 +118,8 @@ class Trigger_Customer_Win_Back extends Trigger implements Interfaces\Background
 		}
 
 		$query = new Customer_Query();
+		$query->set_limit( $limit );
+		$query->set_offset( $offset );
 		$query->where( 'last_purchased', $min_date, '<' );
 
 		if ( $max_date ) {
@@ -135,7 +135,7 @@ class Trigger_Customer_Win_Back extends Trigger implements Interfaces\Background
 	 * @return DateTime|bool
 	 */
 	function get_min_last_order_date( $workflow ) {
-		$days = absint( $workflow->get_trigger_option( 'days_since_last_purchase' ) );
+		$days = $workflow->get_trigger_option( 'days_since_last_purchase' );
 
 		if ( ! $days ) {
 			return false;
@@ -153,10 +153,11 @@ class Trigger_Customer_Win_Back extends Trigger implements Interfaces\Background
 	 * @return DateTime|bool
 	 */
 	function get_max_last_order_date( $workflow ) {
-		$days = absint( $workflow->get_trigger_option( 'days_since_last_purchase_max' ) );
+		$days = $workflow->get_trigger_option( 'days_since_last_purchase_max' );
 
 		if ( ! $days ) {
-			return false;
+			// default to 3 greater than the minimum days field
+			$days = absint( $workflow->get_trigger_option( 'days_since_last_purchase' ) ) + 3;
 		}
 
 		$date = new DateTime();

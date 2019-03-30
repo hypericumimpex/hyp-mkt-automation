@@ -33,6 +33,7 @@
 			this.model.set( 'prevTrigger', this.$triggerSelect.val() );
 
 			this.insertMetaboxHelpTips();
+
 		},
 
 
@@ -65,6 +66,8 @@
 
 			// update the prev trigger value
 			this.model.set( 'prevTrigger', this.$triggerSelect.val() );
+
+			$(document.body).trigger('automatewoo_trigger_changed');
 		},
 
 
@@ -813,9 +816,40 @@ jQuery(function($) {
 
 
 	};
-	
+
 
 	AutomateWoo.Workflows.init();
+
+
+
+	/**
+	 * Customer win back trigger.
+	 *
+	 * Changes the max field placeholder so it's 3 days after the min field val.
+	 */
+	function init_customer_win_back_trigger() {
+		var $min_field = $('input[name="aw_workflow_data[trigger_options][days_since_last_purchase]"]');
+		var $max_field = $('input[name="aw_workflow_data[trigger_options][days_since_last_purchase_max]"]');
+		var default_range = 3;
+
+		$min_field.on( 'change keyup', function(){
+			var min_val = $min_field.val() ? parseInt( $min_field.val() ) : 0;
+			var placeholder = '';
+
+			if ( min_val ) {
+				placeholder = min_val + default_range;
+			}
+
+			$max_field.attr('min', min_val + 1 );
+			$max_field.attr('placeholder', placeholder );
+		}).change();
+	}
+
+	$(document.body).on('automatewoo_trigger_changed', function(){
+		init_customer_win_back_trigger();
+	});
+
+	init_customer_win_back_trigger();
 
 
 });

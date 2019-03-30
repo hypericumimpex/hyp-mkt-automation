@@ -30,4 +30,46 @@ abstract class Action_MailChimp_Abstract extends Action {
 		return $list_select;
 	}
 
+
+	/**
+	 * Get the MailChimp contact email field.
+	 *
+	 * @since 4.5
+	 *
+	 * @return Fields\Text
+	 */
+	function get_contact_email_field() {
+		$field = new Fields\Text();
+		$field->set_name( 'email' );
+		$field->set_title( __( 'Contact email', 'automatewoo' ) );
+		$field->set_description( __( 'Use variables such as {{ customer.email }} here. If blank {{ customer.email }} will be used.', 'automatewoo' ) );
+		$field->set_placeholder( '{{ customer.email }}' );
+		$field->set_variable_validation();
+		return $field;
+	}
+
+
+	/**
+	 * Get the contact email option. Defaults to {{ customer.email }}.
+	 *
+	 * @since 4.5
+	 *
+	 * @return string|bool
+	 */
+	function get_contact_email_option() {
+		$email = Clean::email( $this->get_option( 'email', true ) );
+
+		if ( $email ) {
+			return $email;
+		}
+
+		$customer = $this->workflow->data_layer()->get_customer();
+
+		if ( ! $customer ) {
+			return false;
+		}
+
+		return $customer->get_email();
+	}
+
 }

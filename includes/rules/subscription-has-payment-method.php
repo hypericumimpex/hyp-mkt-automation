@@ -20,12 +20,9 @@ class Subscription_Has_Payment_Method extends Abstract_Bool {
 
 	/**
 	 * Init the rule.
-	 *
-	 * @var string
 	 */
 	function init() {
 		$this->title = __( 'Subscription - Has Payment Method', 'automatewoo' );
-		$this->group = __( 'Subscription', 'automatewoo' );
 	}
 
 	/**

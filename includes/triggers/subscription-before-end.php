@@ -12,9 +12,9 @@ class Trigger_Subscription_Before_End extends Trigger_Subscription_Before_Renewa
 
 
 	function load_admin_details() {
-		parent::load_admin_details();
-		$this->title = __( 'Subscription Before End', 'automatewoo' );
+		$this->title       = __( 'Subscription Before End', 'automatewoo' );
 		$this->description = __( 'This trigger checks for subscriptions that are due to expire/end once every 24 hours.', 'automatewoo' );
+		$this->group       = Subscription_Workflow_Helper::get_group_name();
 	}
 
 
@@ -27,15 +27,18 @@ class Trigger_Subscription_Before_End extends Trigger_Subscription_Before_Renewa
 
 		$this->add_field( $days_before );
 		$this->add_field( $this->get_field_time_of_day() );
-		$this->add_field_subscription_products();
+		$this->add_field( Subscription_Workflow_Helper::get_products_field() );
 	}
 
 
 	/**
 	 * @param Workflow $workflow
+	 * @param int      $limit
+	 * @param int      $offset
+	 *
 	 * @return array
 	 */
-	function get_background_tasks( $workflow ) {
+	function get_background_tasks( $workflow, $limit, $offset = 0 ) {
 		$tasks = [];
 		$days_before = absint( $workflow->get_trigger_option( 'days_before' ) );
 
@@ -48,7 +51,7 @@ class Trigger_Subscription_Before_End extends Trigger_Subscription_Before_Renewa
 		$date->convert_to_site_time();
 		$date->modify( "+$days_before days" );
 
-		foreach ( $this->get_subscriptions_by_end_day( $date ) as $subscription_id ) {
+		foreach ( $this->get_subscriptions_by_end_day( $date, $limit, $offset ) as $subscription_id ) {
 			$tasks[] = [
 				'workflow_id' => $workflow->get_id(),
 				'workflow_data' => [
@@ -62,10 +65,13 @@ class Trigger_Subscription_Before_End extends Trigger_Subscription_Before_Renewa
 
 
 	/**
-	 * @param $date DateTime Must be in site time!
+	 * @param DateTime $date Must be in site time!
+	 * @param int      $limit
+	 * @param int      $offset
+	 *
 	 * @return array
 	 */
-	function get_subscriptions_by_end_day( $date ) {
+	function get_subscriptions_by_end_day( $date, $limit, $offset ) {
 		$day_start = clone $date;
 		$day_end = clone $date;
 		$day_start->setTime(0,0,0);
@@ -78,7 +84,8 @@ class Trigger_Subscription_Before_End extends Trigger_Subscription_Before_Renewa
 			'post_type' => 'shop_subscription',
 			'post_status' => 'wc-active',
 			'fields' => 'ids',
-			'posts_per_page' => -1,
+			'posts_per_page' => $limit,
+			'offset' => $offset,
 			'no_found_rows' => true,
 			'meta_query' => [
 				[

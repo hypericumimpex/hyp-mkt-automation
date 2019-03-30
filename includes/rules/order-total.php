@@ -15,7 +15,6 @@ class AW_Rule_Order_Total extends AutomateWoo\Rules\Abstract_Number {
 
 	function init() {
 		$this->title = __( 'Order - Total', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 

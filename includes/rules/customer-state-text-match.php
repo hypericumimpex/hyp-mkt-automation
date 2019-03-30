@@ -15,7 +15,6 @@ class Customer_State_Text_Match extends Abstract_String {
 
 	function init() {
 		$this->title = __( 'Customer - State - Text Match', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 

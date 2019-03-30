@@ -15,7 +15,6 @@ class AW_Rule_Cart_Coupons extends AutomateWoo\Rules\Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Cart - Coupons', 'automatewoo' );
-		$this->group = __( 'Cart', 'automatewoo' );
 	}
 
 

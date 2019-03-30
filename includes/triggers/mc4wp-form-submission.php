@@ -50,6 +50,12 @@ class Trigger_MC4WP_Form_Submission extends Trigger {
 	 * @param \MC4WP_Form $form
 	 */
 	function handle_initial_form_success( $form ) {
+		// Prevent creating async events or guests (important) if this trigger is not in use
+		// This can removed once PR #172 is merged
+		if ( ! $this->has_workflows() ) {
+			return;
+		}
+
 		$form_data = $form->get_data();
 
 		if ( empty( $form_data[ 'EMAIL' ] ) ) {

@@ -20,6 +20,8 @@ class Order_Helper {
 
 
 	/**
+	 * @deprecated not needed post wc 3.0
+	 *
 	 * @param int $order_item_id
 	 * @param array|\WC_Order_Item_Product $order_item
 	 * @return array|bool|\WC_Order_Item_Product

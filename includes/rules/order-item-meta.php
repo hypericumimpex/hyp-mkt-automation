@@ -17,14 +17,14 @@ class Order_Item_Meta extends Abstract_Meta {
 
 	function init() {
 		$this->title = __( 'Order Line Item - Custom Field', 'automatewoo' );
-		$this->group = __( 'Order Line Item', 'automatewoo' );
 	}
 
 
 	/**
-	 * @param $order_item array|\WC_Order_Item_Product
+	 * @param \WC_Order_Item_Product $order_item
 	 * @param $compare_type
 	 * @param $value_data
+	 *
 	 * @return bool
 	 */
 	function validate( $order_item, $compare_type, $value_data ) {
@@ -35,7 +35,7 @@ class Order_Item_Meta extends Abstract_Meta {
 			return false;
 		}
 
-		return $this->validate_meta( wc_get_order_item_meta( Compat\Order_Item::get_id( $order_item ), $value_data['key'] ), $compare_type, $value_data['value'] );
+		return $this->validate_meta( wc_get_order_item_meta( $order_item->get_id(), $value_data['key'] ), $compare_type, $value_data['value'] );
 	}
 }
 

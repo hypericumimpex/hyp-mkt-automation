@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Background_Processes;
 
-use AutomateWoo\Interfaces;
+use AutomateWoo\Trigger_Background_Processed_Abstract;
 use AutomateWoo\Clean;
 use AutomateWoo\Workflow_Factory;
 
@@ -15,8 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * It's better not to have a separate process for each workflow since there doesn't
  * appear to be any restriction on different processes running at the same time.
  *
- * Triggers that use this background process should implement Background_Processed_Trigger_Interface
- * and have a public method handle_background_task()
+ * Triggers that use this background process must extend Trigger_Background_Processed_Abstract.
  *
  * @since 3.7
  */
@@ -42,7 +41,7 @@ class Workflows extends Base {
 			return false;
 		}
 
-		if ( $trigger instanceof Interfaces\Background_Processed_Trigger ) {
+		if ( $trigger instanceof Trigger_Background_Processed_Abstract ) {
 			$trigger->handle_background_task( $workflow, $workflow_data );
 		}
 

@@ -15,7 +15,6 @@ class AW_Rule_Guest_Run_Count extends AutomateWoo\Rules\Abstract_Number {
 
 	function init() {
 		$this->title = __( "Workflow - Run Count For Guest", 'automatewoo' );
-		$this->group = __( 'Workflow', 'automatewoo' );
 	}
 
 

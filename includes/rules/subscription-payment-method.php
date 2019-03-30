@@ -13,7 +13,6 @@ class AW_Rule_Subscription_Payment_Method extends AutomateWoo\Rules\Abstract_Sel
 
 	function init() {
 		$this->title = __( 'Subscription - Payment Method', 'automatewoo' );
-		$this->group = __( 'Subscription', 'automatewoo' );
 	}
 
 

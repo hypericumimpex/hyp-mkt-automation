@@ -121,6 +121,15 @@ final class AutomateWoo extends AutomateWoo_Legacy {
 			AutomateWoo\Event_Helpers\Subscription_Renewal_Payment_Failed::init();
 		}
 
+		/**
+		 * Check if Points and Rewards is active
+		 *
+		 * @since 4.5.0
+		 */
+		if ( AutomateWoo\Integrations::is_points_rewards_active() ) {
+			new \AutomateWoo\Points_Rewards_Integration();
+		}
+
 		if ( $this->is_request( 'ajax' ) || $this->is_request( 'cron' ) ) {
 			// Load all background processes
 			AutomateWoo\Background_Processes::get_all();

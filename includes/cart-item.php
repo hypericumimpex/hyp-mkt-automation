@@ -65,7 +65,7 @@ class Cart_Item {
 	 * @return array
 	 */
 	function get_variation_data() {
-		return isset( $this->data['variation'] ) ? $this->data['variation'] : [];
+		return isset( $this->data['variation'] ) && is_array( $this->data['variation'] ) ? $this->data['variation'] : [];
 	}
 
 
@@ -118,10 +118,10 @@ class Cart_Item {
 
 
 	/**
-	 * @return int
+	 * @return int|float
 	 */
 	function get_quantity() {
-		return isset( $this->data['quantity'] ) ? absint( $this->data['quantity'] ) : 0;
+		return isset( $this->data['quantity'] ) ? wc_stock_amount( $this->data['quantity'] ) : 0;
 	}
 
 

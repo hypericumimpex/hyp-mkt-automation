@@ -17,7 +17,6 @@ class Customer_Review_Count extends Abstract_Number {
 
 	function init() {
 		$this->title = __( 'Customer - Review Count', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 

@@ -17,7 +17,6 @@ class Customer_Order_Count extends Abstract_Number {
 
 	function init() {
 		$this->title = __( 'Customer - Order Count', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 

@@ -20,7 +20,6 @@ class Product_Categories extends Abstract_Select {
 
 	function init() {
 		$this->title = __( 'Product - Categories', 'automatewoo' );
-		$this->group = __( 'Product', 'automatewoo' );
 	}
 
 

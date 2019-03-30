@@ -445,21 +445,6 @@ abstract class Trigger {
 
 
 	/**
-	 * Returns the time of day field.
-	 *
-	 * @since 3.8
-	 *
-	 * @return Fields\Time
-	 */
-	protected function get_field_time_of_day() {
-		$time = new Fields\Time();
-		$time->set_title( __( 'Time of day', 'automatewoo' ) );
-		$time->set_description( __( "Set the time during each day for the workflow to be triggered. Your site's timezone will be used. If no time is set the workflow will run at midnight. If you set a time that has already passed for today the workflow will not run until tomorrow. The workflow will never be run twice in the same day.", 'automatewoo' ) );
-		return $time;
-	}
-
-
-	/**
 	 * Order status field must be named 'order_status'
 	 *
 	 * @param $trigger Trigger
@@ -578,15 +563,6 @@ abstract class Trigger {
 
 
 	/**
-	 * Get the order paid, async or instant
-	 * @return string
-	 */
-	protected function get_hook_order_paid() {
-		return AUTOMATEWOO_DISABLE_ASYNC_ORDER_STATUS_CHANGED ? 'automatewoo/order/paid' : 'automatewoo/order/paid_async';
-	}
-
-
-	/**
 	 * Get the subscription status change hook, async or instant
 	 * @return string
 	 */
@@ -600,6 +576,20 @@ abstract class Trigger {
 	 */
 	protected function get_deprecation_warning() {
 		return __( 'THIS TRIGGER IS DEPRECATED AND SHOULD NOT BE USED.', 'automatewoo' );
+	}
+
+
+
+
+	/**
+	 * Get the order paid, async or instant
+	 *
+	 * @deprecated because automatewoo/order/paid is now also async due to #158
+	 *
+	 * @return string
+	 */
+	protected function get_hook_order_paid() {
+		return 'automatewoo/order/paid_async';
 	}
 
 }

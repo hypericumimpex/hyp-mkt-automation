@@ -17,7 +17,6 @@ class Customer_Order_Statuses extends Abstract_Select {
 
 	function init() {
 		$this->title = __( "Customer - Current Order Statuses", 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 		unset( $this->compare_types[ 'matches_all' ] );
 	}
 

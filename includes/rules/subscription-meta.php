@@ -15,7 +15,6 @@ class Subscription_Meta extends Abstract_Meta {
 
 	function init() {
 		$this->title = __( 'Subscription - Custom Field', 'automatewoo' );
-		$this->group = __( 'Subscription', 'automatewoo' );
 	}
 
 

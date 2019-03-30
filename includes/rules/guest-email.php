@@ -13,7 +13,6 @@ class AW_Rule_Guest_Email extends AutomateWoo\Rules\Abstract_String {
 
 	function init() {
 		$this->title = __( 'Guest - Email', 'automatewoo' );
-		$this->group = __( 'Guest', 'automatewoo' );
 	}
 
 

@@ -32,7 +32,6 @@ class Order_Paid_Date extends Abstract_Date {
 	 */
 	public function init() {
 		$this->title = __( 'Order - Paid Date', 'automatewoo' );
-		$this->group = __( 'Order', 'automatewoo' );
 	}
 
 	/**

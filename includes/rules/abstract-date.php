@@ -109,6 +109,13 @@ abstract class Abstract_Date extends Rule {
 	public $uses_datepicker = false;
 
 	/**
+	 * Rule select options.
+	 *
+	 * @var array
+	 */
+	public $select_choices;
+
+	/**
 	 * Abstract_Date constructor.
 	 */
 	public function __construct() {

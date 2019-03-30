@@ -10,6 +10,8 @@ namespace AutomateWoo;
 class Subscription_Helper {
 
 	/**
+	 * @deprecated this is no longer required due to changes in AutomateWoo\Data_Layer
+	 *
 	 * @param \WC_Subscription $subscription
 	 * @return \WP_User|bool
 	 */

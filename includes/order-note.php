@@ -6,7 +6,10 @@ namespace AutomateWoo;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * @class Order_Note
+ * Order_Note class.
+ *
+ * Supports notes added to subscriptions.
+ *
  * @since 2.2
  */
 class Order_Note {
@@ -17,7 +20,11 @@ class Order_Note {
 	/** @var string */
 	public $content;
 
-	/** @var int */
+	/**
+	 * The ID of the associated order or subscription.
+	 *
+	 * @var int
+	 */
 	public $order_id;
 
 	/** @var bool */

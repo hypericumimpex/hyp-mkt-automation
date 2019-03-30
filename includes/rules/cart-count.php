@@ -15,7 +15,6 @@ class AW_Rule_Cart_Count extends AutomateWoo\Rules\Abstract_Number {
 
 	function init() {
 		$this->title = __( 'Cart - Item Count', 'automatewoo' );
-		$this->group = __( 'Cart', 'automatewoo' );
 	}
 
 

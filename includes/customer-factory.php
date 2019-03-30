@@ -194,8 +194,7 @@ class Customer_Factory extends Factory {
 
 		if ( $review->get_user_id() ) {
 			return static::get_by_user_id( $review->get_user_id(), $create );
-		}
-		else {
+		} else {
 			return static::get_by_email( $review->get_email(), $create );
 		}
 	}

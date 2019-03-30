@@ -32,7 +32,6 @@ class Customer_Account_Created_Date extends Abstract_Date {
 	 */
 	public function init() {
 		$this->title = __( 'Customer - Account Created Date', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 	/**

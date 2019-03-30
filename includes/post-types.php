@@ -60,7 +60,7 @@ class Post_Types {
 	static function register_post_status() {
 		register_post_status( 'aw-disabled', [
 			'label' => __( 'Disabled', 'automatewoo' ),
-			'public' => true,
+			'public' => false,
 			'exclude_from_search' => false,
 			'show_in_admin_all_list' => true,
 			'show_in_admin_status_list' => true,

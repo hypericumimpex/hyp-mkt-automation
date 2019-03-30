@@ -17,36 +17,23 @@ class Action_MailChimp_Unsubscribe extends Action_MailChimp_Abstract {
 
 
 	function load_fields() {
-
-		$email = ( new Fields\Text() )
-			->set_name( 'email' )
-			->set_title( __( 'Contact email', 'automatewoo' ) )
-			->set_description( __( 'You can use variables such as {{ customer.email }} here. If blank {{ customer.email }} will be used.', 'automatewoo' ) )
-			->set_variable_validation()
-			->set_required();
-
 		$unsubscribe_only = new Fields\Checkbox();
 		$unsubscribe_only->set_name('unsubscribe_only');
 		$unsubscribe_only->set_title( __( 'Unsubscribe only', 'automatewoo' ) );
 		$unsubscribe_only->set_description( __( 'If checked the user will be unsubscribed instead of deleted.', 'automatewoo' ) );
 
 		$this->add_list_field();
-		$this->add_field( $email );
+		$this->add_field( $this->get_contact_email_field() );
 		$this->add_field( $unsubscribe_only );
 	}
 
 
 	function run() {
 		$list_id = $this->get_option( 'list' );
-		$email = Clean::email( $this->get_option( 'email', true ) );
+		$email = $this->get_contact_email_option();
 
 		if ( ! $list_id ) {
 			return;
-		}
-
-		// fallback to customer.email
-		if ( ! $email && $customer = $this->workflow->data_layer()->get_customer() ) {
-			$email = $customer->get_email();
 		}
 
 		$subscriber = md5( $email );

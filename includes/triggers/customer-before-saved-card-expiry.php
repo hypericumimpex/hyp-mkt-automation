@@ -9,11 +9,9 @@ defined( 'ABSPATH' ) or exit;
  * @class Trigger_Customer_Before_Saved_Card_Expiry
  * @since 3.7
  */
-class Trigger_Customer_Before_Saved_Card_Expiry extends Trigger implements Interfaces\Background_Processed_Trigger {
+class Trigger_Customer_Before_Saved_Card_Expiry extends Trigger_Background_Processed_Abstract {
 
 	public $supplied_data_items = [ 'customer', 'card' ];
-
-	const SUPPORTS_CUSTOM_TIME_OF_DAY = true;
 
 
 	function load_admin_details() {
@@ -34,18 +32,16 @@ class Trigger_Customer_Before_Saved_Card_Expiry extends Trigger implements Inter
 	}
 
 
-	function register_hooks() {
-		add_action( 'automatewoo/custom_time_of_day_workflow', [ 'AutomateWoo\Workflow_Background_Process_Helper', 'init_process' ] );
-	}
-
-
 	/**
 	 * Get credit cards based on the specified days before expiry field.
 	 *
 	 * @param Workflow $workflow
+	 * @param int      $limit
+	 * @param int      $offset
+	 *
 	 * @return array
 	 */
-	function get_cards_by_expiry( $workflow ) {
+	function get_cards_by_expiry( $workflow, $limit, $offset ) {
 		global $wpdb;
 
 		$days_before = absint( $workflow->get_trigger_option( 'days_before_expiry' ) );
@@ -70,10 +66,18 @@ class Trigger_Customer_Before_Saved_Card_Expiry extends Trigger implements Inter
 			LEFT JOIN {$wpdb->payment_tokenmeta} AS m2 ON tokens.token_id = m2.payment_token_id
 			WHERE type = 'CC'
 			AND m1.meta_key = 'expiry_year'
-			AND m1.meta_value = '{$date->format('Y')}'
+			AND m1.meta_value = %s
 			AND m2.meta_key = 'expiry_month'
-			AND m2.meta_value = '{$date->format('m')}'
+			AND m2.meta_value = %s
+			LIMIT %d OFFSET %d 
 		";
+
+		$sql = $wpdb->prepare( $sql, [
+			$date->format( 'Y' ),
+			$date->format( 'm' ),
+			$limit,
+			$offset,
+		] );
 
 		return array_keys( $wpdb->get_results( $sql, OBJECT_K ) );
 	}
@@ -81,12 +85,15 @@ class Trigger_Customer_Before_Saved_Card_Expiry extends Trigger implements Inter
 
 	/**
 	 * @param Workflow $workflow
+	 * @param int      $limit
+	 * @param int      $offset
+	 *
 	 * @return array
 	 */
-	function get_background_tasks( $workflow ) {
+	function get_background_tasks( $workflow, $limit, $offset = 0 ) {
 		$tasks = [];
 
-		foreach ( $this->get_cards_by_expiry( $workflow ) as $token_id ) {
+		foreach ( $this->get_cards_by_expiry( $workflow, $limit, $offset ) as $token_id ) {
 			$tasks[] = [
 				'workflow_id' => $workflow->get_id(),
 				'workflow_data' => [

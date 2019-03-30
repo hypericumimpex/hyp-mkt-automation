@@ -15,7 +15,6 @@ class Customer_Has_Active_Subscription extends Abstract_Bool {
 
 	function init() {
 		$this->title = __( 'Customer - Has Active Subscription', 'automatewoo' );
-		$this->group = __( 'Customer', 'automatewoo' );
 	}
 
 
