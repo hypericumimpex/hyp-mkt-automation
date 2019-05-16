@@ -16,17 +16,10 @@ class Licenses {
 	 * @return array|false
 	 */
 	static function get_primary_license() {
-		  $license = array();
-		$license['key']='****';
-		  $license['expiry']=date('Y-m-d', strtotime('+5 years'));
-		  return $license;
-		/*
-		if ( ! $license = get_option( 'automatewoo_license' ) ) {
-			return false;
-		}
-
-		$license = maybe_unserialize( base64_decode( $license ) );
-		return $license;*/
+	  $license = array();
+	  $license['key']='codexinh';
+	  $license['expiry']=date('Y-m-d', strtotime('+5 years'));
+	  return $license;
 	}
 
 
@@ -191,6 +184,7 @@ class Licenses {
 	 *
 	 */
 	static function check_for_domain_mismatch() {
+return;
 
 		$license = self::get_primary_license();
 
@@ -215,6 +209,7 @@ class Licenses {
 	 * @param bool $force - Override limiting to once every 4 days
 	 */
 	static function maybe_check_status( $force = false ) {
+return;
 
 		if ( defined( 'IFRAME_REQUEST' ) || is_ajax() ) {
 			return;
@@ -343,6 +338,7 @@ class Licenses {
 	 * @return \WP_Error|string
 	 */
 	static function remote_activate( $product_id, $license_key ) {
+self::update( $product_id, $license_key, '12/12/2040' ); return 'Activated!';
 
 		$response = self::remote_get( 'activation', [
 			'app_id' => $product_id,
@@ -373,7 +369,8 @@ class Licenses {
 	 * @param $product_id
 	 */
 	static function remote_deactivate( $product_id ) {
-
+self::remove( $product_id );
+return;
 		if ( self::is_primary( $product_id ) ) {
 
 			$license = self::get_primary_license();

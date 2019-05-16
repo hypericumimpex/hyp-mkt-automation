@@ -389,7 +389,7 @@ class Mailer extends Mailer_Abstract {
 	 * @param string $html The HTML.
 	 * @param string $css  The CSS to be inlined.
 	 *
-	 * @return \Emogrifier|\AW_Emogrifier|false
+	 * @return \Emogrifier|\AW_Emogrifier|false|\Pelago\Emogrifier
 	 */
 	public function get_emogrifier( $html, $css ) {
 		if ( ! class_exists( 'DOMDocument' ) ) {
@@ -399,6 +399,11 @@ class Mailer extends Mailer_Abstract {
 		// Always include the emogrifier included in WC as other plugins might be looking for this
 		if ( ! class_exists( 'Emogrifier' ) ) {
 			include_once WC()->plugin_path() . '/includes/libraries/class-emogrifier.php';
+		}
+
+		// WC added a namespace to Emogrifier in 3.6
+		if ( version_compare( WC()->version, '3.6', '>=' ) ) {
+			return new \Pelago\Emogrifier( $html, $css );
 		}
 
 		// WC 3.5 updated Emogrifier to v2, which we need

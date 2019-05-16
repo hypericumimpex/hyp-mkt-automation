@@ -66,12 +66,7 @@ class Hooks {
 
 		// pages
 		add_action( 'template_redirect', [ $self, 'maybe_init_pages' ] );
-
-		// adding shortcodes in backend can cause page builders to break
-		if ( AW()->is_request( 'frontend' ) ) {
-			add_shortcode( 'automatewoo_communication_preferences', [ 'AutomateWoo\Communication_Page', 'output_preferences_shortcode' ] );
-			add_shortcode( 'automatewoo_communication_signup', [ 'AutomateWoo\Communication_Page', 'output_signup_form' ] );
-		}
+		add_action( 'template_redirect', [ $self, 'init_shortcodes' ] );
 
 		add_action( 'automatewoo_updated_async', 'flush_rewrite_rules' );
 
@@ -89,6 +84,15 @@ class Hooks {
 
 	}
 
+	/**
+	 * Init shortcodes. Only called on frontend.
+	 *
+	 * @since 4.5.2
+	 */
+	public static function init_shortcodes() {
+		add_shortcode( 'automatewoo_communication_preferences', [ 'AutomateWoo\Communication_Page', 'output_preferences_shortcode' ] );
+		add_shortcode( 'automatewoo_communication_signup', [ 'AutomateWoo\Communication_Page', 'output_signup_form' ] );
+	}
 
 	/**
 	 * @param $addon_id

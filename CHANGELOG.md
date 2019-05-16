@@ -1,3 +1,18 @@
+4.5.3 *May 14, 2019*
+---
+* Fix - PHP error notice
+
+
+4.5.2 *May 13, 2019*
+---
+* Fix - Gutenberg API error that affected the parent page selector
+
+
+4.5.1 *April 18, 2019*
+---
+* Fix - Added support for WooCommerce 3.6
+
+
 4.5.0 *March 27, 2019*
 ---
 
