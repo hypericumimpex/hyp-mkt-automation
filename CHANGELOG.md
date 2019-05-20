@@ -1,3 +1,8 @@
+4.5.4 *May 17, 2019*
+---
+* Fix - Backwards compatibility error
+
+
 4.5.3 *May 14, 2019*
 ---
 * Fix - PHP error notice
