@@ -116,14 +116,16 @@ class Cart_Item {
 		return isset( $this->data['line_subtotal_tax'] ) ? floatval( $this->data['line_subtotal_tax'] ) : 0;
 	}
 
-
 	/**
+	 * Get item quantity.
+	 *
 	 * @return int|float
 	 */
 	function get_quantity() {
-		return isset( $this->data['quantity'] ) ? wc_stock_amount( $this->data['quantity'] ) : 0;
-	}
+		$quantity = wc_stock_amount( isset( $this->data['quantity'] ) ? $this->data['quantity'] : 0 );
 
+		return apply_filters( 'automatewoo/cart_item/get_quantity', $quantity, $this );
+	}
 
 	/**
 	 * Gets and formats a list of cart item data + variations for display on the frontend.

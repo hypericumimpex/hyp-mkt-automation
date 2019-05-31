@@ -230,12 +230,14 @@ class Cart extends Model {
 	 */
 	function get_shipping_total_html() {
 		$total = get_option( 'woocommerce_tax_display_cart' ) === 'excl' ? $this->get_shipping_total() : $this->get_shipping_total() + $this->get_shipping_tax_total();
+
 		if ( $total == 0 ) {
-			return __( 'Free!', 'automatewoo' );
+			$html = __( 'Free!', 'automatewoo' );
+		} else {
+			$html = $this->price( $total );
 		}
-		else {
-			return $this->price( $total );
-		}
+
+		return apply_filters( 'automatewoo/cart/get_shipping_total_html', $html, $this );
 	}
 
 

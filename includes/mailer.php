@@ -396,14 +396,18 @@ class Mailer extends Mailer_Abstract {
 			return false;
 		}
 
-		// Always include the emogrifier included in WC as other plugins might be looking for this
-		if ( ! class_exists( 'Emogrifier' ) ) {
-			include_once WC()->plugin_path() . '/includes/libraries/class-emogrifier.php';
-		}
-
 		// WC added a namespace to Emogrifier in 3.6
 		if ( version_compare( WC()->version, '3.6', '>=' ) ) {
+			if ( ! class_exists( 'Pelago\Emogrifier' ) ) {
+				require_once WC()->plugin_path() . '/includes/libraries/class-emogrifier.php';
+			}
+
 			return new \Pelago\Emogrifier( $html, $css );
+		}
+
+		// Always include the emogrifier included in WC as other plugins might be looking for this
+		if ( ! class_exists( 'Emogrifier' ) ) {
+			require_once WC()->plugin_path() . '/includes/libraries/class-emogrifier.php';
 		}
 
 		// WC 3.5 updated Emogrifier to v2, which we need
@@ -412,7 +416,7 @@ class Mailer extends Mailer_Abstract {
 		}
 
 		if ( ! class_exists( 'AW_Emogrifier' ) ) {
-			include_once AW()->lib_path( '/emogrifier/emogrifier.php' );
+			require_once AW()->lib_path( '/emogrifier/emogrifier.php' );
 		}
 
 		return new \AW_Emogrifier( $html, $css );

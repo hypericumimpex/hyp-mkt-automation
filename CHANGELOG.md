@@ -1,3 +1,9 @@
+4.5.5 *May 29, 2019*
+--
+* Fix - Error when loading the Emogrifier library in some environments
+* Tweak - Added two requested filter hooks `automatewoo/cart_item/get_quantity` and `automatewoo/cart/get_shipping_total_html`
+
+
 4.5.4 *May 17, 2019*
 ---
 * Fix - Backwards compatibility error
