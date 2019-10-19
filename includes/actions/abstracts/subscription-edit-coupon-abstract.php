@@ -21,7 +21,7 @@ abstract class Action_Subscription_Edit_Coupon_Abstract extends Action_Subscript
 	 *
 	 * Optionally also add the quantity input field for the coupon if the instance requires it.
 	 */
-	function load_fields() {
+	public function load_fields() {
 		$this->add_coupon_select_field();
 	}
 

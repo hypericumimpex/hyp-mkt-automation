@@ -3,7 +3,7 @@
 
 namespace AutomateWoo;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Trigger_Customer_Before_Saved_Card_Expiry

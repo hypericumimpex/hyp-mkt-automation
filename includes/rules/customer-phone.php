@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_Phone
@@ -29,5 +29,3 @@ class Customer_Phone extends Abstract_String {
 	}
 
 }
-
-return new Customer_Phone();

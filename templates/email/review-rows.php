@@ -20,6 +20,8 @@ namespace AutomateWoo;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+$products = aw_get_reviewable_products( $products );
+
 ?>
 
 <?php if ( is_array( $products ) ): ?>
@@ -32,11 +34,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<td class="image" width="25%"><?php echo \AW_Mailer_API::get_product_image( $product ) ?></td>
 
 				<td>
-					<h3><?php echo Compat\Product::get_name( $product ); ?></h3>
+					<h3><?php echo esc_html( $product->get_name() ); ?></h3>
 				</td>
 
 				<td align="right" class="last" width="35%">
-					<a href="<?php echo $product->get_permalink() ?>" class="automatewoo-button automatewoo-button--small"><?php _e( 'Leave a review', 'automatewoo' ) ?></a>
+					<a href="<?php echo esc_url( $product->get_permalink() ); ?>" class="automatewoo-button automatewoo-button--small"><?php esc_html_e( 'Leave a review', 'automatewoo' ); ?></a>
 				</td>
 
 			</tr>

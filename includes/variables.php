@@ -35,6 +35,7 @@ class Variables {
 			'generate_coupon',
 			'meta',
 			'user_id',
+			'username',
 			'tags',
 			'unsubscribe_url',
 		],
@@ -44,6 +45,7 @@ class Variables {
 			'number',
 			'status',
 			'date',
+			'subtotal',
 			'total',
 			'itemscount',
 			'items',
@@ -261,7 +263,7 @@ class Variables {
 		}
 
 		/** @var Variable $class */
-		if ( ! $class = include_once $path ) {
+		if ( ! $class = require_once $path ) {
 			return false;
 		}
 

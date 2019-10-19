@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Abstract_String

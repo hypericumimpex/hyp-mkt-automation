@@ -5,49 +5,34 @@ namespace AutomateWoo\Rules;
 
 use AutomateWoo\Logic_Helper;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Product
  */
-class Product extends Abstract_Object {
+class Product extends Product_Select_Rule_Abstract {
 
 	public $data_item = 'product';
 
-	public $ajax_action = 'woocommerce_json_search_products_and_variations';
-
-	public $class = 'wc-product-search';
-
 
 	function init() {
-		$this->title = __( 'Product - Product', 'automatewoo' );
+		parent::init();
 
-		$this->compare_types = [
-			'is' => __( 'is', 'automatewoo' ),
-			'is_not' => __( 'is not', 'automatewoo' )
-		];
-	}
-
-	/**
-	 * @param $value
-	 * @return string
-	 */
-	function get_object_display_value( $value ) {
-		if ( $product = wc_get_product( absint( $value ) ) ) {
-			return $product->get_formatted_name();
-		}
+		$this->title         = __( 'Product - Product', 'automatewoo' );
+		$this->compare_types = $this->get_is_or_not_compare_types();
 	}
 
 
 	/**
-	 * @param $product \WC_Product|\WC_Product_Variation
+	 * @param \WC_Product|\WC_Product_Variation $product
 	 * @param $compare
 	 * @param $expected
 	 * @return bool
 	 */
 	function validate( $product, $compare, $expected ) {
+		$expected_product = wc_get_product( absint( $expected ) );
 
-		if ( ! $expected_product = wc_get_product( absint( $expected ) ) ) {
+		if ( ! $expected_product ) {
 			return false;
 		}
 
@@ -56,14 +41,9 @@ class Product extends Abstract_Object {
 		switch ( $compare ) {
 			case 'is':
 				return $match;
-				break;
-
 			case 'is_not':
 				return ! $match;
-				break;
 		}
 	}
 
 }
-
-return new Product();

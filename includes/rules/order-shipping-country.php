@@ -1,17 +1,19 @@
 <?php
 // phpcs:ignoreFile
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class AW_Rule_Order_Shipping_Country
  */
-class AW_Rule_Order_Shipping_Country extends AutomateWoo\Rules\Abstract_Select {
+class AW_Rule_Order_Shipping_Country extends AutomateWoo\Rules\Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'order';
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( 'Order - Shipping Country', 'automatewoo' );
 	}
 
@@ -31,9 +33,7 @@ class AW_Rule_Order_Shipping_Country extends AutomateWoo\Rules\Abstract_Select {
 	 * @return bool
 	 */
 	function validate( $order, $compare, $value ) {
-		return $this->validate_select( AutomateWoo\Compat\Order::get_shipping_country( $order ), $compare, $value );
+		return $this->validate_select( $order->get_shipping_country(), $compare, $value );
 	}
 
 }
-
-return new AW_Rule_Order_Shipping_Country();

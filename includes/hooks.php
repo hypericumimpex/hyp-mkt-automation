@@ -55,9 +55,10 @@ class Hooks {
 		add_action( 'automatewoo/object/update', [ 'AutomateWoo\Factories', 'clean_object_cache' ] );
 		add_action( 'automatewoo/object/delete', [ 'AutomateWoo\Factories', 'clean_object_cache' ] );
 
-		// license
-		add_action( 'admin_init', [ 'AutomateWoo\Licenses', 'maybe_check_status' ] );
-		add_action( 'automatewoo_license_reset_status_check_timer', [ 'AutomateWoo\Licenses', 'reset_status_check_timer' ] );
+		if ( Licenses::is_legacy() ) {
+			add_action( 'admin_init', [ 'AutomateWoo\Licenses', 'maybe_check_status' ] );
+			add_action( 'automatewoo_license_reset_status_check_timer', [ 'AutomateWoo\Licenses', 'reset_status_check_timer' ] );
+		}
 
 		// system check
 		add_action( 'admin_init', [ 'AutomateWoo\System_Checks', 'maybe_schedule_check' ], 20 );
@@ -82,6 +83,10 @@ class Hooks {
 		add_action( 'automatewoo/workflow/before_run', [ 'AutomateWoo\Workflow_Fatal_Error_Monitor', 'attach' ] );
 		add_action( 'automatewoo_after_workflow_run', [ 'AutomateWoo\Workflow_Fatal_Error_Monitor', 'detach' ] );
 
+		if ( Language::is_multilingual() ) {
+			add_action( 'automatewoo/action/before_preview', [ 'AutomateWoo\Preview_Data', 'add_customer_language_filter' ] );
+			add_action( 'automatewoo/action/after_preview', [ 'AutomateWoo\Preview_Data', 'remove_customer_language_filter' ] );
+		}
 	}
 
 	/**

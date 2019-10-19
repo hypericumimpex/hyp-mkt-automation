@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * @class Log
  */
-class Log extends Model {
+class Log extends Abstract_Model_With_Meta_Table {
 
 	/** @var string */
 	public $table_id = 'logs';
@@ -16,12 +16,17 @@ class Log extends Model {
 	/** @var string  */
 	public $object_type = 'log';
 
-	/** @var string  */
-	public $meta_table_id = 'log-meta';
-
 	/** @var Data_Layer */
 	private $data_layer;
 
+	/**
+	 * Returns the ID of the model's meta table.
+	 *
+	 * @return string
+	 */
+	public function get_meta_table_id() {
+		return 'log-meta';
+	}
 
 	/**
 	 * @param bool|int $id
@@ -466,10 +471,15 @@ class Log extends Model {
 
 		$converted_orders = $query->posts;
 
-		if ( $converted_orders ) foreach ( $converted_orders as $order_id ) {
-			if ( $order = wc_get_order( $order_id ) ) {
-				Compat\Order::delete_meta( $order, '_aw_conversion' );
-				Compat\Order::delete_meta( $order, '_aw_conversion_log' );
+		if ( $converted_orders ) {
+			foreach ( $converted_orders as $order_id ) {
+				$order = wc_get_order( $order_id );
+
+				if ( $order ) {
+					$order->delete_meta_data( '_aw_conversion' );
+					$order->delete_meta_data( '_aw_conversion_log' );
+					$order->save();
+				}
 			}
 		}
 

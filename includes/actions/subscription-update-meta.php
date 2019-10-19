@@ -3,7 +3,7 @@
 
 namespace AutomateWoo;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Action_Subscription_Update_Meta
@@ -26,7 +26,7 @@ class Action_Subscription_Update_Meta extends Action_Order_Update_Meta {
 			return;
 		}
 
-		$meta_key = $this->get_option( 'meta_key', true );
+		$meta_key   = trim( $this->get_option( 'meta_key', true ) );
 		$meta_value = $this->get_option( 'meta_value', true );
 
 		// Make sure there is a meta key but a value is not required

@@ -1,104 +1,133 @@
 <?php
-// phpcs:ignoreFile
 
 namespace AutomateWoo;
 
 /**
- * @class Cache
+ * Cache class.
+ *
+ * Wrapper class for WP transients and object cache.
+ *
  * @since 2.1.0
  */
 class Cache {
 
-	/** @var bool */
-	static $enabled = true;
-
+	/**
+	 * Is cache enabled?
+	 *
+	 * @var bool
+	 */
+	public static $enabled = true;
 
 	/**
-	 * @return int (hours)
+	 * Get default transient expiration value in hours.
+	 *
+	 * @return int
 	 */
-	static function get_default_transient_expiration() {
+	public static function get_default_transient_expiration() {
 		return apply_filters( 'automatewoo_cache_default_expiration', 6 );
 	}
 
-
 	/**
-	 * @param $key
-	 * @param $value
-	 * @param bool|int $expiration - In hours. Optional.
+	 * Set a transient value.
+	 *
+	 * @param string   $key
+	 * @param mixed    $value
+	 * @param bool|int $expiration In hours. Optional.
+	 *
 	 * @return bool
 	 */
-	static function set_transient( $key, $value, $expiration = false ) {
-		if ( ! self::$enabled ) return false;
-		if ( ! $expiration ) $expiration = self::get_default_transient_expiration();
+	public static function set_transient( $key, $value, $expiration = false ) {
+		if ( ! self::$enabled ) {
+			return false;
+		}
+		if ( ! $expiration ) {
+			$expiration = self::get_default_transient_expiration();
+		}
 		return set_transient( 'aw_cache_' . $key, $value, $expiration * HOUR_IN_SECONDS );
 	}
 
-
 	/**
+	 * Get the value of a transient.
+	 *
 	 * @param string $key
+	 *
 	 * @return bool|mixed
 	 */
-	static function get_transient( $key ) {
-		if ( ! self::$enabled ) return false;
+	public static function get_transient( $key ) {
+		if ( ! self::$enabled ) {
+			return false;
+		}
 		return get_transient( 'aw_cache_' . $key );
 	}
 
-
 	/**
+	 * Delete a transient.
+	 *
 	 * @param string $key
 	 */
-	static function delete_transient( $key ) {
+	public static function delete_transient( $key ) {
 		delete_transient( 'aw_cache_' . $key );
 	}
 
-
-
 	/**
-	 * Only sets if key is not falsy
+	 * Sets a value in cache.
+	 *
+	 * Only sets if key is not falsy.
+	 *
 	 * @param string $key
-	 * @param mixed $value
+	 * @param mixed  $value
 	 * @param string $group
 	 */
-	static function set( $key, $value, $group ) {
-		if ( ! $key ) return;
+	public static function set( $key, $value, $group ) {
+		if ( ! $key || ! self::$enabled ) {
+			return;
+		}
 		wp_cache_set( (string) $key, $value, "automatewoo_$group" );
 	}
 
-
 	/**
-	 * Only gets if key is not falsy
+	 * Retrieves the cache contents from the cache by key and group.
+	 *
 	 * @param string $key
 	 * @param string $group
+	 *
 	 * @return bool|mixed
 	 */
-	static function get( $key, $group ) {
-		if ( ! $key ) return false;
+	public static function get( $key, $group ) {
+		if ( ! $key || ! self::$enabled ) {
+			return false;
+		}
 		return wp_cache_get( (string) $key, "automatewoo_$group" );
 	}
 
-
 	/**
+	 * Checks if a cache key and group value exists.
+	 *
 	 * @param string $key
 	 * @param string $group
+	 *
 	 * @return bool
 	 */
-	static function exists( $key, $group ) {
-		if ( ! $key ) return false;
+	public static function exists( $key, $group ) {
+		if ( ! $key || ! self::$enabled ) {
+			return false;
+		}
 		$found = false;
 		wp_cache_get( (string) $key, "automatewoo_$group", false, $found );
 		return $found;
 	}
 
-
 	/**
-	 * Only deletes if key is not falsy
+	 * Remove the item from the cache.
+	 *
 	 * @param string $key
 	 * @param string $group
 	 */
-	static function delete( $key, $group ) {
-		if ( ! $key ) return;
+	public static function delete( $key, $group ) {
+		if ( ! $key || ! self::$enabled ) {
+			return;
+		}
 		wp_cache_delete( (string) $key, "automatewoo_$group" );
 	}
-
 
 }

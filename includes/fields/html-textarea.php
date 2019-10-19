@@ -26,7 +26,7 @@ class HTML_Textarea extends Text_Area {
 	/**
 	 * HTML_Textarea constructor.
 	 */
-	function __construct() {
+	public function __construct() {
 		parent::__construct();
 		$this->set_rows( 10 );
 		$this->add_classes( 'automatewoo-field--monospace' );
@@ -41,7 +41,7 @@ class HTML_Textarea extends Text_Area {
 	 *
 	 * @return string
 	 */
-	function sanitize_value( $value ) {
+	public function sanitize_value( $value ) {
 		return Clean::email_content( $value );
 	}
 

@@ -72,7 +72,7 @@ abstract class Mailer_Abstract {
 	 *
 	 * @return string
 	 */
-	abstract function get_email_body();
+	abstract public function get_email_body();
 
 
 	/**
@@ -80,7 +80,7 @@ abstract class Mailer_Abstract {
 	 *
 	 * @param string $email
 	 */
-	function set_email( $email ) {
+	public function set_email( $email ) {
 		$this->email = $email;
 	}
 
@@ -89,7 +89,7 @@ abstract class Mailer_Abstract {
 	 *
 	 * @param string $content
 	 */
-	function set_content( $content ) {
+	public function set_content( $content ) {
 		$this->content = $content;
 	}
 
@@ -98,7 +98,7 @@ abstract class Mailer_Abstract {
 	 *
 	 * @param string $subject
 	 */
-	function set_subject( $subject ) {
+	public function set_subject( $subject ) {
 		$this->subject = $subject;
 	}
 
@@ -107,7 +107,7 @@ abstract class Mailer_Abstract {
 	 *
 	 * @return string
 	 */
-	function get_from_email() {
+	public function get_from_email() {
 		if ( ! isset( $this->from_email ) ) {
 			$this->from_email = Emails::get_from_address();
 		}
@@ -120,7 +120,7 @@ abstract class Mailer_Abstract {
 	 *
 	 * @return string
 	 */
-	function get_from_name() {
+	public function get_from_name() {
 		if ( ! isset( $this->from_name ) ) {
 			$this->from_name = Emails::get_from_name();
 		}
@@ -133,17 +133,17 @@ abstract class Mailer_Abstract {
 	 *
 	 * @return true|\WP_Error
 	 */
-	function validate_recipient_email() {
+	public function validate_recipient_email() {
 		if ( ! $this->email ) {
 			return new \WP_Error( 'email_blank', __( 'Email address is blank.', 'automatewoo' ) );
 		}
 
 		if ( ! is_email( $this->email ) ) {
-			return new \WP_Error( 'email_invalid', __( "Email address is not valid.", 'automatewoo' ) );
+			return new \WP_Error( 'email_invalid', __( 'Email address is not valid.', 'automatewoo' ) );
 		}
 
 		if ( aw_is_email_anonymized( $this->email ) ) {
-			return new \WP_Error( 'email_anonymized', __( "Email address appears to be anonymized.", 'automatewoo' ) );
+			return new \WP_Error( 'email_anonymized', __( 'Email address appears to be anonymized.', 'automatewoo' ) );
 		}
 
 		/**
@@ -155,7 +155,7 @@ abstract class Mailer_Abstract {
 
 		foreach ( $blacklist as $pattern ) {
 			if ( strstr( $this->email, $pattern ) ) {
-				return new \WP_Error( 'email_blacklisted', __( "Email address is blacklisted.", 'automatewoo' ) );
+				return new \WP_Error( 'email_blacklisted', __( 'Email address is blacklisted.', 'automatewoo' ) );
 			}
 		}
 
@@ -168,7 +168,7 @@ abstract class Mailer_Abstract {
 	 *
 	 * @return true|\WP_Error
 	 */
-	function send() {
+	public function send() {
 
 		$validate_email = $this->validate_recipient_email();
 
@@ -232,7 +232,7 @@ abstract class Mailer_Abstract {
 	 *
 	 * @return string
 	 */
-	function process_email_variables( $content ) {
+	public function process_email_variables( $content ) {
 		$replacer = new Replace_Helper( $content, [ $this, 'callback_process_email_variables' ], 'variables' );
 		return $replacer->process();
 	}
@@ -245,7 +245,7 @@ abstract class Mailer_Abstract {
 	 *
 	 * @return string
 	 */
-	function callback_process_email_variables( $variable ) {
+	public function callback_process_email_variables( $variable ) {
 		$variable = trim( $variable );
 		$value    = '';
 
@@ -264,7 +264,7 @@ abstract class Mailer_Abstract {
 	 *
 	 * @return string
 	 */
-	function get_email_type() {
+	public function get_email_type() {
 		return $this->email_type && class_exists( 'DOMDocument' ) ? $this->email_type : 'plain';
 	}
 
@@ -274,13 +274,13 @@ abstract class Mailer_Abstract {
 	 *
 	 * @return string
 	 */
-	function get_content_type() {
+	public function get_content_type() {
 		switch ( $this->get_email_type() ) {
-			case 'html' :
+			case 'html':
 				return 'text/html';
-			case 'multipart' :
+			case 'multipart':
 				return 'multipart/alternative';
-			default :
+			default:
 				return 'text/plain';
 		}
 	}
@@ -291,7 +291,7 @@ abstract class Mailer_Abstract {
 	 *
 	 * @param \WP_Error $error
 	 */
-	function log_wp_mail_errors( $error ) {
+	public function log_wp_mail_errors( $error ) {
 		Logger::error( 'wp-mail', $error->get_error_message() );
 	}
 
@@ -303,7 +303,7 @@ abstract class Mailer_Abstract {
 	 *
 	 * @return string
 	 */
-	function get_html() {
+	public function get_html() {
 		return $this->get_email_body();
 	}
 

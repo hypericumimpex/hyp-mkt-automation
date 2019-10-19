@@ -14,8 +14,8 @@ class Variable_Subscription_Change_Payment_Method_Url extends Variable {
 	/**
 	 * Load admin props.
 	 */
-	function load_admin_details() {
-		$this->description = __( 'Shows a URL to the subscription add/change payment method page.', 'automatewoo');
+	public function load_admin_details() {
+		$this->description = __( 'Shows a URL to the subscription add/change payment method page.', 'automatewoo' );
 	}
 
 	/**
@@ -26,7 +26,7 @@ class Variable_Subscription_Change_Payment_Method_Url extends Variable {
 	 *
 	 * @return string
 	 */
-	function get_value( $subscription, $parameters ) {
+	public function get_value( $subscription, $parameters ) {
 		return $subscription->get_change_payment_method_url();
 	}
 

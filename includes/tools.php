@@ -38,7 +38,7 @@ class Tools {
 
 			foreach ( $tool_includes as $tool_include ) {
 				/** @var Tool_Abstract $class */
-				$class = include_once $tool_include;
+				$class = require_once $tool_include;
 				self::$tools[$class->get_id()] = $class;
 			}
 		}

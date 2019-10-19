@@ -153,12 +153,9 @@ class Cart_Item {
 				$label = wc_attribute_label( str_replace( 'attribute_', '', $name ), $this->get_product() );
 			}
 
-			// WC 3.0 only
-			if ( ! version_compare( WC()->version, '3.0', '<' ) ) {
-				// Check the nicename against the title.
-				if ( '' === $value || wc_is_attribute_in_product_name( $value, $this->get_name() ) ) {
-					continue;
-				}
+			// Check the nicename against the title.
+			if ( '' === $value || wc_is_attribute_in_product_name( $value, $this->get_name() ) ) {
+				continue;
 			}
 
 			$item_data[] = [

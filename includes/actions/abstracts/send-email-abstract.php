@@ -29,14 +29,14 @@ abstract class Action_Send_Email_Abstract extends Action {
 	/**
 	 * Load admin props.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		$this->group = __( 'Email', 'automatewoo' );
 	}
 
 	/**
 	 * Load fields.
 	 */
-	function load_fields() {
+	public function load_fields() {
 		$to = new Fields\Text();
 		$to->set_name( 'to' );
 		$to->set_title( __( 'To', 'automatewoo' ) );
@@ -60,7 +60,7 @@ abstract class Action_Send_Email_Abstract extends Action {
 	 *
 	 * @return Workflow_Email
 	 */
-	function get_workflow_email_object() {
+	public function get_workflow_email_object() {
 		$email = new Workflow_Email( $this->workflow );
 		$email->set_type( $this->get_email_type() );
 		return $email;

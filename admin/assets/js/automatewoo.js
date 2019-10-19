@@ -393,6 +393,26 @@ jQuery(function($) {
 					data: { action: 'aw_dismiss_system_error_notice' }
 				});
 			});
+
+			$('.automatewoo-notice--license-nag').on('click', '.notice-dismiss', function(){
+				$.ajax({
+					url: ajaxurl,
+					data: { action: 'aw_dismiss_license_nag_notice' }
+				});
+			});
+
+			$('[data-automatewoo-dismissible-notice]').on('click', '.notice-dismiss', function () {
+				var $notice = $(this).parents('[data-automatewoo-dismissible-notice]');
+
+				$.post({
+					url: ajaxurl,
+					data: {
+						action: 'automatewoo_remove_notice',
+						notice: $notice.data('automatewoo-dismissible-notice'),
+						nonce: AW.params.nonces.remove_notice
+					}
+				});
+			});
 		},
 		
 

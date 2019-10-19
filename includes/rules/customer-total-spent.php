@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_Total_Spent
@@ -31,5 +31,3 @@ class Customer_Total_Spent extends Abstract_Number {
 	}
 
 }
-
-return new Customer_Total_Spent();

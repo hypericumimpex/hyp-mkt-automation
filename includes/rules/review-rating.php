@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Review_Rating
@@ -31,5 +31,3 @@ class Review_Rating extends Abstract_Number {
 	}
 
 }
-
-return new Review_Rating();

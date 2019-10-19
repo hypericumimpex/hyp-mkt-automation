@@ -5,12 +5,12 @@ namespace AutomateWoo\Rules;
 
 use AutomateWoo\Memberships_Helper;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_Active_Membership_Plans
  */
-class Customer_Active_Membership_Plans extends Abstract_Select {
+class Customer_Active_Membership_Plans extends Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'customer';
 
@@ -18,6 +18,8 @@ class Customer_Active_Membership_Plans extends Abstract_Select {
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( "Customer - Active Memberships Plans", 'automatewoo' );
 	}
 
@@ -49,5 +51,3 @@ class Customer_Active_Membership_Plans extends Abstract_Select {
 	}
 
 }
-
-return new Customer_Active_Membership_Plans();

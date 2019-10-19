@@ -18,14 +18,17 @@ class Variable_Order_Shipping_Country extends Variable {
 	/**
 	 * Load description and parameters for variable in admin screen.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		$this->description = __( 'Displays the shipping country for the order.', 'automatewoo' );
 
 		$this->add_parameter_select_field(
-			'format', __( "Choose whether to display the abbreviation or full name of the country.", 'automatewoo' ), [
+			'format',
+			__( 'Choose whether to display the abbreviation or full name of the country.', 'automatewoo' ),
+			[
 				''             => __( 'Full', 'automatewoo' ),
 				'abbreviation' => __( 'Abbreviation', 'automatewoo' ),
-			], false
+			],
+			false
 		);
 	}
 
@@ -38,7 +41,7 @@ class Variable_Order_Shipping_Country extends Variable {
 	 *
 	 * @return string $return
 	 */
-	function get_value( $order, $parameters ) {
+	public function get_value( $order, $parameters ) {
 
 		$format = isset( $parameters['format'] ) ? $parameters['format'] : 'full';
 

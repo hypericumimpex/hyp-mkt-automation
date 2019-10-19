@@ -3,7 +3,7 @@
 
 namespace AutomateWoo;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Queued_Event_Factory

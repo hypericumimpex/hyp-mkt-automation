@@ -8,11 +8,11 @@ use AutomateWoo\Logger;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'AW_WP_Async_Request', false ) ) {
-	include_once AW()->lib_path( '/wp-async-request.php' );
+	require_once AW()->lib_path( '/wp-async-request.php' );
 }
 
 if ( ! class_exists( 'AW_WP_Background_Process', false ) ) {
-	include_once AW()->lib_path( '/wp-background-process.php' );
+	require_once AW()->lib_path( '/wp-background-process.php' );
 }
 
 /**

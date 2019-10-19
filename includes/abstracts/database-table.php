@@ -27,6 +27,27 @@ abstract class Database_Table {
 	 */
 	abstract function get_columns();
 
+	/**
+	 * Get SQL-escaped table name.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @return string
+	 */
+	public function get_name() {
+		return esc_sql( $this->name );
+	}
+
+	/**
+	 * Get SQL-escaped object ID column.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @return string
+	 */
+	public function get_object_id_column() {
+		return esc_sql( $this->object_id_column );
+	}
 
 	/**
 	 * @return string

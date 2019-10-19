@@ -30,7 +30,7 @@ class Points_Rewards_Customer_Points extends Abstract_Number {
 	/**
 	 * Init.
 	 */
-	function init() {
+	public function init() {
 		$this->title = __( 'Customer - Points', 'automatewoo' );
 	}
 
@@ -43,7 +43,7 @@ class Points_Rewards_Customer_Points extends Abstract_Number {
 	 *
 	 * @return bool
 	 */
-	function validate( $customer, $compare, $value ) {
+	public function validate( $customer, $compare, $value ) {
 
 		// get points if registered or set to zero if guest
 		$points = $customer->is_registered() ? WC_Points_Rewards_Manager::get_users_points( $customer->get_user_id() ) : 0;
@@ -51,5 +51,3 @@ class Points_Rewards_Customer_Points extends Abstract_Number {
 		return $this->validate_number( $points, $compare, $value );
 	}
 }
-
-return new Points_Rewards_Customer_Points();

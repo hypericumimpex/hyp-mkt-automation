@@ -47,5 +47,3 @@ class Customer_Last_Review_Date extends Abstract_Date {
 		return $this->validate_date( $compare, $value, $customer->get_last_review_date() );
 	}
 }
-
-return new Customer_Last_Review_Date();

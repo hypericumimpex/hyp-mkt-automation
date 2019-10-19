@@ -27,6 +27,8 @@ class Integrations {
 	/**
 	 * Is the WooCommerce Subscriptions plugin active?
 	 *
+	 * @since 4.5.0
+	 *
 	 * @param string $min_version
 	 *
 	 * @return bool
@@ -37,8 +39,7 @@ class Integrations {
 		}
 		return version_compare( \WC_Subscriptions::$version, $min_version, '>=' );
 	}
-
-
+	
 
 	/**
 	 * @return bool

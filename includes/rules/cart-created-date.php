@@ -47,5 +47,3 @@ class Cart_Created_Date extends Abstract_Date {
 		return $this->validate_date( $compare, $value, $cart->get_date_created() );
 	}
 }
-
-return new Cart_Created_Date();

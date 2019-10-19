@@ -65,11 +65,11 @@ class Reports extends Base {
 
 			$report_includes = apply_filters( 'automatewoo/reports/tabs', $report_includes );
 
-			include_once $path . 'abstract.php';
+			require_once $path . 'abstract.php';
 
 			foreach ( $report_includes as $report_include ) {
 				/** @var \AW_Admin_Reports_Tab_Abstract $class */
-				$class = include_once $report_include;
+				$class = require_once $report_include;
 				$class->controller = $this;
 				$this->reports[$class->id] = $class;
 			}

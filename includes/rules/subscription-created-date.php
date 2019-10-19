@@ -47,5 +47,3 @@ class Subscription_Created_Date extends Abstract_Date {
 		return $this->validate_date( $compare, $value, aw_normalize_date( $subscription->get_date_created() ) );
 	}
 }
-
-return new Subscription_Created_Date();

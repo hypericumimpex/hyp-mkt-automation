@@ -37,11 +37,27 @@ abstract class Field {
 	/** @var array */
 	protected $classes = [];
 
-	/** @var array */
+	/**
+	 * Extra attributes that will appended to the HTML field element.
+	 *
+	 * @var array
+	 */
 	protected $extra_attrs = [];
 
 	/** @var string */
 	protected $placeholder = '';
+
+	/**
+	 * Field meta data.
+	 *
+	 * This prop can be used when misc data needs to be added to the field.
+	 * Not to be confused with $this->extra_attrs.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @var array
+	 */
+	public $meta = [];
 
 	/**
 	 * Output the field HTML.
@@ -288,6 +304,8 @@ abstract class Field {
 
 	/**
 	 * Sanitizes the value of the field.
+	 *
+	 * This method runs before WRITING a value to the DB but doesn't run before READING.
 	 *
 	 * Defaults to sanitize as a single line string. Override this method for fields that should be sanitized differently.
 	 *

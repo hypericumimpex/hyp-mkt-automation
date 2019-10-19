@@ -2,7 +2,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Subscription next payment date rule.
@@ -49,5 +49,3 @@ class Subscription_Next_Payment_Date extends Abstract_Date {
 	}
 
 }
-
-return new Subscription_Next_Payment_Date();

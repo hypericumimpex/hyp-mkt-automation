@@ -74,8 +74,8 @@ class Trigger_Subscription_Before_End extends Trigger_Subscription_Before_Renewa
 	function get_subscriptions_by_end_day( $date, $limit, $offset ) {
 		$day_start = clone $date;
 		$day_end = clone $date;
-		$day_start->setTime(0,0,0);
-		$day_end->setTime(23,59,59);
+		$day_start->set_time_to_day_start();
+		$day_end->set_time_to_day_end();
 
 		$day_start->convert_to_utc_time();
 		$day_end->convert_to_utc_time();

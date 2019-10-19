@@ -34,11 +34,13 @@ class Data_Type_Workflow extends Data_Type {
 	 * @return mixed
 	 */
 	function decompress( $compressed_item, $compressed_data_layer ) {
-		if ( ! $compressed_item ) {
+		$workflow = Workflow_Factory::get( $compressed_item );
+
+		if ( ! $workflow || $workflow->get_status() === 'trash' ) {
 			return false;
 		}
 
-		return new Workflow( $compressed_item );
+		return $workflow;
 	}
 
 }

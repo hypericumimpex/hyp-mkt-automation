@@ -69,14 +69,15 @@ final class AutomateWoo extends AutomateWoo_Legacy {
 		$this->version         = AUTOMATEWOO_VERSION;
 		$this->plugin_basename = plugin_basename( AUTOMATEWOO_FILE );
 		$this->plugin_slug     = AUTOMATEWOO_SLUG;
-		include_once $this->path() . '/includes/autoloader.php';
+		require_once $this->path() . '/includes/helpers.php';
+		require_once $this->path() . '/includes/autoloader.php';
 		add_action( 'woocommerce_init', [ $this, 'init' ], 20 );
 	}
 
 	/**
 	 * Init
 	 */
-	function init() {
+	public function init() {
 
 		$this->includes();
 
@@ -145,6 +146,7 @@ final class AutomateWoo extends AutomateWoo_Legacy {
 
 		AutomateWoo\Workflows::init();
 		AutomateWoo\Hooks::init();
+		AutomateWoo\Marketplace_License_Transition_Helper::init();
 
 		if ( version_compare( WC()->version, '3.4', '>=' ) ) {
 			new AutomateWoo\Privacy();
@@ -156,13 +158,12 @@ final class AutomateWoo extends AutomateWoo_Legacy {
 	/**
 	 * File includes.
 	 */
-	function includes() {
-		include_once $this->path() . '/includes/customer-functions.php';
-		include_once $this->path() . '/includes/product-functions.php';
-		include_once $this->path() . '/includes/helpers.php';
-		include_once $this->path() . '/includes/hooks.php';
+	public function includes() {
+		require_once $this->path() . '/includes/customer-functions.php';
+		require_once $this->path() . '/includes/product-functions.php';
+		require_once $this->path() . '/includes/hooks.php';
 
-		if ( ! class_exists('Easy_User_Tags') ) {
+		if ( ! class_exists( 'Easy_User_Tags' ) ) {
 			new AutomateWoo\User_Tags();
 		}
 	}
@@ -172,7 +173,7 @@ final class AutomateWoo extends AutomateWoo_Legacy {
 	 *
 	 * @return AutomateWoo\Options
 	 */
-	function options() {
+	public function options() {
 		if ( ! isset( $this->options ) ) {
 			$this->options = new AutomateWoo\Options();
 		}
@@ -186,15 +187,15 @@ final class AutomateWoo extends AutomateWoo_Legacy {
 	 *
 	 * @return bool
 	 */
-	function is_request( $type ) {
+	public function is_request( $type ) {
 		switch ( $type ) {
-			case 'admin' :
+			case 'admin':
 				return is_admin();
-			case 'ajax' :
+			case 'ajax':
 				return defined( 'DOING_AJAX' );
-			case 'cron' :
+			case 'cron':
 				return defined( 'DOING_CRON' );
-			case 'frontend' :
+			case 'frontend':
 				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' ) && ! $this->is_rest_api_request();
 		}
 		return false;
@@ -232,7 +233,7 @@ final class AutomateWoo extends AutomateWoo_Legacy {
 	 *
 	 * @return string
 	 */
-	function url( $end = '' ) {
+	public function url( $end = '' ) {
 		return untrailingslashit( plugin_dir_url( $this->plugin_basename ) ) . $end;
 	}
 
@@ -243,7 +244,7 @@ final class AutomateWoo extends AutomateWoo_Legacy {
 	 *
 	 * @return string
 	 */
-	function admin_assets_url( $end = '' ) {
+	public function admin_assets_url( $end = '' ) {
 		return AW()->url( '/admin/assets' . $end );
 	}
 
@@ -254,7 +255,7 @@ final class AutomateWoo extends AutomateWoo_Legacy {
 	 *
 	 * @return string
 	 */
-	function path( $end = '' ) {
+	public function path( $end = '' ) {
 		return untrailingslashit( dirname( AUTOMATEWOO_FILE ) ) . $end;
 	}
 
@@ -265,7 +266,7 @@ final class AutomateWoo extends AutomateWoo_Legacy {
 	 *
 	 * @return string
 	 */
-	function admin_path( $end = '' ) {
+	public function admin_path( $end = '' ) {
 		return $this->path( '/admin' . $end );
 	}
 
@@ -276,7 +277,7 @@ final class AutomateWoo extends AutomateWoo_Legacy {
 	 *
 	 * @return string
 	 */
-	function lib_path( $end = '' ) {
+	public function lib_path( $end = '' ) {
 		return $this->path( '/includes/libraries' . $end );
 	}
 
@@ -285,7 +286,7 @@ final class AutomateWoo extends AutomateWoo_Legacy {
 	 *
 	 * @return AutomateWoo
 	 */
-	static function instance() {
+	public static function instance() {
 		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self();
 		}

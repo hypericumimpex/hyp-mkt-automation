@@ -20,7 +20,7 @@ class Reports_Tab_Conversions_List extends \AW_Admin_Reports_Tab_Abstract {
 	 * @return object
 	 */
 	function get_report_class() {
-		include_once AW()->admin_path( '/reports/conversions-list.php' );
+		require_once AW()->admin_path( '/reports/conversions-list.php' );
 		return new Report_Conversions_List();
 	}
 
@@ -44,9 +44,12 @@ class Reports_Tab_Conversions_List extends \AW_Admin_Reports_Tab_Abstract {
 				}
 
 				foreach ( $ids as $order_id ) {
-					if ( $order = wc_get_order( $order_id ) ) {
-						Compat\Order::delete_meta( $order, '_aw_conversion' );
-						Compat\Order::delete_meta( $order, '_aw_conversion_log' );
+					$order = wc_get_order( $order_id );
+
+					if ( $order ) {
+						$order->delete_meta_data( '_aw_conversion' );
+						$order->delete_meta_data( '_aw_conversion_log' );
+						$order->save();
 					}
 				}
 

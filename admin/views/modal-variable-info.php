@@ -1,79 +1,66 @@
 <?php
 // phpcs:ignoreFile
-/**
- * @var $variable string
- * @var $variable_obj AutomateWoo\Variable
- */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+namespace AutomateWoo;
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * @var Variable $variable
+ */
 
 ?>
 
 	<div class="automatewoo-modal__header">
-		<h1><?php echo esc_attr( $variable ) ?></h1>
+		<h1><?php echo esc_html( $variable->get_name() ); ?></h1>
 	</div>
 
 	<div class="automatewoo-modal__body">
 		<div class="automatewoo-modal__body-inner">
 
-			<?php if ( $variable_obj && $variable_obj->get_description() ): ?>
-				<p><?php echo $variable_obj->get_description() ?></p>
+			<?php if ( $variable->get_description() ): ?>
+				<p><?php echo $variable->get_description(); ?></p>
 			<?php endif; ?>
-
 
 			<table class="automatewoo-table automatewoo-table--bordered aw-workflow-variable-parameters-table">
 
-				<?php if ( $variable_obj && $variable_obj->has_parameters() ) foreach ( $variable_obj->get_parameters() as $parameter_name => $parameter ): ?>
+				<?php foreach ( $variable->get_parameter_fields() as $field ): ?>
 
 					<tr class="automatewoo-table__row aw-workflow-variables-parameter-row"
-						 data-parameter-name="<?php echo $parameter_name ?>"
-						<?php if ( isset ( $parameter['show'] ) ): ?>data-parameter-show="<?php echo $parameter['show'] ?>"<?php endif; ?>
-						<?php echo ( $parameter['required'] ? 'data-is-required="true"' : '' ) ?>
-						>
+						data-parameter-name="<?php echo esc_attr( $field->get_name() ); ?>"
+						<?php if ( isset( $field->meta['show'] ) ): ?>data-parameter-show="<?php echo esc_attr( $field->meta['show'] ); ?>"<?php endif; ?>
+						<?php echo ( $field->get_required() ? 'data-is-required="true"' : '' ); ?>
+					>
 
 						<td class="automatewoo-table__col automatewoo-table__col--label">
-							<strong><?php echo $parameter_name ?></strong>
-							<?php if ( $parameter['required'] ): ?><span class="aw-required-asterisk"></span><?php endif; ?>
-							<?php echo AutomateWoo\Admin::help_tip( $parameter['description'] ) ?>
+							<strong><?php echo esc_html( $field->get_name() ); ?></strong>
+							<?php if ( $field->get_required() ): ?><span class="aw-required-asterisk"></span><?php endif; ?>
+							<?php echo $field->get_description() ? Admin::help_tip( $field->get_description() ) : ''; ?>
 						</td>
 						<td class="automatewoo-table__col automatewoo-table__col--field">
-
-							<?php if ( $parameter['type'] === 'text' ): ?>
-
-								<input type="text" name="<?php echo $parameter_name ?>" placeholder="<?php echo $parameter['placeholder'] ?>" class="automatewoo-field automatewoo-field--type-text aw-workflow-variable-parameter">
-
-							<?php elseif ( $parameter['type'] === 'select' ): ?>
-
-								<select name="<?php echo $parameter_name ?>" class="automatewoo-field automatewoo-field--type-select aw-workflow-variable-parameter">
-									<?php foreach ( $parameter['options'] as $value => $text ): ?>
-										<option value="<?php echo $value ?>"><?php echo $text ?></option>
-									<?php endforeach; ?>
-								</select>
-
-							<?php endif; ?>
-
+							<?php $field->add_classes( 'aw-workflow-variable-parameter' ); ?>
+							<?php $field->render( '' ); ?>
 						</td>
 					</tr>
 				<?php endforeach; ?>
 
-				<?php if ( $variable_obj->use_fallback ): ?>
+				<?php if ( $variable->use_fallback ): ?>
 					<tr class="automatewoo-table__row">
 						<td class="automatewoo-table__col automatewoo-table__col--label">
 							<strong>fallback</strong>
-							<?php echo AutomateWoo\Admin::help_tip( __( 'Displayed when there is no value found.', 'automatewoo') ) ?>
+							<?php echo Admin::help_tip( __( 'Displayed when there is no value found.', 'automatewoo') ); ?>
 						</td>
 						<td class="automatewoo-table__col automatewoo-table__col--field">
 							<input type="text" name="fallback" class="automatewoo-field automatewoo-field--type-text aw-workflow-variable-parameter">
 						</td>
 					</tr>
-					<?php endif; ?>
+				<?php endif; ?>
 
 			</table>
 
-
 			<div class="aw-workflow-variable-clipboard-form">
-				<div id="aw_workflow_variable_preview_field" class="aw-workflow-variable-preview-field" data-variable="<?php echo $variable ?>"></div>
-				<button class="aw-clipboard-btn button button-primary button-large" data-clipboard-target="#aw_workflow_variable_preview_field"><?php _e( 'Copy to clipboard', 'automatewoo' ) ?></button>
+				<div id="aw_workflow_variable_preview_field" class="aw-workflow-variable-preview-field" data-variable="<?php echo esc_attr( $variable->get_name() ); ?>"></div>
+				<button class="aw-clipboard-btn button button-primary button-large" data-clipboard-target="#aw_workflow_variable_preview_field"><?php esc_html_e( 'Copy to clipboard', 'automatewoo' ); ?></button>
 			</div>
 
 		</div>

@@ -23,10 +23,13 @@ class Variable_Order_Reorder_Url extends Variable {
 	 * @return string
 	 */
 	function get_value( $order, $parameters ) {
-		return add_query_arg([
-			'aw-action' => 'reorder',
-			'aw-order-key' => Compat\Order::get_order_key( $order )
-		], wc_get_page_permalink('cart') );
+		return add_query_arg(
+			[
+				'aw-action'    => 'reorder',
+				'aw-order-key' => $order->get_order_key(),
+			],
+			wc_get_page_permalink( 'cart' )
+		);
 	}
 }
 

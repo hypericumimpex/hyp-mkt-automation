@@ -5,7 +5,7 @@ namespace AutomateWoo;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-include_once 'optout-importer.php';
+require_once 'optout-importer.php';
 
 /**
  * @class Tool_Optin_Importer

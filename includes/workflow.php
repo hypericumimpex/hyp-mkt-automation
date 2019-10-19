@@ -213,9 +213,13 @@ class Workflow {
 		// setup language and data before validation occurs
 		$this->setup( $data_layer );
 
+		if ( $this->is_missing_required_data() ) {
+			return;
+		}
+
 		if ( $skip_validation || $this->validate_workflow() ) {
 
-			if ( $this->get_timing_type() == 'immediately' || $force_immediate ) {
+			if ( $this->get_timing_type() === 'immediately' || $force_immediate ) {
 				$this->run();
 			}
 			else {
@@ -226,6 +230,30 @@ class Workflow {
 		$this->cleanup();
 	}
 
+	/**
+	 * Check if workflow is missing some required data.
+	 *
+	 * This must be run after the setup() method.
+	 *
+	 * @since 4.6
+	 *
+	 * @return bool
+	 */
+	public function is_missing_required_data(){
+		if ( ! $this->exists ) {
+			return true;
+		}
+
+		if ( ! $this->get_trigger() ) {
+			return true;
+		}
+
+		if ( $this->data_layer()->is_missing_data() ) {
+			return true;
+		}
+
+		return false;
+	}
 
 	/**
 	 * @return bool
@@ -659,7 +687,7 @@ class Workflow {
 			$min_wait_datetime->modify('+1 day');
 		}
 
-		$min_wait_datetime->setTime( 0, 0, 0 ); // set time to midnight, time will be added on later
+		$min_wait_datetime->set_time_to_day_start(); // set time to midnight, time will be added on later
 
 		// check if scheduled day matches the min wait day
 		if ( $scheduled_days && ! in_array( $min_wait_datetime->format( 'N' ), $scheduled_days ) ) {
@@ -767,12 +795,7 @@ class Workflow {
 	 */
 	function get_trigger_options() {
 		$options = $this->get_meta( 'trigger_options' );
-
-		if ( ! $options ) {
-			$options = [];
-		}
-
-		return $this->sanitize_trigger_options( $this->get_trigger_name(), $options );
+		return is_array( $options ) ? $options : [];
 	}
 
 	/**
@@ -851,8 +874,11 @@ class Workflow {
 	}
 
 	/**
-	 * Get the workflow actions data.
+	 * Get actions data for the workflow.
+	 *
 	 * Values will be sanitized as per the fields set on the action object.
+	 *
+	 * Data is only sanitized before write, not before read.
 	 *
 	 * @since 4.4.0
 	 *
@@ -860,13 +886,7 @@ class Workflow {
 	 */
 	function get_actions_data() {
 		$actions_data = $this->get_meta( 'actions' );
-
-		if ( ! $actions_data ) {
-			$actions_data = [];
-		}
-
-		// sanitize each action's fields
-		return array_map( [ $this, 'sanitize_action_fields' ], $actions_data );
+		return is_array( $actions_data ) ? $actions_data : [];
 	}
 
 	/**
@@ -937,7 +957,8 @@ class Workflow {
 	 * @return array
 	 */
 	function get_rule_data() {
-		return $this->sanitize_rule_options( $this->get_meta( 'rule_options' ) );
+		$data = $this->get_meta( 'rule_options' );
+		return is_array( $data ) ? $data : [];
 	}
 
 
@@ -964,18 +985,29 @@ class Workflow {
 	/**
 	 * Sanitizes a single rule.
 	 *
-	 * @since 4.3.0
-	 *
-	 * @param array $rule
+	 * @param array $rule_fields
 	 *
 	 * @return array
+	 * @since 4.3.0
 	 */
-	function sanitize_rule_option( $rule ) {
-		$sanitized_rule = [];
-		$sanitized_rule[ 'name' ] = Clean::string( $rule[ 'name' ] );
-		$sanitized_rule[ 'compare' ] = isset( $rule[ 'compare' ] ) ? Clean::string( $rule[ 'compare' ] ) : '';
-		$sanitized_rule[ 'value' ] = isset( $rule[ 'value' ] ) ? Clean::recursive( $rule[ 'value' ] ) : '';
-		return $sanitized_rule;
+	public function sanitize_rule_option( $rule_fields ) {
+		$name = Clean::string( $rule_fields['name'] );
+		$rule = Rules::get( $name );
+
+		if ( isset( $rule_fields['value'] ) && $rule ) {
+			$value = $rule->sanitize_value( $rule_fields['value'] );
+		} else {
+			// Rule may have been deleted in which case we don't need a value.
+			$value = '';
+		}
+
+		$sanitized = [
+			'name'    => $name,
+			'compare' => isset( $rule_fields['compare'] ) ? Clean::string( $rule_fields['compare'] ) : '',
+			'value'   => $value,
+		];
+
+		return $sanitized;
 	}
 
 
@@ -1233,11 +1265,37 @@ class Workflow {
 
 
 	/**
+	 * Is workflow active.
+	 *
 	 * @return bool
 	 */
-	function is_active() {
-		if ( ! $this->exists ) return false;
-		return $this->post->post_status == 'publish';
+	public function is_active() {
+		if ( ! $this->exists ) {
+			return false;
+		}
+		return $this->get_status() === 'active';
+	}
+
+	/**
+	 * Get workflow status.
+	 *
+	 * Possible statuses are active|disabled|trash
+	 *
+	 * @since 4.6
+	 *
+	 * @return string
+	 */
+	public function get_status() {
+		$status = $this->post->post_status;
+
+		if ( $status === 'publish' ) {
+			$status = 'active';
+		}
+		elseif ( $status === 'aw-disabled' ) {
+			$status = 'disabled';
+		}
+
+		return $status;
 	}
 
 

@@ -3,12 +3,12 @@
 
 namespace AutomateWoo;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Rule_Order_Item_Tags
  */
-class Rule_Order_Item_Tags extends Rules\Abstract_Select {
+class Rule_Order_Item_Tags extends Rules\Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'order';
 
@@ -16,6 +16,8 @@ class Rule_Order_Item_Tags extends Rules\Abstract_Select {
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( 'Order - Item Tags', 'automatewoo' );
 	}
 
@@ -51,5 +53,3 @@ class Rule_Order_Item_Tags extends Rules\Abstract_Select {
 		return $this->validate_select( $tag_ids, $compare, $expected );
 	}
 }
-
-return new Rule_Order_Item_Tags();

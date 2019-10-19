@@ -182,7 +182,7 @@ abstract class Query_Abstract {
 	 * @return string
 	 */
 	function get_table_name() {
-		return $this->get_table()->name;
+		return $this->get_table()->get_name();
 	}
 
 
@@ -208,7 +208,7 @@ abstract class Query_Abstract {
 	 */
 	function get_meta_table_name() {
 		if ( ! $this->meta_table_id ) return false;
-		return $this->get_meta_table()->name;
+		return $this->get_meta_table()->get_name();
 	}
 
 
@@ -217,7 +217,7 @@ abstract class Query_Abstract {
 	 */
 	function get_meta_object_id_column() {
 		if ( ! $this->meta_table_id ) return false;
-		return $this->get_meta_table()->object_id_column;
+		return $this->get_meta_table()->get_object_id_column();
 	}
 
 

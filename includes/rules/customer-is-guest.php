@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_Is_Guest
@@ -38,5 +38,3 @@ class Customer_Is_Guest extends Abstract_Bool {
 	}
 
 }
-
-return new Customer_Is_Guest();

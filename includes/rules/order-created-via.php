@@ -3,20 +3,19 @@
 
 namespace AutomateWoo\Rules;
 
-use AutomateWoo\Compat;
-use AutomateWoo\Clean;
-
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Order_Created_Via
  */
-class Order_Created_Via extends Abstract_Select {
+class Order_Created_Via extends Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'order';
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( 'Order - Created Via', 'automatewoo' );
 	}
 
@@ -33,15 +32,13 @@ class Order_Created_Via extends Abstract_Select {
 
 
 	/**
-	 * @param $order \WC_Order
+	 * @param \WC_Order $order
 	 * @param $compare
 	 * @param $value
 	 * @return bool
 	 */
 	function validate( $order, $compare, $value ) {
-		return $this->validate_select( Clean::string( Compat\Order::get_created_via( $order ) ), $compare, $value );
+		return $this->validate_select( $order->get_created_via(), $compare, $value );
 	}
 
 }
-
-return new Order_Created_Via();

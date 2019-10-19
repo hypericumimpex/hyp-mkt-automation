@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @property string $created
  * @property string $last_active
  */
-class Guest extends Model {
+class Guest extends Abstract_Model_With_Meta_Table {
 
 	/** @var string */
 	public $table_id = 'guests';
@@ -21,12 +21,17 @@ class Guest extends Model {
 	/** @var string  */
 	public $object_type = 'guest';
 
-	/** @var string  */
-	public $meta_table_id = 'guest-meta';
-
 	/** @var string */
 	private $formatted_billing_address;
 
+	/**
+	 * Returns the ID of the model's meta table.
+	 *
+	 * @return string
+	 */
+	public function get_meta_table_id() {
+		return 'guest-meta';
+	}
 
 	/**
 	 * @param $id

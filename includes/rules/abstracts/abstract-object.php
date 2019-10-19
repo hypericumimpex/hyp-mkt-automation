@@ -3,10 +3,11 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Abstract_Object
+ * @deprecated in favour of AutomateWoo\Rules\Searchable_Select_Rule_Abstract
  */
 abstract class Abstract_Object extends Rule {
 
@@ -26,14 +27,22 @@ abstract class Abstract_Object extends Rule {
 	public $placeholder;
 
 
-	abstract function get_object_display_value( $value );
-
-
 	function __construct() {
 
 		$this->placeholder = __( 'Search...', 'automatewoo' );
 
 		parent::__construct();
+	}
+	
+	/**
+	 * Override this method to alter how saved values are displayed.
+	 *
+	 * @param string $value
+	 *
+	 * @return string
+	 */
+	public function get_object_display_value( $value ) {
+		return $value;
 	}
 
 }

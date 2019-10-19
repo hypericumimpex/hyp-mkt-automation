@@ -35,13 +35,19 @@ class Data_Type_Membership extends Data_Type {
 	 * @return mixed
 	 */
 	function decompress( $compressed_item, $compressed_data_layer ) {
-		if ( ! $compressed_item ) {
+		$id = Clean::id( $compressed_item );
+
+		if ( ! Integrations::is_memberships_enabled() || ! $id ) {
 			return false;
 		}
-		
-		if ( Integrations::is_memberships_enabled() ) {
-			return wc_memberships_get_user_membership( absint( $compressed_item ) );
+
+		$membership = wc_memberships_get_user_membership( $id );
+
+		if ( ! $membership || $membership->get_status() === 'trash' ) {
+			return false;
 		}
+
+		return $membership;
 	}
 
 }

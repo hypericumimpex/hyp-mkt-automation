@@ -16,7 +16,7 @@ class Variable_Subscription_Admin_Url extends Variable {
 	/**
 	 * Load admin details
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		$this->description = __( 'Displays the admin URL of the subscription.', 'automatewoo' );
 	}
 
@@ -28,7 +28,7 @@ class Variable_Subscription_Admin_Url extends Variable {
 	 *
 	 * @return mixed
 	 */
-	function get_value( $subscription, $parameters ) {
+	public function get_value( $subscription, $parameters ) {
 		return $subscription->get_edit_order_url();
 	}
 }

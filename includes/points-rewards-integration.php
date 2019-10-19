@@ -15,7 +15,7 @@ class Points_Rewards_Integration {
 	/**
 	 * Points_Rewards_Integration constructor.
 	 */
-	function __construct() {
+	public function __construct() {
 		add_filter( 'wc_points_rewards_event_description', [ $this, 'filter_points_modified_description' ], 10, 3 );
 		add_filter( 'automatewoo/rules/includes', [ $this, 'add_points_rewards_rules' ], 10, 3 );
 		add_filter( 'automatewoo/actions', [ $this, 'add_points_rewards_actions' ], 10, 3 );
@@ -27,7 +27,7 @@ class Points_Rewards_Integration {
 	 *
 	 * @return string
 	 */
-	static function get_default_event_description() {
+	public static function get_default_event_description() {
 
 		global $wc_points_rewards;
 		$points_label = $wc_points_rewards->get_points_label( 0 );
@@ -44,7 +44,7 @@ class Points_Rewards_Integration {
 	 *
 	 * @return string
 	 */
-	function filter_points_modified_description( $event_description, $event_type, $event ) {
+	public function filter_points_modified_description( $event_description, $event_type, $event ) {
 
 		if ( $event_type === 'automatewoo-adjustment' ) {
 			if ( ! empty( $event->data['aw_description'] ) ) {
@@ -56,7 +56,7 @@ class Points_Rewards_Integration {
 			if ( is_admin() && isset( $event->data['workflow_id'] ) ) {
 				$workflow_id        = $event->data['workflow_id'];
 				$url                = get_edit_post_link( $workflow_id );
-				$event_description .= sprintf( __( ' (Workflow ID: <a href="%s">%s</a>)', 'automatewoo' ), $url, $workflow_id );
+				$event_description .= sprintf( __( ' (Workflow ID: <a href="%1$s">%2$s</a>)', 'automatewoo' ), $url, $workflow_id );
 			}
 		}
 
@@ -70,8 +70,8 @@ class Points_Rewards_Integration {
 	 *
 	 * @return array
 	 */
-	function add_points_rewards_rules( $rule_paths ) {
-		$rule_paths['points_rewards_customer_points'] = AW()->path( '/includes/rules/points-rewards-customer-points.php' );
+	public function add_points_rewards_rules( $rule_paths ) {
+		$rule_paths['points_rewards_customer_points'] = 'AutomateWoo\Rules\Points_Rewards_Customer_Points';
 		return $rule_paths;
 	}
 
@@ -82,7 +82,7 @@ class Points_Rewards_Integration {
 	 *
 	 * @return array
 	 */
-	function add_points_rewards_actions( $includes ) {
+	public function add_points_rewards_actions( $includes ) {
 		$includes['points_rewards_add_points']    = 'AutomateWoo\Action_Points_Rewards_Add_Points';
 		$includes['points_rewards_remove_points'] = 'AutomateWoo\Action_Points_Rewards_Remove_Points';
 		return $includes;
@@ -95,7 +95,7 @@ class Points_Rewards_Integration {
 	 *
 	 * @return array
 	 */
-	function add_points_rewards_variables( $variable_paths ) {
+	public function add_points_rewards_variables( $variable_paths ) {
 		$variable_paths['customer']['points'] = AW()->path( '/includes/variables/customer-points.php' );
 		return $variable_paths;
 	}

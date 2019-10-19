@@ -359,45 +359,56 @@
 
 
         setValue: function() {
+            var selected_title = this.model.get('selected');
+            var selected_id = this.model.get('value');
+            var $value_field;
 
-            if ( this.model.get('selected') ) {
+            if ( selected_title ) {
 
-                var $value_field = this.$el.find('.js-rule-value-field');
+                $value_field = this.$el.find('.js-rule-value-field');
 
                 if ( $value_field.is('select') ) {
-                    $value_field.append( $('<option>', {
-                        value: this.model.get('value'),
-                        text: this.model.get('selected')
-                    }) );
+
+                    if ( _.isArray( selected_id ) ) {
+                        _.each( selected_id, function( id, i ){
+                            $value_field.append( $('<option>', {
+                                value: id,
+                                text: selected_title[i],
+                            }) );
+                        });
+                    } else {
+                        $value_field.append( $('<option>', {
+                            value: selected_id,
+                            text: selected_title
+                        }) );
+                    }
                 }
                 else {
                     // wc 3.0
-                    $value_field.attr( 'data-selected', this.model.get('selected') );
+                    $value_field.attr( 'data-selected', selected_title );
                 }
-
             }
 
-            if ( this.model.get('value') ) {
+            if ( selected_id ) {
 
                 var $fields = this.$el.find('.js-rule-value-field');
-                var value = this.model.get('value');
                 var thisModel = this;
 
                 if ( this.hasMultipleValueFields() ) {
-                    if ( _.isArray( value ) ) {
+                    if ( _.isArray( selected_id ) ) {
                         $fields.each(function( i, el ){
-                            $(el).val( value[i] );
+                            $(el).val( selected_id[i] );
                         });
                     }
 
-                    if ( _.isObject( value ) ) {
-                        Object.keys( value ).forEach( function (key) {
-                            $( '.js-rule-value-' + key, thisModel.$el ).val( value[key] );
+                    if ( _.isObject( selected_id ) ) {
+                        Object.keys( selected_id ).forEach( function (key) {
+                            $( '.js-rule-value-' + key, thisModel.$el ).val( selected_id[key] );
                         } );
                     }
                 }
                 else {
-                    $fields.val( value );
+                    $fields.val( selected_id );
                 }
             }
         },

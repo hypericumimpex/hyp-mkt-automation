@@ -91,12 +91,26 @@ abstract class Registry {
 		}
 
 		$includes = static::get_includes();
+		$object   = false;
 
-		if ( empty( $includes[ $name ] ) || ! file_exists( $includes[ $name ] ) ) {
+		if ( empty( $includes[ $name ] ) ) {
 			return false;
 		}
 
-		$object = include_once $includes[ $name ];
+		$include = $includes[ $name ];
+
+		// Check if include is a file path or a class name
+		// NOTE: the file include method should NOT be used! It is kept for compatibility.
+		if ( strstr( $include, '.php' ) ) {
+			if ( file_exists( $include ) ) {
+				$object = include_once $include;
+			}
+		} else {
+			// If include is not a file path, assume it's a class name
+			if ( class_exists( $include ) ) {
+				$object = new $include();
+			}
+		}
 
 		if ( ! is_object( $object ) ) {
 			return false;

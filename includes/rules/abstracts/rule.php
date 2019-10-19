@@ -3,6 +3,8 @@
 
 namespace AutomateWoo\Rules;
 
+use AutomateWoo\Clean;
+
 /**
  * @class Rule
  */
@@ -20,7 +22,12 @@ abstract class Rule {
 	/** @var string string|number|object|select  */
 	public $type;
 
-	/** @var array */
+	/**
+	 * Define the data type used by the rule.
+	 * This is a required property.
+	 *
+	 * @var string
+	 */
 	public $data_item;
 
 	/** @var array  */
@@ -85,6 +92,21 @@ abstract class Rule {
 
 
 	/**
+	 * Get is/is not compare types.
+	 *
+	 * @since 4.6
+	 *
+	 * @return array
+	 */
+	public function get_is_or_not_compare_types() {
+		return [
+			'is'     => __( 'is', 'automatewoo' ),
+			'is_not' => __( 'is not', 'automatewoo' ),
+		];
+	}
+
+
+	/**
 	 * @return array
 	 */
 	function get_string_compare_types() {
@@ -97,6 +119,7 @@ abstract class Rule {
 			'ends_with' => __( 'ends with', 'automatewoo' ),
 			'blank' => __( 'is blank', 'automatewoo' ),
 			'not_blank' => __( 'is not blank', 'automatewoo' ),
+			'regex' => __( 'matches regex', 'automatewoo' ),
 		];
 	}
 
@@ -118,9 +141,7 @@ abstract class Rule {
 	 * @return array
 	 */
 	function get_float_compare_types() {
-		return [
-			'is' => __( 'is', 'automatewoo' ),
-			'is_not' => __( 'is not', 'automatewoo' ),
+		return $this->get_is_or_not_compare_types() + [
 			'greater_than' => __( 'is greater than', 'automatewoo' ),
 			'less_than' => __( 'is less than', 'automatewoo' ),
 		];
@@ -137,6 +158,34 @@ abstract class Rule {
 		];
 	}
 
+	/**
+	 * Get multi-select match compare types.
+	 *
+	 * @since 4.6
+	 *
+	 * @return array
+	 */
+	public function get_multi_select_compare_types() {
+		return [
+			'matches_any'  => __( 'matches any', 'automatewoo' ),
+			'matches_all'  => __( 'matches all', 'automatewoo' ),
+			'matches_none' => __( 'matches none', 'automatewoo' ),
+		];
+	}
+
+	/**
+	 * Get includes or not includes compare types.
+	 *
+	 * @since 4.6
+	 *
+	 * @return array
+	 */
+	public function get_includes_or_not_compare_types() {
+		return [
+			'includes'     => __( 'includes', 'automatewoo' ),
+			'not_includes' => __( 'does not include', 'automatewoo' ),
+		];
+	}
 
 	/**
 	 * @param $compare_type
@@ -166,48 +215,46 @@ abstract class Rule {
 
 
 	/**
-	 * @param $actual_value
-	 * @param $compare_type
-	 * @param $expected_value
+	 * Validate a string based rule value.
+	 *
+	 * @param string $actual_value
+	 * @param string $compare_type
+	 * @param string $expected_value
+	 *
 	 * @return bool
 	 */
 	function validate_string( $actual_value, $compare_type, $expected_value ) {
 
-		// case insensitive
-		$actual_value = strtolower( (string) $actual_value );
-		$expected_value = strtolower( (string) $expected_value );
+		$actual_value = (string) $actual_value;
+		$expected_value = (string) $expected_value;
+
+		// most comparisons are case insensitive
+		$actual_value_lowercase   = strtolower( $actual_value );
+		$expected_value_lowercase = strtolower( $expected_value );
 
 		switch ( $compare_type ) {
 
 			case 'is':
-				return $actual_value == $expected_value;
+				return $actual_value_lowercase == $expected_value_lowercase;
 				break;
 
 			case 'is_not':
-				return $actual_value != $expected_value;
+				return $actual_value_lowercase != $expected_value_lowercase;
 				break;
 
 			case 'contains':
-				return strstr( $actual_value, $expected_value ) !== false;
+				return strstr( $actual_value_lowercase, $expected_value_lowercase ) !== false;
 				break;
 
 			case 'not_contains':
-				return strstr( $actual_value, $expected_value ) === false;
+				return strstr( $actual_value_lowercase, $expected_value_lowercase ) === false;
 				break;
 
 			case 'starts_with':
-				$length = strlen( $expected_value );
-				return substr( $actual_value, 0, $length ) === $expected_value;
-				break;
+				return aw_str_starts_with( $actual_value_lowercase, $expected_value_lowercase );
 
 			case 'ends_with':
-				$length = strlen( $expected_value );
-
-				if ( $length == 0 )
-					return true;
-
-				return substr( $actual_value, -$length ) === $expected_value;
-				break;
+				return aw_str_ends_with( $actual_value_lowercase, $expected_value_lowercase );
 
 			case 'blank':
 				return empty( $actual_value );
@@ -216,6 +263,10 @@ abstract class Rule {
 			case 'not_blank':
 				return ! empty( $actual_value );
 				break;
+
+			case 'regex':
+				// Regex validation must not use case insensitive values
+				return $this->validate_string_regex( $actual_value, $expected_value );
 		}
 
 		return false;
@@ -336,5 +387,63 @@ abstract class Rule {
 		}
 	}
 
+	/**
+	 * Validates string regex rule.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param string $string
+	 * @param string $regex
+	 *
+	 * @return bool
+	 */
+	protected function validate_string_regex( $string, $regex ) {
+		$regex = $this->remove_global_regex_modifier( trim( $regex ) );
+
+		return (bool) @preg_match( $regex, $string );
+	}
+
+	/**
+	 * Remove the global regex modifier as it is not supported by PHP.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param string $regex
+	 *
+	 * @return string
+	 */
+	protected function remove_global_regex_modifier( $regex ) {
+		return preg_replace_callback( '/(\/[a-z]+)$/', function( $modifiers ){
+			return str_replace( 'g', '', $modifiers[0] );
+		}, $regex );
+	}
+
+	/**
+	 * Sanitizes the rule's value.
+	 *
+	 * This method runs before WRITING a value to the DB but doesn't run before READING.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param mixed $value
+	 *
+	 * @return mixed
+	 */
+	public function sanitize_value( $value ) {
+		return Clean::recursive( $value );
+	}
+
+	/**
+	 * Formats a rule's value for display in the rules UI.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param mixed $value
+	 *
+	 * @return mixed
+	 */
+	public function format_value( $value ) {
+		return $value;
+	}
 
 }

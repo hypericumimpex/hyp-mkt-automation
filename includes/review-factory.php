@@ -17,7 +17,7 @@ class Review_Factory {
 	 *
 	 * @return Review|bool
 	 */
-	static function get( $comment ) {
+	public static function get( $comment ) {
 		$review = new Review( $comment );
 		return $review->exists ? $review : false;
 	}

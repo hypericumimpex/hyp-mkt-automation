@@ -180,10 +180,12 @@ class Session_Tracker {
 
 
 	/**
-	 * Attempt to set session tracking cookies
+	 * Attempt to set session tracking cookies.
+	 *
+	 * Doesn't set cookies in the admin area.
 	 */
 	static function maybe_set_session_cookies() {
-		if ( headers_sent() ) {
+		if ( headers_sent() || is_admin() ) {
 			return;
 		}
 
@@ -199,12 +201,13 @@ class Session_Tracker {
 		 * - the cookie doesn't match the logged in user
 		 */
 		$cookie_needs_updating = false;
+		$logged_in_customer    = aw_get_logged_in_customer();
 
 		if ( ! self::is_session_started_cookie_set() ) {
 			$cookie_needs_updating = true;
 		}
 
-		if ( $logged_in_customer = aw_get_logged_in_customer() ) {
+		if ( $logged_in_customer ) {
 			self::maybe_clear_previous_session_customers_cart( $logged_in_customer );
 
 			if ( $logged_in_customer->get_key() !== self::get_tracking_cookie() ) {

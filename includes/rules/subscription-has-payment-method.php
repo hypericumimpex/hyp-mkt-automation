@@ -21,7 +21,7 @@ class Subscription_Has_Payment_Method extends Abstract_Bool {
 	/**
 	 * Init the rule.
 	 */
-	function init() {
+	public function init() {
 		$this->title = __( 'Subscription - Has Payment Method', 'automatewoo' );
 	}
 
@@ -34,11 +34,9 @@ class Subscription_Has_Payment_Method extends Abstract_Bool {
 	 *
 	 * @return bool
 	 */
-	function validate( $subscription, $compare, $value ) {
+	public function validate( $subscription, $compare, $value ) {
 		$has = $subscription->has_payment_gateway();
 		return $value === 'yes' ? $has : ! $has;
 	}
 
 }
-
-return new Subscription_Has_Payment_Method();

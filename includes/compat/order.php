@@ -4,20 +4,17 @@
 namespace AutomateWoo\Compat;
 
 use AutomateWoo\Format;
-use AutomateWoo\Time_Helper;
-use AutomateWoo\Clean;
 use AutomateWoo\DateTime;
 
 /**
  * @class Order
  * @since 2.9
+ *
+ * @deprecated
  */
 class Order {
 
-
 	/**
-	 * @deprecated
-	 *
 	 * @param \WC_Order $order
 	 *
 	 * @return int
@@ -26,11 +23,8 @@ class Order {
 		return is_callable( [ $order, 'get_id' ] ) ? $order->get_id() : $order->id;
 	}
 
-
 	/**
 	 * Returns mysql format
-	 *
-	 * @deprecated
 	 *
 	 * @param \WC_Order $order
 	 * @param bool $gmt
@@ -38,12 +32,7 @@ class Order {
 	 * @return string
 	 */
 	static function get_date_created( $order, $gmt = false ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			$date = Clean::string( $order->order_date );
-		}
-		else {
-			$date = $order->get_date_created() ? $order->get_date_created()->date( Format::MYSQL ) : false;
-		}
+		$date = $order->get_date_created() ? $order->get_date_created()->date( Format::MYSQL ) : false;
 
 		if ( $gmt && $date ) {
 			return get_gmt_from_date( $date, Format::MYSQL );
@@ -52,63 +41,33 @@ class Order {
 		return $date;
 	}
 
-
 	/**
-	 * @deprecated
-	 *
 	 * @param \WC_Order $order
 	 * @param DateTime $date
 	 */
 	static function set_date_created( $order, $date ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			Time_Helper::convert_from_gmt( $date );
-
-			wp_update_post([
-				'ID' => $order->id,
-				'post_date' => $date->format( Format::MYSQL )
-			]);
-		}
-		else {
-			$order->set_date_created( $date->getTimestamp() );
-			$order->save();
-		}
+		$order->set_date_created( $date->getTimestamp() );
+		$order->save();
 	}
 
-
 	/**
-	 * @deprecated
-	 *
 	 * @param \WC_Order $order
 	 *
 	 * @return string
 	 */
 	static function get_customer_ip( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return $order->customer_ip_address;
-		}
-		else {
-			return $order->get_customer_ip_address();
-		}
+		return $order->get_customer_ip_address();
 	}
 
-
 	/**
-	 * @deprecated
-	 *
 	 * @param \WC_Order $order
 	 * @param $key
 	 *
 	 * @return mixed
 	 */
 	static function get_meta( $order, $key ) {
-		if ( is_callable( [ $order, 'get_meta' ] ) ) {
-			return $order->get_meta( $key );
-		}
-		else {
-			return get_post_meta( $order->id, $key, true );
-		}
+		return $order->get_meta( $key );
 	}
-
 
 	/**
 	 * @param \WC_Order $order
@@ -117,13 +76,8 @@ class Order {
 	 * @return mixed
 	 */
 	static function update_meta( $order, $key, $value ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			update_post_meta( $order->id, $key, $value );
-		}
-		else {
-			$order->update_meta_data( $key, $value );
-			$order->save();
-		}
+		$order->update_meta_data( $key, $value );
+		$order->save();
 	}
 
 	/**
@@ -132,99 +86,58 @@ class Order {
 	 * @return mixed
 	 */
 	static function delete_meta( $order, $key ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			delete_post_meta( $order->id, $key );
-		}
-		else {
-			$order->delete_meta_data( $key );
-			$order->save();
-		}
+		$order->delete_meta_data( $key );
+		$order->save();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @param $value
 	 */
 	static function set_customer_id( $order, $value ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			update_post_meta( $order->id, '_customer_user', $value );
-		}
-		else {
-			$order->set_customer_id( $value );
-			$order->save();
-		}
+		$order->set_customer_id( $value );
+		$order->save();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @param $value
 	 */
 	static function set_billing_email( $order, $value ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			update_post_meta( $order->id, '_billing_email', $value );
-		}
-		else {
-			$order->set_billing_email( $value );
-			$order->save();
-		}
+		$order->set_billing_email( $value );
+		$order->save();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_billing_email( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_billing_email', true );
-		}
-		else {
-			return $order->get_billing_email();
-		}
+		return $order->get_billing_email();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_billing_first_name( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_billing_first_name', true );
-		}
-		else {
-			return $order->get_billing_first_name();
-		}
+		return $order->get_billing_first_name();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_billing_last_name( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_billing_last_name', true );
-		}
-		else {
-			return $order->get_billing_last_name();
-		}
+		return $order->get_billing_last_name();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_billing_company( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_billing_company', true );
-		}
-		else {
-			return $order->get_billing_company();
-		}
+		return $order->get_billing_company();
 	}
 
 
@@ -233,12 +146,7 @@ class Order {
 	 * @return string
 	 */
 	static function get_billing_phone( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_billing_phone', true );
-		}
-		else {
-			return $order->get_billing_phone();
-		}
+		return $order->get_billing_phone();
 	}
 
 
@@ -247,12 +155,7 @@ class Order {
 	 * @return string
 	 */
 	static function get_billing_country( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_billing_country', true );
-		}
-		else {
-			return $order->get_billing_country();
-		}
+		return $order->get_billing_country();
 	}
 
 
@@ -261,12 +164,7 @@ class Order {
 	 * @return string
 	 */
 	static function get_billing_address_1( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_billing_address_1', true );
-		}
-		else {
-			return $order->get_billing_address_1();
-		}
+		return $order->get_billing_address_1();
 	}
 
 
@@ -275,140 +173,80 @@ class Order {
 	 * @return string
 	 */
 	static function get_billing_address_2( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_billing_address_2', true );
-		}
-		else {
-			return $order->get_billing_address_2();
-		}
+		return $order->get_billing_address_2();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_billing_city( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_billing_city', true );
-		}
-		else {
-			return $order->get_billing_city();
-		}
+		return $order->get_billing_city();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_billing_state( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_billing_state', true );
-		}
-		else {
-			return $order->get_billing_state();
-		}
+		return $order->get_billing_state();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_billing_postcode( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_billing_postcode', true );
-		}
-		else {
-			return $order->get_billing_postcode();
-		}
+		return $order->get_billing_postcode();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_shipping_country( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_shipping_country', true );
-		}
-		else {
-			return $order->get_shipping_country();
-		}
+		return $order->get_shipping_country();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_shipping_address_1( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_shipping_address_1', true );
-		}
-		else {
-			return $order->get_shipping_address_1();
-		}
+		return $order->get_shipping_address_1();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_shipping_address_2( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_shipping_address_2', true );
-		}
-		else {
-			return $order->get_shipping_address_2();
-		}
+		return $order->get_shipping_address_2();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_shipping_city( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_shipping_city', true );
-		}
-		else {
-			return $order->get_shipping_city();
-		}
+		return $order->get_shipping_city();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_shipping_state( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_shipping_state', true );
-		}
-		else {
-			return $order->get_shipping_state();
-		}
+		return $order->get_shipping_state();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_shipping_postcode( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_shipping_postcode', true );
-		}
-		else {
-			return $order->get_shipping_postcode();
-		}
+		return $order->get_shipping_postcode();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
@@ -416,102 +254,57 @@ class Order {
 	 * @return \WC_Product
 	 */
 	static function get_product_from_item( $order, $item ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return $order->get_product_from_item( $item );
-		}
-		else {
-			return $item->get_product();
-		}
+		return $item->get_product();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_order_key( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return $order->order_key;
-		}
-		else {
-			return $order->get_order_key();
-		}
+		return $order->get_order_key();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_payment_method( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return $order->payment_method;
-		}
-		else {
-			return $order->get_payment_method();
-		}
+		return $order->get_payment_method();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_payment_method_title( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return $order->payment_method_title;
-		}
-		else {
-			return $order->get_payment_method_title();
-		}
+		return $order->get_payment_method_title();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @param $note
 	 */
 	static function set_customer_note( $order, $note ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			wp_update_post([
-				'ID' => $order->id,
-				'post_excerpt' => $note
-			]);
-		}
-		else {
-			$order->set_customer_note( $note );
-			$order->save();
-		}
+		$order->set_customer_note( $note );
+		$order->save();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_customer_note( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return $order->customer_note;
-		}
-		else {
-			return $order->get_customer_note();
-		}
+		return $order->get_customer_note();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
 	 * @return string
 	 */
 	static function get_created_via( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return get_post_meta( $order->id, '_created_via', true );
-		}
-		else {
-			return $order->get_created_via();
-		}
+		return $order->get_created_via();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
@@ -519,24 +312,16 @@ class Order {
 	 * @return string
 	 */
 	static function set_created_via( $order, $value ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			update_post_meta( $order->id, '_created_via', $value );
-		}
-		else {
-			$order->set_created_via( $value );
-			$order->save();
-		}
+		$order->set_created_via( $value );
+		$order->save();
 	}
 
-
 	/**
-	 * @see wc_get_is_paid_statuses()
 	 * @return array
 	 */
 	static function get_paid_statuses() {
-		return apply_filters( 'woocommerce_order_is_paid_statuses', [ 'processing', 'completed' ] );
+		return wc_get_is_paid_statuses();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
@@ -544,14 +329,8 @@ class Order {
 	 * @return float
 	 */
 	static function get_shipping_total( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return (float) $order->get_total_shipping();
-		}
-		else {
-			return (float)$order->get_shipping_total();
-		}
+		return (float) $order->get_shipping_total();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
@@ -562,21 +341,14 @@ class Order {
 		return (float) $order->get_shipping_tax();
 	}
 
-
 	/**
 	 * @param \WC_Order $order
 	 * @since 4.2
 	 * @return float
 	 */
 	static function get_discount_total( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return (float) $order->get_total_discount();
-		}
-		else {
-			return (float) $order->get_discount_total();
-		}
+		return (float) $order->get_discount_total();
 	}
-
 
 	/**
 	 * @param \WC_Order $order
@@ -584,14 +356,7 @@ class Order {
 	 * @return float
 	 */
 	static function get_discount_tax( $order ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return (float) $order->cart_discount_tax;
-		}
-		else {
-			return (float) $order->get_discount_tax();
-		}
+		return (float) $order->get_discount_tax();
 	}
-
-
 
 }

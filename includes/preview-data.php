@@ -10,6 +10,15 @@ namespace AutomateWoo;
 class Preview_Data {
 
 	/**
+	 * The current preview workflow.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @var Workflow
+	 */
+	private static $preview_workflow;
+
+	/**
 	 * @param array $data_items list of specific data items to get for preview
 	 * @return array
 	 */
@@ -88,6 +97,7 @@ class Preview_Data {
 			$cart = new Cart();
 			$cart->set_id( 1 );
 			$cart->set_total( 100 );
+			$cart->set_user_id( get_current_user_id() );
 			$cart->set_token();
 			$cart->set_date_last_modified( new DateTime() );
 
@@ -115,7 +125,7 @@ class Preview_Data {
 					'quantity' => 1,
 //				'line_total' => $product->get_price(),
 					'line_subtotal' => $product->get_price(),
-					'line_subtotal_tax' => Compat\Product::get_price_including_tax( $product ) - $product->get_price(),
+					'line_subtotal_tax' => wc_get_price_including_tax( $product ) - $product->get_price(),
 				];
 
 			}
@@ -201,7 +211,6 @@ class Preview_Data {
 	}
 
 
-
 	/**
 	 * @param $workflow_id
 	 * @param $action_number
@@ -243,7 +252,7 @@ class Preview_Data {
 		}
 
 		// set the data layer from preview trigger
-		$workflow->set_data_layer( Preview_Data::get_preview_data_layer( $trigger->supplied_data_items ), true );
+		$workflow->set_data_layer( Preview_Data::get_preview_data_layer( $trigger->get_supplied_data_items() ), true );
 
 		$action->workflow = $workflow;
 
@@ -273,12 +282,61 @@ class Preview_Data {
 		$order = wc_get_order( $orders[0] );
 
 		// if the order has a blank email, it will cause issues
-		if ( $order && Compat\Order::get_billing_email( $order ) ) {
+		if ( $order && $order->get_billing_email() ) {
 			return $order;
 		}
 
 		return self::get_preview_order( $offset + 1 );
 	}
 
+	/**
+	 * Add customer language filter.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param Action $action
+	 */
+	public static function add_customer_language_filter( $action ) {
+		self::$preview_workflow = $action->workflow;
+		add_filter( 'automatewoo/customer/get_language', [ __CLASS__, 'filter_customer_language' ], 10, 2 );
+	}
+
+	/**
+	 * Filter the current customers language when previewing.
+	 * Make it the same as the preview workflow language.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param string $lang
+	 * @param Customer $customer
+	 *
+	 * @return string
+	 */
+	public static function filter_customer_language( $lang, $customer ) {
+		if ( ! self::$preview_workflow ) {
+			return $lang;
+		}
+
+		$workflow_customer = self::$preview_workflow->data_layer()->get_customer();
+
+		// Only filter the language of the customer in the preview workflow.
+		if ( $workflow_customer && $customer->get_id() === $workflow_customer->get_id() ) {
+			return (string) self::$preview_workflow->get_language();
+		}
+
+		return $lang;
+	}
+
+	/**
+	 * Remove customer language filter.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param Action $action
+	 */
+	public static function remove_customer_language_filter( $action ) {
+		self::$preview_workflow = null;
+		remove_filter( 'automatewoo/customer/get_language', [ __CLASS__, 'filter_customer_language' ], 10 );
+	}
 
 }

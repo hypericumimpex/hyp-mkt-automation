@@ -5,12 +5,12 @@ namespace AutomateWoo\Rules;
 
 use AutomateWoo\Compat;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Order_Shipping_Method
  */
-class Order_Shipping_Method extends Abstract_Select {
+class Order_Shipping_Method extends Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'order';
 
@@ -18,6 +18,8 @@ class Order_Shipping_Method extends Abstract_Select {
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( 'Order - Shipping Method', 'automatewoo' );
 	}
 
@@ -55,5 +57,3 @@ class Order_Shipping_Method extends Abstract_Select {
 	}
 
 }
-
-return new Order_Shipping_Method();

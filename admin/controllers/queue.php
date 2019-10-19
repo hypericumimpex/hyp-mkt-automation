@@ -41,7 +41,7 @@ class Queue extends Base {
 
 	private function output_list_table() {
 
-		include_once AW()->admin_path( '/reports/queue.php' );
+		require_once AW()->admin_path( '/reports/queue.php' );
 
 		$table = new Report_Queue();
 		$table->prepare_items();

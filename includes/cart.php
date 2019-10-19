@@ -26,7 +26,7 @@ class Cart extends Model {
 	public $calculated_subtotal = 0;
 
 	/** @var array */
-	public $_items_language_adjusted;
+	protected $translated_items_cache;
 
 
 	/**
@@ -329,7 +329,11 @@ class Cart extends Model {
 			}
 
 			if ( Language::is_multilingual() ) {
-				$items = $this->get_language_adjusted_items( $items );
+				if ( ! isset( $this->translated_items_cache ) ) {
+					$this->translated_items_cache = $this->translate_items( $items, $this->get_language() );
+				}
+
+				$items = $this->translated_items_cache;
 			}
 		}
 		else {
@@ -366,27 +370,24 @@ class Cart extends Model {
 		return $count;
 	}
 
-
 	/**
-	 * Adjust the cart items so are match the language of the cart
+	 * Get translated cart items in a specified language.
+	 *
+	 * @since 4.6.0
 	 *
 	 * @param Cart_Item[] $items
-	 * @return array
+	 * @param string      $lang
+	 *
+	 * @return Cart_Item[]
 	 */
-	function get_language_adjusted_items( $items ) {
-
-		if ( isset( $this->_items_language_adjusted ) ) {
-			return $this->_items_language_adjusted;
+	protected function translate_items( $items, $lang ) {
+		if ( Language::is_multilingual() ) {
+			foreach ( $items as &$item ) {
+				$item->set_product_id( icl_object_id( $item->get_product_id(), 'product', true, $lang ) );
+				$item->set_variation_id( icl_object_id( $item->get_variation_id(), 'product', true, $lang ) );
+			}
 		}
 
-		$lang = $this->get_language();
-
-		foreach ( $items as &$item ) {
-			$item->set_product_id( icl_object_id( $item->get_product_id(), 'product', true, $lang ) );
-			$item->set_variation_id( icl_object_id( $item->get_variation_id(), 'product', true, $lang ) );
-		}
-
-		$this->_items_language_adjusted = $items;
 		return $items;
 	}
 
@@ -395,7 +396,7 @@ class Cart extends Model {
 	 * @param array $items
 	 */
 	function set_items( $items ) {
-		$this->_items_language_adjusted = null;
+		$this->translated_items_cache = null;
 		$this->set_prop( 'items', (array) $items );
 	}
 
@@ -520,6 +521,21 @@ class Cart extends Model {
 		}
 
 		parent::save();
+	}
+
+
+
+	/**
+	 * Adjust the cart items so are match the language of the cart.
+	 *
+	 * @deprecated in 4.6.0
+	 *
+	 * @param Cart_Item[] $items
+	 *
+	 * @return Cart_Item[]
+	 */
+	public function get_language_adjusted_items( $items ) {
+		return $this->translate_items( $items, $this->get_language() );
 	}
 
 }

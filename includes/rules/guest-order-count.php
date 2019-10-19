@@ -1,7 +1,7 @@
 <?php
 // phpcs:ignoreFile
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class AW_Rule_Guest_Order_Count
@@ -28,9 +28,8 @@ class AW_Rule_Guest_Order_Count extends AutomateWoo\Rules\Abstract_Number {
 	 * @return bool
 	 */
 	function validate( $guest, $compare, $value ) {
-		return $this->validate_number( aw_get_order_count_by_email( $guest->get_email() ), $compare, $value );
+		$customer = AutomateWoo\Customer_Factory::get_by_email( $guest->get_email() );
+		return $this->validate_number( $customer->get_order_count(), $compare, $value );
 	}
 
 }
-
-return new AW_Rule_Guest_Order_Count();

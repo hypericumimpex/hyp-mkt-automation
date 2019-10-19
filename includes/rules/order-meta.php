@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Order_Meta
@@ -35,5 +35,3 @@ class Order_Meta extends Abstract_Meta {
 		return $this->validate_meta( $order->get_meta( $value_data['key'] ), $compare_type, $value_data['value'] );
 	}
 }
-
-return new Order_Meta();

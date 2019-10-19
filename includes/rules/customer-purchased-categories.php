@@ -5,12 +5,12 @@ namespace AutomateWoo\Rules;
 
 use AutomateWoo\Fields_Helper;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_Purchased_Categories
  */
-class Customer_Purchased_Categories extends Abstract_Select {
+class Customer_Purchased_Categories extends Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'customer';
 
@@ -18,6 +18,8 @@ class Customer_Purchased_Categories extends Abstract_Select {
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( "Customer - Purchased Categories - All Time", 'automatewoo' );
 	}
 
@@ -53,5 +55,3 @@ class Customer_Purchased_Categories extends Abstract_Select {
 		return $this->validate_select( $category_ids, $compare, $expected );
 	}
 }
-
-return new Customer_Purchased_Categories();

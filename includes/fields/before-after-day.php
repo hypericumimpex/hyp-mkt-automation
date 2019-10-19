@@ -112,7 +112,7 @@ class Before_After_Day extends Field {
 	 *
 	 * @return int|false
 	 */
-	function sanitize_value( $value ) {
+	public function sanitize_value( $value ) {
 		if ( is_int( $value ) ) {
 			return $value;
 		}

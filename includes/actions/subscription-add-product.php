@@ -43,7 +43,7 @@ class Action_Subscription_Add_Product extends Action_Subscription_Edit_Product_A
 	/**
 	 * Explain to store admin what this action does via a unique title and description.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		parent::load_admin_details();
 		$this->title       = __( 'Add Product', 'automatewoo' );
 		$this->description = __( 'Add a product as a new line item on a subscription. The item will be added using the price set on the product. This action can be used for bulk editing subscriptions, or to change the products provided to a subscriber at different stages of their subscription\'s lifecycle.', 'automatewoo' );
@@ -65,10 +65,14 @@ class Action_Subscription_Add_Product extends Action_Subscription_Edit_Product_A
 		}
 
 		if ( $this->get_option( 'line_item_cost' ) ) {
-			$add_product_args['subtotal'] = $add_product_args['total'] = wc_get_price_excluding_tax( $product, array(
-				'price' => $this->get_option( 'line_item_cost' ),
-				'qty'   => $this->get_option( 'quantity' ),
-			) );
+			$add_product_args['subtotal'] = wc_get_price_excluding_tax(
+				$product,
+				array(
+					'price' => $this->get_option( 'line_item_cost', true ),
+					'qty'   => $this->get_option( 'quantity' ),
+				)
+			);
+			$add_product_args['total']    = $add_product_args['subtotal'];
 		}
 
 		$subscription->add_product( $product, $this->get_option( 'quantity' ), $add_product_args );

@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Order_Coupons_Text_Match
@@ -27,9 +27,8 @@ class Order_Coupons_Text_Match extends Abstract_String {
 	 * @return bool
 	 */
 	function validate( $order, $compare, $value ) {
-		return $this->validate_string_multi( $order->get_used_coupons(), $compare, $value );
+		$coupons = is_callable( [ $order, 'get_coupon_codes' ] ) ? $order->get_coupon_codes() : $order->get_used_coupons();
+		return $this->validate_string_multi( $coupons, $compare, $value );
 	}
 
 }
-
-return new Order_Coupons_Text_Match();

@@ -3,7 +3,7 @@
 
 namespace AutomateWoo;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Class DateTime
@@ -63,5 +63,28 @@ class DateTime extends \DateTime {
 		return $this->format( 'Y-m-d H:i:s' );
 	}
 
+	/**
+	 * Set time to the day end in the current timezone.
+	 *
+	 * @return $this
+	 *
+	 * @since 4.6.0
+	 */
+	public function set_time_to_day_start() {
+		$this->setTime( 0, 0, 0 );
+		return $this;
+	}
+
+	/**
+	 * Set time to the day start in the current timezone.
+	 *
+	 * @return $this
+	 *
+	 * @since 4.6.0
+	 */
+	public function set_time_to_day_end() {
+		$this->setTime( 23, 59, 59 );
+		return $this;
+	}
 
 }

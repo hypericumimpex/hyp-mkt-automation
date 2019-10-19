@@ -214,26 +214,22 @@ class Format {
 
 
 	/**
-	 * @param $number
-	 * @param int $places
-	 * @param bool $trim_zeros
+	 * Format a price decimal value.
+	 *
+	 * Does NOT localize the decimal.
+	 *
+	 * @param float|string $number
+	 * @param int          $places
+	 * @param bool         $trim_zeros
+	 *
 	 * @return string
 	 */
-	static function decimal( $number, $places = 2, $trim_zeros = false ) {
-		return wc_format_decimal( $number, $places, $trim_zeros );
-	}
-
-
-	/**
-	 * @param string|float $number
-	 * @param $places
-	 * @return float
-	 */
-	static function round( $number, $places = false ) {
-		if ( $places === false ) {
+	public static function decimal( $number, $places = null, $trim_zeros = false ) {
+		if ( null === $places ) {
 			$places = wc_get_price_decimals();
 		}
-		return round( (float) $number, $places );
+
+		return wc_format_decimal( $number, $places, $trim_zeros );
 	}
 
 
@@ -284,6 +280,19 @@ class Format {
 	 */
 	static function bool( $val ) {
 		return $val ? __('Yes','automatewoo') : __('No','automatewoo');
+	}
+
+
+
+	/**
+	 * @deprecated Use Format::decimal() which will round automatically.
+	 *
+	 * @param string|float $number
+	 * @param $places
+	 * @return float
+	 */
+	static function round( $number, $places = null ) {
+		return (float) Format::decimal( $number, $places );
 	}
 
 }

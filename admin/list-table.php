@@ -187,6 +187,7 @@ abstract class Admin_List_Table extends \WP_List_Table {
 	 * Display the table plus the form elements
 	 */
 	function display() {
+		$this->views();
 		$this->output_form_open();
 
 		if ( $this->enable_search ) {
@@ -221,36 +222,23 @@ abstract class Admin_List_Table extends \WP_List_Table {
 			$workflow_name = get_the_title( $workflow_id );
 		}
 
-		$placeholder = __( 'Search for a workflow&hellip;', 'automatewoo' );
-		$ajax = 'aw_json_search_workflows';
-
 		?>
-		<?php if ( version_compare( WC()->version, '3.0', '<' ) ): ?>
 
-			<input type="hidden" class="wc-product-search" style="width:203px;" name="_workflow"
-					 data-placeholder="<?php echo $placeholder; ?>"
-					 data-selected="<?php echo wp_kses_post( $workflow_name ); ?>"
-					 value="<?php echo $workflow_id; ?>"
-					 data-action="<?php echo $ajax ?>"
-					 data-allow_clear="true">
-		<?php else: ?>
-
-			<select class="wc-product-search" style="width:203px;" name="_workflow"
-					  data-placeholder="<?php echo $placeholder; ?>"
-					  data-action="<?php echo $ajax ?>"
-					  data-allow_clear="true"
-			>
-				<?php
-				if ( $workflow_id ) {
-					echo '<option value="' . $workflow_id . '"' . selected( true, true, false ) . '>' . wp_kses_post( $workflow_name ) . '</option>';
-				}
-				?>
-			</select>
-		<?php endif; ?>
-
+		<select class="wc-product-search"
+				style="width:203px;"
+				name="_workflow"
+				data-placeholder="<?php esc_attr_e( 'Search for a workflow&hellip;', 'automatewoo' ) ?>"
+				data-action="aw_json_search_workflows"
+				data-allow_clear="true"
+		>
+			<?php
+			if ( $workflow_id ) {
+				echo '<option value="' . $workflow_id . '"' . selected( true, true, false ) . '>' . wp_kses_post( $workflow_name ) . '</option>';
+			}
+			?>
+		</select>
 
 		<?php
-
 	}
 
 
@@ -262,32 +250,18 @@ abstract class Admin_List_Table extends \WP_List_Table {
 			$customer_string = esc_html( $customer->get_full_name() ) . ' (' . esc_html( $customer->get_email() ) . ')';
 		}
 
-		$placeholder = esc_attr__( 'Search for a customer&hellip;', 'automatewoo' );
-		$ajax = 'aw_json_search_customers';
-
 		?>
 
-		<?php if ( version_compare( WC()->version, '3.0', '<' ) ): ?>
+		<select class="wc-product-search"
+				style="width:203px;"
+				name="filter_customer"
+				data-placeholder="<?php esc_attr_e( 'Search for a customer&hellip;', 'automatewoo' ); ?>"
+				data-action="aw_json_search_customers"
+				data-allow_clear="true"
+		>
+			<?php if ( $customer ) { echo '<option value="' . $customer->get_id() . '"' . selected( true, true, false ) . '>' . wp_kses_post( $customer_string ) . '</option>'; } ?>
+		</select>
 
-			<input type="hidden" class="wc-product-search" name="filter_customer"
-			       data-placeholder="<?php echo $placeholder; ?>"
-			       data-selected="<?php echo htmlspecialchars( $customer_string ); ?>"
-			       value="<?php echo $customer ? $customer->get_id() : ''; ?>"
-			       data-action="<?php echo $ajax ?>"
-			       data-allow_clear="true"
-			>
-
-		<?php else: ?>
-
-			<select class="wc-product-search" style="width:203px;" name="filter_customer"
-			        data-placeholder="<?php echo $placeholder; ?>"
-			        data-action="<?php echo $ajax ?>"
-			        data-allow_clear="true"
-			>
-				<?php if ( $customer ) { echo '<option value="' . $customer->get_id() . '"' . selected( true, true, false ) . '>' . wp_kses_post( $customer_string ) . '</option>'; } ?>
-			</select>
-
-		<?php endif; ?>
 		<?php
 	}
 
@@ -346,6 +320,55 @@ abstract class Admin_List_Table extends \WP_List_Table {
 		return aw_request('order' ) ? Clean::string( aw_request('order' ) ) : $this->default_param_order;
 	}
 
+	/**
+	 * Generate the HTML for a view link.
+	 *
+	 * @since 4.6
+	 *
+	 * @param string $id
+	 * @param string $title
+	 * @param bool   $is_default Is this the default view option?
+	 * @param int    $count      The view item count (optional).
+	 * @param string $query_arg  Defaults to 'view'.
+	 *
+	 * @return string
+	 */
+	protected function generate_view_link_html( $id, $title, $count = null, $is_default = false, $query_arg = 'view' ) {
+		if ( empty( $_GET[ $query_arg ] ) ) {
+			$view = $is_default ? $id : '';
+		}
+		else {
+			$view = sanitize_key( $_GET[ $query_arg ] );
+		}
 
+		$url        = add_query_arg( $query_arg, $id );
+		$class      = $id === $view ? 'current' : '';
+		$count_html = '';
+
+		if ( $count ) {
+			$count_html = ' <span class="count">(' . esc_html( $count ) . ')</span>';
+		}
+
+		return '<a href="' . esc_url( $url ) . '" class="' . esc_attr( $class ) . '">' . esc_html( $title ) . $count_html . '</a>';
+	}
+
+	/**
+	 * Get the current view.
+	 *
+	 * @since 4.6
+	 *
+	 * @param string $default_view
+	 * @param string $query_arg
+	 *
+	 * @return string
+	 */
+	public function get_current_view( $default_view = '', $query_arg = 'view' ) {
+		if ( empty( $_GET[ $query_arg ] ) ) {
+			return $default_view;
+		}
+		else {
+			return sanitize_key( $_GET[ $query_arg ] );
+		}
+	}
 
 }

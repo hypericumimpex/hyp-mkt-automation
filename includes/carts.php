@@ -374,7 +374,7 @@ class Carts {
 		$table = Database_Tables::get( 'carts' );
 
 		$wpdb->query( $wpdb->prepare("
-			DELETE FROM ". $table->name . "
+			DELETE FROM {$table->get_name()}
 			WHERE last_modified < %s",
 			$delay_date->to_mysql_string()
 		));

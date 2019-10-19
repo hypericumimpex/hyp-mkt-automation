@@ -28,5 +28,3 @@ class Subscription_Coupons_Text_Match extends Order_Coupons_Text_Match {
 	}
 
 }
-
-return new Subscription_Coupons_Text_Match();

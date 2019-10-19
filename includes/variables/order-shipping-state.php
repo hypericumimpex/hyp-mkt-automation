@@ -18,7 +18,7 @@ class Variable_Order_Shipping_State extends Variable_Customer_State {
 	/**
 	 * Load description and parameters for variable in admin screen.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		parent::load_admin_details();
 		$this->description = __( 'Displays the shipping state for the order.', 'automatewoo' );
 	}
@@ -33,7 +33,7 @@ class Variable_Order_Shipping_State extends Variable_Customer_State {
 	 *
 	 * @return string
 	 */
-	function get_value( $order, $parameters, $workflow ) {
+	public function get_value( $order, $parameters, $workflow ) {
 		$format  = isset( $parameters['format'] ) ? $parameters['format'] : 'full';
 		$state   = $order->get_shipping_state();
 		$country = $order->get_shipping_country();

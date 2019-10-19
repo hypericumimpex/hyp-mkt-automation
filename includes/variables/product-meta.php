@@ -23,19 +23,19 @@ class Variable_Product_Meta extends Variable_Abstract_Meta {
 	 * @return string
 	 */
 	function get_value( $product, $parameters ) {
-
 		if ( ! $parameters['key'] ) {
-			return false;
+			return '';
 		}
 
-		$value = Compat\Product::get_meta( $product, $parameters['key'] );
+		$value = $product->get_meta( $parameters['key'] );
 
-		// maybe look for parent meta
-		if ( empty( $value ) && Compat\Product::is_variation( $product ) ) {
-			$value = Compat\Product::get_parent_meta( $product, $parameters['key'] );
+		// Look for parent meta
+		if ( empty( $value ) && $product->is_type( 'variation' ) ) {
+			$parent = wc_get_product( $product->get_parent_id() );
+			$value  = $parent ? $parent->get_meta( $parameters['key'] ) : '';
 		}
 
-		return $value;
+		return (string) $value;
 	}
 
 }

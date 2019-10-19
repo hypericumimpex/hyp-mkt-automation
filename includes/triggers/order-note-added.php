@@ -28,7 +28,7 @@ class Trigger_Order_Note_Added extends Trigger {
 	/**
 	 * Load trigger admin props.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		$this->title       = __( 'Order Note Added', 'automatewoo' );
 		$this->description = __( 'Fires when any note is added to an order, can include both private notes and notes to the customer. These notes appear on the right of the order edit screen.', 'automatewoo' );
 		$this->group       = __( 'Orders', 'automatewoo' );
@@ -37,14 +37,14 @@ class Trigger_Order_Note_Added extends Trigger {
 	/**
 	 * Load trigger fields.
 	 */
-	function load_fields() {
+	public function load_fields() {
 		$contains = new Fields\Text();
-		$contains->set_name('note_contains');
-		$contains->set_title( __( 'Note contains text', 'automatewoo'  ) );
-		$contains->set_description( __( 'Only trigger this workflow if the order note contains the certain text. This field is optional.', 'automatewoo'  ) );
+		$contains->set_name( 'note_contains' );
+		$contains->set_title( __( 'Note contains text', 'automatewoo' ) );
+		$contains->set_description( __( 'Only trigger this workflow if the order note contains the certain text. This field is optional.', 'automatewoo' ) );
 
 		$type = new Fields\Order_Note_Type();
-		$type->set_placeholder( __( '[All]', 'automatewoo'  ) );
+		$type->set_placeholder( __( '[All]', 'automatewoo' ) );
 
 		$this->add_field( $type );
 		$this->add_field( $contains );
@@ -53,7 +53,7 @@ class Trigger_Order_Note_Added extends Trigger {
 	/**
 	 * Register trigger hooks.
 	 */
-	function register_hooks() {
+	public function register_hooks() {
 		add_filter( 'woocommerce_new_order_note_data', [ $this, 'catch_order_note_filter' ], 20, 2 );
 		add_action( 'wp_insert_comment', [ $this, 'catch_comment_create' ], 20, 2 );
 	}
@@ -66,7 +66,7 @@ class Trigger_Order_Note_Added extends Trigger {
 	 *
 	 * @return array
 	 */
-	function catch_order_note_filter( $data, $args ) {
+	public function catch_order_note_filter( $data, $args ) {
 		$this->_is_customer_note = $args['is_customer_note'];
 		return $data;
 	}
@@ -78,7 +78,7 @@ class Trigger_Order_Note_Added extends Trigger {
 	 * @param int         $comment_id
 	 * @param \WP_Comment $comment
 	 */
-	function catch_comment_create( $comment_id, $comment ) {
+	public function catch_comment_create( $comment_id, $comment ) {
 
 		if ( $comment->comment_type !== 'order_note' || get_post_type( $comment->comment_post_ID ) !== 'shop_order' ) {
 			return;
@@ -95,11 +95,13 @@ class Trigger_Order_Note_Added extends Trigger {
 		// must manually set prop because meta field is added after the comment is inserted
 		$order_note->is_customer_note = $this->_is_customer_note;
 
-		$this->maybe_run( [
-			'customer'   => Customer_Factory::get_by_order( $order ),
-			'order'      => $order,
-			'order_note' => $order_note,
-		] );
+		$this->maybe_run(
+			[
+				'customer'   => Customer_Factory::get_by_order( $order ),
+				'order'      => $order,
+				'order_note' => $order_note,
+			]
+		);
 	}
 
 
@@ -112,7 +114,7 @@ class Trigger_Order_Note_Added extends Trigger {
 	 *
 	 * @return bool
 	 */
-	function validate_workflow( $workflow ) {
+	public function validate_workflow( $workflow ) {
 
 		$order_note = $workflow->data_layer()->get_order_note();
 

@@ -17,7 +17,7 @@ class Variable_Order_Shipping_Last_Name extends Variable {
 	/**
 	 * Load description for variable in admin screen.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		$this->description = __( 'Displays the shipping address last name for the order.', 'automatewoo' );
 	}
 
@@ -29,7 +29,7 @@ class Variable_Order_Shipping_Last_Name extends Variable {
 	 *
 	 * @return string
 	 */
-	function get_value( $order ) {
+	public function get_value( $order ) {
 		return $order->get_shipping_last_name();
 	}
 }

@@ -3,7 +3,7 @@
 
 namespace AutomateWoo;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Rule_Subscription_Item_Categories
@@ -18,5 +18,3 @@ class Rule_Subscription_Item_Categories extends Rule_Order_Item_Categories {
 	}
 
 }
-
-return new Rule_Subscription_Item_Categories();

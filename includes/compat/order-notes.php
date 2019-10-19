@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignoreFile
 
 namespace AutomateWoo\Compat;
 
@@ -34,7 +35,7 @@ class Order_Notes {
 	 *                                 Accepts 'customer', 'internal' or empty for both.
 	 *                                 Default empty.
 	 * }
-	 * @return stdClass[]              Array of stdClass objects with order notes details.
+	 * @return \stdClass[]              Array of stdClass objects with order notes details.
 	 */
 	static function get_order_notes( $args ) {
 

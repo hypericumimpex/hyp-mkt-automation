@@ -23,13 +23,13 @@ class Trigger_Customer_Total_Spend_Reaches extends Trigger_Abstract_Order_Base {
 
 
 	function load_fields() {
-		$total_spend = ( new Fields\Number() )
-			->set_name( 'total_spend' )
-			->set_title( __( 'Total spend', 'automatewoo' ) )
-			->set_description( __( 'Do not add a currency symbol.', 'automatewoo'  ) )
-			->set_required();
+		$spend = new Fields\Price();
+		$spend->set_name( 'total_spend' );
+		$spend->set_title( __( 'Total spend', 'automatewoo' ) );
+		$spend->set_description( __( 'Do not add a currency symbol.', 'automatewoo' ) );
+		$spend->set_required();
 
-		$this->add_field( $total_spend );
+		$this->add_field( $spend );
 	}
 
 

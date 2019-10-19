@@ -27,5 +27,3 @@ class Subscription_Coupon_Count extends Order_Coupon_Count {
 	}
 
 }
-
-return new Subscription_Coupon_Count();

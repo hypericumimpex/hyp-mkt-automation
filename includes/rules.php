@@ -23,131 +23,129 @@ class Rules extends Registry {
 	 */
 	static function load_includes() {
 
-		$path = AW()->path( '/includes/rules/' );
-
 		$includes = [
-			'customer_is_guest' => $path . 'customer-is-guest.php',
-			'customer_email' => $path . 'customer-email.php',
-			'customer_role' => $path . 'customer-role.php',
-			'customer_tags' => $path . 'customer-tags.php',
-			'customer_country' => $path . 'customer-country.php',
-			'customer_state' => $path . 'customer-state.php',
-			'customer_state_text_match' => $path . 'customer-state-text-match.php',
-			'customer_postcode' => $path . 'customer-postcode.php',
-			'customer_city' => $path . 'customer-city.php',
-			'customer_phone' => $path . 'customer-phone.php',
-			'customer_company' => $path . 'customer-company.php',
-			'customer_order_count' => $path . 'customer-order-count.php',
-			'customer_total_spent' => $path . 'customer-total-spent.php',
-			'customer_review_count' => $path . 'customer-review-count.php',
-			'customer_first_order_date' => $path . 'customer-first-order-date.php',
-			'customer_last_order_date' => $path . 'customer-last-order-date.php',
-			'customer_order_statuses' => $path . 'customer-order-statuses.php',
-			'customer_purchased_products' => $path . 'customer-purchased-products.php',
-			'customer_purchased_categories' => $path . 'customer-purchased-categories.php',
-			'customer_meta' => $path . 'customer-meta.php',
-			'customer_last_review_date' => $path . 'customer-last-review-date.php',
-			'customer_account_created_date' => $path . 'customer-account-created-date.php',
+			'customer_is_guest'             => 'AutomateWoo\Rules\Customer_Is_Guest',
+			'customer_email'                => 'AutomateWoo\Rules\Customer_Email',
+			'customer_role'                 => 'AutomateWoo\Rules\Customer_Role',
+			'customer_tags'                 => 'AutomateWoo\Rules\Customer_Tags',
+			'customer_country'              => 'AutomateWoo\Rules\Customer_Country',
+			'customer_state'                => 'AutomateWoo\Rules\Customer_State',
+			'customer_state_text_match'     => 'AutomateWoo\Rules\Customer_State_Text_Match',
+			'customer_postcode'             => 'AutomateWoo\Rules\Customer_Postcode',
+			'customer_city'                 => 'AutomateWoo\Rules\Customer_City',
+			'customer_phone'                => 'AutomateWoo\Rules\Customer_Phone',
+			'customer_company'              => 'AutomateWoo\Rules\Customer_Company',
+			'customer_order_count'          => 'AutomateWoo\Rules\Customer_Order_Count',
+			'customer_total_spent'          => 'AutomateWoo\Rules\Customer_Total_Spent',
+			'customer_review_count'         => 'AutomateWoo\Rules\Customer_Review_Count',
+			'customer_first_order_date'     => 'AutomateWoo\Rules\Customer_First_Order_Date',
+			'customer_last_order_date'      => 'AutomateWoo\Rules\Customer_Last_Order_Date',
+			'customer_order_statuses'       => 'AutomateWoo\Rules\Customer_Order_Statuses',
+			'customer_purchased_products'   => 'AutomateWoo\Rules\Customer_Purchased_Products',
+			'customer_purchased_categories' => 'AutomateWoo\Rules\Customer_Purchased_Categories',
+			'customer_meta'                 => 'AutomateWoo\Rules\Customer_Meta',
+			'customer_last_review_date'     => 'AutomateWoo\Rules\Customer_Last_Review_Date',
+			'customer_account_created_date' => 'AutomateWoo\Rules\Customer_Account_Created_Date',
 
-			'order_status' => $path . 'order-status.php',
-			'order_total' => $path . 'order-total.php',
-			'order_items' => $path . 'order-items.php',
-			'order_item_categories' => $path . 'order-item-categories.php',
-			'order_item_tags' => $path . 'order-item-tags.php',
-			'order_items_text_match' => $path . 'order-items-text-match.php',
-			'order_item_count' => $path . 'order-item-count.php',
-			'order_line_count' => $path . 'order-line-count.php',
-			'order_coupons' => $path . 'order-coupons.php',
-			'order_coupons_text_match' => $path . 'order-coupons-text-match.php',
-			'order_coupon_count' => $path . 'order-coupon-count.php',
-			'order_payment_gateway' => $path . 'order-payment-gateway.php',
-			'order_shipping_country' => $path . 'order-shipping-country.php',
-			'order_billing_country' => $path . 'order-billing-country.php',
-			'order_shipping_method' => $path . 'order-shipping-method.php',
-			'order_shipping_method_string' => $path . 'order-shipping-method-string.php',
-			'order_created_via' => $path . 'order-created-via.php',
-			'order_meta' => $path . 'order-meta.php',
-			'order_has_cross_sells' => $path . 'order-has-cross-sells.php',
-			'order_is_customers_first' => $path . 'order-is-customers-first.php',
-			'order_is_guest_order' => $path . 'order-is-guest-order.php',
-			'order_customer_provided_note' => $path . 'order-customer-provided-note.php',
-			'order_paid_date' => $path . 'order-paid-date.php',
-			'order_created_date' => $path . 'order-created-date.php',
+			'order_status'                 => 'AutomateWoo\Rules\Order_Status',
+			'order_total'                  => 'AW_Rule_Order_Total',
+			'order_items'                  => 'AutomateWoo\Rules\Order_Items',
+			'order_item_categories'        => 'AutomateWoo\Rule_Order_Item_Categories',
+			'order_item_tags'              => 'AutomateWoo\Rule_Order_Item_Tags',
+			'order_items_text_match'       => 'AutomateWoo\Rules\Order_Items_Text_Match',
+			'order_item_count'             => 'AutomateWoo\Rules\Order_Item_Count',
+			'order_line_count'             => 'AutomateWoo\Rules\Order_Line_Count',
+			'order_coupons'                => 'AutomateWoo\Rules\Order_Coupons',
+			'order_coupons_text_match'     => 'AutomateWoo\Rules\Order_Coupons_Text_Match',
+			'order_coupon_count'           => 'AutomateWoo\Rules\Order_Coupon_Count',
+			'order_payment_gateway'        => 'AutomateWoo\Rule_Order_Payment_Gateway',
+			'order_shipping_country'       => 'AW_Rule_Order_Shipping_Country',
+			'order_billing_country'        => 'AutomateWoo\Rules\Order_Billing_Country',
+			'order_shipping_method'        => 'AutomateWoo\Rules\Order_Shipping_Method',
+			'order_shipping_method_string' => 'AW_Rule_Order_Shipping_Method_String',
+			'order_created_via'            => 'AutomateWoo\Rules\Order_Created_Via',
+			'order_meta'                   => 'AutomateWoo\Rules\Order_Meta',
+			'order_has_cross_sells'        => 'AW_Rule_Order_Has_Cross_Sells',
+			'order_is_customers_first'     => 'AW_Rule_Order_Is_Customers_First',
+			'order_is_guest_order'         => 'AutomateWoo\Rules\Order_Is_Guest_Order',
+			'order_customer_provided_note' => 'AutomateWoo\Rules\Order_Customer_Provided_Note',
+			'order_paid_date'              => 'AutomateWoo\Rules\Order_Paid_Date',
+			'order_created_date'           => 'AutomateWoo\Rules\Order_Created_Date',
 
-			'review_rating' => $path . 'review-rating.php',
+			'review_rating' => 'AutomateWoo\Rules\Review_Rating',
 
-			'product' => $path . 'product.php',
-			'product_categories' => $path . 'product-categories.php',
+			'product'            => 'AutomateWoo\Rules\Product',
+			'product_categories' => 'AutomateWoo\Rules\Product_Categories',
 
-			'order_item_meta' => $path . 'order-item-meta.php',
-			'order_item_quantity' => $path . 'order-item-quantity.php',
+			'order_item_meta'     => 'AutomateWoo\Rules\Order_Item_Meta',
+			'order_item_quantity' => 'AutomateWoo\Rules\Order_Item_Quantity',
 
-			'cart_total' => $path . 'cart-total.php',
-			'cart_count' => $path . 'cart-count.php',
-			'cart_items' => $path . 'cart-items.php',
-			'cart_item_categories' => $path . 'cart-item-categories.php',
-			'cart_item_tags' => $path . 'cart-item-tags.php',
-			'cart_coupons' => $path . 'cart-coupons.php',
-			'cart_created_date' => $path . 'cart-created-date.php',
+			'cart_total'           => 'AW_Rule_Cart_Total',
+			'cart_count'           => 'AW_Rule_Cart_Count',
+			'cart_items'           => 'AutomateWoo\Rules\Cart_Items',
+			'cart_item_categories' => 'AutomateWoo\Rules\Cart_Item_Categories',
+			'cart_item_tags'       => 'AutomateWoo\Rules\Cart_Item_Tags',
+			'cart_coupons'         => 'AutomateWoo\Rules\Cart_Coupons',
+			'cart_created_date'    => 'AutomateWoo\Rules\Cart_Created_Date',
 
-			'guest_email' => $path . 'guest-email.php',
-			'guest_order_count' => $path . 'guest-order-count.php',
+			'guest_email'       => 'AW_Rule_Guest_Email',
+			'guest_order_count' => 'AW_Rule_Guest_Order_Count',
 
-			'customer_run_count' => $path . 'customer-run-count.php',
-			'workflow_last_customer_run_date' => $path . 'workflow-last-customer-run-date.php',
-			'order_run_count' => $path . 'order-run-count.php',
-			'guest_run_count' => $path . 'guest-run-count.php',
+			'customer_run_count'              => 'AutomateWoo\Rules\Customer_Run_Count',
+			'workflow_last_customer_run_date' => 'AutomateWoo\Rules\Workflow_Last_Customer_Run_Date',
+			'order_run_count'                 => 'AW_Rule_Order_Run_Count',
+			'guest_run_count'                 => 'AW_Rule_Guest_Run_Count',
 
 		];
 
 		if ( Integrations::is_subscriptions_active() ) {
-			$includes[ 'customer_has_active_subscription' ] = $path . 'customer-has-active-subscription.php';
-			$includes[ 'order_is_subscription_renewal' ] = $path . 'order-is-subscription-renewal.php';
-			$includes[ 'order_is_subscription_parent' ] = $path . 'order-is-subscription-parent.php';
+			$includes['customer_has_active_subscription'] = 'AutomateWoo\Rules\Customer_Has_Active_Subscription';
+			$includes['order_is_subscription_renewal']    = 'AutomateWoo\Rules\Order_Is_Subscription_Renewal';
+			$includes['order_is_subscription_parent']     = 'AutomateWoo\Rules\Order_Is_Subscription_Parent';
 
 			if ( class_exists( 'WCS_Retry_Manager' ) && \WCS_Retry_Manager::is_retry_enabled() ) {
-				$includes[ 'order_subscription_payment_retry_count' ] = $path . 'order-subscription-payment-retry-count.php';
+				$includes['order_subscription_payment_retry_count'] = 'AutomateWoo\Rules\Order_Subscription_Payment_Retry_Count';
 			}
 
-			$includes[ 'subscription_status' ] = $path . 'subscription-status.php';
-			$includes[ 'subscription_payment_count' ] = $path . 'subscription-payment-count.php';
-			$includes[ 'subscription_payment_method' ] = $path . 'subscription-payment-method.php';
-			$includes[ 'subscription_meta' ] = $path . 'subscription-meta.php';
-			$includes[ 'subscription_items' ] = $path . 'subscription-items.php';
-			$includes[ 'subscription_item_categories' ] = $path . 'subscription-item-categories.php';
-			$includes[ 'subscription_coupons' ] = $path . 'subscription-coupons.php';
-			$includes[ 'subscription_coupons_text_match' ] = $path . 'subscription-coupons-text-match.php';
-			$includes[ 'subscription_coupon_count' ] = $path . 'subscription-coupon-count.php';
-			$includes[ 'subscription_next_payment_date' ] = $path . 'subscription-next-payment-date.php';
-			$includes[ 'subscription_last_payment_date' ] = $path . 'subscription-last-payment-date.php';
-			$includes[ 'subscription_created_date' ] = $path . 'subscription-created-date.php';
-			$includes[ 'subscription_trial_end_date' ] = $path . 'subscription-trial-end-date.php';
-			$includes[ 'subscription_end_date' ] = $path . 'subscription-end-date.php';
+			$includes['subscription_status']             = 'AutomateWoo\Rules\Subscription_Status';
+			$includes['subscription_payment_count']      = 'AW_Rule_Subscription_Payment_Count';
+			$includes['subscription_payment_method']     = 'AutomateWoo\Rules\Subscription_Payment_Method';
+			$includes['subscription_meta']               = 'AutomateWoo\Rules\Subscription_Meta';
+			$includes['subscription_items']              = 'AutomateWoo\Rules\Subscription_Items';
+			$includes['subscription_item_categories']    = 'AutomateWoo\Rule_Subscription_Item_Categories';
+			$includes['subscription_coupons']            = 'AutomateWoo\Rules\Subscription_Coupons';
+			$includes['subscription_coupons_text_match'] = 'AutomateWoo\Rules\Subscription_Coupons_Text_Match';
+			$includes['subscription_coupon_count']       = 'AutomateWoo\Rules\Subscription_Coupon_Count';
+			$includes['subscription_next_payment_date']  = 'AutomateWoo\Rules\Subscription_Next_Payment_Date';
+			$includes['subscription_last_payment_date']  = 'AutomateWoo\Rules\Subscription_Last_Payment_Date';
+			$includes['subscription_created_date']       = 'AutomateWoo\Rules\Subscription_Created_Date';
+			$includes['subscription_trial_end_date']     = 'AutomateWoo\Rules\Subscription_Trial_End_Date';
+			$includes['subscription_end_date']           = 'AutomateWoo\Rules\Subscription_End_Date';
 
 			/**
 			 * @since 4.5.0
 			 */
 			if ( Integrations::is_subscriptions_active( '2.3' ) ) {
-				$includes[ 'subscription_can_renew_early' ]    = $path . 'subscription-can-renew-early.php';
+				$includes['subscription_can_renew_early'] = 'AutomateWoo\Rules\Subscription_Can_Renew_Early';
 			}
 
 			if ( Integrations::is_subscriptions_active( '2.5' ) ) {
-				$includes[ 'subscription_has_payment_method' ] = $path . 'subscription-has-payment-method.php';
+				$includes['subscription_has_payment_method'] = 'AutomateWoo\Rules\Subscription_Has_Payment_Method';
 			}
 
-			$includes[ 'subscription_requires_manual_renewal' ] = $path . 'subscription-requires-manual-renewal.php';
+			$includes['subscription_requires_manual_renewal'] = 'AutomateWoo\Rules\Subscription_Requires_Manual_Renewal';
 		}
 
 		if ( Integrations::is_memberships_enabled() ) {
-			$includes[ 'customer_active_membership_plans' ] = $path . 'customer-active-membership-plans.php';
+			$includes['customer_active_membership_plans'] = 'AutomateWoo\Rules\Customer_Active_Membership_Plans';
 		}
 
 		if ( Integrations::is_woo_pos() ) {
-			$includes[ 'order_is_pos' ] = $path . 'order-is-pos.php';
+			$includes['order_is_pos'] = 'AW_Rule_Order_Is_POS';
 		}
 
 		if ( Options::mailchimp_enabled() ) {
-			$includes[ 'customer_is_mailchimp_subscriber' ] = $path . 'customer-is-mailchimp-subscriber.php';
+			$includes['customer_is_mailchimp_subscriber'] = 'AutomateWoo\Rules\Customer_Is_MailChimp_Subscriber';
 		}
 
 		return apply_filters( 'automatewoo/rules/includes', $includes );
@@ -177,7 +175,7 @@ class Rules extends Registry {
 	 * @return bool
 	 */
 	static function load( $rule_name ) {
-		include_once AW()->path( '/includes/rules/deprecated.php' );
+		require_once AW()->path( '/includes/rules/deprecated.php' );
 		return parent::load( $rule_name );
 	}
 

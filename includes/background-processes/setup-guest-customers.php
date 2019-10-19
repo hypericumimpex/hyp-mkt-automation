@@ -34,7 +34,7 @@ class Setup_Guest_Customers extends Base {
 			// set the last purchase date
 			$orders = wc_get_orders([
 				'type' => 'shop_order',
-				'status' => [ 'completed', 'processing' ],
+				'status' => wc_get_is_paid_statuses(),
 				'limit' => 1,
 				'customer' => $customer->get_email(),
 				'orderby' => 'date',

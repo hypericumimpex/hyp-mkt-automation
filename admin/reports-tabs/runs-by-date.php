@@ -20,8 +20,8 @@ class AW_Reports_Tab_Runs_By_Date extends AW_Admin_Reports_Tab_Abstract {
 	 * @return object
 	 */
 	function get_report_class() {
-		include_once AW()->admin_path( '/reports/abstract-graph.php' );
-		include_once AW()->admin_path( '/reports/runs-by-date.php' );
+		require_once AW()->admin_path( '/reports/abstract-graph.php' );
+		require_once AW()->admin_path( '/reports/runs-by-date.php' );
 
 		return new AutomateWoo\Report_Runs_By_Date();
 	}

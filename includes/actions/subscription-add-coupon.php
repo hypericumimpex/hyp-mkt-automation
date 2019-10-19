@@ -18,7 +18,7 @@ class Action_Subscription_Add_Coupon extends Action_Subscription_Edit_Coupon_Abs
 	/**
 	 * Explain to store admin what this action does via a unique title and description.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		parent::load_admin_details();
 		$this->title       = __( 'Add Coupon', 'automatewoo' );
 		$this->description = __( 'Add a coupon to discount future payments for a subscription. The coupon will be added using the discount amount set on the coupon. This action can be used for bulk editing subscriptions, or to change the coupons provided to a subscriber at different stages of their subscription\'s lifecycle. The same coupon code will only be added once to a subscription. Only recurring coupon types can be added.', 'automatewoo' );

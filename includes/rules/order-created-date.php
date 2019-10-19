@@ -2,7 +2,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Order date rule.
@@ -48,5 +48,3 @@ class Order_Created_Date extends Abstract_Date {
 	}
 
 }
-
-return new Order_Created_Date();

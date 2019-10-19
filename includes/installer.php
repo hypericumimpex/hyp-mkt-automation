@@ -44,6 +44,10 @@ class Installer {
 		if ( Options::database_version() != AW()->version ) {
 			self::install();
 
+			if ( ! Options::database_version() ) {
+				self::first_install();
+			}
+
 			// check for required database update
 			if ( self::is_database_upgrade_required() ) {
 				add_action( 'admin_notices', [ __CLASS__, 'data_upgrade_prompt' ] );
@@ -82,8 +86,6 @@ class Installer {
 		}
 	}
 
-
-
 	/**
 	 * Install
 	 */
@@ -94,6 +96,21 @@ class Installer {
 		do_action( 'automatewoo_installed' );
 	}
 
+	/**
+	 * Runs when AW is installed for the first time.
+	 *
+	 * On the other hand `Installer::install()` runs on every plugin update.
+	 *
+	 * @since 4.7.0
+	 */
+	private static function first_install() {
+		// Default all new installs to use WC.com license system, existing installs continue to use AW.com
+		update_option( 'automatewoo_license_system', 'wc', true );
+
+		Admin_Notices::add_notice( 'welcome' );
+
+		do_action( 'automatewoo_first_installed' );
+	}
 
 	/**
 	 * @return bool
@@ -242,14 +259,9 @@ class Installer {
 	 * @return	array
 	 */
 	static function plugin_action_links( $links ) {
-
-		$action_links = [];
-
-		if ( Licenses::is_valid() ) {
-			$action_links = [
-				'settings' => '<a href="' . Admin::page_url( 'settings' ) . '" title="' . esc_attr( __( 'View AutomateWoo Settings', 'automatewoo' ) ) . '">' . __( 'Settings', 'automatewoo' ) . '</a>',
-			];
-		}
+		$action_links = [
+			'settings' => '<a href="' . esc_url( Admin::page_url( 'settings' ) ) . '" title="' . esc_attr( __( 'View AutomateWoo Settings', 'automatewoo' ) ) . '">' . esc_html__( 'Settings', 'automatewoo' ) . '</a>',
+		];
 
 		return array_merge( $action_links, $links );
 	}

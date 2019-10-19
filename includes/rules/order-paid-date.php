@@ -47,5 +47,3 @@ class Order_Paid_Date extends Abstract_Date {
 		return $this->validate_date( $compare, $value, aw_normalize_date( $order->get_date_paid() ) );
 	}
 }
-
-return new Order_Paid_Date();

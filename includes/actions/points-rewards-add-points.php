@@ -17,7 +17,7 @@ class Action_Points_Rewards_Add_Points extends Action_Points_Rewards_Edit_Points
 	/**
 	 * Load admin description.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		parent::load_admin_details();
 		$this->title = __( 'Add Points', 'automatewoo' );
 	}
@@ -25,7 +25,7 @@ class Action_Points_Rewards_Add_Points extends Action_Points_Rewards_Edit_Points
 	/**
 	 * Run
 	 */
-	function run() {
-		parent::modify_points('add' );
+	public function run() {
+		parent::modify_points( 'add' );
 	}
 }

@@ -17,7 +17,7 @@ class Variable_Order_Admin_Url extends Variable {
 	/**
 	 * Load admin details
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		$this->description = __( 'Displays the admin URL of the order.', 'automatewoo' );
 	}
 
@@ -30,7 +30,7 @@ class Variable_Order_Admin_Url extends Variable {
 	 *
 	 * @return mixed
 	 */
-	function get_value( $order, $parameters ) {
+	public function get_value( $order, $parameters ) {
 		return $order->get_edit_order_url();
 	}
 }

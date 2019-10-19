@@ -24,17 +24,17 @@ class Logic_Helper {
 
 		$match = false;
 
-		if ( Compat\Product::is_variation( $expected_product ) ) {
+		if ( $expected_product->is_type( 'variation' ) ) {
 			// match a specific variation
-			if ( Compat\Product::get_id( $expected_product ) == Compat\Product::get_id( $actual_product ) ) {
+			if ( $expected_product->get_id() == $actual_product->get_id() ) {
 				$match = true;
 			}
 		}
 		else {
 			// match the main product or any of its variations
-			$actual_main_product_id = Compat\Product::is_variation( $actual_product ) ? Compat\Product::get_parent_id( $actual_product ) : Compat\Product::get_id( $actual_product );
+			$actual_main_product_id = $actual_product->is_type( 'variation' ) ? $actual_product->get_parent_id() : $actual_product->get_id();
 
-			if ( Compat\Product::get_id( $expected_product ) == $actual_main_product_id ) {
+			if ( $expected_product->get_id() == $actual_main_product_id ) {
 				$match = true;
 			}
 		}

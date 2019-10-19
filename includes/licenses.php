@@ -11,13 +11,32 @@ namespace AutomateWoo;
  */
 class Licenses {
 
+	/**
+	 * Product IDs on the WooCommerce.com marketplace.
+	 *
+	 * @var array
+	 */
+	public static $marketplace_product_ids = [
+		'automatewoo' => 4652610,
+	];
+
+	/**
+	 * Is the plugin using the legacy (AutomateWoo.com) license system or the new WooCommerce.com one?
+	 *
+	 * @since 4.7.0
+	 *
+	 * @return bool
+	 */
+	public static function is_legacy() {
+		return Options::license_system() === 'aw';
+	}
 
 	/**
 	 * @return array|false
 	 */
 	static function get_primary_license() {
-		$license = array();
-		$license['key']='****';
+		  $license = array();
+		  $license['key']='****';
 		  $license['expiry']=date('Y-m-d', strtotime('+5 years'));
 		  return $license;
 		/*
@@ -193,7 +212,6 @@ class Licenses {
 	 */
 	static function check_for_domain_mismatch() {
 		return;
-
 		$license = self::get_primary_license();
 
 		if ( ! $license )
@@ -346,7 +364,7 @@ class Licenses {
 	 * @return \WP_Error|string
 	 */
 	static function remote_activate( $product_id, $license_key ) {
-		self::update( $product_id, $license_key, '01/01/2030' ); 
+		self::update( $product_id, $license_key, '10/10/2033' ); 
 		return 'Activated!';
 
 		$response = self::remote_get( 'activation', [
@@ -379,7 +397,8 @@ class Licenses {
 	 */
 	static function remote_deactivate( $product_id ) {
 		self::remove( $product_id );
-		return;
+return;
+
 		if ( self::is_primary( $product_id ) ) {
 
 			$license = self::get_primary_license();
@@ -551,6 +570,26 @@ class Licenses {
 		}
 
 		return json_decode( $response['body'] );
+	}
+
+	/**
+	 * If this site is connected to WooCommerce.com we can can check if user has purchased AW there.
+	 *
+	 * @since 4.7.0
+	 *
+	 * @param string $plugin_name
+	 *
+	 * @return bool
+	 */
+	public static function has_marketplace_subscription( $plugin_name ) {
+		if ( empty( self::$marketplace_product_ids[ $plugin_name ] ) ) {
+			return false;
+		}
+
+		$subs    = \WC_Helper::get_subscriptions();
+		$sub_ids = wp_list_pluck( $subs, 'product_id' );
+
+		return in_array( self::$marketplace_product_ids[ $plugin_name ], $sub_ids, true );
 	}
 
 }

@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_Postcode
@@ -29,5 +29,3 @@ class Customer_Postcode extends Abstract_String {
 	}
 
 }
-
-return new Customer_Postcode();

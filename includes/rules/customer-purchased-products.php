@@ -1,72 +1,58 @@
 <?php
-// phpcs:ignoreFile
 
 namespace AutomateWoo\Rules;
 
-use AutomateWoo\Compat;
-
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
- * @class Customer_Purchased_Products
+ * Class Customer_Purchased_Products
+ *
+ * @package AutomateWoo\Rules
  */
-class Customer_Purchased_Products extends Abstract_Object {
+class Customer_Purchased_Products extends Product_Select_Rule_Abstract {
 
+	/**
+	 * The rule's primary data item.
+	 *
+	 * @var string
+	 */
 	public $data_item = 'customer';
 
-	public $is_multi = false;
-
-	public $ajax_action = 'woocommerce_json_search_products_and_variations';
-
-	public $class = 'wc-product-search';
-
-
-	function init() {
-		$this->title = __( "Customer - Purchased Products - All Time", 'automatewoo' );
-		$this->placeholder = __( 'Search products...', 'automatewoo' );
-
-		$this->compare_types = [
-			'includes' => __( 'includes', 'automatewoo' ),
-			'not_includes' => __( 'does not include', 'automatewoo' )
-		];
-	}
-
-
 	/**
-	 * @param $value
-	 * @return string
+	 * Init the rule.
 	 */
-	function get_object_display_value( $value ) {
-		if ( $product = wc_get_product( absint( $value ) ) )
-			return $product->get_formatted_name();
+	public function init() {
+		$this->title = __( 'Customer - Purchased Products - All Time', 'automatewoo' );
+		parent::init();
 	}
 
-
 	/**
-	 * @param $customer \AutomateWoo\Customer
-	 * @param $compare
-	 * @param $expected_value
+	 * Validate the rule for a given customer.
+	 *
+	 * @param \AutomateWoo\Customer $customer
+	 * @param string                $compare
+	 * @param string|int            $expected_value
+	 *
 	 * @return bool
 	 */
-	function validate( $customer, $compare, $expected_value ) {
+	public function validate( $customer, $compare, $expected_value ) {
+		$product_id = absint( $expected_value );
+		$product    = wc_get_product( $product_id );
 
-		if ( ! $product = wc_get_product( absint( $expected_value ) ) )
+		if ( ! $product ) {
 			return false;
+		}
 
-		$product_id = Compat\Product::get_id( $product );
-
+		// phpcs:disable WordPress.PHP.StrictInArray.MissingTrueStrict
+		// Using strict here cause tests to incorrectly fail
 		$includes = in_array( $product_id, $customer->get_purchased_products() );
+		// phpcs:enable
 
 		switch ( $compare ) {
 			case 'includes':
 				return $includes;
-				break;
 			case 'not_includes':
 				return ! $includes;
-				break;
 		}
-
 	}
 }
-
-return new Customer_Purchased_Products();

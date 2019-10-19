@@ -3,7 +3,7 @@
  * Plugin Name: HYP MKT Automation
  * Plugin URI: https://github.com/hypericumimpex/hyp-mkt-automation
  * Description: Hypericum Marketing Automation.
- * Version: 4.5.5
+ * Version: 4.7.0
  * Author: Romeo C.
  * Author URI: https://github.com/hypericumimpex/
  * License: GPLv3
@@ -12,9 +12,8 @@
  * Domain Path: /languages
  *
  * WC requires at least: 3.0
- * WC tested up to: 3.6.x
- *
- * Copyright 2018 Prospress Inc.  (email : freedoms@prospress.com)
+ * WC tested up to: 3.7
+ * Woo: 4652610:f6f1f8a56a16a3715b30b21fb557e78f
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +35,7 @@ defined( 'ABSPATH' ) || exit;
 
 define( 'AUTOMATEWOO_NAME', __( 'AutomateWoo', 'automatewoo' ) );
 define( 'AUTOMATEWOO_SLUG', 'automatewoo' );
-define( 'AUTOMATEWOO_VERSION', '4.5.5' );
+define( 'AUTOMATEWOO_VERSION', '4.7.0' );
 define( 'AUTOMATEWOO_FILE', __FILE__ );
 define( 'AUTOMATEWOO_PATH', dirname( __FILE__ ) );
 define( 'AUTOMATEWOO_MIN_PHP_VER', '5.4' );
@@ -73,7 +72,7 @@ class AutomateWoo_Loader {
 	 */
 	public static function load() {
 		if ( self::check() ) {
-			include AUTOMATEWOO_PATH . '/includes/automatewoo.php';
+			require_once AUTOMATEWOO_PATH . '/includes/automatewoo.php';
 		}
 	}
 
@@ -95,13 +94,13 @@ class AutomateWoo_Loader {
 		$inactive_text = '<strong>' . sprintf( __( '%s is inactive.', 'automatewoo' ), AUTOMATEWOO_NAME ) . '</strong>';
 
 		if ( version_compare( phpversion(), AUTOMATEWOO_MIN_PHP_VER, '<' ) ) {
-			self::$errors[] = sprintf( __( '%s The plugin requires PHP version %s or newer.', 'automatewoo' ), $inactive_text, AUTOMATEWOO_MIN_PHP_VER );
+			self::$errors[] = sprintf( __( '%1$s The plugin requires PHP version %2$s or newer.', 'automatewoo' ), $inactive_text, AUTOMATEWOO_MIN_PHP_VER );
 			$passed         = false;
 		} elseif ( ! self::is_woocommerce_version_ok() ) {
-			self::$errors[] = sprintf( __( '%s The plugin requires WooCommerce version %s or newer.', 'automatewoo' ), $inactive_text, AUTOMATEWOO_MIN_WC_VER );
+			self::$errors[] = sprintf( __( '%1$s The plugin requires WooCommerce version %2$s or newer.', 'automatewoo' ), $inactive_text, AUTOMATEWOO_MIN_WC_VER );
 			$passed         = false;
 		} elseif ( ! self::is_wp_version_ok() ) {
-			self::$errors[] = sprintf( __( '%s The plugin requires WordPress version %s or newer.', 'automatewoo' ), $inactive_text, AUTOMATEWOO_MIN_WP_VER );
+			self::$errors[] = sprintf( __( '%1$s The plugin requires WordPress version %2$s or newer.', 'automatewoo' ), $inactive_text, AUTOMATEWOO_MIN_WP_VER );
 			$passed         = false;
 		}
 

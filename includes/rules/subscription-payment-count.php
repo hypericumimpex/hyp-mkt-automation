@@ -1,7 +1,7 @@
 <?php
 // phpcs:ignoreFile
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class AW_Rule_Subscription_Payment_Count
@@ -25,9 +25,10 @@ class AW_Rule_Subscription_Payment_Count extends AutomateWoo\Rules\Abstract_Numb
 	 * @return bool
 	 */
 	function validate( $subscription, $compare, $value ) {
-		return $this->validate_number( $subscription->get_completed_payment_count(), $compare, $value );
+		// Method changed in WCS 2.6
+		$payment_count = is_callable( [ $subscription, 'get_payment_count' ] ) ? $subscription->get_payment_count() : $subscription->get_completed_payment_count();
+
+		return $this->validate_number( $payment_count, $compare, $value );
 	}
 
 }
-
-return new AW_Rule_Subscription_Payment_Count();

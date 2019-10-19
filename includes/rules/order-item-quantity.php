@@ -3,9 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-use AutomateWoo\Compat;
-
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Order_Item_Quantity
@@ -32,7 +30,4 @@ class Order_Item_Quantity extends Abstract_Number {
 		return $this->validate_number( $order_item->get_quantity(), $compare, $value );
 	}
 
-
 }
-
-return new Order_Item_Quantity();

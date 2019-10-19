@@ -67,7 +67,7 @@ class Guests extends Base {
 
 	protected function output_list_table() {
 
-		include_once AW()->admin_path( '/reports/guests.php' );
+		require_once AW()->admin_path( '/reports/guests.php' );
 
 		$table = new Report_Guests();
 		$table->prepare_items();

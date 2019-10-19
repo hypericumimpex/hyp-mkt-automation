@@ -20,13 +20,13 @@ class Variable_Order_Meta extends Variable_Abstract_Meta {
 	/**
 	 * @param $order \WC_Order
 	 * @param $parameters array
-	 * @return string|bool
+	 * @return string
 	 */
 	function get_value( $order, $parameters ) {
 		if ( $parameters['key'] ) {
-			return $order->get_meta( $parameters['key'] );
+			return (string) $order->get_meta( $parameters['key'] );
 		}
-		return false;
+		return '';
 	}
 }
 

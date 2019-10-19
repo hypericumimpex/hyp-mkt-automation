@@ -14,7 +14,7 @@ class Variable_Order_Total extends Variable_Abstract_Price {
 	/**
 	 * Load Admin Details.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		parent::load_admin_details();
 		$this->description = __( 'Displays the total cost of the order.', 'automatewoo' );
 	}
@@ -28,7 +28,7 @@ class Variable_Order_Total extends Variable_Abstract_Price {
 	 *
 	 * @return string
 	 */
-	function get_value( $order, $parameters ) {
+	public function get_value( $order, $parameters ) {
 		return parent::format_amount( $order->get_total(), $parameters );
 	}
 }

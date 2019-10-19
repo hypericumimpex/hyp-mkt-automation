@@ -3,7 +3,6 @@
 
 namespace AutomateWoo\Event_Helpers;
 
-use AutomateWoo\Compat;
 use AutomateWoo\Events;
 use AutomateWoo\Clean;
 
@@ -87,7 +86,8 @@ class Order_Created {
 			return;
 		}
 
-		Compat\Order::update_meta( $order, '_automatewoo_order_created', true );
+		$order->update_meta_data( '_automatewoo_order_created', true );
+		$order->save();
 
 		do_action( 'automatewoo/async/order_created', $order_id ); // run actual event
 	}

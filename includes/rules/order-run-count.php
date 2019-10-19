@@ -1,7 +1,7 @@
 <?php
 // phpcs:ignoreFile
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class AW_Rule_User_Run_Count
@@ -33,5 +33,3 @@ class AW_Rule_Order_Run_Count extends AutomateWoo\Rules\Abstract_Number {
 	}
 
 }
-
-return new AW_Rule_Order_Run_Count();

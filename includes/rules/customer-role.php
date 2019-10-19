@@ -3,17 +3,19 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_Role
  */
-class Customer_Role extends Abstract_Select {
+class Customer_Role extends Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'customer';
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( 'Customer - User Role', 'automatewoo' );
 	}
 
@@ -36,7 +38,7 @@ class Customer_Role extends Abstract_Select {
 
 
 	/**
-	 * @param $customer \AutomateWoo\Customer
+	 * @param \AutomateWoo\Customer $customer
 	 * @param $compare
 	 * @param $value
 	 * @return bool
@@ -46,5 +48,3 @@ class Customer_Role extends Abstract_Select {
 	}
 
 }
-
-return new Customer_Role();

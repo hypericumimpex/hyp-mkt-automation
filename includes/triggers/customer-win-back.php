@@ -84,7 +84,7 @@ class Trigger_Customer_Win_Back extends Trigger_Background_Processed_Abstract {
 		$orders = wc_get_orders([
 			'type' => 'shop_order',
 			'customer' => $customer->is_registered() ? $customer->get_user_id() : $customer->get_email(),
-			'status' => apply_filters( 'automatewoo/customer/last_order_date_statuses', Compat\Order::get_paid_statuses() ),
+			'status' => apply_filters( 'automatewoo/customer/last_order_date_statuses', wc_get_is_paid_statuses() ),
 			'limit' => 1
 		]);
 

@@ -23,19 +23,16 @@ class Action_Send_Email_Plain_Text extends Action_Send_Email_Abstract {
 	/**
 	 * Load admin props.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		parent::load_admin_details();
 		$this->title       = __( 'Send Email - Plain Text', 'automatewoo' );
-		$this->description =
-			__( 'This action sends a plain text email. It will contain no HTML which means open tracking and click tracking will not work. ' .
-				'Some variables may display unexpectedly due to having HTML removed. If necessary, an unsubscribe link will be added after the email content.',
-				'automatewoo' );
+		$this->description = __( 'This action sends a plain text email. It will contain no HTML which means open tracking and click tracking will not work. Some variables may display unexpectedly due to having HTML removed. If necessary, an unsubscribe link will be added after the email content.', 'automatewoo' );
 	}
 
 	/**
 	 * Load action fields.
 	 */
-	function load_fields() {
+	public function load_fields() {
 		parent::load_fields();
 
 		$text = new Fields\Text_Area();
@@ -53,7 +50,7 @@ class Action_Send_Email_Plain_Text extends Action_Send_Email_Abstract {
 	 *
 	 * @return string|\WP_Error
 	 */
-	function preview() {
+	public function preview() {
 		$content = $this->get_option( 'email_content', true );
 		$subject = $this->get_option( 'subject', true );
 
@@ -62,7 +59,7 @@ class Action_Send_Email_Plain_Text extends Action_Send_Email_Abstract {
 		wp_set_current_user( 0 );
 
 		$email = $this->get_workflow_email_object();
-		$email->set_recipient( $current_user->get('user_email') );
+		$email->set_recipient( $current_user->get( 'user_email' ) );
 		$email->set_subject( $subject );
 		$email->set_content( $content );
 
@@ -79,7 +76,7 @@ class Action_Send_Email_Plain_Text extends Action_Send_Email_Abstract {
 	 *
 	 * @return \WP_Error|true
 	 */
-	function send_test( $send_to = [] ) {
+	public function send_test( $send_to = [] ) {
 		$content = $this->get_option( 'email_content', true );
 		$subject = $this->get_option( 'subject', true );
 
@@ -106,7 +103,7 @@ class Action_Send_Email_Plain_Text extends Action_Send_Email_Abstract {
 	/**
 	 * Run the action.
 	 */
-	function run() {
+	public function run() {
 		$content    = $this->get_option( 'email_content', true );
 		$subject    = $this->get_option( 'subject', true );
 		$recipients = $this->get_option( 'to', true );

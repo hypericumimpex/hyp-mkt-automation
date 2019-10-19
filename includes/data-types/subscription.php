@@ -35,11 +35,19 @@ class Data_Type_Subscription extends Data_Type {
 	 * @return \WC_Subscription|false
 	 */
 	function decompress( $compressed_item, $compressed_data_layer ) {
-		if ( ! Integrations::is_subscriptions_active() || ! $compressed_item ) {
+		$id = Clean::id( $compressed_item );
+
+		if ( ! Integrations::is_subscriptions_active() || ! $id ) {
 			return false;
 		}
 
-		return wcs_get_subscription( $compressed_item );
+		$subscription = wcs_get_subscription( $id );
+
+		if ( ! $subscription || $subscription->get_status() === 'trash' ) {
+			return false;
+		}
+
+		return $subscription;
 	}
 
 }

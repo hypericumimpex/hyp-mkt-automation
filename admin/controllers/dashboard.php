@@ -100,12 +100,12 @@ class Dashboard extends Base {
 
 			$includes = apply_filters( 'automatewoo/dashboard/widgets', $includes );
 
-			include_once $path . 'abstract.php';
-			include_once $path . 'chart-abstract.php';
+			require_once $path . 'abstract.php';
+			require_once $path . 'chart-abstract.php';
 
 			foreach ( $includes as $include ) {
 				/** @var Dashboard_Widget $class */
-				$class = include_once $include;
+				$class = require_once $include;
 				$class->controller = $this;
 				$this->widgets[ $class->id ] = $class;
 			}

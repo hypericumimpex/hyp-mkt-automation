@@ -39,24 +39,52 @@ class Clean {
 		return implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $text ) ) );
 	}
 
-
 	/**
-	 * Sanitizes and formats a price value.
-	 * Removes currency symbols and thousand separators.
+	 * Cleans a NON-localized price value so it's ready for DB storage.
 	 *
-	 * @since 4.4
+	 * @since 4.4.0
 	 *
 	 * @param string|float $price
+	 * @param int          $decimal_places
 	 *
 	 * @return string
 	 */
-	static function price( $price ) {
-		if ( ! is_float( $price ) ) {
-			$price = str_replace( wc_get_price_thousand_separator(), '', $price );
+	public static function price( $price, $decimal_places = null ) {
+		if ( null === $decimal_places ) {
+			$decimal_places = wc_get_price_decimals();
 		}
-		return wc_format_decimal( $price, wc_get_price_decimals() );
+
+		$price = wc_format_decimal( $price, $decimal_places );
+
+		// Minor fix to number formatting for WC < 3.3
+		// TODO: remove when WC 3.3 support is dropped
+		if ( 0 === $decimal_places && version_compare( WC()->version, '3.3', '<' ) ) {
+			$price = number_format( floatval( $price ), 0, '.', '' );
+		}
+
+		return $price;
 	}
 
+	/**
+	 * Cleans a localized price value so it's ready for DB storage.
+	 *
+	 * WARNING - This method can only be called once on a price value.
+	 * Using it multiple times can lead to prices multiplying by 10 when '.' is set to the store's thousands separator.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param string|float $price
+	 * @param int          $decimal_places Optional - Uses the WC options value if not set.
+	 *
+	 * @return string
+	 */
+	public static function localized_price( $price, $decimal_places = null ) {
+		if ( ! is_float( $price ) ) {
+			$price = str_replace( wc_get_price_thousand_separator(), '', trim( (string) $price ) );
+		}
+
+		return self::price( $price, $decimal_places );
+	}
 
 	/**
 	 * @param array $var
@@ -140,7 +168,7 @@ class Clean {
 	 * @return string
 	 */
 	static function email_content( $content ) {
-		$content = wp_check_invalid_utf8( stripslashes( $content ) );
+		$content = wp_check_invalid_utf8( stripslashes( (string) $content ) );
 		return $content;
 	}
 

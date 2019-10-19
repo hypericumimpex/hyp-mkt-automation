@@ -53,6 +53,7 @@ class Actions extends Registry {
 			$includes[ 'subscription_send_invoice' ] = 'AutomateWoo\Action_Subscription_Send_Invoice';
 			$includes[ 'subscription_add_product' ] = 'AutomateWoo\Action_Subscription_Add_Product';
 			$includes[ 'subscription_remove_product' ] = 'AutomateWoo\Action_Subscription_Remove_Product';
+			$includes[ 'subscription_add_note' ] = 'AutomateWoo\Action_Subscription_Add_Note';
 
 			if ( version_compare( WC()->version, '3.2', '>=' ) ) {
 				$includes[ 'subscription_add_coupon' ] = 'AutomateWoo\Action_Subscription_Add_Coupon';
@@ -139,7 +140,7 @@ class Actions extends Registry {
 
 		if ( ! empty( $includes[ $action_name ] ) ) {
 			/** @var Action $action */
-			$action = new $includes[ $action_name ]();
+			$action = new $includes[ $action_name ];
 			$action->set_name( $action_name );
 		}
 

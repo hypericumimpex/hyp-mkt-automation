@@ -5,17 +5,19 @@ namespace AutomateWoo\Rules;
 
 use AutomateWoo\Subscription_Workflow_Helper;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Subscription_Status
  */
-class Subscription_Status extends Abstract_Select {
+class Subscription_Status extends Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'subscription';
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( 'Subscription - Status', 'automatewoo' );
 	}
 
@@ -36,5 +38,3 @@ class Subscription_Status extends Abstract_Select {
 	}
 
 }
-
-return new Subscription_Status();

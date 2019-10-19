@@ -46,6 +46,7 @@ class Database_Tables extends Registry {
 			'log-meta' => $path . 'log-meta.php',
 			'unsubscribes' => $path . 'unsubscribes.php',
 			'customers' => $path . 'customers.php',
+			'customer-meta' => $path . 'customer-meta.php',
 			'events' => $path . 'events.php',
 		];
 
@@ -60,13 +61,23 @@ class Database_Tables extends Registry {
 		return parent::get_all();
 	}
 
-
 	/**
+	 * Get a database table object.
+	 *
 	 * @param $table_id
+	 *
 	 * @return Database_Table
+	 *
+	 * @throws Exception When table failed to load.
 	 */
 	static function get( $table_id ) {
-		return parent::get( $table_id );
+		$table = parent::get( $table_id );
+
+		if ( $table instanceof Database_Table ) {
+			return $table;
+		}
+
+		throw new Exception( sprintf( __( "Failed to load the '%s' database table.", 'automatewoo' ), $table_id ) );
 	}
 
 

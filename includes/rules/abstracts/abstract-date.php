@@ -2,7 +2,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Abstract date class for rules.
@@ -225,12 +225,16 @@ abstract class Abstract_Date extends Rule {
 	 * @return bool
 	 */
 	private function is_past_future_validation( $compare ) {
-		return ( in_array( $compare, [
-			'is_in_the_next',
-			'is_not_in_the_next',
-			'is_in_the_last',
-			'is_not_in_the_last',
-		], true ) );
+		return in_array(
+			$compare,
+			[
+				'is_in_the_next',
+				'is_not_in_the_next',
+				'is_in_the_last',
+				'is_not_in_the_last',
+			],
+			true
+		);
 	}
 
 	/**
@@ -255,10 +259,14 @@ abstract class Abstract_Date extends Rule {
 	 * @return bool
 	 */
 	private function is_same_date_validation( $compare ) {
-		return ( in_array( $compare, [
-			'is_on',
-			'is_not_on',
-		], true ) );
+		return in_array(
+			$compare,
+			[
+				'is_on',
+				'is_not_on',
+			],
+			true
+		);
 	}
 
 	/**
@@ -286,10 +294,14 @@ abstract class Abstract_Date extends Rule {
 	 * @return bool
 	 */
 	private function is_before_after_validation( $compare ) {
-		return ( in_array( $compare, [
-			'is_after',
-			'is_before',
-		], true ) );
+		return in_array(
+			$compare,
+			[
+				'is_after',
+				'is_before',
+			],
+			true
+		);
 	}
 
 	/**
@@ -419,7 +431,7 @@ abstract class Abstract_Date extends Rule {
 			if ( 'is_after' === $compare ) {
 				$comparative = 'after';
 				// exclude the current day from after comparisons
-				$rule_date->setTime( 23, 59, 59 );
+				$rule_date->set_time_to_day_end();
 			}
 
 			// Because this date value is set in the admin it is logically in site's timezone
@@ -464,7 +476,7 @@ abstract class Abstract_Date extends Rule {
 			$from = new \AutomateWoo\DateTime( $rule_from );
 			$to   = new \AutomateWoo\DateTime( $rule_to );
 			// include the full 'to' day in the date range
-			$to->setTime( 23, 59, 59 );
+			$to->set_time_to_day_end();
 
 			if ( $from > $to ) {
 				return false;

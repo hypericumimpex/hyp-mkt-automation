@@ -6,12 +6,12 @@ namespace AutomateWoo\Rules;
 use AutomateWoo\Fields_Helper;
 use AutomateWoo\Compat;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Product_Categories
  */
-class Product_Categories extends Abstract_Select {
+class Product_Categories extends Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'product';
 
@@ -19,6 +19,8 @@ class Product_Categories extends Abstract_Select {
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( 'Product - Categories', 'automatewoo' );
 	}
 
@@ -48,5 +50,3 @@ class Product_Categories extends Abstract_Select {
 		return $this->validate_select( $categories, $compare, $expected );
 	}
 }
-
-return new Product_Categories();

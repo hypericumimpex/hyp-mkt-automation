@@ -14,7 +14,7 @@ class Variable_Cart_Total extends Variable_Abstract_Price {
 	/**
 	 * Load admin details.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		parent::load_admin_details();
 		$this->description = __( 'Displays the total cost of the cart.', 'automatewoo' );
 	}
@@ -27,7 +27,7 @@ class Variable_Cart_Total extends Variable_Abstract_Price {
 	 *
 	 * @return string
 	 */
-	function get_value( $cart, $parameters ) {
+	public function get_value( $cart, $parameters ) {
 		return parent::format_amount( $cart->get_total(), $parameters );
 	}
 }

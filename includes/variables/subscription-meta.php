@@ -21,13 +21,13 @@ class Variable_Subscription_Meta extends Variable_Abstract_Meta {
 	 * @param \WC_Subscription $subscription
 	 * @param array            $parameters
 	 *
-	 * @return string|bool
+	 * @return string
 	 */
 	function get_value( $subscription, $parameters ) {
 		if ( $parameters['key'] ) {
-			return $subscription->get_meta( $parameters['key'] );
+			return (string) $subscription->get_meta( $parameters['key'] );
 		}
-		return false;
+		return '';
 	}
 }
 

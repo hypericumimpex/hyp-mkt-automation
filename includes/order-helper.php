@@ -58,6 +58,13 @@ class Order_Helper {
 		if ( ! $order = wc_get_order( $order_id ) )
 			return;
 
+		$customer = Customer_Factory::get_by_order( $order );
+
+		if ( $customer ) {
+			$customer->delete_meta( 'order_count' );
+			$customer->delete_meta( 'total_spent' );
+		}
+
 		$user_id = $order->get_user_id();
 
 		if ( $user_id ) {
@@ -76,6 +83,13 @@ class Order_Helper {
 
 		if ( ! $order = wc_get_order( $order_id ) )
 			return;
+
+		$customer = Customer_Factory::get_by_order( $order );
+
+		if ( $customer ) {
+			$customer->delete_meta( 'order_count' );
+			$customer->delete_meta( 'total_spent' );
+		}
 
 		$user_id = $order->get_user_id();
 

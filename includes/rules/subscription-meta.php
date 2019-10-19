@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Subscription_Meta
@@ -36,5 +36,3 @@ class Subscription_Meta extends Abstract_Meta {
 		return $this->validate_meta( $subscription->get_meta( $value_data['key'] ), $compare_type, $value_data['value'] );
 	}
 }
-
-return new Subscription_Meta();

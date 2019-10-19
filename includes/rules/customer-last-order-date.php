@@ -46,5 +46,3 @@ class Customer_Last_Order_Date extends Abstract_Date {
 		return $this->validate_date( $compare, $value, $customer->get_date_last_purchased() );
 	}
 }
-
-return new Customer_Last_Order_Date();

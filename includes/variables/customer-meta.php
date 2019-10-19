@@ -25,10 +25,10 @@ class Variable_Customer_Meta extends Variable_Abstract_Meta {
 	 */
 	function get_value( $customer, $parameters, $workflow ) {
 		if ( empty( $parameters['key'] ) ) {
-			return false;
+			return '';
 		}
 
-		return $customer->get_meta( Clean::string( $parameters['key'] ) );
+		return (string) $customer->get_legacy_meta( $parameters['key'] );
 	}
 
 }

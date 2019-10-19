@@ -7,6 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * @class Variable_Abstract_Shipment_Tracking
+ *
+ * @deprecated Use \AutomateWoo\Shipment_Tracking_Integration::get_shipment_tracking_field instead.
  */
 abstract class Variable_Abstract_Shipment_Tracking extends Variable {
 
@@ -18,19 +20,6 @@ abstract class Variable_Abstract_Shipment_Tracking extends Variable {
 	 * @return false|string
 	 */
 	function get_shipment_tracking_field( $order, $field ) {
-
-		if ( ! class_exists( 'WC_Shipment_Tracking' ) ) {
-			return false;
-		}
-
-		$tracking_items = \WC_Shipment_Tracking_Actions::get_instance()->get_tracking_items( $order->get_id(), true );
-
-		if ( empty( $tracking_items ) )
-			return false;
-
-		if ( empty( $tracking_items[0][$field] ) )
-			return false;
-
-		return $tracking_items[0][$field];
+		return Shipment_Tracking_Integration::get_shipment_tracking_field( $order, $field );
 	}
 }

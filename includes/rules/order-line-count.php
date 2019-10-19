@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Order_Line_Count
@@ -30,7 +30,4 @@ class Order_Line_Count extends Abstract_Number {
 		return $this->validate_number( count( $order->get_items() ), $compare, $value );
 	}
 
-
 }
-
-return new Order_Line_Count();

@@ -1,7 +1,7 @@
 <?php
 // phpcs:ignoreFile
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class AW_Rule_Order_Shipping_Method_String
@@ -27,5 +27,3 @@ class AW_Rule_Order_Shipping_Method_String extends AutomateWoo\Rules\Abstract_St
 	}
 
 }
-
-return new AW_Rule_Order_Shipping_Method_String();

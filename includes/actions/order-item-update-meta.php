@@ -22,7 +22,7 @@ class Action_Order_Item_Update_Meta extends Action_Order_Update_Meta {
 	/**
 	 * Load admin details
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		parent::load_admin_details();
 		$this->group       = __( 'Order Item', 'automatewoo' );
 		$this->description = __( 'This action can add or update an order item\'s custom field.', 'automatewoo' );
@@ -31,14 +31,14 @@ class Action_Order_Item_Update_Meta extends Action_Order_Update_Meta {
 	/**
 	 * Run action
 	 */
-	function run() {
+	public function run() {
 		$order_item = $this->workflow->data_layer()->get_order_item();
 
 		if ( ! $order_item ) {
 			return;
 		}
 
-		$meta_key   = $this->get_option( 'meta_key', true );
+		$meta_key   = trim( $this->get_option( 'meta_key', true ) );
 		$meta_value = $this->get_option( 'meta_value', true );
 
 		// Make sure there is a meta key but a value is not required

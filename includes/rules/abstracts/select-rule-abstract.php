@@ -1,63 +1,42 @@
 <?php
-// phpcs:ignoreFile
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
- * @class Abstract_Select
+ * Class Select_Rule_Abstract.
+ *
+ * @since 4.6
+ * @package AutomateWoo\Rules
  */
-abstract class Abstract_Select extends Rule {
+abstract class Select_Rule_Abstract extends Rule {
 
+	/**
+	 * The rule type.
+	 *
+	 * @var string
+	 */
 	public $type = 'select';
 
-	/** @var array - leave public for json */
-	public $select_choices;
-
-	/** @var bool  */
+	/**
+	 * Allow multiple selections?
+	 *
+	 * @var bool
+	 */
 	public $is_multi = false;
 
-
-	function __construct() {
-
+	/**
+	 * Init rule.
+	 */
+	public function init() {
 		if ( $this->is_multi ) {
-			$this->compare_types = [
-				'matches_any' => __( 'matches any', 'automatewoo' ),
-				'matches_all' => __( 'matches all', 'automatewoo' ),
-				'matches_none' => __( 'matches none', 'automatewoo' ),
-			];
+			$this->compare_types = $this->get_multi_select_compare_types();
+		} else {
+			$this->compare_types = $this->get_is_or_not_compare_types();
+
 		}
-		else {
-			$this->compare_types = [
-				'is' => __( 'is', 'automatewoo' ),
-				'is_not' => __( 'is not', 'automatewoo' )
-			];
-		}
-
-		parent::__construct();
 	}
-
-
-	/**
-	 * @return array
-	 */
-	function load_select_choices() {
-		return [];
-	}
-
-
-	/**
-	 * @return array
-	 */
-	function get_select_choices() {
-		if ( ! isset( $this->select_choices ) ) {
-			$this->select_choices = $this->load_select_choices();
-		}
-
-		return $this->select_choices;
-	}
-
 
 	/**
 	 * Validate a select rule.
@@ -68,53 +47,58 @@ abstract class Abstract_Select extends Rule {
 	 *
 	 * @return bool
 	 */
-	function validate_select( $actual, $compare_type, $expected ) {
+	public function validate_select( $actual, $compare_type, $expected ) {
 
 		if ( $this->is_multi ) {
 
-			if ( ! $actual ) $actual = []; // actual can be empty
-			if ( ! $expected ) return false; // expected must have a value
+			// actual can be empty
+			if ( ! $actual ) {
+				$actual = [];
+			}
 
-			$actual = (array) $actual;
+			// expected must have a value
+			if ( ! $expected ) {
+				return false;
+			}
+
+			$actual   = (array) $actual;
 			$expected = (array) $expected;
 
 			switch ( $compare_type ) {
-
 				case 'matches_all':
 					return count( array_intersect( $expected, $actual ) ) === count( $expected );
-					break;
 
 				case 'matches_none':
 					return count( array_intersect( $expected, $actual ) ) === 0;
-					break;
 
 				case 'matches_any':
 					return count( array_intersect( $expected, $actual ) ) >= 1;
-					break;
 			}
-		}
-		else {
+		} else {
 
 			// actual must be scalar, but expected could be multiple values
 			if ( ! is_scalar( $actual ) ) {
 				return false;
 			}
 
+			// TODO review above exclusions
+			// phpcs:disable WordPress.PHP.StrictComparisons.LooseComparison
+			// phpcs:disable WordPress.PHP.StrictInArray.MissingTrueStrict
+
 			if ( is_array( $expected ) ) {
 				$is_equal = in_array( $actual, $expected );
-			}
-			else {
+			} else {
 				$is_equal = $expected == $actual;
 			}
+
+			// phpcs:enable
 
 			switch ( $compare_type ) {
 				case 'is':
 					return $is_equal;
-					break;
 
 				case 'is_not':
 					return ! $is_equal;
-					break;
 			}
 		}
 
@@ -143,5 +127,6 @@ abstract class Abstract_Select extends Rule {
 
 		return $this->validate_select( $actual, $compare_type, $expected );
 	}
+
 
 }

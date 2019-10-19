@@ -3,9 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-use AutomateWoo\Compat;
-
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Order_Items_Text_Match
@@ -37,5 +35,3 @@ class Order_Items_Text_Match extends Abstract_String {
 		return $this->validate_string_multi( $names, $compare, $value );
 	}
 }
-
-return new Order_Items_Text_Match();

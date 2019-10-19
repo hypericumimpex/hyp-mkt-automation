@@ -18,7 +18,7 @@ class Variable_Order_Shipping_Address_Line_1 extends Variable {
 	/**
 	 * Load description for variable in admin screen.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		$this->description = __( 'Displays the first line of the order shipping address.', 'automatewoo' );
 	}
 
@@ -29,7 +29,7 @@ class Variable_Order_Shipping_Address_Line_1 extends Variable {
 	 *
 	 * @return mixed
 	 */
-	function get_value( $order ) {
+	public function get_value( $order ) {
 		return $order->get_shipping_address_1();
 	}
 }

@@ -42,8 +42,11 @@ class Variables_Processor {
 
 
 	/**
-	 * @param $string
-	 * @return bool|mixed
+	 * Callback function to process a variable string.
+	 *
+	 * @param string $string
+	 *
+	 * @return string
 	 */
 	function _callback_process_field( $string ) {
 		$string = $this->sanitize( $string );
@@ -55,23 +58,23 @@ class Variables_Processor {
 		$variable = self::parse_variable( $string );
 
 		if ( ! $variable ) {
-			return false;
+			return '';
 		}
 
 		$parameters = $variable->parameters;
+		$value      = $this->get_variable_value( $variable->type, $variable->field, $parameters );
+		$value      = (string) apply_filters( 'automatewoo/variables/after_get_value', $value, $variable->type, $variable->field, $parameters, $this->workflow );
 
-		$value = $this->get_variable_value( $variable->type, $variable->field, $parameters );
-
-		$value = apply_filters( 'automatewoo/variables/after_get_value', $value, $variable->type, $variable->field, $parameters, $this->workflow );
-
-		if ( ! $value ) {
+		if ( $value === '' ) {
 			// backwards compatibility
-			if ( isset( $parameters['default'] ) )
+			if ( isset( $parameters['default'] ) ) {
 				$parameters['fallback'] = $parameters['default'];
+			}
 
 			// show default if set and no real value
-			if ( isset( $parameters['fallback'] ) )
+			if ( isset( $parameters['fallback'] ) ) {
 				$value = $parameters['fallback'];
+			}
 		}
 
 		return $value;
@@ -92,36 +95,44 @@ class Variables_Processor {
 
 
 	/**
-	 * @param $data_type
-	 * @param $data_field
-	 * @param $parameters
-	 * @return mixed
+	 * Get the value of a variable.
+	 *
+	 * @param string $data_type
+	 * @param string $data_field
+	 * @param array $parameters
+	 *
+	 * @return string
 	 */
 	function get_variable_value( $data_type, $data_field, $parameters = [] ) {
 
-		// Short circuit filter
-		if ( $filtered = apply_filters( 'automatewoo_text_variable_value', false, $data_type, $data_field ) )
-			return $filtered;
+		// Short circuit filter for the variable value
+		$short_circuit = (string) apply_filters( 'automatewoo_text_variable_value', false, $data_type, $data_field );
 
-		$this->_compatibility( $data_type, $data_field, $parameters );
+		if ( $short_circuit ) {
+			return $short_circuit;
+		}
 
-		$variable = "$data_type.$data_field";
-		$variable_obj = Variables::get_variable( $variable );
+		$this->convert_legacy_variables( $data_type, $data_field, $parameters );
 
-		if ( method_exists( $variable_obj, 'get_value' ) ) {
+		$variable_name = "$data_type.$data_field";
+		$variable      = Variables::get_variable( $variable_name );
 
-			if ( in_array( $data_type, Data_Types::get_non_stored_data_types() ) ) {
-				return $variable_obj->get_value( $parameters, $this->workflow );
-			}
-			else {
+		$value = '';
 
-				if ( ! $data_item = $this->workflow->get_data_item( $variable_obj->get_data_type() ) ) {
-					return false;
+		if ( method_exists( $variable, 'get_value' ) ) {
+
+			if ( in_array( $data_type, Data_Types::get_non_stored_data_types(), true ) ) {
+				$value = $variable->get_value( $parameters, $this->workflow );
+			} else {
+				$data_item = $this->workflow->get_data_item( $variable->get_data_type() );
+
+				if ( $data_item ) {
+					$value = $variable->get_value( $data_item, $parameters, $this->workflow );
 				}
-
-				return $variable_obj->get_value( $data_item, $parameters, $this->workflow );
 			}
 		}
+
+		return (string) apply_filters( 'automatewoo/variables/get_variable_value', (string) $value, $this, $variable );
 	}
 
 
@@ -162,39 +173,33 @@ class Variables_Processor {
 	}
 
 
-
 	/**
-	 * Backwards compatibility
+	 * Handle legacy variable compatibility.
+	 *
+	 * @param string $data_type
+	 * @param string $data_field
+	 * @param array $parameters
 	 */
-	private function _compatibility( &$data_type, &$value, &$parameters ) {
-
-		if ( $data_type == 'site' ) {
+	private function convert_legacy_variables( &$data_type, &$data_field, &$parameters ) {
+		if ( $data_type === 'site' ) {
 			$data_type = 'shop';
 		}
 
-		if ( $data_type == 'shop' ) {
-			if ( $value == 'products_on_sale' ) {
-				$value = 'products';
+		if ( $data_type === 'shop' ) {
+			if ( $data_field === 'products_on_sale' ) {
+				$data_field = 'products';
 				$parameters['type'] = 'sale';
 			}
 
-			if ( $value == 'products_recent' ) {
-				$value = 'products';
+			if ( $data_field === 'products_recent' ) {
+				$data_field = 'products';
 				$parameters['type'] = 'recent';
 			}
 
-			if ( $value == 'products_featured' ) {
-				$value = 'products';
+			if ( $data_field === 'products_featured' ) {
+				$data_field = 'products';
 				$parameters['type'] = 'featured';
 			}
-		}
-
-		switch ( $data_type ) {
-			case 'site':
-
-				$data_type = 'shop';
-
-				break;
 		}
 	}
 

@@ -1,159 +1,7 @@
 <?php
 // phpcs:ignoreFile
 
-defined( 'ABSPATH' ) or exit;
-
-/**
- * @since 2.7.1
- * @param int $user_id
- * @return int
- */
-function aw_get_customer_order_count( $user_id ) {
-	$count = get_user_meta( $user_id, '_aw_order_count', true );
-	if ( '' === $count ) {
-		global $wpdb;
-
-		$statuses = array_map( 'esc_sql', aw_get_counted_order_statuses( true ) );
-
-		$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*)
-			FROM $wpdb->posts as posts
-
-			LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
-
-			WHERE   meta.meta_key       = '_customer_user'
-			AND     posts.post_type     = 'shop_order'
-			AND     posts.post_status   IN ('" . implode( "','", $statuses )  . "')
-			AND     meta_value          = %s
-		", $user_id ) );
-
-		update_user_meta( $user_id, '_aw_order_count', absint( $count ) );
-	}
-
-	return absint( $count );
-}
-
-
-/**
- * @param string $email
- * @return int
- */
-function aw_get_order_count_by_email( $email ) {
-	if ( ! $email = AutomateWoo\Clean::email( $email ) ) {
-		return 0;
-	}
-
-	global $wpdb;
-
-	$statuses = array_map( 'esc_sql', aw_get_counted_order_statuses( true ) );
-
-	$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*)
-		FROM $wpdb->posts as posts
-
-		LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
-
-		WHERE   meta.meta_key       = '_billing_email'
-		AND     posts.post_type     = 'shop_order'
-		AND     posts.post_status   IN ('" . implode( "','", $statuses )  . "')
-		AND     meta.meta_value     = %s
-	", $email ) );
-
-	return absint( $count );
-}
-
-
-/**
- * @param  string $email
- * @return int
- */
-function aw_get_total_spent_by_email( $email ) {
-	if ( ! $email = AutomateWoo\Clean::email( $email ) ) {
-		return 0;
-	}
-
-	global $wpdb;
-
-	$statuses = array_map( 'aw_add_order_status_prefix', AutomateWoo\Compat\Order::get_paid_statuses() );
-	$statuses = array_map( 'esc_sql', $statuses );
-
-	$spent = $wpdb->get_var( $wpdb->prepare( "SELECT SUM(meta2.meta_value)
-		FROM $wpdb->posts as posts
-
-		LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
-		LEFT JOIN {$wpdb->postmeta} AS meta2 ON posts.ID = meta2.post_id
-
-		WHERE   meta.meta_key       = '_billing_email'
-		AND     meta.meta_value     = %s
-		AND     posts.post_type     = 'shop_order'
-		AND     posts.post_status   IN ('" . implode( "','", $statuses )  . "')
-		AND     meta2.meta_key      = '_order_total'
-	", $email ) );
-
-	return absint( $spent );
-}
-
-
-/**
- * @since 3.9
- * @param int $user_id
- * @return array
- */
-function aw_get_customer_order_ids( $user_id ) {
-	$ids = get_user_meta( $user_id, '_aw_order_ids', true );
-	if ( '' === $ids ) {
-		global $wpdb;
-
-		$statuses = array_map( 'esc_sql', aw_get_counted_order_statuses( true ) );
-
-		$ids = $wpdb->get_results( $wpdb->prepare( "SELECT post_id
-			FROM $wpdb->posts as posts
-
-			LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
-
-			WHERE   meta.meta_key       = '_customer_user'
-			AND     posts.post_type     = 'shop_order'
-			AND     posts.post_status   IN ('" . implode( "','", $statuses )  . "')
-			AND     meta_value          = %s
-		", $user_id ), OBJECT_K );
-
-		$ids = AutomateWoo\Clean::ids( array_keys( $ids ) );
-
-		update_user_meta( $user_id, '_aw_order_ids', $ids );
-	}
-	else {
-		$ids = AutomateWoo\Clean::ids( $ids );
-	}
-
-	return $ids;
-}
-
-
-/**
- * @param string $email
- * @return array
- */
-function aw_get_customer_order_ids_by_email( $email ) {
-	if ( ! $email = AutomateWoo\Clean::email( $email ) ) {
-		return 0;
-	}
-
-	global $wpdb;
-
-	$statuses = array_map( 'esc_sql', aw_get_counted_order_statuses( true ) );
-
-	$ids = $wpdb->get_results( $wpdb->prepare( "SELECT post_id
-		FROM $wpdb->posts as posts
-
-		LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
-
-		WHERE   meta.meta_key       = '_billing_email'
-		AND     posts.post_type     = 'shop_order'
-		AND     posts.post_status   IN ('" . implode( "','", $statuses )  . "')
-		AND     meta.meta_value     = %s
-	", $email ), OBJECT_K );
-
-	return AutomateWoo\Clean::ids( array_keys( $ids ) );
-}
-
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Simplified function for third-parties.
@@ -269,4 +117,112 @@ function aw_get_customer_first_order( $email_or_user_id, $status = '' ) {
 	}
 
 	return false;
+}
+
+
+
+/**
+ * @deprecated
+ *
+ * @param  string $email
+ * @return float
+ */
+function aw_get_total_spent_by_email( $email ) {
+	wc_deprecated_function( __FUNCTION__, '4.6', 'AutomateWoo\Customer::get_total_spent()' );
+	$customer = AutomateWoo\Customer_Factory::get_by_email( $email );
+	return $customer->get_total_spent();
+}
+
+/**
+ * @deprecated
+ *
+ * @since 2.7.1
+ * @param int $user_id
+ * @return int
+ */
+function aw_get_customer_order_count( $user_id ) {
+	wc_deprecated_function( __FUNCTION__, '4.6', 'AutomateWoo\Customer::get_order_count()' );
+	$customer = AutomateWoo\Customer_Factory::get_by_user_id( $user_id );
+	return $customer->get_order_count();
+}
+
+/**
+ * @deprecated
+ *
+ * @param string $email
+ * @return int
+ */
+function aw_get_order_count_by_email( $email ) {
+	wc_deprecated_function( __FUNCTION__, '4.6', 'AutomateWoo\Customer::get_order_count()' );
+	$customer = AutomateWoo\Customer_Factory::get_by_email( $email );
+	return $customer->get_order_count();
+}
+
+/**
+ * @deprecated
+ *
+ * @since 3.9
+ * @param int $user_id
+ * @return array
+ */
+function aw_get_customer_order_ids( $user_id ) {
+	wc_deprecated_function( __FUNCTION__, '4.6' );
+
+	$ids = get_user_meta( $user_id, '_aw_order_ids', true );
+	if ( '' === $ids ) {
+		global $wpdb;
+
+		$statuses = array_map( 'esc_sql', aw_get_counted_order_statuses( true ) );
+
+		$ids = $wpdb->get_results( $wpdb->prepare( "SELECT post_id
+			FROM $wpdb->posts as posts
+
+			LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
+
+			WHERE   meta.meta_key       = '_customer_user'
+			AND     posts.post_type     = 'shop_order'
+			AND     posts.post_status   IN ('" . implode( "','", $statuses )  . "')
+			AND     meta_value          = %s
+		", $user_id ), OBJECT_K );
+
+		$ids = AutomateWoo\Clean::ids( array_keys( $ids ) );
+
+		update_user_meta( $user_id, '_aw_order_ids', $ids );
+	}
+	else {
+		$ids = AutomateWoo\Clean::ids( $ids );
+	}
+
+	return $ids;
+}
+
+/**
+ * @deprecated
+ *
+ * @param string $email
+ * @return array
+ */
+function aw_get_customer_order_ids_by_email( $email ) {
+	wc_deprecated_function( __FUNCTION__, '4.6' );
+
+	if ( ! $email = AutomateWoo\Clean::email( $email ) ) {
+		return 0;
+	}
+
+	global $wpdb;
+
+	$statuses = array_map( 'esc_sql', aw_get_counted_order_statuses( true ) );
+
+	$ids = $wpdb->get_results( $wpdb->prepare( "SELECT post_id
+		FROM $wpdb->posts as posts
+
+		LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
+
+		WHERE   meta.meta_key       = '_billing_email'
+		AND     posts.post_type     = 'shop_order'
+		AND     posts.post_status   IN ('" . implode( "','", $statuses )  . "')
+		AND     meta.meta_value     = %s
+	", $email ), OBJECT_K );
+
+	return AutomateWoo\Clean::ids( array_keys( $ids ) );
 }

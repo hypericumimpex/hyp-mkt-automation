@@ -92,11 +92,25 @@ class Admin_Workflow_Edit {
 					}
 
 					if ( $rule_object->type === 'object' ) {
-						$rule['selected'] = $rule_object->get_object_display_value( $rule['value'] );
+						/** @var Rules\Abstract_Object|Rules\Searchable_Select_Rule_Abstract $rule_object */
+
+						// If rule has multiple values get the display value for all keys
+						if ( $rule_object->is_multi ) {
+							foreach( (array) $rule['value'] as $item ) {
+								$rule['selected'][] = $rule_object->get_object_display_value( $item );
+							}
+						} else {
+							$rule['selected'] = $rule_object->get_object_display_value( $rule['value'] );
+						}
+					} else {
+						// Format the rule value
+						$rule['value'] = $rule_object->format_value( $rule['value'] );
 					}
 
 					if ( $rule_object->type === 'select' ) {
-						$rule_object->get_select_choices(); // load options in to object cache
+						/** @var Rules\Abstract_Select $rule_object */
+						// Preload select choices for any rules in use on the workflow
+						$rule_object->get_select_choices();
 					}
 				}
 			}
@@ -181,6 +195,11 @@ class Admin_Workflow_Edit {
 
 		foreach ( Rules::get_all() as $rule ) {
 			$rule_data = (array) $rule;
+
+			if ( is_callable( [ $rule, 'get_search_ajax_action' ] ) ) {
+				$rule_data['ajax_action'] = $rule->get_search_ajax_action();
+			}
+
 			$data[$rule->name] = $rule_data;
 		}
 
@@ -414,14 +433,16 @@ class Admin_Workflow_Edit {
 		return isset( $posted['workflow_options'][$option] ) ? Clean::recursive( $posted['workflow_options'][$option] ) : $default;
 	}
 
-
 	/**
+	 * Set post status before post is saved.
+	 *
 	 * @param array $data
 	 * @return array
 	 */
-	function insert_post_data( $data ) {
+	public function insert_post_data( $data ) {
+		$status = Clean::string( aw_request( 'workflow_status' ) );
 
-		if ( $status = Clean::string( aw_request( 'workflow_status' ) ) ) {
+		if ( $status ) {
 			$data['post_status'] = $status === 'active' ? 'publish' : 'aw-disabled';
 		}
 

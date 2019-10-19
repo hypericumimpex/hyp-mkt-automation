@@ -1,7 +1,7 @@
 <?php
 // phpcs:ignoreFile
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class AW_Rule_Order_Total
@@ -29,5 +29,3 @@ class AW_Rule_Order_Total extends AutomateWoo\Rules\Abstract_Number {
 	}
 
 }
-
-return new AW_Rule_Order_Total();

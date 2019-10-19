@@ -106,7 +106,7 @@ class User_Tags {
 	 */
 	function admin_init() {
 		if ( isset( $_REQUEST['eut_export_csv'] ) ) {
-			include_once AW()->admin_path( '/user-tags-export.php' );
+			require_once AW()->admin_path( '/user-tags-export.php' );
 			$exporter = new User_Tags_Export();
 			$exporter->set_user_tag( absint( $_REQUEST['user_tag'] ) );
 			$exporter->generate_csv();

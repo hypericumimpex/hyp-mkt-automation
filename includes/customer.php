@@ -9,14 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @class Customer
  * @since 3.0.0
  */
-class Customer extends Model {
+class Customer extends Abstract_Model_With_Meta_Table {
 
 	/** @var string */
 	public $table_id = 'customers';
 
 	/** @var string  */
 	public $object_type = 'customer';
-
 
 	/**
 	 * @param bool|int $id
@@ -27,6 +26,14 @@ class Customer extends Model {
 		}
 	}
 
+	/**
+	 * Returns the ID of the model's meta table.
+	 *
+	 * @return string
+	 */
+	public function get_meta_table_id() {
+		return 'customer-meta';
+	}
 
 	/**
 	 * @return int
@@ -441,12 +448,17 @@ class Customer extends Model {
 
 
 	/**
-	 * It's worth noting that guest meta does not become user meta when a guest creates an account
+	 * Get meta value using legacy meta system.
+	 *
+	 * The legacy meta system stored data in the WP user meta table when the customer was registered
+	 * and in the AW guest meta table when the customer was a guest.
+	 *
+	 * It's worth noting that guest meta does not become user meta when a guest creates an account.
 	 *
 	 * @param string $key
 	 * @return mixed
 	 */
-	function get_meta( $key ) {
+	function get_legacy_meta( $key ) {
 
 		if ( ! $key ) return false;
 
@@ -458,13 +470,16 @@ class Customer extends Model {
 		}
 	}
 
-
 	/**
+	 * Update meta value using legacy meta system.
+	 *
+	 * @see \AutomateWoo\Customer::get_legacy_meta()
+	 *
 	 * @param string $key
 	 * @param $value
 	 * @return mixed
 	 */
-	function update_meta( $key, $value ) {
+	function update_legacy_meta( $key, $value ) {
 
 		if ( ! $key ) return false;
 
@@ -478,49 +493,126 @@ class Customer extends Model {
 
 
 	/**
+	 * Get count of customer's orders.
+	 *
+	 * Includes orders that match user ID OR billing email.
+	 *
 	 * @return int
 	 */
 	function get_order_count() {
-		if ( $this->is_registered() ) {
-			return aw_get_customer_order_count( $this->get_user_id() );
+		$count = $this->get_meta( 'order_count' );
+
+		if ( '' !== $count ) {
+			return (int) $count;
 		}
-		elseif ( $this->get_guest() ) {
-			return aw_get_order_count_by_email( $this->get_guest()->get_email() );
-		}
-		return 0;
+
+		global $wpdb;
+
+		$statuses = array_map( 'esc_sql', aw_get_counted_order_statuses( true ) );
+
+		$query = "
+			SELECT COUNT(DISTINCT ID)
+			FROM $wpdb->posts as posts
+			LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
+			WHERE posts.post_type = 'shop_order'
+			AND posts.post_status IN ('" . implode( "','", $statuses ) . "')
+			AND {$this->get_customer_order_meta_sql()}
+		";
+
+		$count = (int) $wpdb->get_var( $wpdb->prepare( $query, $this->get_customer_order_meta_sql_args() ) );
+
+		$this->update_meta( 'order_count', $count );
+
+		return $count;
 	}
 
-
 	/**
-	 * Returns order count but also checks if registered customer has placed orders as guest.
-	 * @since 3.7
-	 * @return int
-	 */
-	function get_order_count_broad() {
-		if ( $this->is_registered() ) {
-			$orders = array_merge( aw_get_customer_order_ids( $this->get_user_id() ), aw_get_customer_order_ids_by_email( $this->get_email() )  );
-			return count( array_unique( $orders ) );
-		}
-		elseif ( $this->get_guest() ) {
-			// there is no need to also check if the guest has placed orders as a registered customer
-			// because Customer_Factory::get_by_email() will always check to see if a guest has an account
-			return aw_get_order_count_by_email( $this->get_guest()->get_email() );
-		}
-		return 0;
-	}
-
-
-	/**
-	 * @return int
+	 * Get total spent by the customer.
+	 *
+	 * Includes orders that match user ID OR billing email.
+	 *
+	 * @return float
 	 */
 	function get_total_spent() {
+		$total = $this->get_meta( 'total_spent' );
+
+		if ( '' !== $total ) {
+			return (float) $total;
+		}
+
+		global $wpdb;
+
+		$statuses = array_map( 'aw_add_order_status_prefix', wc_get_is_paid_statuses() );
+		$statuses = array_map( 'esc_sql', $statuses );
+
+		$query = "
+			SELECT SUM(order_total) FROM (
+				SELECT posts.ID as order_id, meta2.meta_value as order_total 
+				FROM $wpdb->posts as posts
+				LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
+				LEFT JOIN {$wpdb->postmeta} AS meta2 ON posts.ID = meta2.post_id
+				WHERE posts.post_type = 'shop_order'
+				AND posts.post_status IN ('" . implode( "','", $statuses ) . "')
+				AND {$this->get_customer_order_meta_sql()}
+				AND meta2.meta_key = '_order_total'
+				GROUP BY order_id
+			) AS orders_table
+		";
+
+		// Use formatting function to round the total
+		$total = (float) Format::decimal( $wpdb->get_var( $wpdb->prepare( $query, $this->get_customer_order_meta_sql_args() ) ) );
+
+		$this->update_meta( 'total_spent', $total );
+
+		return $total;
+	}
+
+	/**
+	 * Get SQL used for customer order meta queries.
+	 *
+	 * Used to get orders that match user ID OR email.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @return string
+	 */
+	protected function get_customer_order_meta_sql() {
+		$sql = '';
+
 		if ( $this->is_registered() ) {
-			return wc_get_customer_total_spent( $this->get_user_id() );
+			$sql .= '((';
 		}
-		elseif ( $this->get_guest() ) {
-			return aw_get_total_spent_by_email( $this->get_guest()->get_email() );
+
+		$sql .= "( meta.meta_key = '_billing_email' AND meta.meta_value = %s )";
+
+		if ( $this->is_registered() ) {
+			$sql .= "OR ( meta.meta_key = '_customer_user' AND meta.meta_value = %s )";
 		}
-		return 0;
+
+		if ( $this->is_registered() ) {
+			$sql .= '))';
+		}
+
+		return $sql;
+	}
+
+	/**
+	 * Get SQL query args used for customer order meta queries.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @return array
+	 */
+	protected function get_customer_order_meta_sql_args() {
+		$args = [
+			$this->get_email()
+		];
+
+		if ( $this->is_registered() ) {
+			$args[] = $this->get_user_id();
+		}
+
+		return $args;
 	}
 
 
@@ -538,20 +630,22 @@ class Customer extends Model {
 
 
 	/**
+	 * Get the customer's language if site is multilingual.
+	 * 
 	 * @return string
 	 */
-	function get_language() {
+	public function get_language() {
+		$lang = '';
 
-		if ( ! Language::is_multilingual() ) {
-			return '';
+		if ( Language::is_multilingual() ) {
+			if ( $this->is_registered() ) {
+				$lang = Language::get_user_language( $this->get_user() );
+			} else {
+				$lang = Language::get_guest_language( $this->get_guest() );
+			}
 		}
 
-		if ( $this->is_registered() ) {
-			return Language::get_user_language( $this->get_user() );
-		}
-		else {
-			return Language::get_guest_language( $this->get_guest() );
-		}
+		return apply_filters( 'automatewoo/customer/get_language', $lang, $this );
 	}
 
 	/**
@@ -844,6 +938,20 @@ class Customer extends Model {
 		}
 
 		return false;
+	}
+
+
+	/**
+	 * Returns order count but also checks if registered customer has placed orders as guest.
+	 *
+	 * @deprecated
+	 *
+	 * @since 3.7
+	 * @return int
+	 */
+	function get_order_count_broad() {
+		wc_deprecated_function( __METHOD__, '4.6', 'AutomateWoo\Customer::get_order_count()' );
+		return $this->get_order_count();
 	}
 
 }

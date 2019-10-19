@@ -1,7 +1,7 @@
 <?php
 // phpcs:ignoreFile
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class AW_Rule_Order_Has_Cross_Sells
@@ -38,5 +38,3 @@ class AW_Rule_Order_Has_Cross_Sells extends AutomateWoo\Rules\Abstract_Bool {
 	}
 
 }
-
-return new AW_Rule_Order_Has_Cross_Sells();

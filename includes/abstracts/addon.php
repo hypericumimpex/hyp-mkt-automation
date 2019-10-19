@@ -77,7 +77,8 @@ abstract class Addon {
 		$this->plugin_basename = plugin_basename( $plugin_data->file );
 		$this->plugin_path = dirname( $plugin_data->file );
 
-		add_action( 'automatewoo_init_addons', [ $this, 'maybe_init' ] );
+		add_action( 'automatewoo_init_addons', [ $this, 'register' ] );
+		add_action( 'automatewoo_init_addons', [ $this, 'init' ] );
 	}
 
 
@@ -169,15 +170,12 @@ abstract class Addon {
 
 
 	/**
+	 * Registers the add-on.
 	 *
+	 * @since 4.6.0
 	 */
-	function maybe_init() {
-
+	public function register() {
 		Addons::register( $this );
-
-		if ( Licenses::is_valid( $this->id ) ) {
-			$this->init();
-		}
 	}
 
 

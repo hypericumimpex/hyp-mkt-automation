@@ -21,7 +21,7 @@ class Events extends Base {
 
 	private function output_list_table() {
 
-		include_once AW()->admin_path( '/reports/events.php' );
+		require_once AW()->admin_path( '/reports/events.php' );
 
 		$table = new \AutomateWoo\Report_Events();
 		$table->prepare_items();

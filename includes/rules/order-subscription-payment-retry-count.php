@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Order_Subscription_Payment_Retry_Count
@@ -31,7 +31,4 @@ class Order_Subscription_Payment_Retry_Count extends Abstract_Number {
 		return $this->validate_number( $count, $compare, $value );
 	}
 
-
 }
-
-return new Order_Subscription_Payment_Retry_Count();

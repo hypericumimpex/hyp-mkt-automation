@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_Run_Count
@@ -35,5 +35,3 @@ class Customer_Run_Count extends Abstract_Number {
 	}
 
 }
-
-return new Customer_Run_Count();

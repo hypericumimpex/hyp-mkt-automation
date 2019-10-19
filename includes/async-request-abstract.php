@@ -3,10 +3,10 @@
 
 namespace AutomateWoo;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'AW_WP_Async_Request', false ) ) {
-	include_once AW()->lib_path( '/wp-async-request.php' );
+	require_once AW()->lib_path( '/wp-async-request.php' );
 }
 
 /**

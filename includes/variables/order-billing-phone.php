@@ -17,12 +17,12 @@ class Variable_Order_Billing_Phone extends Variable {
 
 
 	/**
-	 * @param $order \WC_Order
-	 * @param $parameters array
+	 * @param \WC_Order $order
+	 *
 	 * @return string
 	 */
-	function get_value( $order, $parameters ) {
-		return Compat\Order::get_billing_phone( $order );
+	function get_value( $order ) {
+		return $order->get_billing_phone();
 	}
 }
 

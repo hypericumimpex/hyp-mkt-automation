@@ -5,12 +5,12 @@ namespace AutomateWoo\Rules;
 
 use AutomateWoo\Fields_Helper;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_Tags
  */
-class Customer_Tags extends Abstract_Select {
+class Customer_Tags extends Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'customer';
 
@@ -18,6 +18,8 @@ class Customer_Tags extends Abstract_Select {
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( 'Customer - User Tags', 'automatewoo' );
 	}
 
@@ -51,5 +53,3 @@ class Customer_Tags extends Abstract_Select {
 	}
 
 }
-
-return new Customer_Tags();

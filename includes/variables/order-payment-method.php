@@ -22,8 +22,9 @@ class Variable_Order_Payment_Method extends Variable {
 
 
 	/**
-	 * @param $order \WC_Order
-	 * @param $parameters array
+	 * @param \WC_Order $order
+	 * @param array     $parameters
+	 *
 	 * @return string
 	 */
 	function get_value( $order, $parameters ) {
@@ -32,11 +33,9 @@ class Variable_Order_Payment_Method extends Variable {
 
 		switch ( $display ) {
 			case 'id':
-				return Compat\Order::get_payment_method( $order );
-				break;
+				return $order->get_payment_method();
 			case 'title':
-				return Compat\Order::get_payment_method_title( $order );
-				break;
+				return $order->get_payment_method_title();
 		}
 	}
 }

@@ -4,7 +4,10 @@
 namespace AutomateWoo;
 
 /**
- * Handles plugin updates.
+ * Legacy plugin updater.
+ *
+ * Handles updates for AutomateWoo core and add-ons.
+ * This class only initiates if the legacy license system is in use.
  *
  * @class Updater
  */
@@ -12,14 +15,26 @@ class Updater {
 
 
 	static function init() {
-		add_filter( 'plugins_api', [ __CLASS__, 'filter_plugin_api_info' ], 10, 3 );
-		add_filter( 'pre_set_site_transient_update_plugins', [ __CLASS__, 'inject_updates' ] );
+		if ( ! Licenses::is_legacy() ) {
+			// Only init our plugin updater if using the legacy license system.
+			return;
+		}
+
+		// Ensure filter priorities are higher than the Woo marketplace updater
+		add_filter( 'plugins_api', [ __CLASS__, 'filter_plugin_api_info' ], 50, 3 );
+		add_filter( 'pre_set_site_transient_update_plugins', [ __CLASS__, 'inject_updates' ], 50 );
+
 		add_action( 'in_plugin_update_message-' . AW()->plugin_basename, [ __CLASS__, 'in_plugin_update_message' ] );
 		add_action( 'load-update-core.php', [ __CLASS__, 'maybe_force_check' ], 5 );
 
 		foreach ( Addons::get_all() as $addon ) {
 			add_action( 'in_plugin_update_message-' . $addon->plugin_basename, [ __CLASS__, 'in_plugin_update_message' ] );
 		}
+
+		add_action( 'update_option_automatewoo_license_system', function(){
+			// Important that clearing the transient is done later
+			add_action( 'shutdown', [ __CLASS__, 'delete_update_plugins_transient' ] );
+		} );
 	}
 
 
@@ -47,21 +62,21 @@ class Updater {
 			];
 		}
 
+
 		foreach( $plugins as $plugin_slug => $plugin_data ) {
+			// Ensure we clear away anything set by the WooCommerce extension helper
+			unset( $transient->response[ $plugin_data['basename'] ] );
 
-			if ( empty( $transient->response[ $plugin_data['basename'] ] ) ) {
+			$latest_version = self::get_latest_version( $plugin_slug );
 
-				$latest_version = self::get_latest_version( $plugin_slug );
-
-				if ( $latest_version ) {
-					if ( version_compare( $plugin_data['version'], $latest_version, '<' ) ) {
-						$transient->response[ $plugin_data['basename'] ] = self::get_plugin_update_info( $plugin_slug, $latest_version );
-					}
-					$transient->checked[ $plugin_data['basename'] ] = $latest_version;
+			if ( $latest_version ) {
+				if ( version_compare( $plugin_data['version'], $latest_version, '<' ) ) {
+					$transient->response[ $plugin_data['basename'] ] = self::get_plugin_update_info( $plugin_slug, $latest_version );
 				}
-				else {
-					$transient->checked[ $plugin_data['basename'] ] = $plugin_data['version'];
-				}
+				$transient->checked[ $plugin_data['basename'] ] = $latest_version;
+			}
+			else {
+				$transient->checked[ $plugin_data['basename'] ] = $plugin_data['version'];
 			}
 		}
 
@@ -266,6 +281,13 @@ class Updater {
 	 */
 	static function wrap_plugin_update_message( $message ) {
 		return  '<br /><span class="automatewoo-plugin-table-update-message">' . $message . '</span>';
+	}
+
+	/*
+	 * Reset update plugins transient when AW license system changes.
+	 */
+	public static function delete_update_plugins_transient() {
+		delete_site_transient( 'update_plugins' );
 	}
 
 }

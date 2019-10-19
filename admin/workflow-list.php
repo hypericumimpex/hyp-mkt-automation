@@ -20,6 +20,7 @@ class Admin_Workflow_List {
 		add_filter( 'manage_posts_custom_column' , [ $this, 'column_data'], 10 , 2 );
 		add_filter( 'bulk_actions-edit-aw_workflow' , [ $this, 'bulk_actions' ], 10 , 2 );
 		add_filter( 'post_row_actions' , [ $this, 'row_actions' ], 10 , 2 );
+		add_filter( 'request', [ $this, 'filter_request_query_vars' ] );
 
 		$this->statuses();
 	}
@@ -250,6 +251,24 @@ class Admin_Workflow_List {
 		}
 		return sprintf( $unit_text, $number );
 	}
+
+
+	/**
+	 * Filter workflow list main request query vars.
+	 *
+	 * @param array $query_vars
+	 *
+	 * @return array
+	 */
+	public function filter_request_query_vars( $query_vars ) {
+		// Include disabled workflows in all view
+		if ( empty( $query_vars['post_status'] ) ) {
+			$query_vars['post_status'] = [ 'publish', 'aw-disabled' ];
+		}
+
+		return $query_vars;
+	}
+
 
 }
 

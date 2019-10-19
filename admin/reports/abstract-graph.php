@@ -4,7 +4,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'WC_Admin_Report' ) ) {
-	include_once WC()->plugin_path() . '/includes/admin/reports/class-wc-admin-report.php';
+	require_once WC()->plugin_path() . '/includes/admin/reports/class-wc-admin-report.php';
 }
 
 /**
@@ -86,13 +86,7 @@ class AW_Report_Abstract_Graph extends WC_Admin_Report {
 		<div class="section">
 			<form method="GET">
 				<div>
-
-					<?php if ( version_compare( WC()->version, '3.0', '<' ) ): ?>
-						<input type="hidden" class="wc-product-search" style="width:203px;" name="workflow_ids[]" data-placeholder="<?php _e( 'Search for a workflow&hellip;', 'automatewoo' ); ?>" data-action="aw_json_search_workflows" />
-					<?php else: ?>
-						<select class="wc-product-search" style="width:203px;" name="workflow_ids[]" data-placeholder="<?php _e( 'Search for a workflow&hellip;', 'automatewoo' ); ?>" data-action="aw_json_search_workflows"></select>
-					<?php endif; ?>
-
+					<select class="wc-product-search" style="width:203px;" name="workflow_ids[]" data-placeholder="<?php _e( 'Search for a workflow&hellip;', 'automatewoo' ); ?>" data-action="aw_json_search_workflows"></select>
 					<input type="submit" class="submit button" value="<?php _e( 'Show', 'automatewoo' ); ?>" />
 					<?php AutomateWoo\Admin::get_hidden_form_inputs_from_query( ['range', 'start_date', 'end_date', 'page', 'tab' ] ) ?>
 				</div>

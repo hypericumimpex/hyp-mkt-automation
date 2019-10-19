@@ -35,7 +35,7 @@ class Carts extends Base {
 
 	private function output_list_table() {
 
-		include_once AW()->admin_path( '/reports/carts.php' );
+		require_once AW()->admin_path( '/reports/carts.php' );
 
 		$table = new Report_Carts();
 		$table->prepare_items();

@@ -22,7 +22,7 @@ class Trigger_Subscription_Created extends Trigger {
 	/**
 	 * Load admin details.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		$this->title       = __( 'Subscription Created', 'automatewoo' );
 		$this->description = __( 'This trigger fires after a subscription is created which happens before payment is confirmed. To create a workflow that runs when the subscription is paid, use the Subscription Status Changed trigger.', 'automatewoo' );
 		$this->group       = Subscription_Workflow_Helper::get_group_name();
@@ -31,14 +31,14 @@ class Trigger_Subscription_Created extends Trigger {
 	/**
 	 * Load fields.
 	 */
-	function load_fields() {
+	public function load_fields() {
 		$this->add_field( Subscription_Workflow_Helper::get_products_field() );
 	}
 
 	/**
 	 * Register trigger hooks.
 	 */
-	function register_hooks() {
+	public function register_hooks() {
 		add_action( 'automatewoo/async/subscription_created', [ $this, 'handle_subscription_created' ] );
 	}
 
@@ -47,7 +47,7 @@ class Trigger_Subscription_Created extends Trigger {
 	 *
 	 * @param int $subscription_id
 	 */
-	function handle_subscription_created( $subscription_id ) {
+	public function handle_subscription_created( $subscription_id ) {
 		Subscription_Workflow_Helper::trigger_for_subscription( $this, $subscription_id );
 	}
 
@@ -57,7 +57,7 @@ class Trigger_Subscription_Created extends Trigger {
 	 * @param Workflow $workflow
 	 * @return bool
 	 */
-	function validate_workflow( $workflow ) {
+	public function validate_workflow( $workflow ) {
 		$subscription = $workflow->data_layer()->get_subscription();
 
 		if ( ! $subscription ) {

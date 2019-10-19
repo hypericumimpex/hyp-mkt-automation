@@ -15,8 +15,12 @@ abstract class Variable {
 	/** @var string */
 	protected $description;
 
-	/** @var array */
-	protected $parameters = [];
+	/**
+	 * Stores parameter field objects.
+	 *
+	 * @var Fields\Field[]
+	 */
+	protected $parameter_fields = [];
 
 	/** @var string */
 	protected $data_type;
@@ -79,20 +83,15 @@ abstract class Variable {
 
 
 	/**
-	 * @return array
+	 * Get the parameter fields for the variable.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @return Fields\Field[]
 	 */
-	function get_parameters() {
+	public function get_parameter_fields() {
 		$this->maybe_load_admin_details();
-		return $this->parameters;
-	}
-
-
-	/**
-	 * @return bool
-	 */
-	function has_parameters() {
-		$this->maybe_load_admin_details();
-		return ! empty( $this->parameters );
+		return $this->parameter_fields;
 	}
 
 
@@ -119,38 +118,55 @@ abstract class Variable {
 		return $this->data_field;
 	}
 
-
 	/**
-	 * @param $name
-	 * @param $description
-	 * @param bool $required
-	 * @param string $placeholder
-	 * @param array $extra
+	 * Add a parameter field to the variable.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param Fields\Field $field
 	 */
-	protected function add_parameter_text_field( $name, $description, $required = false, $placeholder = '', $extra = [] ) {
-		$this->parameters[$name] = array_merge([
-			'type' => 'text',
-			'description' => $description,
-			'required' => $required,
-			'placeholder' => $placeholder
-		], $extra );
+	protected function add_parameter_field( Fields\Field $field ) {
+		$this->parameter_fields[ $field->get_name() ] = $field;
 	}
 
+	/**
+	 * Add a text parameter field to the variable.
+	 *
+	 * @param string $name
+	 * @param string $description
+	 * @param bool   $required
+	 * @param string $placeholder
+	 * @param array  $extra
+	 */
+	protected function add_parameter_text_field( $name, $description, $required = false, $placeholder = '', $extra = [] ) {
+		$field = new Fields\Text();
+		$field->set_name( $name );
+		$field->set_description( $description );
+		$field->set_required( $required );
+		$field->set_placeholder( $placeholder );
+		$field->meta = $extra;
+
+		$this->add_parameter_field( $field );
+	}
 
 	/**
-	 * @param $name
-	 * @param $description
-	 * @param array $options
-	 * @param bool $required
-	 * @param array $extra
+	 * Add a select parameter field to the variable.
+	 *
+	 * @param string $name
+	 * @param string $description
+	 * @param array  $options
+	 * @param bool   $required
+	 * @param array  $extra
 	 */
 	protected function add_parameter_select_field( $name, $description, $options = [], $required = false, $extra = [] ) {
-		$this->parameters[$name] = array_merge([
-			'type' => 'select',
-			'description' => $description,
-			'options' => $options,
-			'required' => $required
-		], $extra );
+		$field = new Fields\Select( false );
+		$field->set_name( $name );
+		$field->set_description( $description );
+		$field->set_required( $required );
+		$field->set_options( $options );
+		$field->meta = $extra;
+
+		$this->add_parameter_field( $field );
 	}
 
 }

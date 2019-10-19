@@ -97,3 +97,40 @@ function aw_get_top_selling_product_ids( $limit = -1 ) {
 
 	return $query->posts;
 }
+
+/**
+ * Remove unreviewable products from an array of product objects.
+ *
+ * @param \WC_Product[] $products
+ *
+ * @return \WC_Product[]
+ *
+ * @since 4.6.0
+ */
+function aw_get_reviewable_products( $products ) {
+	$return = [];
+
+	if ( ! is_array( $products ) ) {
+		return [];
+	}
+
+	foreach( $products as $product ) {
+		if ( ! $product instanceof WC_Product ) {
+			continue;
+		}
+
+		// Replace variations with their parent product
+		if ( $product->is_type( 'variation' ) ) {
+			$parent = wc_get_product( $product->get_parent_id() );
+
+			if ( $parent ) {
+				// Deliberately replace duplicates
+				$return[ $parent->get_id() ] = $parent;
+			}
+		} else {
+			$return[ $product->get_id() ] = $product;
+		}
+	}
+
+	return $return;
+}

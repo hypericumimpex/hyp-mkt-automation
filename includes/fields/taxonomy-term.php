@@ -23,10 +23,11 @@ class Taxonomy_Term extends Field {
 
 
 	/**
-	 * @param $value
+	 * @param string $value
 	 */
 	function render( $value ) {
-		$term = false;
+		$term  = false;
+		$value = (string) $value;
 
 		if ( strstr( $value, '|' ) ) {
 			list( $term_id, $taxonomy ) = explode( '|', $value );

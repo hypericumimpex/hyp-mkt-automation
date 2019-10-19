@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
  * @since   4.5.0
  * @package AutomateWoo\Rules
  */
-class Subscription_Coupons extends \AW_Rule_Order_Coupons {
+class Subscription_Coupons extends Order_Coupons {
 
 	/**
 	 * Data item for the rule.
@@ -23,9 +23,9 @@ class Subscription_Coupons extends \AW_Rule_Order_Coupons {
 	 * Init the rule.
 	 */
 	public function init() {
+		parent::init();
+
 		$this->title = __( 'Subscription - Coupons', 'automatewoo' );
 	}
 
 }
-
-return new Subscription_Coupons();

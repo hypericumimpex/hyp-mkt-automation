@@ -25,10 +25,11 @@ class Email_Content extends Field {
 
 
 	/**
-	 * @param $value
+	 * @param string $value
 	 */
 	function render( $value ) {
 		$id = uniqid();
+		$value = Clean::email_content( $value );
 
 		wp_editor( $value, $id, [
 			'textarea_name' => $this->get_full_name(),
@@ -61,9 +62,9 @@ class Email_Content extends Field {
 	 *
 	 * @since 4.4.0
 	 *
-	 * @param mixed $value
+	 * @param string $value
 	 *
-	 * @return mixed
+	 * @return string
 	 */
 	function sanitize_value( $value ) {
 		return Clean::email_content( $value );

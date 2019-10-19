@@ -1,42 +1,43 @@
 <?php
-// phpcs:ignoreFile
 
-defined( 'ABSPATH' ) or exit;
+namespace AutomateWoo\Rules;
+
+defined( 'ABSPATH' ) || exit;
 
 /**
- * @class AW_Rule_Cart_Coupons
+ * Class Cart_Coupons
+ *
+ * @package AutomateWoo\Rules
  */
-class AW_Rule_Cart_Coupons extends AutomateWoo\Rules\Abstract_Select {
+class Cart_Coupons extends Order_Coupons {
 
+	/**
+	 * The rule's primary data item.
+	 *
+	 * @var string
+	 */
 	public $data_item = 'cart';
 
-	public $is_multi = true;
+	/**
+	 * Init.
+	 */
+	public function init() {
+		parent::init();
 
-
-	function init() {
 		$this->title = __( 'Cart - Coupons', 'automatewoo' );
 	}
 
-
 	/**
-	 * @return array
-	 */
-	function load_select_choices() {
-		return AutomateWoo\Fields_Helper::get_coupons_list();
-	}
-
-
-	/**
-	 * @param $cart AutomateWoo\Cart
-	 * @param $compare
-	 * @param $value
+	 * Validate the rule for a given cart.
+	 *
+	 * @param \AutomateWoo\Cart $cart
+	 * @param string            $compare
+	 * @param array             $expected_coupons
+	 *
 	 * @return bool
 	 */
-	function validate( $cart, $compare, $value ) {
-		return $this->validate_select_case_insensitive( array_keys( $cart->get_coupons() ), $compare, $value );
+	public function validate( $cart, $compare, $expected_coupons ) {
+		return $this->validate_select_case_insensitive( array_keys( $cart->get_coupons() ), $compare, $expected_coupons );
 	}
 
-
 }
-
-return new AW_Rule_Cart_Coupons();

@@ -47,5 +47,3 @@ class Customer_Account_Created_Date extends Abstract_Date {
 		return $this->validate_date( $compare, $value, $customer->get_date_registered() );
 	}
 }
-
-return new Customer_Account_Created_Date();

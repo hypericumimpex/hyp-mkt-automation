@@ -10,16 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @property array $data_items (legacy)
  */
-class Queued_Event extends Model {
+class Queued_Event extends Abstract_Model_With_Meta_Table {
 
 	/** @var string */
 	public $table_id = 'queue';
 
 	/** @var string  */
 	public $object_type = 'queue';
-
-	/** @var string  */
-	public $meta_table_id = 'queue-meta';
 
 	/** @var bool|array */
 	private $uncompressed_data_layer;
@@ -30,6 +27,14 @@ class Queued_Event extends Model {
 	const F_MISSING_DATA = 101;
 	const F_FATAL_ERROR = 102;
 
+	/**
+	 * Returns the ID of the model's meta table.
+	 *
+	 * @return string
+	 */
+	public function get_meta_table_id() {
+		return 'queue-meta';
+	}
 
 	/**
 	 * @param bool|int $id
@@ -245,19 +250,6 @@ class Queued_Event extends Model {
 	/**
 	 * @return bool
 	 */
-	function check_data_layer() {
-		foreach ( $this->get_data_layer()->get_raw_data() as $data_item ) {
-			if ( ! $data_item )
-				return false;
-		}
-
-		return true;
-	}
-
-
-	/**
-	 * @return bool
-	 */
 	function run() {
 
 		if ( ! $this->exists ) {
@@ -306,7 +298,7 @@ class Queued_Event extends Model {
 			return self::F_WORKFLOW_INACTIVE;
 		}
 
-		if ( ! $this->check_data_layer() ) {
+		if ( $this->get_data_layer()->is_missing_data() ) {
 			return self::F_MISSING_DATA;
 		}
 

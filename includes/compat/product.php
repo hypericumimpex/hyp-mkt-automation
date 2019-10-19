@@ -6,6 +6,8 @@ namespace AutomateWoo\Compat;
 /**
  * @class Product
  * @since 2.9
+ *
+ * @deprecated
  */
 class Product {
 
@@ -14,41 +16,24 @@ class Product {
 	 * @return int
 	 */
 	static function get_id( $product ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return self::is_variation( $product ) ? $product->variation_id : $product->id;
-		} else {
-			return $product->get_id();
-		}
+		return $product->get_id();
 	}
-
 
 	/**
 	 * @param \WC_Product $product
 	 * @return int
 	 */
 	static function get_parent_id( $product ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return self::is_variation( $product ) ? $product->id : $product->get_parent();
-		}
-		else {
-			return $product->get_parent_id();
-		}
+		return $product->get_parent_id();
 	}
-
 
 	/**
 	 * @param \WC_Product $product
 	 * @return int
 	 */
 	static function get_name( $product ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return $product->get_title();
-		}
-		else {
-			return $product->get_name();
-		}
+		return $product->get_name();
 	}
-
 
 	/**
 	 * @param \WC_Product $product
@@ -58,21 +43,14 @@ class Product {
 		return $product->is_type( [ 'variation', 'subscription_variation' ] );
 	}
 
-
 	/**
 	 * @param \WC_Product $product
 	 * @param $key
 	 * @return mixed
 	 */
 	static function get_meta( $product, $key ) {
-		if ( is_callable( [ $product, 'get_meta' ] ) ) {
-			return $product->get_meta( $key );
-		}
-		else {
-			return get_post_meta( self::get_id( $product ), $key, true );
-		}
+		return $product->get_meta( $key );
 	}
-
 
 	/**
 	 * @param \WC_Product $product
@@ -80,23 +58,9 @@ class Product {
 	 * @return mixed
 	 */
 	static function get_parent_meta( $product, $key ) {
-
-		if ( ! $parent_id = self::get_parent_id( $product ) ) {
-			return false;
-		}
-
-		if ( is_callable( [ $product, 'get_meta' ] ) ) {
-			if ( ! $parent = wc_get_product( $parent_id ) ) {
-				return false;
-			}
-
-			return $parent->get_meta( $key );
-		}
-		else {
-			return get_post_meta( $parent_id, $key, true );
-		}
+		$parent = wc_get_product( $product->get_parent_id() );
+		return $parent ? $parent->get_meta( $key ) : false;
 	}
-
 
 	/**
 	 * @param \WC_Product $product
@@ -105,76 +69,41 @@ class Product {
 	 * @return mixed
 	 */
 	static function update_meta( $product, $key, $value ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			update_post_meta( self::get_id( $product ), $key, $value );
-		}
-		else {
-			$product->update_meta_data( $key, $value );
-			$product->save();
-		}
+		$product->update_meta_data( $key, $value );
+		$product->save();
 	}
-
 
 	/**
 	 * @param \WC_Product $product
 	 * @return array
 	 */
 	static function get_cross_sell_ids( $product ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return $product->get_cross_sells();
-		}
-		else {
-			return $product->get_cross_sell_ids();
-		}
+		return $product->get_cross_sell_ids();
 	}
-
 
 	/**
 	 * @param \WC_Product $product
 	 * @return array
 	 */
 	static function get_price_including_tax( $product ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return $product->get_price_including_tax();
-		}
-		else {
-			return wc_get_price_including_tax( $product );
-		}
+		return wc_get_price_including_tax( $product );
 	}
-
 
 	/**
 	 * @param \WC_Product $product
 	 * @return mixed
 	 */
 	static function get_description( $product ) {
-		if ( is_callable( [ $product, 'get_description' ] ) ) {
-			return $product->get_description();
-		}
-		else {
-			if ( self::is_variation( $product ) ) {
-				return self::get_meta( $product, '_variation_description' );
-			}
-			else {
-				return $product->post->post_content;
-			}
-		}
+		return $product->get_description();
 	}
-
 
 	/**
 	 * @param \WC_Product $product
 	 * @return string
 	 */
 	static function get_short_description( $product ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			return $product->post->post_excerpt;
-		}
-		else {
-			return $product->get_short_description();
-		}
+		return $product->get_short_description();
 	}
-
 
 	/**
 	 * $product_id MUST NOT be a variation ID
@@ -183,14 +112,7 @@ class Product {
 	 * @return array
 	 */
 	static function get_related( $product_id, $limit = 5 ) {
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			$product = wc_get_product( $product_id );
-			return $product->get_related( $limit );
-		}
-		else {
-			return wc_get_related_products( $product_id, $limit );
-		}
+		return wc_get_related_products( $product_id, $limit );
 	}
-
 
 }

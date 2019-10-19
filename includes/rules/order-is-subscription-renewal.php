@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Order_Is_Subscription_Renewal
@@ -41,5 +41,3 @@ class Order_Is_Subscription_Renewal extends Abstract_Bool {
 	}
 
 }
-
-return new Order_Is_Subscription_Renewal();

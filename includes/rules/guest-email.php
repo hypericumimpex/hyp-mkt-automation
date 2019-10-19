@@ -1,7 +1,7 @@
 <?php
 // phpcs:ignoreFile
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class AW_Rule_Guest_Email
@@ -27,5 +27,3 @@ class AW_Rule_Guest_Email extends AutomateWoo\Rules\Abstract_String {
 	}
 
 }
-
-return new AW_Rule_Guest_Email();

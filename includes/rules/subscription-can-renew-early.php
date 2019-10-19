@@ -23,7 +23,7 @@ class Subscription_Can_Renew_Early extends Abstract_Bool {
 	/**
 	 * Init.
 	 */
-	function init() {
+	public function init() {
 		$this->title = __( 'Subscription - Can Renew Early', 'automatewoo' );
 	}
 
@@ -36,7 +36,7 @@ class Subscription_Can_Renew_Early extends Abstract_Bool {
 	 *
 	 * @return bool
 	 */
-	function validate( $subscription, $compare, $value ) {
+	public function validate( $subscription, $compare, $value ) {
 
 		if ( ! \WCS_Early_Renewal_Manager::is_early_renewal_enabled() ) {
 			return false;
@@ -47,5 +47,3 @@ class Subscription_Can_Renew_Early extends Abstract_Bool {
 		return $value === 'yes' ? $can_renew_early : ! $can_renew_early;
 	}
 }
-
-return new Subscription_Can_Renew_Early();

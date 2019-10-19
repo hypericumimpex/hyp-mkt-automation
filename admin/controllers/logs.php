@@ -40,7 +40,7 @@ class Logs extends Base {
 
 	private function output_list_table() {
 
-		include_once AW()->admin_path( '/reports/logs.php' );
+		require_once AW()->admin_path( '/reports/logs.php' );
 
 		$table = new \AutomateWoo\Report_Logs();
 		$table->prepare_items();

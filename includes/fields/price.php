@@ -31,12 +31,13 @@ class Price extends Text {
 	 * Empty string values are deliberately allowed.
 	 *
 	 * @since 4.4.0
+	 * @since 4.6.0 Adds support for workflow variables.
 	 *
 	 * @param string $value
 	 *
 	 * @return string
 	 */
-	function sanitize_value( $value ) {
+	public function sanitize_value( $value ) {
 		$value = trim( $value );
 
 		// preserve empty string values, don't convert to '0.00'
@@ -44,7 +45,24 @@ class Price extends Text {
 			return '';
 		}
 
-		return Clean::price( $value );
+		if ( false === strpos( $value, '{{' ) ) {
+			// IMPORTANT - Must clean the price value to convert from a localized format
+			return Clean::localized_price( $value );
+		} else {
+			return Clean::string( $value );
+		}
 	}
 
+	/**
+	 * Output the field HTML.
+	 *
+	 * @param string $value
+	 */
+	public function render( $value ) {
+		// If not a variable localize the price value
+		if ( false === strpos( $value, '{{' ) ) {
+			$value = wc_format_localized_price( $value );
+		}
+		parent::render( $value );
+	}
 }

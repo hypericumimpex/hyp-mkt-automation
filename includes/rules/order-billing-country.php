@@ -3,19 +3,19 @@
 
 namespace AutomateWoo\Rules;
 
-use AutomateWoo\Compat;
-
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Order_Billing_Country
  */
-class Order_Billing_Country extends Abstract_Select {
+class Order_Billing_Country extends Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'order';
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( 'Order - Billing Country', 'automatewoo' );
 	}
 
@@ -35,15 +35,7 @@ class Order_Billing_Country extends Abstract_Select {
 	 * @return bool
 	 */
 	function validate( $order, $compare, $value ) {
-
-		$country = Compat\Order::get_billing_country( $order );
-
-		if ( ! $country )
-			return false;
-
-		return $this->validate_select( $country, $compare, $value );
+		return $this->validate_select( $order->get_billing_country(), $compare, $value );
 	}
 
 }
-
-return new Order_Billing_Country();

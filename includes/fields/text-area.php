@@ -64,6 +64,7 @@ class Text_Area extends Text {
 		if ( $this->decode_html_entities_before_render ) {
 			$value = html_entity_decode( $value );
 		}
+
 	?>
 		<textarea
 		       name="<?php echo esc_attr( $this->get_full_name() ); ?><?php echo $this->multiple ? '[]' : '' ?>"

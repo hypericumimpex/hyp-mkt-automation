@@ -139,7 +139,7 @@ a.automatewoo-button {
 }
 
 
-.automatewoo-button--wide {
+a.automatewoo-button--wide {
 	display: block;
 }
 

@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Abstract_Meta
@@ -43,14 +43,13 @@ abstract class Abstract_Meta extends Rule {
 	 * @return array|false
 	 */
 	function prepare_value_data( $value ) {
-
 		if ( ! is_array( $value ) ) {
 			return false;
 		}
 
 		return [
-			'key' => $value[0],
-			'value' => isset( $value[1] ) ? $value[1] : false
+			'key'   => trim( $value[0] ),
+			'value' => isset( $value[1] ) ? $value[1] : false,
 		];
 	}
 

@@ -227,19 +227,29 @@ function aw_price_to_float( $price ) {
 	return (float) $price;
 }
 
-
 /**
- * TODO make $include_prefix required param
- * @since 2.7.1
+ * Get status to use when counting customer orders.
+ *
+ * This function will never return an empty array.
+ *
  * @param bool $include_prefix
+ *
  * @return array
+ *
+ * @since 2.7.1
  */
 function aw_get_counted_order_statuses( $include_prefix = true ) {
-	$statuses = apply_filters( 'automatewoo/counted_order_statuses', array_merge( AutomateWoo\Compat\Order::get_paid_statuses(), [ 'on-hold' ] ) );
+	$default_statuses = array_merge( wc_get_is_paid_statuses(), [ 'on-hold' ] );
+	$statuses         = array_filter( apply_filters( 'automatewoo/counted_order_statuses', $default_statuses ) );
+
+	if ( ! $statuses ) {
+		$statuses = $default_statuses;
+	}
 
 	if ( $include_prefix ) {
 		$statuses = array_map( 'aw_add_order_status_prefix', $statuses );
 	}
+
 	return $statuses;
 }
 
@@ -345,7 +355,39 @@ function aw_str_replace_start( $subject, $find, $replace = '' ) {
 	return aw_str_replace_first_match( $subject, $find, $replace = '' );
 }
 
+/**
+ * Determine if a string starts with another string.
+ *
+ * @since 4.6.0
+ *
+ * @param string $haystack
+ * @param string $needle
+ *
+ * @return bool
+ */
+function aw_str_starts_with( $haystack, $needle ) {
+	return substr( $haystack, 0, strlen( $needle ) ) === $needle;
+}
 
+/**
+ * Determine if a string ends with another string.
+ *
+ * @since 4.6.0
+ *
+ * @param string $haystack
+ * @param string $needle
+ *
+ * @return bool
+ */
+function aw_str_ends_with( $haystack, $needle ) {
+	$length = strlen( $needle );
+
+	if ( $length == 0 ) {
+		return true;
+	}
+
+	return substr( $haystack, -$length ) === $needle;
+}
 
 /**
  * Get user agent string.

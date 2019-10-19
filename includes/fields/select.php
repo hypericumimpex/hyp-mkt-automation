@@ -120,16 +120,18 @@ class Select extends Field {
 				$value = $this->default_option;
 			}
 
-			$this->render_single( $value );
+			$this->render_single( (string) $value );
 		}
 
 	}
 
 
 	/**
-	 * @param $value
+	 * Render a single select box.
+	 *
+	 * @param string $value
 	 */
-	function render_single( $value ) {
+	protected function render_single( $value ) {
 		?>
 
 		<select name="<?php echo esc_attr( $this->get_full_name() ); ?>"
@@ -147,11 +149,11 @@ class Select extends Field {
 				<?php if ( is_array($opt_value) ): ?>
 					<optgroup label="<?php echo esc_attr( $opt_name ) ?>">
 						<?php foreach( $opt_value as $opt_sub_name => $opt_sub_value ): ?>
-							<option value="<?php echo esc_attr( $opt_sub_name ); ?>" <?php selected( $value, $opt_sub_name ) ?>><?php echo esc_html( $opt_sub_value ); ?></option>
+							<option value="<?php echo esc_attr( $opt_sub_name ); ?>" <?php selected( $value, $opt_sub_name ); ?>><?php echo esc_html( $opt_sub_value ); ?></option>
 						<?php endforeach?>
 					</optgroup>
 				<?php else: ?>
-					<option value="<?php echo esc_attr( $opt_name ); ?>" <?php selected( $value, $opt_name ) ?>><?php echo esc_html( $opt_value ); ?></option>
+					<option value="<?php echo esc_attr( $opt_name ); ?>" <?php selected( $value, $opt_name ); ?>><?php echo esc_html( $opt_value ); ?></option>
 				<?php endif; ?>
 			<?php endforeach; ?>
 
@@ -162,21 +164,23 @@ class Select extends Field {
 
 
 	/**
-	 * @param $values
+	 * Render a multi-select box.
+	 *
+	 * @param array $values
 	 */
-	function render_multiple( $values ) {
+	protected function render_multiple( $values ) {
 ?>
 		<select name="<?php echo esc_attr( $this->get_full_name() ); ?>[]"
 		        data-name="<?php echo esc_attr( $this->get_name() ); ?>"
 		        class="<?php echo esc_attr( $this->get_classes() ); ?> wc-enhanced-select"
 		        multiple="multiple"
-		        placeholder="<?php echo esc_attr( $this->get_placeholder() ); ?>"
+		        data-placeholder="<?php echo esc_attr( $this->get_placeholder() ); ?>"
 			<?php $this->output_extra_attrs() ?>
 		>
 
 			<?php foreach( $this->get_options() as $opt_name => $opt_value ): ?>
 				<option value="<?php echo esc_attr( $opt_name ); ?>"
-					<?php echo ( in_array( $opt_name, $values ) ? 'selected="selected"' : '' ) ?>
+					<?php echo in_array( $opt_name, $values ) ? 'selected="selected"' : ''; ?>
 					><?php echo esc_html( $opt_value ); ?></option>
 			<?php endforeach; ?>
 

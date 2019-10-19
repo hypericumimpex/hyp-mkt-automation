@@ -42,7 +42,7 @@ class Action_Update_Product_Meta extends Action {
 			return;
 		}
 
-		$meta_key = $this->get_option( 'meta_key', true );
+		$meta_key   = trim( $this->get_option( 'meta_key', true ) );
 		$meta_value = $this->get_option( 'meta_value', true );
 
 		// Make sure there is a meta key but a value is not required

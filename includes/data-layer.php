@@ -350,11 +350,11 @@ class Data_Layer {
 
 		if ( $this->order_belongs_to_customer ) {
 			if ( $subscription = $this->get_subscription() ) {
-				$prop = Compat\Subscription::get_billing_first_name( $subscription );
+				$prop = $subscription->get_billing_first_name();
 			}
 
 			if ( ! $prop && $order = $this->get_order() ) {
-				$prop = Compat\Order::get_billing_first_name( $order );
+				$prop = $order->get_billing_first_name();
 			}
 		}
 
@@ -377,11 +377,11 @@ class Data_Layer {
 
 		if ( $this->order_belongs_to_customer ) {
 			if ( $subscription = $this->get_subscription() ) {
-				$prop = Compat\Subscription::get_billing_last_name( $subscription );
+				$prop = $subscription->get_billing_last_name();
 			}
 
 			if ( ! $prop && $order = $this->get_order() ) {
-				$prop = Compat\Order::get_billing_last_name( $order );
+				$prop = $order->get_billing_last_name();
 			}
 		}
 
@@ -416,11 +416,11 @@ class Data_Layer {
 
 		if ( $this->order_belongs_to_customer ) {
 			if ( $subscription = $this->get_subscription() ) {
-				$prop = Compat\Subscription::get_billing_phone( $subscription );
+				$prop = $subscription->get_billing_phone();
 			}
 
 			if ( ! $prop && $order = $this->get_order() ) {
-				$prop = Compat\Order::get_billing_phone( $order );
+				$prop = $order->get_billing_phone();
 			}
 		}
 
@@ -443,11 +443,11 @@ class Data_Layer {
 
 		if ( $this->order_belongs_to_customer ) {
 			if ( $subscription = $this->get_subscription() ) {
-				$prop = Compat\Subscription::get_billing_company( $subscription );
+				$prop = $subscription->get_billing_company();
 			}
 
 			if ( ! $prop && $order = $this->get_order() ) {
-				$prop = Compat\Order::get_billing_company( $order );
+				$prop = $order->get_billing_company();
 			}
 		}
 
@@ -470,11 +470,11 @@ class Data_Layer {
 
 		if ( $this->order_belongs_to_customer ) {
 			if ( $subscription = $this->get_subscription() ) {
-				$prop = Compat\Subscription::get_billing_country( $subscription );
+				$prop = $subscription->get_billing_country();
 			}
 
 			if ( ! $prop && $order = $this->get_order() ) {
-				$prop = Compat\Order::get_billing_country( $order );
+				$prop = $order->get_billing_country();
 			}
 		}
 
@@ -497,11 +497,11 @@ class Data_Layer {
 
 		if ( $this->order_belongs_to_customer ) {
 			if ( $subscription = $this->get_subscription() ) {
-				$prop = Compat\Subscription::get_billing_state( $subscription );
+				$prop = $subscription->get_billing_state();
 			}
 
 			if ( ! $prop && $order = $this->get_order() ) {
-				$prop = Compat\Order::get_billing_state( $order );
+				$prop = $order->get_billing_state();
 			}
 		}
 
@@ -524,11 +524,11 @@ class Data_Layer {
 
 		if ( $this->order_belongs_to_customer ) {
 			if ( $subscription = $this->get_subscription() ) {
-				$prop = Compat\Subscription::get_billing_city( $subscription );
+				$prop = $subscription->get_billing_city();
 			}
 
 			if ( ! $prop && $order = $this->get_order() ) {
-				$prop = Compat\Order::get_billing_city( $order );
+				$prop = $order->get_billing_city();
 			}
 		}
 
@@ -551,11 +551,11 @@ class Data_Layer {
 
 		if ( $this->order_belongs_to_customer ) {
 			if ( $subscription = $this->get_subscription() ) {
-				$prop = Compat\Subscription::get_billing_postcode( $subscription );
+				$prop = $subscription->get_billing_postcode();
 			}
 
 			if ( ! $prop && $order = $this->get_order() ) {
-				$prop = Compat\Order::get_billing_postcode( $order );
+				$prop = $order->get_billing_postcode();
 			}
 		}
 
@@ -578,11 +578,11 @@ class Data_Layer {
 
 		if ( $this->order_belongs_to_customer ) {
 			if ( $subscription = $this->get_subscription() ) {
-				$prop = Compat\Subscription::get_billing_address_1( $subscription );
+				$prop = $subscription->get_billing_address_1();
 			}
 
 			if ( ! $prop && $order = $this->get_order() ) {
-				$prop = Compat\Order::get_billing_address_1( $order );
+				$prop = $order->get_billing_address_1();
 			}
 		}
 
@@ -603,22 +603,26 @@ class Data_Layer {
 	function get_customer_address_2() {
 		$address_2 = '';
 		$address_1 = '';
+		$customer  = $this->get_customer();
 
 		// since address 2 is often blank, only fall back if both address fields are blank
-		
+
 		if ( $this->order_belongs_to_customer ) {
-			if ( $subscription = $this->get_subscription() ) {
-				$address_2 = Compat\Subscription::get_billing_address_2( $subscription );
-				$address_1 = Compat\Subscription::get_billing_address_1( $subscription );
+			$subscription = $this->get_subscription();
+			$order        = $this->get_order();
+
+			if ( $subscription ) {
+				$address_2 = $subscription->get_billing_address_2();
+				$address_1 = $subscription->get_billing_address_1();
 			}
 
-			if ( ! $address_2 && ! $address_1 && $order = $this->get_order() ) {
-				$address_2 = Compat\Order::get_billing_address_2( $order );
-				$address_1 = Compat\Order::get_billing_address_1( $order );
+			if ( ! $address_2 && ! $address_1 && $order ) {
+				$address_2 = $order->get_billing_address_2();
+				$address_1 = $order->get_billing_address_1();
 			}
 		}
 
-		if ( ! $address_2 && ! $address_1 && $customer = $this->get_customer() ) {
+		if ( ! $address_2 && ! $address_1 && $customer ) {
 			$address_2 = $customer->get_billing_address_2();
 		}
 
@@ -648,6 +652,28 @@ class Data_Layer {
 		$args['country'] = $this->get_customer_country();
 
 		return $args;
+	}
+
+
+	/**
+	 * Is the data layer missing data?
+	 *
+	 * Data can be missing if it has been deleted e.g. if an order has been trashed.
+	 *
+	 * @since 4.6
+	 *
+	 * @return bool
+	 */
+	public function is_missing_data() {
+		$is_missing = false;
+
+		foreach ( $this->get_raw_data() as $data_item ) {
+			if ( ! $data_item ) {
+				$is_missing = true;
+			}
+		}
+
+		return $is_missing;
 	}
 
 }

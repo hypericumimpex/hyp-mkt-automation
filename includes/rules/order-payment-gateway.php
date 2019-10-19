@@ -3,17 +3,19 @@
 
 namespace AutomateWoo;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Rule_Order_Payment_Gateway
  */
-class Rule_Order_Payment_Gateway extends Rules\Abstract_Select {
+class Rule_Order_Payment_Gateway extends Rules\Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'order';
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( 'Order - Payment Gateway', 'automatewoo' );
 	}
 
@@ -41,9 +43,7 @@ class Rule_Order_Payment_Gateway extends Rules\Abstract_Select {
 	 * @return bool
 	 */
 	function validate( $order, $compare, $value ) {
-		return $this->validate_select( Compat\Order::get_payment_method( $order ), $compare, $value );
+		return $this->validate_select( $order->get_payment_method(), $compare, $value );
 	}
 
 }
-
-return new Rule_Order_Payment_Gateway();

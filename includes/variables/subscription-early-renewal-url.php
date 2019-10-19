@@ -16,7 +16,7 @@ class Variable_Subscription_Early_Renewal_Url extends Variable {
 	/**
 	 * Load admin description.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		$this->description = __( 'Displays the early renewal URL for the subscription.', 'automatewoo' );
 	}
 
@@ -28,7 +28,7 @@ class Variable_Subscription_Early_Renewal_Url extends Variable {
 	 *
 	 * @return string
 	 */
-	function get_value( $subscription, $parameters ) {
+	public function get_value( $subscription, $parameters ) {
 
 		$user_id = $subscription->get_user_id();
 

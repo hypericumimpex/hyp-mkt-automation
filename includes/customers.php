@@ -176,7 +176,7 @@ class Customers {
 			'type' => 'shop_order',
 			'limit' => $limit,
 			'offset' => $offset,
-			'status' => [ 'completed', 'processing' ],
+			'status' => wc_get_is_paid_statuses(),
 			'customer_id' => 0,
 			'return' => 'ids'
 		]);
@@ -202,7 +202,7 @@ class Customers {
 	 */
 	static function maybe_update_customer_last_order_date( $order_id, $old_status, $new_status ) {
 
-		if ( ! in_array( $new_status, apply_filters( 'automatewoo/customer/last_order_date_statuses', Compat\Order::get_paid_statuses() ) ) ) {
+		if ( ! in_array( $new_status, apply_filters( 'automatewoo/customer/last_order_date_statuses', wc_get_is_paid_statuses() ) ) ) {
 			return;
 		}
 

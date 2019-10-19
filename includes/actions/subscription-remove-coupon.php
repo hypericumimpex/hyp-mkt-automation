@@ -18,7 +18,7 @@ class Action_Subscription_Remove_Coupon extends Action_Subscription_Edit_Coupon_
 	/**
 	 * Explain to store admin what this action does via a unique title and description.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		parent::load_admin_details();
 		$this->title       = __( 'Remove Coupon', 'automatewoo' );
 		$this->description = __( 'Remove a coupon line item or items from a subscription, if any line items match the chosen coupon code. This is useful for bulk editing subscriptions, or to change the coupons provided to a subscriber at different stages of their subscription\'s lifecycle. Please note: all line items that match the chosen coupon code will be removed.', 'automatewoo' );

@@ -18,7 +18,7 @@ class Subscription_Workflow_Helper {
 	 *
 	 * @return string
 	 */
-	static function get_group_name() {
+	public static function get_group_name() {
 		return __( 'Subscriptions', 'automatewoo' );
 	}
 
@@ -27,13 +27,13 @@ class Subscription_Workflow_Helper {
 	 *
 	 * @return Fields\Product
 	 */
-	static function get_products_field() {
+	public static function get_products_field() {
 		$field = new Fields\Product();
 		$field->set_name( 'subscription_products' );
 		$field->set_title( __( 'Subscription products', 'automatewoo' ) );
 		$field->set_description( __( 'Select products here to make this workflow only run on subscriptions with matching products. Leave blank to run for all products.', 'automatewoo' ) );
-		$field->multiple         = true;
-		$field->allow_variations = true;
+		$field->set_multiple( true );
+		$field->set_allow_variations( true );
 
 		return $field;
 	}
@@ -43,7 +43,7 @@ class Subscription_Workflow_Helper {
 	 *
 	 * @return Fields\Checkbox
 	 */
-	static function get_active_subscriptions_only_field() {
+	public static function get_active_subscriptions_only_field() {
 		$field = new Fields\Checkbox();
 		$field->set_name( 'active_only' );
 		$field->set_title( __( 'Active subscriptions only', 'automatewoo' ) );
@@ -60,7 +60,7 @@ class Subscription_Workflow_Helper {
 	 *
 	 * @return bool
 	 */
-	static function validate_products_field( $workflow ) {
+	public static function validate_products_field( $workflow ) {
 		$subscription          = $workflow->data_layer()->get_subscription();
 		$subscription_products = $workflow->get_trigger_option( 'subscription_products' );
 
@@ -87,7 +87,7 @@ class Subscription_Workflow_Helper {
 	 *
 	 * @return bool
 	 */
-	static function validate_active_subscriptions_only_field( $workflow ) {
+	public static function validate_active_subscriptions_only_field( $workflow ) {
 		$subscription = $workflow->data_layer()->get_subscription();
 
 		if ( $workflow->get_trigger_option( 'active_only' ) ) {
@@ -105,17 +105,19 @@ class Subscription_Workflow_Helper {
 	 * @param Trigger              $trigger
 	 * @param int|\WC_Subscription $subscription
 	 */
-	static function trigger_for_subscription( $trigger, $subscription ) {
+	public static function trigger_for_subscription( $trigger, $subscription ) {
 		$subscription = wcs_get_subscription( $subscription );
 
 		if ( ! $subscription ) {
 			return;
 		}
 
-		$trigger->maybe_run( [
-			'subscription' => $subscription,
-			'customer'     => Customer_Factory::get_by_user_id( $subscription->get_user_id() ),
-		] );
+		$trigger->maybe_run(
+			[
+				'subscription' => $subscription,
+				'customer'     => Customer_Factory::get_by_user_id( $subscription->get_user_id() ),
+			]
+		);
 	}
 
 	/**
@@ -124,7 +126,7 @@ class Subscription_Workflow_Helper {
 	 * @param Trigger              $trigger
 	 * @param int|\WC_Subscription $subscription
 	 */
-	static function trigger_for_each_subscription_line_item( $trigger, $subscription ) {
+	public static function trigger_for_each_subscription_line_item( $trigger, $subscription ) {
 		$subscription = wcs_get_subscription( $subscription );
 
 		if ( ! $subscription ) {
@@ -134,11 +136,13 @@ class Subscription_Workflow_Helper {
 		$customer = Customer_Factory::get_by_user_id( $subscription->get_user_id() );
 
 		foreach ( $subscription->get_items() as $order_item_id => $order_item ) {
-			$trigger->maybe_run( [
-				'subscription' => $subscription,
-				'customer'     => $customer,
-				'product'      => $order_item->get_product(),
-			] );
+			$trigger->maybe_run(
+				[
+					'subscription' => $subscription,
+					'customer'     => $customer,
+					'product'      => $order_item->get_product(),
+				]
+			);
 		}
 	}
 
@@ -151,7 +155,7 @@ class Subscription_Workflow_Helper {
 	 *
 	 * @return array
 	 */
-	static function get_subscription_statuses() {
+	public static function get_subscription_statuses() {
 		$statuses = wcs_get_subscription_statuses();
 		unset( $statuses['wc-switched'] );
 		return $statuses;

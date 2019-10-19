@@ -1,27 +1,22 @@
 <?php
-// phpcs:ignoreFile
 
 namespace AutomateWoo\Fields;
 
-use AutomateWoo\Clean;
-
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
- * @class Product
+ * Searchable product field class.
+ *
+ * @package AutomateWoo\Fields
  */
-class Product extends Field {
-
-	protected $name = 'product';
-
-	protected $type = 'product';
+class Product extends Searchable_Select_Abstract {
 
 	/**
-	 * Allow multiple product selections.
+	 * The default name for this field.
 	 *
-	 * @var bool
+	 * @var string
 	 */
-	public $multiple = false;
+	protected $name = 'product';
 
 	/**
 	 * Allow product variations to be possible selections.
@@ -37,74 +32,75 @@ class Product extends Field {
 	 */
 	public $allow_variable = true;
 
-
-	function __construct() {
+	/**
+	 * Product constructor.
+	 */
+	public function __construct() {
 		parent::__construct();
 		$this->set_title( __( 'Product', 'automatewoo' ) );
-		$this->classes[] = 'wc-product-search';
 	}
 
-
 	/**
-	 * @param int $value
+	 * Get the ajax action to use for the search.
+	 *
+	 * @return string
 	 */
-	function render( $value ) {
-
+	protected function get_search_ajax_action() {
 		if ( $this->allow_variable && $this->allow_variations ) {
-			$ajax_action = 'woocommerce_json_search_products_and_variations';
+			return 'woocommerce_json_search_products_and_variations';
 		} elseif ( false === $this->allow_variable && true === $this->allow_variations ) {
-			$ajax_action = 'aw_json_search_products_and_variations_not_variable';
+			return 'aw_json_search_products_and_variations_not_variable';
 		} elseif ( false === $this->allow_variable && false === $this->allow_variations ) {
-			$ajax_action = 'aw_json_search_products_not_variations_not_variable';
+			return 'aw_json_search_products_not_variations_not_variable';
 		} else {
 			// allows variable but not variations
-			$ajax_action = 'woocommerce_json_search_products';
+			return 'woocommerce_json_search_products';
 		}
-
-		$selected_products = [];
-
-		if ( $value ) {
-			$selected_products = array_filter( array_map( 'wc_get_product', (array) $value ) );
-		}
-
-		?>
-
-		<select class="<?php echo esc_attr( $this->get_classes() ) ?>"
-				<?php echo $this->multiple ? 'multiple="multiple"' : '' ?>
-			    name="<?php echo esc_attr( $this->get_full_name() ); ?><?php echo $this->multiple ? '[]' : '' ?>"
-			    data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'automatewoo' ); ?>"
-			    data-action="<?php echo esc_attr( $ajax_action ); ?>">
-			<?php
-			foreach ( $selected_products as $product ) {
-				echo '<option value="' . esc_attr( $product->get_id() ) . '"' . selected( true, true, false ) . '>' . wp_kses_post( $product->get_formatted_name() ) . '</option>';
-			}
-			?>
-		</select>
-
-		<script type="text/javascript">
-			jQuery( 'body' ).trigger( 'wc-enhanced-select-init' );
-		</script>
-
-	<?php
 	}
 
+	/**
+	 * Get the displayed value of a selected option.
+	 *
+	 * @param string $value
+	 *
+	 * @return string
+	 */
+	protected function get_select_option_display_value( $value ) {
+		$product = wc_get_product( $value );
+
+		if ( $product ) {
+			return $product->get_formatted_name();
+		}
+
+		return __( '(Product not found)', 'automatewoo' );
+	}
 
 	/**
-	 * Sanitizes the value of the field.
+	 * Set allow_variations property.
 	 *
-	 * @since 4.4.0
+	 * @since 4.6.0
 	 *
-	 * @param array|string $value
+	 * @param bool $allow
 	 *
-	 * @return array|string
+	 * @return $this
 	 */
-	function sanitize_value( $value ) {
-		if ( $this->multiple ) {
-			return Clean::ids( $value );
-		}
-		else {
-			return Clean::id( $value );
-		}
+	public function set_allow_variations( $allow ) {
+		$this->allow_variations = $allow;
+		return $this;
+	}
+
+	/**
+	 * Set allow_variable property.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param bool $allow
+	 *
+	 * @return $this
+	 */
+	public function set_allow_variable( $allow ) {
+		$this->allow_variable = $allow;
+		return $this;
 	}
 
 }

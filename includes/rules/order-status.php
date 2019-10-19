@@ -3,17 +3,19 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Order_Status
  */
-class Order_Status extends Abstract_Select {
+class Order_Status extends Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'order';
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( 'Order - Status', 'automatewoo' );
 	}
 
@@ -36,7 +38,4 @@ class Order_Status extends Abstract_Select {
 		return $this->validate_select( 'wc-' . $order->get_status(), $compare, $value );
 	}
 
-
 }
-
-return new Order_Status();

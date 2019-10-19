@@ -15,7 +15,7 @@ class Order_Paid {
 	/**
 	 * Init Order Paid event helper.
 	 */
-	static function init() {
+	public static function init() {
 		add_action( 'automatewoo/order/status_changed_async', [ __CLASS__, 'handle_async_order_status_changed' ], 10, 3 );
 	}
 
@@ -28,7 +28,7 @@ class Order_Paid {
 	 * @param string $old_status
 	 * @param string $new_status
 	 */
-	static function handle_async_order_status_changed( $order_id, $old_status, $new_status ) {
+	public static function handle_async_order_status_changed( $order_id, $old_status, $new_status ) {
 		if ( in_array( $old_status, wc_get_is_paid_statuses(), true ) ) {
 			return;
 		}

@@ -15,16 +15,22 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
     <h1><?php echo esc_attr( $controller->get_heading() ) ?></h1>
 
-    <?php if ( aw_request( 'core_activated' ) ) Admin::get_view('welcome-notice' ); ?>
-
 	<?php $controller->output_messages(); ?>
 
     <div class="automatewoo-content">
 
-        <p><?php printf(
-				  __( 'In order to use AutomateWoo you must enter a license key and activate this domain. If you do not have a license key please see <a href="%s" target="_blank">details & pricing</a>. If your license has expired you may still use it to activate this domain but you will not be able to receive updates.', 'automatewoo' ),
-				  Admin::get_website_link('', 'license-page' )
-			  ); ?></p>
+		<?php
+		if ( Licenses::has_marketplace_subscription( 'automatewoo' ) ) {
+			Marketplace_License_Transition_Helper::output_marketplace_license_prompt_notice( false );
+		} else {
+			Marketplace_License_Transition_Helper::output_legacy_license_warning_notice();
+		}
+		?>
+
+		<p><?php wp_kses_post( printf(
+				  __( 'In order to receive plugin updates for AutomateWoo extensions you must enter a license key. If you do not have a license key please see <a href="%s" target="_blank">details & pricing</a>.', 'automatewoo' ),
+				  Admin::get_marketplace_product_link()
+			  ) ); ?></p>
 
 
 		 <?php if ( is_wp_error( $dev_check ) ): ?>

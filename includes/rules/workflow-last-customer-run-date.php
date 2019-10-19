@@ -2,7 +2,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Workflow last customer run date rule.
@@ -30,7 +30,7 @@ class Workflow_Last_Customer_Run_Date extends Abstract_Date {
 	/**
 	 * Init.
 	 */
-	function init() {
+	public function init() {
 		$this->title = __( 'Workflow - Last Run Date For Customer', 'automatewoo' );
 	}
 
@@ -43,7 +43,7 @@ class Workflow_Last_Customer_Run_Date extends Abstract_Date {
 	 *
 	 * @return bool
 	 */
-	function validate( $customer, $compare, $value = null ) {
+	public function validate( $customer, $compare, $value = null ) {
 		$workflow = $this->get_workflow();
 
 		if ( ! $workflow ) {
@@ -54,5 +54,3 @@ class Workflow_Last_Customer_Run_Date extends Abstract_Date {
 	}
 
 }
-
-return new Workflow_Last_Customer_Run_Date();

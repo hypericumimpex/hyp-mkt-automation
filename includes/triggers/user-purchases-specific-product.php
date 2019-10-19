@@ -30,7 +30,7 @@ class Trigger_User_Purchases_Specific_Product extends Trigger_Abstract_Order_Sta
 	function load_fields() {
 
 		$product = new Fields\Product();
-		$product->allow_variations = true;
+		$product->set_allow_variations( true );
 		$product->set_description( __( 'Only trigger when a certain product is purchased.', 'automatewoo'  ) );
 		$product->set_required();
 

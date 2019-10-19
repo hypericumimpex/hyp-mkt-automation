@@ -5,7 +5,7 @@ namespace AutomateWoo\Rules;
 
 use AutomateWoo\Compat;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Order_Customer_Provided_Note
@@ -31,5 +31,3 @@ class Order_Customer_Provided_Note extends Abstract_String {
 	}
 
 }
-
-return new Order_Customer_Provided_Note();

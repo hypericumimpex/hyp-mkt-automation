@@ -21,10 +21,11 @@ class Variable_Abstract_Datetime extends Variable {
 	/**
 	 * Load admin details.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		$this->_desc_format_tip = sprintf(
-			__( 'To set a custom date or time format please refer to the %sWordPress documentation%s.', 'automatewoo' ),
-			'<a href="https://codex.wordpress.org/Formatting_Date_and_Time" target="_blank">', '</a>'
+			__( 'To set a custom date or time format please refer to the %1$sWordPress documentation%2$s.', 'automatewoo' ),
+			'<a href="https://codex.wordpress.org/Formatting_Date_and_Time" target="_blank">',
+			'</a>'
 		);
 
 		$date_format_options = $this->get_date_format_options();
@@ -33,9 +34,12 @@ class Variable_Abstract_Datetime extends Variable {
 			$format_value = $this->get_date_format_option_displayed_value( $format_name, $format_value );
 		}
 
-		$this->add_parameter_select_field( 'format',
+		$this->add_parameter_select_field(
+			'format',
 			__( 'Choose the format that the date will be displayed in. The default is MySQL datetime format.', 'automatewoo' ),
-			$date_format_options, true );
+			$date_format_options,
+			true
+		);
 
 		$this->add_parameter_text_field(
 			'custom-format',
@@ -45,8 +49,10 @@ class Variable_Abstract_Datetime extends Variable {
 			[ 'show' => 'format=custom' ]
 		);
 
-		$this->add_parameter_text_field( 'modify',
-			__( 'Optional parameter to modify the value of the datetime. Uses the PHP strtotime() function.', 'automatewoo' ), false,
+		$this->add_parameter_text_field(
+			'modify',
+			__( 'Optional parameter to modify the value of the datetime. Uses the PHP strtotime() function.', 'automatewoo' ),
+			false,
 			__( 'e.g. +2 months, -1 day, +6 hours', 'automatewoo' )
 		);
 	}
@@ -82,15 +88,19 @@ class Variable_Abstract_Datetime extends Variable {
 	 * @return array
 	 */
 	protected function get_date_format_options() {
-		$options = apply_filters( 'automatewoo/variables/date_format_options', [
-			'mysql'  => __( 'MySQL datetime - %2$s', 'automatewoo' ),
-			'site'   => __( 'Site setting - %2$s', 'automatewoo' ),
-			'Y-m-d'  => false,
-			'm/d/Y'  => false,
-			'd/m/Y'  => false,
-			'U'      => __( 'Unix timestamp - %2$s', 'automatewoo' ),
-			'custom' => _x( 'Custom', 'custom date format option', 'automatewoo' ),
-		], $this );
+		$options = apply_filters(
+			'automatewoo/variables/date_format_options',
+			[
+				'mysql'  => __( 'MySQL datetime - %2$s', 'automatewoo' ),
+				'site'   => __( 'Site setting - %2$s', 'automatewoo' ),
+				'Y-m-d'  => false,
+				'm/d/Y'  => false,
+				'd/m/Y'  => false,
+				'U'      => __( 'Unix timestamp - %2$s', 'automatewoo' ),
+				'custom' => _x( 'Custom', 'custom date format option', 'automatewoo' ),
+			],
+			$this
+		);
 
 		return $options;
 	}
@@ -127,7 +137,7 @@ class Variable_Abstract_Datetime extends Variable {
 	 *
 	 * @return string|false
 	 */
-	function format_datetime( $input, $parameters, $is_gmt = false ) {
+	public function format_datetime( $input, $parameters, $is_gmt = false ) {
 		if ( ! $input ) {
 			return false;
 		}

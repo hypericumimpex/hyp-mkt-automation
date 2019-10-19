@@ -3,7 +3,7 @@
 
 namespace AutomateWoo;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Class Logger
@@ -38,14 +38,10 @@ class Logger {
 	 */
 	protected static function log( $level, $handle, $message ) {
 		$handle = self::$handle_prefix . $handle;
-		if ( version_compare( WC()->version, '3.0', '<' ) ) {
-			self::get_wc_logger()->add( $handle, $message );
-		}
-		else {
-			self::get_wc_logger()->log( $level, $message, [
-				'source' => $handle
-			]);
-		}
+
+		self::get_wc_logger()->log( $level, $message, [
+			'source' => $handle
+		]);
 	}
 
 

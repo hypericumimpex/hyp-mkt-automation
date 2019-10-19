@@ -20,8 +20,8 @@ class AW_Reports_Tab_Email_Tracking extends AW_Admin_Reports_Tab_Abstract {
 	 * @return object
 	 */
 	function get_report_class() {
-		include_once AW()->admin_path( '/reports/abstract-graph.php' );
-		include_once AW()->admin_path( '/reports/email-tracking.php' );
+		require_once AW()->admin_path( '/reports/abstract-graph.php' );
+		require_once AW()->admin_path( '/reports/email-tracking.php' );
 
 		return new AutomateWoo\Report_Email_Tracking();
 	}

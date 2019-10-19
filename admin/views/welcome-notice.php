@@ -9,7 +9,7 @@ $utm_source = 'welcome-notice';
 
 ?>
 
-<div class="notice automatewoo-welcome-notice">
+<div class="notice automatewoo-welcome-notice is-dismissible" data-automatewoo-dismissible-notice="welcome">
 	<h3 class="automatewoo-welcome-notice__heading"><?php _e( 'Welcome to AutomateWoo!', 'automatewoo' ) ?></h3>
 	<div class="automatewoo-welcome-notice__text">
 		<p><?php printf(

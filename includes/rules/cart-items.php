@@ -3,60 +3,38 @@
 
 namespace AutomateWoo\Rules;
 
-use AutomateWoo\Compat;
-
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Cart_Items
  */
-class Cart_Items extends Abstract_Object {
+class Cart_Items extends Product_Select_Rule_Abstract {
 
 	public $data_item = 'cart';
 
-	public $is_multi = false;
-
-	public $ajax_action = 'woocommerce_json_search_products_and_variations';
-
-	public $class = 'wc-product-search';
-
 
 	function init() {
-
 		$this->title = __( 'Cart - Items', 'automatewoo' );
-		$this->placeholder = __( 'Search products...', 'automatewoo' );
-
-		$this->compare_types = [
-			'includes' => __( 'includes', 'automatewoo' ),
-			'not_includes' => __( 'does not include', 'automatewoo' )
-		];
+		parent::init();
 	}
 
 
 	/**
-	 * @param $value
-	 * @return string
-	 */
-	function get_object_display_value( $value ) {
-		if ( $product = wc_get_product( absint( $value ) ) ) {
-			return $product->get_formatted_name();
-		}
-	}
-
-
-	/**
-	 * @param $cart \AutomateWoo\Cart
+	 * @param \AutomateWoo\Cart $cart
 	 * @param $compare
 	 * @param $value
 	 * @return bool
 	 */
 	function validate( $cart, $compare, $value ) {
+		$product = wc_get_product( absint( $value ) );
 
-		if ( ! $product = wc_get_product( absint( $value ) ) )
+		if ( ! $product ) {
 			return false;
+		}
 
-		$target_product_id = Compat\Product::get_id( $product );
-		$is_variation = Compat\Product::is_variation( $product );
+		$target_product_id = $product->get_id();
+		$is_variation = $product->is_type( 'variation' );
+
 		$includes = false;
 
 		foreach ( $cart->get_items() as $item ) {
@@ -70,14 +48,8 @@ class Cart_Items extends Abstract_Object {
 		switch ( $compare ) {
 			case 'includes':
 				return $includes;
-				break;
-
 			case 'not_includes':
 				return ! $includes;
-				break;
 		}
-
 	}
 }
-
-return new Cart_Items();

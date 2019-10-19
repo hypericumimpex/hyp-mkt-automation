@@ -26,7 +26,7 @@ abstract class Action_Points_Rewards_Edit_Points_Abstract extends Action {
 	/**
 	 * Load admin description.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		$this->group       = __( 'Customer', 'automatewoo' );
 		$this->description = __( 'Please note that points are not supported on guest customers. Uses the WooCommerce Points and Rewards plugin.', 'automatewoo' );
 	}
@@ -34,7 +34,7 @@ abstract class Action_Points_Rewards_Edit_Points_Abstract extends Action {
 	/**
 	 * Load fields for points.
 	 */
-	function load_fields() {
+	public function load_fields() {
 
 		$points_input = new Fields\Number();
 
@@ -60,7 +60,7 @@ abstract class Action_Points_Rewards_Edit_Points_Abstract extends Action {
 	 *
 	 * @param string $action
 	 */
-	function modify_points( $action ) {
+	public function modify_points( $action ) {
 
 		$event_type = 'automatewoo-adjustment';
 		$customer   = $this->workflow->data_layer()->get_customer();

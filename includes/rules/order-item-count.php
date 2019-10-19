@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Order_Item_Count
@@ -32,5 +32,3 @@ class Order_Item_Count extends Abstract_Number {
 
 
 }
-
-return new Order_Item_Count();

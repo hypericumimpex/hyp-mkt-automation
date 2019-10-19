@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_Meta
@@ -32,10 +32,8 @@ class Customer_Meta extends Abstract_Meta {
 			return false;
 		}
 
-		return $this->validate_meta( $customer->get_meta( $value_data['key'] ), $compare, $value_data['value'] );
+		return $this->validate_meta( $customer->get_legacy_meta( $value_data['key'] ), $compare, $value_data['value'] );
 
 	}
 
 }
-
-return new Customer_Meta();

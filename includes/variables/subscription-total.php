@@ -14,7 +14,7 @@ class Variable_Subscription_Total extends Variable_Abstract_Price {
 	/**
 	 * Load Admin Details.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		parent::load_admin_details();
 		$this->description = __( "Displays the subscription's recurring total.", 'automatewoo' );
 	}
@@ -27,7 +27,7 @@ class Variable_Subscription_Total extends Variable_Abstract_Price {
 	 *
 	 * @return string
 	 */
-	function get_value( $subscription, $parameters ) {
+	public function get_value( $subscription, $parameters ) {
 		return parent::format_amount( $subscription->get_total(), $parameters, $subscription->get_currency() );
 	}
 }

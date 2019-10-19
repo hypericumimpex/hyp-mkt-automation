@@ -3,12 +3,12 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_Order_Statuses
  */
-class Customer_Order_Statuses extends Abstract_Select {
+class Customer_Order_Statuses extends Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'customer';
 
@@ -16,6 +16,8 @@ class Customer_Order_Statuses extends Abstract_Select {
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( "Customer - Current Order Statuses", 'automatewoo' );
 		unset( $this->compare_types[ 'matches_all' ] );
 	}
@@ -53,5 +55,3 @@ class Customer_Order_Statuses extends Abstract_Select {
 	}
 
 }
-
-return new Customer_Order_Statuses();

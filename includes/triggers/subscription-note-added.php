@@ -21,7 +21,7 @@ class Trigger_Subscription_Note_Added extends Trigger_Order_Note_Added {
 	/**
 	 * Load trigger admin props.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		$this->title       = __( 'Subscription Note Added', 'automatewoo' );
 		$this->description = __( 'Fires when a note is added to a subscription. This includes private notes and notes to the customer. These notes appear on the right of the subscription edit screen.', 'automatewoo' );
 		$this->group       = Subscription_Workflow_Helper::get_group_name();
@@ -34,7 +34,7 @@ class Trigger_Subscription_Note_Added extends Trigger_Order_Note_Added {
 	 * @param int         $comment_id
 	 * @param \WP_Comment $comment
 	 */
-	function catch_comment_create( $comment_id, $comment ) {
+	public function catch_comment_create( $comment_id, $comment ) {
 
 		if ( $comment->comment_type !== 'order_note' || get_post_type( $comment->comment_post_ID ) !== 'shop_subscription' ) {
 			return;
@@ -51,11 +51,13 @@ class Trigger_Subscription_Note_Added extends Trigger_Order_Note_Added {
 		// must manually set prop because meta field is added after the comment is inserted
 		$order_note->is_customer_note = $this->_is_customer_note;
 
-		$this->maybe_run( [
-			'customer'     => Customer_Factory::get_by_user_id( $subscription->get_user_id() ),
-			'subscription' => $subscription,
-			'order_note'   => $order_note,
-		] );
+		$this->maybe_run(
+			[
+				'customer'     => Customer_Factory::get_by_user_id( $subscription->get_user_id() ),
+				'subscription' => $subscription,
+				'order_note'   => $order_note,
+			]
+		);
 	}
 
 }

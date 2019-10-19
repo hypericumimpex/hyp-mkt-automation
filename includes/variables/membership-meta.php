@@ -15,7 +15,7 @@ class Variable_Membership_Meta extends Variable_Abstract_Meta {
 	/**
 	 * Load admin details.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		parent::load_admin_details();
 		$this->description = __( "Displays a memberships's custom field.", 'automatewoo' );
 	}
@@ -26,13 +26,13 @@ class Variable_Membership_Meta extends Variable_Abstract_Meta {
 	 * @param \WC_Memberships_User_Membership $membership The membership object.
 	 * @param array                           $parameters The variable's parameters.
 	 *
-	 * @return string|bool
+	 * @return string
 	 */
-	function get_value( $membership, $parameters ) {
+	public function get_value( $membership, $parameters ) {
 		if ( $parameters['key'] ) {
-			return get_post_meta( $membership->get_id(), $parameters['key'], true );
+			return (string) get_post_meta( $membership->get_id(), $parameters['key'], true );
 		}
-		return false;
+		return '';
 	}
 }
 

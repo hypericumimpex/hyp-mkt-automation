@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_State_Text_Match
@@ -32,5 +32,3 @@ class Customer_State_Text_Match extends Abstract_String {
 	}
 
 }
-
-return new Customer_State_Text_Match();

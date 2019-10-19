@@ -34,11 +34,19 @@ class Data_Type_Order extends Data_Type {
 	 * @return mixed
 	 */
 	function decompress( $compressed_item, $compressed_data_layer ) {
-		if ( ! $compressed_item ) {
+		$id = Clean::id( $compressed_item );
+
+		if ( ! $id ) {
 			return false;
 		}
 
-		return wc_get_order( $compressed_item );
+		$order = wc_get_order( $id );
+
+		if ( ! $order || $order->get_status() === 'trash' ) {
+			return false;
+		}
+
+		return $order;
 	}
 
 }

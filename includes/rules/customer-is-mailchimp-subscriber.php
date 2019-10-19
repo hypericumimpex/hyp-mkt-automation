@@ -5,7 +5,7 @@ namespace AutomateWoo\Rules;
 
 use AutomateWoo\Integrations;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_Is_MailChimp_Subscriber
@@ -40,5 +40,3 @@ class Customer_Is_MailChimp_Subscriber extends Abstract_Select_Single {
 	}
 
 }
-
-return new Customer_Is_MailChimp_Subscriber();

@@ -3,7 +3,7 @@
 
 namespace AutomateWoo;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 
 /**
@@ -23,6 +23,7 @@ class Workflow_Background_Process_Helper {
 	 */
 	static function init_process( $workflow_id, $offset = 0 ) {
 		$workflow = Workflow_Factory::get( $workflow_id );
+		$offset = absint( $offset );
 
 		if ( ! $workflow || ! $workflow->is_active() ) {
 			return;
@@ -44,12 +45,16 @@ class Workflow_Background_Process_Helper {
 			$process->push_to_queue( $task );
 		}
 
+		self::log_process_activity( $workflow, count( $tasks ), $offset );
+
 		// If the workflow has tasks, schedule another batch
 		if ( ! empty( $tasks ) ) {
 			self::schedule_next_batch( $workflow_id, $offset + $limit );
 		}
 
-		add_action( 'shutdown', [ __CLASS__, 'start_workflow_background_process' ] );
+		if ( $tasks ) {
+			add_action( 'shutdown', [ __CLASS__, 'start_workflow_background_process' ] );
+		}
 	}
 
 
@@ -93,6 +98,35 @@ class Workflow_Background_Process_Helper {
 	 */
 	private static function get_background_process_batch_size( $workflow ) {
 		return apply_filters( 'automatewoo/workflows/background_process_batch_size', 50, $workflow );
+	}
+
+	/**
+	 * Log the background trigger activity.
+	 *
+	 * @since 4.6
+	 *
+	 * @param Workflow $workflow
+	 * @param int $task_count
+	 * @param int $offset
+	 */
+	private static function log_process_activity( $workflow, $task_count, $offset ) {
+		// If no offset then the process is starting
+		if ( $offset === 0 ) {
+			if ( $task_count ) {
+				Logger::info( 'background-trigger', sprintf( 'Workflow #%d - Started - %d items added to processor', $workflow->get_id(), $task_count ) );
+			}
+			else {
+				Logger::info( 'background-trigger', sprintf( 'Workflow #%d - Started - No items need processing', $workflow->get_id() ) );
+			}
+		}
+		else {
+			if ( $task_count ) {
+				Logger::info( 'background-trigger', sprintf( 'Workflow #%d - Continued - %d items added to processor - Offset is %d', $workflow->get_id(), $task_count, $offset ) );
+			}
+			else {
+				Logger::info( 'background-trigger', sprintf( 'Workflow #%d - Finished - No items remaining - Offset is %d', $workflow->get_id(), $offset ) );
+			}
+		}
 	}
 
 

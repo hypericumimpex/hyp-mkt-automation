@@ -38,13 +38,4 @@ class Trigger_Customer_New_Account extends Trigger {
 		]);
 	}
 
-
-	/**
-	 * @param $workflow Workflow
-	 * @return bool
-	 */
-	function validate_workflow( $workflow ) {
-		return true;
-	}
-
 }

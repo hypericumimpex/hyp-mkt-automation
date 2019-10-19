@@ -23,7 +23,7 @@ abstract class Trigger_Background_Processed_Abstract extends Trigger {
 	 * @param \AutomateWoo\Workflow $workflow
 	 * @param array                 $data
 	 */
-	abstract function handle_background_task( $workflow, $data );
+	abstract public function handle_background_task( $workflow, $data );
 
 	/**
 	 * Should return an array of tasks to be background processed.
@@ -34,12 +34,12 @@ abstract class Trigger_Background_Processed_Abstract extends Trigger {
 	 *
 	 * @return array
 	 */
-	abstract function get_background_tasks( $workflow, $limit, $offset = 0 );
+	abstract public function get_background_tasks( $workflow, $limit, $offset = 0 );
 
 	/**
 	 * Register hooks.
 	 */
-	function register_hooks() {
+	public function register_hooks() {
 		// This action only needs to be added once for all custom time of day triggers
 		if ( ! has_action( 'automatewoo/custom_time_of_day_workflow', [ 'AutomateWoo\Workflow_Background_Process_Helper', 'init_process' ] ) ) {
 			add_action( 'automatewoo/custom_time_of_day_workflow', [ 'AutomateWoo\Workflow_Background_Process_Helper', 'init_process' ], 10, 2 );

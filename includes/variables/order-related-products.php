@@ -33,23 +33,20 @@ class Variable_Order_Related_Products extends Variable_Abstract_Product_Display 
 		$template = isset( $parameters['template'] ) ? $parameters['template'] : false;
 		$limit = isset( $parameters['limit'] ) ? absint( $parameters['limit'] ) : 8;
 
+		/** @var \WC_Order_Item_Product[] $items */
 		$items = $order->get_items();
 
 		foreach ( $items as $item ) {
-
-			$product = Compat\Order::get_product_from_item( $order, $item );
-
-			if ( $product ) {
-				$parent_product_id = Compat\Product::is_variation( $product ) ? Compat\Product::get_parent_id( $product ) : Compat\Product::get_id( $product );
-				$in_order[] = $parent_product_id;
-				$related = array_merge( Compat\Product::get_related( $parent_product_id ), $related );
-			}
+			// Product variations are not considered when getting related products.
+			$in_order[] = $item->get_product_id();
+			$related = array_merge( wc_get_related_products( $item->get_product_id(), $limit ), $related );
 		}
 
 		$related = array_diff( $related, $in_order );
 
-		if ( empty( $related ) )
+		if ( empty( $related ) ) {
 			return false;
+		}
 
 		$products = $this->prepare_products( $related, 'date', 'DESC', $limit );
 

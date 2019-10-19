@@ -1,44 +1,48 @@
 <?php
-// phpcs:ignoreFile
 
-defined( 'ABSPATH' ) or exit;
+namespace AutomateWoo\Rules;
+
+use AutomateWoo;
+
+defined( 'ABSPATH' ) || exit;
 
 /**
- * @class AW_Rule_Subscription_Payment_Method
+ * Class Subscription_Payment_Method
+ *
+ * @package AutomateWoo\Rules
  */
-class AW_Rule_Subscription_Payment_Method extends AutomateWoo\Rules\Abstract_Select {
+class Subscription_Payment_Method extends AutomateWoo\Rule_Order_Payment_Gateway {
 
+	/**
+	 * Define the data type used by the rule.
+	 *
+	 * @var string
+	 */
 	public $data_item = 'subscription';
 
-
-	function init() {
+	/**
+	 * Init rule.
+	 */
+	public function init() {
+		parent::init();
 		$this->title = __( 'Subscription - Payment Method', 'automatewoo' );
 	}
 
-
-	function load_select_choices() {
+	/**
+	 * Load rule select choices.
+	 *
+	 * @return array
+	 */
+	public function load_select_choices() {
 		$choices = [];
 
-		foreach( WC()->payment_gateways()->get_available_payment_gateways() as $gateway ) {
-			if ( $gateway->supports('subscriptions') ) {
-				$choices[$gateway->id] = $gateway->get_title();
+		foreach ( WC()->payment_gateways()->get_available_payment_gateways() as $gateway ) {
+			if ( $gateway->supports( 'subscriptions' ) ) {
+				$choices[ $gateway->id ] = $gateway->get_title();
 			}
 		}
 
 		return $choices;
 	}
 
-
-	/**
-	 * @param $subscription WC_Subscription
-	 * @param $compare
-	 * @param $value
-	 * @return bool
-	 */
-	function validate( $subscription, $compare, $value ) {
-		return $this->validate_select( AutomateWoo\Compat\Subscription::get_payment_method( $subscription ), $compare, $value );
-	}
-
 }
-
-return new AW_Rule_Subscription_Payment_Method();

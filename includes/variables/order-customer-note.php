@@ -22,7 +22,7 @@ class Variable_Order_Customer_Note extends Variable {
 	 * @return string
 	 */
 	function get_value( $order, $parameters ) {
-		return Compat\Order::get_customer_note( $order );
+		return $order->get_customer_note();
 	}
 }
 

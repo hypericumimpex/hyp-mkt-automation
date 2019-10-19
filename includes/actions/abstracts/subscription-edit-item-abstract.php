@@ -65,7 +65,7 @@ abstract class Action_Subscription_Edit_Item_Abstract extends Action {
 	/**
 	 * Set the group for all edit actions that extend this class
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		$this->group = __( 'Subscription', 'automatewoo' );
 	}
 
@@ -75,7 +75,7 @@ abstract class Action_Subscription_Edit_Item_Abstract extends Action {
 	 *
 	 * @throws \Exception When there is an error.
 	 */
-	function run() {
+	public function run() {
 
 		$object       = $this->get_object_for_edit();
 		$subscription = $this->get_subscription_to_edit();
@@ -183,6 +183,7 @@ abstract class Action_Subscription_Edit_Item_Abstract extends Action {
 		$cost_field->set_title( $this->get_cost_field_title() );
 		$cost_field->set_description( $this->get_cost_field_description() );
 		$cost_field->set_placeholder( __( 'E.g. 10.00', 'automatewoo' ) );
+		$cost_field->set_variable_validation();
 		$this->add_field( $cost_field );
 	}
 

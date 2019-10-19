@@ -56,7 +56,7 @@ abstract class Action_Subscription_Edit_Product_Abstract extends Action_Subscrip
 	 *
 	 * Optionally also add the quantity input field for the product if the instance requires it.
 	 */
-	function load_fields() {
+	public function load_fields() {
 		$this->add_product_select_field();
 
 		if ( $this->load_quantity_field ) {
@@ -90,8 +90,9 @@ abstract class Action_Subscription_Edit_Product_Abstract extends Action_Subscrip
 	protected function add_product_select_field() {
 		$product_select = new Fields\Product();
 		$product_select->set_required();
-		$product_select->allow_variations = true;
-		$product_select->allow_variable   = $this->allow_variable_products;
+		$product_select->set_allow_variations( true );
+		$product_select->set_allow_variable( $this->allow_variable_products );
+
 		$this->add_field( $product_select );
 	}
 

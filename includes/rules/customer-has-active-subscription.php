@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_Has_Active_Subscription
@@ -38,5 +38,3 @@ class Customer_Has_Active_Subscription extends Abstract_Bool {
 	}
 
 }
-
-return new Customer_Has_Active_Subscription();

@@ -44,12 +44,12 @@ class Action_Customer_Update_Meta extends Action {
 			return;
 		}
 
-		$meta_key = $this->get_option('meta_key', true );
+		$meta_key   = trim( $this->get_option( 'meta_key', true ) );
 		$meta_value = $this->get_option('meta_value', true );
 
 		// Make sure there is a meta key but a value can be blank
 		if ( $meta_key ) {
-			$customer->update_meta( $meta_key, $meta_value );
+			$customer->update_legacy_meta( $meta_key, $meta_value );
 		}
 	}
 

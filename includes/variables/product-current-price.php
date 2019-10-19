@@ -14,7 +14,7 @@ class Variable_Product_Current_Price extends Variable_Abstract_Price {
 	/**
 	 * Load Admin Details.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		parent::load_admin_details();
 		$this->description = __( "Displays the product's current price.", 'automatewoo' );
 	}
@@ -27,7 +27,7 @@ class Variable_Product_Current_Price extends Variable_Abstract_Price {
 	 *
 	 * @return string
 	 */
-	function get_value( $product, $parameters ) {
+	public function get_value( $product, $parameters ) {
 		return parent::format_amount( $product->get_price(), $parameters );
 	}
 }

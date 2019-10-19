@@ -1,12 +1,14 @@
 <?php
 // phpcs:ignoreFile
 
-defined( 'ABSPATH' ) or exit;
+namespace AutomateWoo\Rules;
+
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class AW_Rule_Is_Guest_Order
  */
-class AW_Rule_Is_Guest_Order extends AutomateWoo\Rules\Abstract_Bool {
+class Order_Is_Guest_Order extends Abstract_Bool {
 
 	public $data_item = 'order';
 
@@ -35,5 +37,3 @@ class AW_Rule_Is_Guest_Order extends AutomateWoo\Rules\Abstract_Bool {
 		}
 	}
 }
-
-return new AW_Rule_Is_Guest_Order();

@@ -20,7 +20,8 @@ namespace AutomateWoo;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$n = 1;
+$n        = 1;
+$products = aw_get_reviewable_products( $products );
 
 ?>
 
@@ -41,8 +42,8 @@ $n = 1;
 					 <div class="aw-product-grid-item-3-col aw-reviews-grid__item" style="<?php echo ( $n % 3 ? '' : 'margin-right: 0;' ) ?>">
 
 						 <?php echo \AW_Mailer_API::get_product_image( $product ) ?>
-						 <h3><?php echo Compat\Product::get_name( $product ); ?></h3>
-						 <a href="<?php echo $product->get_permalink() ?>#tab-reviews" class="automatewoo-button automatewoo-button--small"><?php _e( 'Review', 'automatewoo' ) ?></a>
+						 <h3><?php echo esc_html( $product->get_name() ); ?></h3>
+						 <a href="<?php echo esc_url( $product->get_permalink() ); ?>#tab-reviews" class="automatewoo-button automatewoo-button--small"><?php esc_html_e( 'Review', 'automatewoo' ); ?></a>
 
 					 </div>
 

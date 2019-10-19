@@ -3,17 +3,19 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Customer_Country
  */
-class Customer_Country extends Abstract_Select {
+class Customer_Country extends Preloaded_Select_Rule_Abstract {
 
 	public $data_item = 'customer';
 
 
 	function init() {
+		parent::init();
+
 		$this->title = __( 'Customer - Country', 'automatewoo' );
 	}
 
@@ -37,5 +39,3 @@ class Customer_Country extends Abstract_Select {
 	}
 
 }
-
-return new Customer_Country();

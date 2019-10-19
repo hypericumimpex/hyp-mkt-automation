@@ -14,7 +14,7 @@ class Variable_Customer_Total_Spent extends Variable_Abstract_Price {
 	/**
 	 * Load Admin Details.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		parent::load_admin_details();
 		$this->description = __( 'Displays the total amount the customer has spent.', 'automatewoo' );
 	}
@@ -27,7 +27,7 @@ class Variable_Customer_Total_Spent extends Variable_Abstract_Price {
 	 *
 	 * @return string
 	 */
-	function get_value( $customer, $parameters ) {
+	public function get_value( $customer, $parameters ) {
 		return parent::format_amount( $customer->get_total_spent(), $parameters );
 	}
 }

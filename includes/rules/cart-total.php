@@ -1,7 +1,7 @@
 <?php
 // phpcs:ignoreFile
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class AW_Rule_Cart_Total
@@ -11,7 +11,7 @@ class AW_Rule_Cart_Total extends AutomateWoo\Rules\Abstract_Number {
 	/** @var array  */
 	public $data_item = 'cart';
 
-	public $support_floats = false;
+	public $support_floats = true;
 
 
 	function init() {
@@ -30,5 +30,3 @@ class AW_Rule_Cart_Total extends AutomateWoo\Rules\Abstract_Number {
 	}
 
 }
-
-return new AW_Rule_Cart_Total();

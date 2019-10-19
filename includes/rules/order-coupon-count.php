@@ -3,7 +3,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * @class Order_Coupon_Count
@@ -28,10 +28,9 @@ class Order_Coupon_Count extends Abstract_Number {
 	 * @return bool
 	 */
 	function validate( $order, $compare, $value ) {
-		return $this->validate_number( count( $order->get_used_coupons() ), $compare, $value );
+		$coupons = is_callable( [ $order, 'get_coupon_codes' ] ) ? $order->get_coupon_codes() : $order->get_used_coupons();
+		return $this->validate_number( count( $coupons ), $compare, $value );
 	}
 
 
 }
-
-return new Order_Coupon_Count();

@@ -27,10 +27,10 @@ class System_Checks {
 				'database_tables_exist' => $path . 'database-tables-exist.php',
 			]);
 
-			include_once $path . 'base.php';
+			require_once $path . 'base.php';
 
 			foreach ( $includes as $system_check_id => $include ) {
-				$class = include_once $include;
+				$class = require_once $include;
 				self::$system_checks[ $system_check_id ] = $class;
 			}
 		}

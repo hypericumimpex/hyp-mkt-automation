@@ -1,11 +1,12 @@
 <?php
-// phpcs:ignoreFile
 
 namespace AutomateWoo;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
+ * Class Autoloader
+ *
  * @since 4.0
  */
 class Autoloader {
@@ -13,29 +14,32 @@ class Autoloader {
 	/**
 	 * Register autoloader
 	 */
-	static function init() {
+	public static function init() {
 		spl_autoload_register( [ __CLASS__, 'autoload' ] );
 	}
 
-
 	/**
-	 * @param $class
+	 * Autoload a class by name.
+	 *
+	 * @param string $class
 	 */
-	static function autoload( $class ) {
+	public static function autoload( $class ) {
 		$path = self::get_autoload_path( $class );
 
 		if ( $path && file_exists( $path ) ) {
-			include $path;
+			require_once $path;
 		}
 	}
 
-
 	/**
+	 * Get the file path for a class.
+	 *
 	 * @param string $class
+	 *
 	 * @return string
 	 */
-	static function get_autoload_path( $class ) {
-		if ( substr( $class, 0, 3 ) != 'AW_' && substr( $class, 0, 12 ) != 'AutomateWoo\\' ) {
+	public static function get_autoload_path( $class ) {
+		if ( substr( $class, 0, 3 ) !== 'AW_' && substr( $class, 0, 12 ) !== 'AutomateWoo\\' ) {
 			return false;
 		}
 
@@ -43,7 +47,7 @@ class Autoloader {
 			return false;
 		}
 
-		$file = str_replace( ['AW_', 'AutomateWoo\\' ], '/', $class );
+		$file = str_replace( [ 'AW_', 'AutomateWoo\\' ], '/', $class );
 		$file = str_replace( '_', '-', $file );
 		$file = strtolower( $file );
 		$file = str_replace( '\\', '/', $file );
@@ -61,31 +65,68 @@ class Autoloader {
 			'/database-table',
 		];
 
-
-		if ( in_array( $file, $abstracts ) ) {
+		if ( in_array( $file, $abstracts, true ) ) {
 			return AW()->path() . '/includes/abstracts' . $file . '.php';
 		}
+
 		if ( $file === '/admin' ) {
-			include_once AW()->path() . '/admin/admin.php';
-		}
-		elseif ( strstr( $file, '/admin-' ) || strstr( $file, '/admin/' ) ) {
+			return AW()->path() . '/admin/admin.php';
+		} elseif ( strstr( $file, '/admin-' ) || strstr( $file, '/admin/' ) ) {
 			$file = str_replace( '/admin-', '/admin/', $file );
 			$file = str_replace( '/controller-', '/controllers/', $file );
 
 			return AW()->path() . $file . '.php';
-		}
-		else {
+		} else {
 			$file = str_replace( '/trigger-', '/triggers/', $file );
 			$file = str_replace( '/action-', '/actions/', $file );
-			$file = str_replace( '/model-', '/models/model-', $file );
 			$file = str_replace( '/variable-', '/variables/', $file );
 			$file = str_replace( '/integration-', '/integrations/', $file );
-			$file = str_replace( '/rule-', '/rules/', $file );
+			$file = self::str_replace_start( $file, '/rule-', '/rules/' );
+
+			// Handle rules
+			if ( strpos( $file, '/rules/' ) === 0 ) {
+				if ( strstr( $file, 'abstract' ) || $file === '/rules/rule' ) {
+					$file = str_replace( '/rules/', '/rules/abstracts/', $file );
+				}
+			}
+
+			if ( strpos( $file, '/actions/' ) === 0 && strstr( $file, 'abstract' ) ) {
+				$file = str_replace( '/actions/', '/actions/abstracts/', $file );
+			}
+
+			if ( strpos( $file, '/triggers/' ) === 0 && strstr( $file, 'abstract' ) ) {
+				$file = str_replace( '/triggers/', '/triggers/abstracts/', $file );
+			}
+
+			if ( strpos( $file, '/variables/' ) === 0 && strstr( $file, 'abstract' ) ) {
+				$file = str_replace( '/variables/', '/variables/abstracts/', $file );
+			}
+
+			if ( strpos( $file, '/fields/' ) === 0 && strstr( $file, 'abstract' ) ) {
+				$file = str_replace( '/fields/', '/fields/abstracts/', $file );
+			}
 
 			return AW()->path() . '/includes' . $file . '.php';
 		}
 	}
 
+
+	/**
+	 * Do a string replace based only on the start of a string.
+	 *
+	 * @param string $subject
+	 * @param string $find
+	 * @param string $replace
+	 *
+	 * @return string
+	 */
+	protected static function str_replace_start( $subject, $find, $replace ) {
+		if ( strpos( $subject, $find ) === 0 ) {
+			return substr_replace( $subject, $replace, 0, strlen( $find ) );
+		}
+
+		return $subject;
+	}
 
 }
 

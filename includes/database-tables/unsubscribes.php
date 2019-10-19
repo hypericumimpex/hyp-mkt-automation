@@ -36,7 +36,7 @@ class Database_Table_Unsubscribes extends Database_Table {
 	 * @return string
 	 */
 	function get_install_query() {
-		return "CREATE TABLE {$this->name} (
+		return "CREATE TABLE {$this->get_name()} (
 			id bigint(20) NOT NULL AUTO_INCREMENT,
 			workflow_id bigint(20) NULL,
 			customer_id bigint(20) NOT NULL default 0,

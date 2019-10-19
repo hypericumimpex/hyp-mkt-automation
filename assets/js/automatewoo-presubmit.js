@@ -29,7 +29,7 @@ jQuery(document).ready(function($) {
         var data = {
             email: email,
             language: language,
-            checkout_fields: checkout_fields_data
+            checkout_fields: getCheckoutFieldValues()
         };
 
         if ( capture_email_xhr ) {
@@ -43,28 +43,43 @@ jQuery(document).ready(function($) {
         });
     }
 
-
     function captureCheckoutField() {
-
         var field_name = $(this).attr( 'name' );
+        var field_value = $(this).val();
 
         if ( ! field_name || checkout_fields.indexOf( field_name ) === -1  ) {
             return;
         }
 
-        if ( ! $(this).val() || checkout_fields_data[field_name] == $(this).val() ) {
+        // Don't capture if the field is empty or hasn't changed
+        if ( ! field_value || checkout_fields_data[field_name] === field_value ) {
             return;
         }
 
-        checkout_fields_data[field_name] = $(this).val();
+        checkout_fields_data[field_name] = field_value;
 
         if ( guest_id ) {
             $.post( params.ajax_url.toString().replace( '%%endpoint%%', 'capture_checkout_field' ), {
                 guest_id: guest_id,
                 field_name: field_name,
-                field_value: checkout_fields_data[field_name]
+                field_value: field_value
             });
         }
+    }
+
+    /**
+     * Get the current values for checkout fields.
+     *
+     * @return object
+     */
+    function getCheckoutFieldValues() {
+        var fields = {};
+
+        $.each( checkout_fields, function( i, field_name ) {
+            fields[field_name] = $('form.woocommerce-checkout [name="'+field_name+'"]').val();
+        });
+
+        return fields;
     }
 
 

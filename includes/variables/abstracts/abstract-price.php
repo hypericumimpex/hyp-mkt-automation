@@ -16,13 +16,15 @@ abstract class Variable_Abstract_Price extends Variable {
 	/**
 	 * Load Admin Details.
 	 */
-	function load_admin_details() {
+	public function load_admin_details() {
 		$this->add_parameter_select_field(
-			'format', __( 'Choose to display the amount as a formatted price or numerical value.', 'automatewoo' ),
+			'format',
+			__( 'Choose to display the amount as a formatted price or numerical value.', 'automatewoo' ),
 			[
 				''        => __( 'Price', 'automatewoo' ),
 				'decimal' => __( 'Decimal', 'automatewoo' ),
-			], false
+			],
+			false
 		);
 	}
 
@@ -41,7 +43,7 @@ abstract class Variable_Abstract_Price extends Variable {
 
 		switch ( $format ) {
 			case 'decimal':
-				return wc_format_decimal( $amount, wc_get_price_decimals(), false );
+				return wc_format_localized_price( Format::decimal( $amount ) );
 			default:
 				return wc_price( $amount, [ 'currency' => $currency ] );
 		}

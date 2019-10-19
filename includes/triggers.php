@@ -155,7 +155,7 @@ class Triggers extends Registry {
 
 		if ( ! empty( $includes[ $trigger_name ] ) ) {
 			/** @var Trigger $trigger */
-			$trigger = new $includes[ $trigger_name ]();
+			$trigger = new $includes[ $trigger_name ];
 			$trigger->set_name( $trigger_name );
 		}
 

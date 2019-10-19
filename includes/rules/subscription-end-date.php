@@ -2,7 +2,7 @@
 
 namespace AutomateWoo\Rules;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Subscription end date rule.
@@ -51,5 +51,3 @@ class Subscription_End_Date extends Abstract_Date {
 	}
 
 }
-
-return new Subscription_End_Date();

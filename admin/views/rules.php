@@ -75,14 +75,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 						<# if ( data.rule.object.type === 'number' ) { #>
 
-							<input name="{{ data.fieldNameBase }}[value]" class="automatewoo-field js-rule-value-field" type="number" required>
+							<input name="{{ data.fieldNameBase }}[value]" class="automatewoo-field js-rule-value-field" type="text" required>
 
 						<# } else if ( data.rule.object.type === 'object' ) { #>
 
-							<select name="{{ data.fieldNameBase }}[value]"
+							<select name="{{ data.fieldNameBase }}[value]{{ data.rule.object.is_multi ? '[]' : '' }}"
 								  class="{{ data.rule.object.class }} automatewoo-field js-rule-value-field"
 								  data-placeholder="{{ data.rule.object.placeholder }}"
 								  data-action="{{ data.rule.object.ajax_action }}"
+									{{ data.rule.object.is_multi ? 'multiple="multiple"' : '' }}
 							></select>
 
 						<# } else if ( data.rule.object.type === 'select' ) { #>
