@@ -1,5 +1,20 @@
 == AutomateWoo Changelog ==
 
+2019-11-16 - version 4.7.4
+* Fix - Missing class error that occurred in the background on WooCommerce versions older than 3.7
+
+2019-11-07 - version 4.7.3
+* Fix - Issue with number based rules where, if value was 0, nothing would be displayed after saving
+
+2019-10-24 - version 4.7.2
+* Fix - Incorrect plugin directory name in 4.7.1
+
+2019-10-23 - version 4.7.1
+* Fix - The "Copy to clipboard" button now copies only text, not HTML
+* Fix - Include subscriptions with a status of "Pending Cancellation" in the "Before end" trigger
+* Fix - Properly check whether an email address is a subscriber to a Mailchimp list
+* New - Add the `automatewoo/cart/get_item_count` filter to the `AutomateWoo\Cart::get_item_count()` method.
+
 2019-10-10 - version 4.7.0
 * Add support for plugin updates via the WooCommerce.com Extension Marketplace
 
@@ -1025,41 +1040,41 @@ If you are developing custom triggers please note that a number of methods have 
 * Fix: Issue where some fields where not cloning on coupon generation
 * Fix: Issue where visitor key sometimes wasn’t stored for abandoned carts
 
-2015-09-26 - version 1.1.10 
+2015-09-26 - version 1.1.10
 * New Trigger: Order Payment Pending
 * Fix issue where {{ order.total }} was blank
 
-2015-09-23 - version 1.1.9 
+2015-09-23 - version 1.1.9
 * SMS Integration via Twilio
 * Performance Improvements
 
-2015-09-21 - version 1.1.8 
+2015-09-21 - version 1.1.8
 * Performance improvements
 * Bug fixes
 
-2015-09-14 - version 1.1.7 
+2015-09-14 - version 1.1.7
 * New Trigger: Order Includes Product from Taxonomy Term
 * New option on order triggers to select payment method
 
-2015-09-05 - version 1.1.6 
+2015-09-05 - version 1.1.6
 * New Trigger: Order Includes Product Variation with Specific Attribute
 * New Text Variable: {{ order_item.attribute | slug: … }}
 * New Action: Add User to Mad Mimi List
 
-2015-09-02 - version 1.1.5 
+2015-09-02 - version 1.1.5
 * Fix an issue where the license check could fail if WP Cron occurred over SSL
 
-2015-09-01 - version 1.1.4 
+2015-09-01 - version 1.1.4
 * New Trigger:  Order Includes Product from a Specific Tag
 * New Action: Change Order Status
 * New Action: Add/Update Product Meta
 
-2015-08-27 - version 1.1.3 
+2015-08-27 - version 1.1.3
 * Add an additional check to ensure stored abandoned carts are cleared when an order is created
 * Fix an issue where checking ‘Once Per User’ prevents order triggers firing for guests
 * Improvements to Conversion Tracking
 
-2015-08-24 - version 1.1.2 
+2015-08-24 - version 1.1.2
 * New report: Conversion tracking (Only tracks Abandoned Carts for now)
 * New Trigger Option: Check Status Hasn’t Changed Before Run (useful when queuing)
 * New Text Variable Parameter: template lets you define alternative templates for:
@@ -1067,50 +1082,50 @@ If you are developing custom triggers please note that a number of methods have 
 	* {{ order.items }
 	* {{ order.cross_sells }}
 	* {{ wishlist.items }}
-* New Email Product List Templates:  
+* New Email Product List Templates:
 	* product-grid-2-col.php
 	* product-grid-3-col.php
 	* product-rows.php
 * Important: template removed product-listing.php. Instead use product-grid-2-col.php
 * Admin area: Expanded actions will now stay expanded after saving
 
-2015-08-20 - version 1.1.1 
+2015-08-20 - version 1.1.1
 * Add conversion tracking on abandoned carts (report coming soon)
 * Fix an issue that prevented triggers firing after guest order
 
-2015-08-19 - version 1.1.0 
+2015-08-19 - version 1.1.0
 * Total overhaul of the Abandoned Cart system to now use pre-submit email capturing as well as detecting registered users when they aren’t logged in. Implement with new trigger: Abandoned Cart (Guests)
 
-2015-08-16 - version 1.0.6 
+2015-08-16 - version 1.0.6
 * New Text Variable {{ wishlist.itemscount }}
 * New Text Variable {{ order.number }}
 * Order Queue by Run Date
 * Improve Coupon Generation
 
-2015-08-13 - version 1.0.5 
+2015-08-13 - version 1.0.5
 * Adds integration with the free YITH Wishlists plugin
 * Change the image size of the ‘product.featured_image’ text variable
 * Improvements to cart tracking
 * Improvements to wishlist triggers
 
-2015-08-11 - version 1.0.4 
+2015-08-11 - version 1.0.4
 * Improvements to Abandoned Cart
 * Allow coupon prefix to be blank
 * Minor other fixes
 
-2015-07-30 - version 1.0.3 
+2015-07-30 - version 1.0.3
 * New feature: Preview ability on emails!
 * Security improvements
 * Internal improvements
 
-2015-07-28 - version 1.0.2 
+2015-07-28 - version 1.0.2
 * Fix some license issues
 
-2015-07-26 - version 1.0.1 
+2015-07-26 - version 1.0.1
 * UI Improvements to Text Variables
 	* Single click to select a  Text Variable
 	* Change editor to sans serif
 * Small changes to some labels
 
-2015-07-20 - version 1.0.0 
+2015-07-20 - version 1.0.0
 * Launch it!

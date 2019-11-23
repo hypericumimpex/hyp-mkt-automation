@@ -35,8 +35,8 @@ class Licenses {
 	 * @return array|false
 	 */
 	static function get_primary_license() {
-		  $license = array();
-		  $license['key']='****';
+		$license = array();
+		$license['key']='****';
 		  $license['expiry']=date('Y-m-d', strtotime('+5 years'));
 		  return $license;
 		/*
@@ -212,6 +212,7 @@ class Licenses {
 	 */
 	static function check_for_domain_mismatch() {
 		return;
+
 		$license = self::get_primary_license();
 
 		if ( ! $license )
@@ -364,7 +365,7 @@ class Licenses {
 	 * @return \WP_Error|string
 	 */
 	static function remote_activate( $product_id, $license_key ) {
-		self::update( $product_id, $license_key, '10/10/2033' ); 
+		self::update( $product_id, $license_key, '10/08/2029' ); 
 		return 'Activated!';
 
 		$response = self::remote_get( 'activation', [
@@ -397,8 +398,7 @@ class Licenses {
 	 */
 	static function remote_deactivate( $product_id ) {
 		self::remove( $product_id );
-return;
-
+		return;
 		if ( self::is_primary( $product_id ) ) {
 
 			$license = self::get_primary_license();
@@ -584,6 +584,10 @@ return;
 	public static function has_marketplace_subscription( $plugin_name ) {
 		if ( empty( self::$marketplace_product_ids[ $plugin_name ] ) ) {
 			return false;
+		}
+
+		if ( ! class_exists( 'WC_Helper' ) ) {
+			include_once WC()->plugin_path() . '/includes/admin/helper/class-wc-helper.php';
 		}
 
 		$subs    = \WC_Helper::get_subscriptions();

@@ -82,7 +82,7 @@ class Trigger_Subscription_Before_End extends Trigger_Subscription_Before_Renewa
 
 		$query = new \WP_Query([
 			'post_type' => 'shop_subscription',
-			'post_status' => 'wc-active',
+			'post_status' => [ 'wc-active', 'wc-pending-cancel' ],
 			'fields' => 'ids',
 			'posts_per_page' => $limit,
 			'offset' => $offset,
@@ -102,6 +102,25 @@ class Trigger_Subscription_Before_End extends Trigger_Subscription_Before_Renewa
 		]);
 
 		return $query->posts;
+	}
+
+	/**
+	 * Validate before a queued workflow event.
+	 *
+	 * Ensures that the subscription is either active or pending cancellation.
+	 *
+	 * @param Workflow $workflow
+	 *
+	 * @return bool
+	 */
+	public function validate_before_queued_event( $workflow ) {
+		$subscription = $workflow->data_layer()->get_subscription();
+
+		if ( ! $subscription || ! $subscription->has_status( [ 'active', 'pending-cancel' ] ) ) {
+			return false;
+		}
+
+		return true;
 	}
 
 }

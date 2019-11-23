@@ -25,7 +25,11 @@ jQuery(function($) {
          */
         init_clipboard: function() {
 
-            var clipboard = new Clipboard('.aw-clipboard-btn');
+            var clipboard = new Clipboard('.aw-clipboard-btn', {
+                text: function(trigger) {
+                    return $('#aw_workflow_variable_preview_field').text();
+                }
+            });
 
             clipboard.on('success', function(e) {
 

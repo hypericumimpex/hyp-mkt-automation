@@ -66,10 +66,15 @@ class Integration_ActiveCampaign extends Integration {
 
 
 	/**
-	 * @param $email
+	 * Check is the contact exists in ActiveCampaign.
+	 *
+	 * Result from API is cached for 5 minutes.
+	 *
+	 * @param string $email
+	 *
 	 * @return bool
 	 */
-	function is_contact( $email ) {
+	public function is_contact( $email ) {
 
 		$cache_key = 'aw_ac_is_contact_' . md5( $email );
 
@@ -77,7 +82,7 @@ class Integration_ActiveCampaign extends Integration {
 			return $cache === 'yes';
 		}
 
-		$contact = $this->request( "contact/view?email=$email" );
+		$contact = $this->request( 'contact/view?email=' . urlencode( $email ) );
 
 		$is_contact = $contact->success;
 

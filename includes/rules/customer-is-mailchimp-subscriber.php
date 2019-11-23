@@ -35,8 +35,8 @@ class Customer_Is_MailChimp_Subscriber extends Abstract_Select_Single {
 	 * @param $value
 	 * @return bool
 	 */
-	function validate( $customer, $compare, $value ) {
-		return Integrations::mailchimp()->is_contact( $customer->get_email(), $value );
+	public function validate( $customer, $compare, $value ) {
+		return Integrations::mailchimp()->is_subscribed_to_list( $customer->get_email(), $value );
 	}
 
 }

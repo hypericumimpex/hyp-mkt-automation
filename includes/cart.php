@@ -367,7 +367,7 @@ class Cart extends Model {
 			$count += $item->get_quantity();
 		}
 
-		return $count;
+		return apply_filters( 'automatewoo/cart/get_item_count', $count, $this->get_items() );
 	}
 
 	/**

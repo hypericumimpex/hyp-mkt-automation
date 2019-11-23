@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: en_US\n"
 "Language-Team: Prospress Translations <translations@prospress.com>\n"
-"POT-Creation-Date: 2019-10-14 5:25:13+00:00\n"
+"POT-Creation-Date: 2019-11-22 4:12:52+00:00\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -1034,9 +1034,6 @@ msgstr ""
 
 #: admin/controllers/guests.php:64
 msgid "Missing guest data."
-msgstr ""
-
-#: admin/controllers/guests.php:77, includes/abstracts/trigger.php:439, includes/tools/manual-orders-trigger.php:181, includes/tools/manual-orders-trigger.php:185, includes/tools/manual-subscriptions-trigger.php:146, includes/tools/manual-subscriptions-trigger.php:150, includes/triggers/user-purchases-product-variation-with-attribute.php:20, includes/triggers/wishlist-item-goes-on-sale.php:21
 msgstr ""
 
 #: admin/controllers/guests.php:98

@@ -3,7 +3,7 @@
  * Plugin Name: HYP MKT Automation
  * Plugin URI: https://github.com/hypericumimpex/hyp-mkt-automation
  * Description: Hypericum Marketing Automation.
- * Version: 4.7.0
+ * Version: 4.7.4
  * Author: Romeo C.
  * Author URI: https://github.com/hypericumimpex/
  * License: GPLv3
@@ -12,7 +12,7 @@
  * Domain Path: /languages
  *
  * WC requires at least: 3.0
- * WC tested up to: 3.7
+ * WC tested up to: 3.8
  * Woo: 4652610:f6f1f8a56a16a3715b30b21fb557e78f
  *
  * This program is free software: you can redistribute it and/or modify
@@ -35,7 +35,7 @@ defined( 'ABSPATH' ) || exit;
 
 define( 'AUTOMATEWOO_NAME', __( 'AutomateWoo', 'automatewoo' ) );
 define( 'AUTOMATEWOO_SLUG', 'automatewoo' );
-define( 'AUTOMATEWOO_VERSION', '4.7.0' );
+define( 'AUTOMATEWOO_VERSION', '4.7.4' );
 define( 'AUTOMATEWOO_FILE', __FILE__ );
 define( 'AUTOMATEWOO_PATH', dirname( __FILE__ ) );
 define( 'AUTOMATEWOO_MIN_PHP_VER', '5.4' );

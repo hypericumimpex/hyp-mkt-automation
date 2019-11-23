@@ -208,40 +208,35 @@ class Integration_Mailchimp extends Integration {
 
 
 	/**
+	 * Determine whether a contact is part of the given list.
+	 *
+	 * This does not reveal whether they are a subscriber. For that, see the is_subscribed_to_list() method.
 	 * @param $email
 	 * @param $list_id
 	 * @return bool
 	 */
-	function is_contact( $email, $list_id ) {
+	public function is_contact( $email, $list_id ) {
+		$status = $this->get_subscriber_status_for_list( $email, $list_id );
 
-		$cache_key = "mailchimp_is_contact_$list_id";
-
-		// check memory cache
-		if ( Temporary_Data::exists( $cache_key, $email ) ) {
-			return Temporary_Data::get( $cache_key, $email );
-		}
-
-		$subscriber_hash = md5( $email );
-		$subscribed = false;
-
-		// will return 404 if subscriber doesn't exists, so don't log errors for this request
-		$this->log_errors = false;
-		$request = $this->request( 'GET', "/lists/$list_id/members/$subscriber_hash", [] );
-		$this->log_errors = true;
-
-		if ( $request->is_http_error() ) {
-			return false; // bail and don't cache
-		}
-
-		if ( $request->is_successful() ) {
-			$subscribed = true;
-		}
-
-		Temporary_Data::set( $cache_key, $email, $subscribed );
-
-		return $subscribed;
+		return '' !== $status && '404' !== $status;
 	}
 
+	/**
+	 * Determine whether a contact is subscribed to the given list.
+	 *
+	 * This method should be used for determining if a customer is subscribed to marketing emails. For transactional
+	 * emails,
+	 *
+	 * @param string $email   The email address.
+	 * @param string $list_id The Mailchimp list ID.
+	 *
+	 * @return bool
+	 */
+	public function is_subscribed_to_list( $email, $list_id ) {
+		$status = $this->get_subscriber_status_for_list( $email, $list_id );
+
+		return 'subscribed' === $status;
+	}
 
 	/**
 	 * $interests should be an array with the interest ID as the key and
@@ -253,7 +248,6 @@ class Integration_Mailchimp extends Integration {
 	 * @return Remote_Request
 	 */
 	function update_contact_interest_groups( $email, $list_id, $interests ) {
-
 		$subscriber_hash = md5( $email );
 
 		$args = [
@@ -270,4 +264,38 @@ class Integration_Mailchimp extends Integration {
 		Cache::delete_transient( 'mailchimp_lists' );
 	}
 
+	/**
+	 * Get the subscriber information for a particular list.
+	 *
+	 * @param string $email   The email address to check.
+	 * @param string $list_id The list ID.
+	 *
+	 * @return string
+	 */
+	private function get_subscriber_status_for_list( $email, $list_id ) {
+		// Check the cache first.
+		$cache_key = "mailchimp_status_for_list_{$list_id}";
+		if ( Temporary_Data::exists( $cache_key, $email ) ) {
+			return Temporary_Data::get( $cache_key, $email );
+		}
+
+		$email_hash = md5( $email );
+
+		// will return 404 if subscriber doesn't exists, so don't log errors for this request
+		$this->log_errors = false;
+		$request          = $this->request( 'GET', "/lists/{$list_id}/members/{$email_hash}", [] );
+		$this->log_errors = true;
+
+		// Bail and don't cache the HTTP error.
+		if ( $request->is_http_error() ) {
+			return '';
+		}
+
+		$body   = $request->get_body();
+		$status = isset( $body['status'] ) ? (string) $body['status'] : '';
+
+		Temporary_Data::set( $cache_key, $email, $status );
+
+		return $status;
+	}
 }

@@ -60,7 +60,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<div class="aw-workflow-variable-clipboard-form">
 				<div id="aw_workflow_variable_preview_field" class="aw-workflow-variable-preview-field" data-variable="<?php echo esc_attr( $variable->get_name() ); ?>"></div>
-				<button class="aw-clipboard-btn button button-primary button-large" data-clipboard-target="#aw_workflow_variable_preview_field"><?php esc_html_e( 'Copy to clipboard', 'automatewoo' ); ?></button>
+				<button class="aw-clipboard-btn button button-primary button-large"><?php esc_html_e( 'Copy to clipboard', 'automatewoo' ); ?></button>
 			</div>
 
 		</div>

@@ -50,15 +50,15 @@ abstract class Abstract_Number extends Rule {
 	 *
 	 * @since 4.6.0
 	 *
-	 * @param mixed $value
+	 * @param string|int $value
 	 *
-	 * @return mixed
+	 * @return string
 	 */
 	public function format_value( $value ) {
 		if ( $this->support_floats ) {
 			return wc_format_localized_price( $value );
 		} else {
-			return (int) $value;
+			return strval( (int) $value );
 		}
 	}
 
